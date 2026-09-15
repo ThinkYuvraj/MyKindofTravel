@@ -1,20 +1,22 @@
 import React from 'react';
 import { MARQUEE_ITEMS } from '../data/travelData';
-import { Sparkles } from 'lucide-react';
+import { Plane, Compass } from 'lucide-react';
 
 export const MarqueeTicker: React.FC = () => {
   // Duplicate array multiple times for smooth continuous loop
   const repeated = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
 
   return (
-    <div className="w-full bg-[#171614] text-amber-200/90 border-y border-amber-900/30 overflow-hidden py-3 select-none relative">
+    <div className="w-full bg-[#F4ECE4] dark:bg-[#120D0A] text-[#2A1810] dark:text-[#EADFD5] border-y border-[#EADFD5] dark:border-white/10 overflow-hidden py-3 select-none relative shadow-xs transition-colors">
       <div className="flex w-max items-center animate-[marquee_45s_linear_infinite] hover:[animation-play-state:paused]">
         {repeated.map((item, idx) => (
           <div key={idx} className="flex items-center space-x-6 px-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-medium text-stone-300">
-              {item}
+            <span className="text-xs uppercase tracking-[0.25em] font-bold text-[#422C1F] dark:text-neutral-200 flex items-center gap-2">
+              {idx % 4 === 0 && <Plane className="w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38] -rotate-45" />}
+              {idx % 4 === 2 && <Compass className="w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38]" />}
+              <span>{item}</span>
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#8C5528]/60 dark:bg-[#E28C38]/60 inline-block shadow-xs" />
           </div>
         ))}
       </div>

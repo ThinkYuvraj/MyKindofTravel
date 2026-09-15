@@ -50,6 +50,17 @@ export interface TestimonialItem {
   author: string;
   tripInfo: string;
   year: string;
+  avatar?: string;
+}
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  location: string;
+  category: 'All' | 'Stays' | 'Journeys' | 'Moments' | 'Gourmet';
+  image: string;
+  caption: string;
+  aspect?: 'tall' | 'wide' | 'square';
 }
 
 export interface EnquiryForm {

@@ -6,17 +6,17 @@ export const WhyUsSection: React.FC = () => {
   const pillars = [
     {
       title: 'Dedicated expert',
-      description: 'Your own travel specialist, not a call centre.',
+      description: 'Your own travel specialist, not an impersonal call centre.',
       icon: UserCheck,
     },
     {
       title: 'Fully secure',
-      description: 'Verified partners, clear pricing, zero hidden costs.',
+      description: 'Verified 5-star partners, clear pricing, zero hidden costs.',
       icon: ShieldCheck,
     },
     {
       title: '24/7 on-trip support',
-      description: 'We\'re always one call away, wherever you are.',
+      description: 'We\'re always one call away, wherever you are in the world.',
       icon: PhoneCall,
     },
     {
@@ -27,37 +27,37 @@ export const WhyUsSection: React.FC = () => {
   ];
 
   return (
-    <section id="why-us" className="py-20 lg:py-28 bg-[#161614] text-white border-b border-stone-800 relative">
+    <section id="why-us" className="py-20 lg:py-28 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 text-xs font-semibold uppercase tracking-widest border border-amber-500/25">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
               <Award className="w-3.5 h-3.5" />
               <span>Why us</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
               The difference you <br />
-              <span className="italic font-serif text-amber-300 font-normal">
+              <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">
                 feel, not just see
               </span>
             </h2>
 
-            <p className="text-stone-300 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
               We've been crafting personalised luxury journeys for Indian travellers for over 7 years. Here's what makes us different.
             </p>
 
-            {/* Our Promise Callout Card */}
-            <div className="p-7 rounded-2xl bg-gradient-to-br from-amber-950/40 via-stone-900 to-stone-900 border border-amber-500/30 space-y-3 shadow-xl">
-              <div className="flex items-center gap-2 text-amber-400 font-bold uppercase tracking-wider text-xs">
-                <CheckCircle2 className="w-4 h-4 text-amber-400" />
+            {/* Our Promise Callout Card in Warm Brown & Linen */}
+            <div className="p-7 rounded-3xl bg-[#FAF7F2] dark:bg-[#16100D]/85 backdrop-blur-xl border border-[#DFD0C0] dark:border-white/10 space-y-3 shadow-[0_4px_25px_rgba(42,24,16,0.05)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.3)]">
+              <div className="flex items-center gap-2 text-[#8C5528] dark:text-[#E28C38] font-bold uppercase tracking-wider text-xs">
+                <CheckCircle2 className="w-4 h-4 text-[#8C5528] dark:text-[#E28C38]" />
                 <span>Our Promise</span>
               </div>
-              <p className="font-serif text-lg sm:text-xl italic text-stone-100 font-medium leading-snug">
+              <p className="font-serif text-lg sm:text-xl italic text-[#2A1810] dark:text-white font-medium leading-snug">
                 "{COMPANY_INFO.promise}"
               </p>
-              <p className="text-xs text-stone-400">
+              <p className="text-xs text-[#7C685B] dark:text-neutral-400 font-medium">
                 Guaranteed by the founders of My Kind of Travel since 2018.
               </p>
             </div>
@@ -70,15 +70,15 @@ export const WhyUsSection: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  className="p-7 rounded-2xl bg-stone-900/90 border border-stone-800 hover:border-amber-500/40 transition-all duration-300 space-y-4 group shadow-md"
+                  className="p-7 rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/60 dark:hover:border-[#E28C38]/60 transition-all duration-300 space-y-4 group shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:-translate-y-1"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] flex items-center justify-center border border-[#DFD0C0]/80 dark:border-white/10 group-hover:scale-110 transition-transform">
                     <IconComp className="w-6 h-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                  <h3 className="font-serif text-xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-stone-400 text-sm leading-relaxed">
+                  <p className="text-[#594336] dark:text-[#D1C2B8] text-sm leading-relaxed font-normal">
                     {item.description}
                   </p>
                 </div>

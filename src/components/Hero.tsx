@@ -1,135 +1,116 @@
-import React from 'react';
-import { ArrowRight, Sparkles, ShieldCheck, Clock, MapPin, Award } from 'lucide-react';
-import { COMPANY_INFO } from '../data/travelData';
+import React, { useState } from 'react';
+import { Play, Pause, Compass, ArrowRight } from 'lucide-react';
+import heroBgImage from '../assets/images/hero-terraces.jpg';
+import { TornPaperDivider } from './TornPaperDivider';
 
 interface HeroProps {
   onPlanTrip: () => void;
   onExploreDestinations: () => void;
-  onSelectHighlight: (destinationName: string) => void;
+  onSelectHighlight?: (destinationName: string) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   onPlanTrip,
   onExploreDestinations,
-  onSelectHighlight,
 }) => {
-  const quickHighlights = [
-    { label: 'Bali Luxury Villas', target: 'Bali, Indonesia' },
-    { label: 'Swiss Alps & Paris', target: 'Switzerland' },
-    { label: 'Santorini Honeymoons', target: 'Santorini' },
-    { label: 'Maldives Overwater', target: 'Maldives' },
-    { label: 'Prague & Central Europe', target: 'Prague & Central Europe' },
-  ];
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [imgLoaded, setImgLoaded] = useState<boolean>(false);
+
+  const togglePlayback = () => {
+    setIsPlaying((prev) => !prev);
+  };
 
   return (
-    <section id="hero" className="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-stone-950 text-white">
-      {/* Background Image with Dark Vignette & Amber Accent */}
-      <div className="absolute inset-0 z-0">
+    <section
+      id="hero"
+      className="relative w-full min-h-[90vh] sm:min-h-[92vh] flex items-center justify-center overflow-hidden bg-[#1A0E08] text-white select-none"
+    >
+      {/* Background Image Container with Ken Burns effect */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80"
-          alt="Luxury travel scenery"
-          className="w-full h-full object-cover object-center scale-105 filter brightness-[0.38] contrast-105"
+          src={heroBgImage}
+          alt="Lush emerald mountain terraces and scenic paths"
+          onLoad={() => setImgLoaded(true)}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src =
+              'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=2400&q=85';
+            setImgLoaded(true);
+          }}
+          className={`w-full h-full object-cover object-center transition-transform duration-1000 ease-out ${
+            isPlaying ? 'scale-105 transition-transform duration-[22000ms]' : 'scale-100'
+          } ${imgLoaded ? 'opacity-100 filter brightness-95' : 'opacity-0'}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/40 to-transparent" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Fallback skeleton if image is loading */}
+        {!imgLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-b from-[#1C1009] via-[#2A170F] to-[#120B06] animate-pulse" />
+        )}
+
+        {/* Subtle Vignette & Gradient Overlays for Crystal-Clear Text Contrast */}
+        <div className="absolute inset-0 bg-black/35 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/65 pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center sm:text-left flex flex-col justify-center">
-        <div className="max-w-3xl space-y-6">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-wider uppercase backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>7+ Years of Crafting Extraordinary Journeys</span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-100 leading-[1.15]">
-            Bespoke luxury travel experiences designed around you —{' '}
-            <span className="italic font-normal text-amber-300/90 font-serif">not a brochure.</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-stone-300 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-2xl">
-            For Indian travellers who believe the journey is as important as the destination. Handcrafted itineraries, private 5-star villas, and a dedicated travel specialist who is reachable before, during, and after your trip.
-          </p>
-
-          {/* Primary Action Buttons */}
-          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-            <button
-              onClick={onPlanTrip}
-              className="inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-bold text-sm uppercase tracking-wider transition-all shadow-xl shadow-amber-950/40 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span>Design My Journey</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-            </button>
-
-            <button
-              onClick={onExploreDestinations}
-              className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-stone-900/80 hover:bg-stone-800 text-stone-200 border border-stone-700/80 font-medium text-sm transition-all hover:border-stone-500"
-            >
-              <span>Explore Destinations</span>
-            </button>
-          </div>
-
-          {/* Quick Destination Pill Highlights */}
-          <div className="pt-4 flex flex-wrap items-center gap-2 text-xs text-stone-400">
-            <span className="font-medium text-stone-500">Trending Escapes:</span>
-            {quickHighlights.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => onSelectHighlight(item.target)}
-                className="px-2.5 py-1 rounded-md bg-stone-900/70 hover:bg-amber-950/60 text-stone-300 hover:text-amber-300 border border-stone-800 hover:border-amber-700/50 transition-colors"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
+      {/* Hero Centered Content: Clean, High-Contrast Typography for My Kind of Travel */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center pt-8 pb-20 sm:pb-24">
+        {/* Subtle Brand Pill */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#201109]/75 backdrop-blur-md border border-white/20 text-[#FAF7F4] text-xs font-bold uppercase tracking-[0.25em] shadow-lg mb-5 animate-in fade-in duration-500">
+          <Compass className="w-3.5 h-3.5 text-[#C87428]" />
+          <span>My Kind of Travel • Bespoke Journeys</span>
         </div>
 
-        {/* 4 Trust Metrics Bar */}
-        <div className="mt-14 pt-8 border-t border-stone-800/80 grid grid-cols-2 sm:grid-cols-4 gap-6">
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
-              <Award className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block font-serif text-xl sm:text-2xl font-bold text-white">7+ Years</span>
-              <span className="text-xs text-stone-400">Crafting bespoke itineraries</span>
-            </div>
-          </div>
+        {/* Main Display Headline */}
+        <h1 className="font-sans font-extrabold uppercase text-white tracking-[0.04em] sm:tracking-[0.08em] text-3xl sm:text-5xl md:text-6xl lg:text-[4.75rem] xl:text-[5.25rem] leading-[1.08] drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] max-w-4xl">
+          EXPLORE. DREAM. DISCOVER.
+        </h1>
 
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block font-serif text-xl sm:text-2xl font-bold text-white">100% Custom</span>
-              <span className="text-xs text-stone-400">Zero template packages</span>
-            </div>
-          </div>
+        {/* Descriptive Subtitle for My Kind of Travel */}
+        <p className="mt-4 sm:mt-5 text-white/95 text-sm sm:text-base md:text-lg lg:text-xl font-normal max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+          Handcrafted luxury holidays, private European chalets, honeymoon cliffside villas, and bespoke journeys tailored for India's discerning travellers.
+        </p>
 
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
-              <Clock className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block font-serif text-xl sm:text-2xl font-bold text-white">24/7 Concierge</span>
-              <span className="text-xs text-stone-400">Dedicated on-trip support</span>
-            </div>
-          </div>
+        {/* Slogan and Play/Pause Toggle */}
+        <div className="mt-5 sm:mt-6 flex flex-col items-center gap-2">
+          {/* Audio/Motion Pause Button */}
+          <button
+            onClick={togglePlayback}
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-[#201109]/80 backdrop-blur-md border border-white/40 text-white flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md group"
+            title={isPlaying ? 'Pause landscape movement' : 'Play landscape movement'}
+            aria-label={isPlaying ? 'Pause background motion' : 'Play background motion'}
+          >
+            {isPlaying ? (
+              <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-white group-hover:scale-110 transition-transform" />
+            ) : (
+              <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-white ml-0.5 group-hover:scale-110 transition-transform" />
+            )}
+          </button>
 
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block font-serif text-xl sm:text-2xl font-bold text-white">Zero Stress</span>
-              <span className="text-xs text-stone-400">Visas, transfers & VIP access</span>
-            </div>
-          </div>
+          <span className="text-white/90 text-sm sm:text-base font-normal tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+            Your personal travel designer awaits
+          </span>
+        </div>
+
+        {/* Action Buttons: Clean Dark Brown & White Styling */}
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center gap-3.5">
+          <button
+            onClick={onExploreDestinations}
+            className="inline-block px-8 sm:px-10 py-3 sm:py-3.5 border-2 border-white bg-transparent hover:bg-white text-white hover:text-[#201109] font-bold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95"
+          >
+            START EXPLORING
+          </button>
+
+          <button
+            onClick={onPlanTrip}
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-[#201109] hover:bg-[#FAF7F4] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95 rounded-none"
+          >
+            <span>PLAN TRIP</span>
+            <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+          </button>
         </div>
       </div>
+
+      {/* Torn Paper Jagged Edge Divider at the bottom transitioning seamlessly */}
+      <TornPaperDivider position="bottom" />
     </section>
   );
 };

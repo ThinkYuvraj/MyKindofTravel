@@ -8,55 +8,55 @@ interface ExperiencesSectionProps {
 
 export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({ onPlanTripType }) => {
   return (
-    <section id="experiences" className="py-20 lg:py-28 bg-[#181816] text-white border-b border-stone-800 relative">
+    <section id="experiences" className="py-20 lg:py-28 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="max-w-3xl space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 text-xs font-semibold uppercase tracking-widest border border-amber-500/25">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-md text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 shadow-xs">
             <Sparkles className="w-3.5 h-3.5" />
             <span>What we curate</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
-            Every kind of <span className="italic font-serif text-amber-300 font-normal">extraordinary</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+            Every kind of <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">extraordinary</span>
           </h2>
 
-          <p className="text-stone-400 text-base sm:text-lg leading-relaxed">
+          <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
             Tailored journeys created for personal celebrations, multi-city cultural quests, executive gatherings, and spontaneous luxury getaways.
           </p>
         </div>
 
         {/* 6 Experience Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
           {EXPERIENCE_PILLARS.map((exp) => (
             <div
               key={exp.number}
-              className="rounded-2xl bg-stone-900/80 border border-stone-800 hover:border-amber-500/40 p-8 flex flex-col justify-between group transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-stone-950/60 relative overflow-hidden"
+              className="rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/60 dark:hover:border-[#E28C38]/60 p-8 flex flex-col justify-between group transition-all duration-500 shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative overflow-hidden"
             >
               {/* Background Ambient Number Accent */}
-              <span className="absolute -top-4 -right-2 font-serif text-8xl font-bold text-stone-800/40 select-none pointer-events-none group-hover:text-amber-500/10 transition-colors">
+              <span className="absolute -top-4 -right-2 font-serif text-8xl font-bold text-[#EADFD5]/30 dark:text-white/5 select-none pointer-events-none group-hover:text-[#8C5528]/15 dark:group-hover:text-[#E28C38]/15 transition-colors">
                 {exp.number}
               </span>
 
               <div className="space-y-4 relative z-10">
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 font-serif font-bold text-sm border border-amber-500/20">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#F4ECE4] dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] font-serif font-bold text-sm border border-[#DFD0C0] dark:border-white/10">
                   {exp.number}
                 </div>
 
-                <h3 className="font-serif text-2xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                <h3 className="font-serif text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
                   {exp.title}
                 </h3>
 
-                <p className="text-stone-300 text-sm leading-relaxed font-normal">
+                <p className="text-[#594336] dark:text-[#D1C2B8] text-sm leading-relaxed font-normal">
                   {exp.description}
                 </p>
 
                 {/* Micro Highlights */}
-                <div className="pt-2 space-y-1.5 border-t border-stone-800">
+                <div className="pt-2 space-y-1.5 border-t border-[#EADFD5]/80 dark:border-white/10">
                   {exp.highlights.slice(0, 2).map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-stone-400">
-                      <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                      <span className="truncate">{item}</span>
+                    <div key={idx} className="flex items-center gap-2 text-xs text-[#7C685B] dark:text-[#DFD0C0]">
+                      <Check className="w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38] shrink-0" />
+                      <span className="truncate font-medium">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -66,7 +66,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({ onPlanTr
               <div className="pt-6 relative z-10">
                 <button
                   onClick={() => onPlanTripType(exp.typeKey)}
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 group-hover:text-amber-300 transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8C5528] dark:text-[#E28C38] hover:text-[#72421D] dark:hover:text-white transition-colors"
                 >
                   <span>{exp.ctaText}</span>
                   <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />

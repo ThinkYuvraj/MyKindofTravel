@@ -15,18 +15,18 @@ export const FloatingWhatsApp: React.FC = () => {
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
       {showTooltip && (
-        <div className="bg-stone-900 border border-stone-800 text-white text-xs p-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300 max-w-xs">
+        <div className="bg-white/90 dark:bg-[#16100D]/90 backdrop-blur-xl border border-[#EADFD5] dark:border-white/15 text-[#2A1810] dark:text-white text-xs p-3 rounded-2xl shadow-[0_10px_30px_rgba(42,24,16,0.12)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300 max-w-xs">
           <div className="space-y-0.5">
-            <span className="font-semibold text-emerald-400 block text-[11px] uppercase tracking-wider">
+            <span className="font-bold text-[#2E7D32] dark:text-emerald-400 block text-[11px] uppercase tracking-wider">
               Concierge Online
             </span>
-            <p className="text-stone-300 text-[11px] leading-tight">
+            <p className="text-[#594336] dark:text-[#D1C2B8] text-[11px] leading-tight font-normal">
               Chat directly with our luxury travel specialist on WhatsApp.
             </p>
           </div>
           <button
             onClick={() => setShowTooltip(false)}
-            className="text-stone-500 hover:text-white p-1"
+            className="text-[#A8988B] hover:text-[#2A1810] dark:text-neutral-400 dark:hover:text-white p-1 transition-colors"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -35,14 +35,14 @@ export const FloatingWhatsApp: React.FC = () => {
 
       <button
         onClick={handleOpenWhatsApp}
-        className="group relative flex items-center gap-2.5 px-4 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-950/40 hover:scale-105 active:scale-95 transition-all focus:outline-none"
+        className="group relative flex items-center gap-2.5 px-4 py-3.5 rounded-full bg-[#2E7D32] hover:bg-[#256529] text-white shadow-xl shadow-[#2E7D32]/25 hover:scale-105 active:scale-95 transition-all focus:outline-none"
         aria-label="Chat on WhatsApp with My Kind of Travel"
       >
-        <MessageCircle className="w-5 h-5 fill-white text-emerald-600" />
+        <MessageCircle className="w-5 h-5 fill-white text-[#2E7D32]" />
         <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
           Chat on WhatsApp
         </span>
-        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-400 rounded-full border-2 border-stone-900 animate-pulse" />
+        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#8C5528] rounded-full border-2 border-[#FAF7F2] animate-pulse" />
       </button>
     </div>
   );
