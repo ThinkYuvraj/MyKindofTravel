@@ -2,20 +2,24 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 import { createServer as createViteServer } from "vite";
+import { DESTINATIONS, POPULAR_PACKAGES, MARQUEE_ITEMS } from "./src/data/travelData";
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 const DATA_FILE = path.join(process.cwd(), 'cms-data.json');
 
 // Default CMS state
-let cmsData = {
+let cmsData: any = {
   heroTitle: 'EXPLORE. DREAM. DISCOVER.',
   heroSubtitle: "Handcrafted luxury holidays, private European chalets, honeymoon cliffside villas, and bespoke journeys tailored for India's discerning travellers.",
   primaryButton: 'START EXPLORING',
-  secondaryButton: 'PLAN TRIP'
+  secondaryButton: 'PLAN TRIP',
+  destinations: DESTINATIONS,
+  packages: POPULAR_PACKAGES,
+  marquee: MARQUEE_ITEMS
 };
 
 // Load data if exists

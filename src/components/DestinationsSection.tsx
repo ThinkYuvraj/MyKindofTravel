@@ -5,6 +5,7 @@ import { ArrowUpRight, Compass, Sparkles, Clock } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
 interface DestinationsSectionProps {
+  data?: DestinationItem[];
   onSelectDestination: (dest: DestinationItem) => void;
   onEnquireDestination: (destName: string) => void;
 }
@@ -22,6 +23,7 @@ const DESTINATION_META: Record<string, { code: string; flightTime: string }> = {
 };
 
 export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
+  data = DESTINATIONS,
   onSelectDestination,
   onEnquireDestination,
 }) => {
@@ -49,7 +51,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
 
         {/* Grid of Destinations */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
-          {DESTINATIONS.map((dest) => {
+          {data.map((dest) => {
             const meta = DESTINATION_META[dest.id] || { code: 'INT', flightTime: 'Curated Route' };
 
             return (

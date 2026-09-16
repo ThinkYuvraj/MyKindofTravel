@@ -114,6 +114,7 @@ export default function HomePage() {
 
         {/* Featured Destinations Section (revealed right below the torn paper edge) */}
         <DestinationsSection
+          data={cmsData.destinations}
           onSelectDestination={(dest) => setSelectedDestination(dest)}
           onEnquireDestination={handleEnquireDestination}
         />
@@ -140,6 +141,7 @@ export default function HomePage() {
 
         {/* Popular Packages Ready to Personalise */}
         <PackagesSection
+          data={cmsData.packages}
           onEnquirePackage={handleEnquirePackage}
           onViewPackageDetails={(pkg) => setSelectedPackage(pkg)}
         />

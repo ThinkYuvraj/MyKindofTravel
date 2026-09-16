@@ -5,11 +5,13 @@ import { Check, ArrowRight, Eye, Clock, Plane, Ticket } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
 interface PackagesSectionProps {
+  data?: TravelPackage[];
   onEnquirePackage: (pkg: TravelPackage) => void;
   onViewPackageDetails: (pkg: TravelPackage) => void;
 }
 
 export const PackagesSection: React.FC<PackagesSectionProps> = ({
+  data = POPULAR_PACKAGES,
   onEnquirePackage,
   onViewPackageDetails,
 }) => {
@@ -17,7 +19,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
   const filters = ['All', 'Honeymoon', 'Europe', 'Bali', 'Luxury Escape'];
 
-  const filteredPackages = POPULAR_PACKAGES.filter((pkg) => {
+  const filteredPackages = data.filter((pkg) => {
     if (activeFilter === 'All') return true;
     if (activeFilter === 'Honeymoon') return pkg.tag.includes('Honeymoon') || pkg.id.includes('romance') || pkg.id.includes('santorini');
     if (activeFilter === 'Europe') return pkg.destination.includes('France') || pkg.destination.includes('Switzerland') || pkg.destination.includes('Greece');
