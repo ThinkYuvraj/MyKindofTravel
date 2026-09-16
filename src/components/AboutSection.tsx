@@ -4,7 +4,7 @@ import { COMPANY_INFO } from '../data/travelData';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="philosophy" className="py-20 lg:py-28 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative overflow-hidden transition-colors duration-300">
+    <section id="philosophy" className="py-12 sm:py-16 lg:py-24 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative overflow-hidden transition-colors duration-300">
       {/* Subtle Decorative Ambient Warm Glow */}
       <div className="absolute top-1/2 right-0 w-80 h-80 bg-[#8C5528]/10 dark:bg-[#D47A2A]/10 rounded-full blur-3xl pointer-events-none animate-ambient-glow" />
 

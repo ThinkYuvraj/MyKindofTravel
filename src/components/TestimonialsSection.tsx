@@ -5,7 +5,7 @@ import { GlassImage } from './GlassImage';
 
 export const TestimonialsSection: React.FC = () => {
   return (
-    <section id="stories" className="py-20 lg:py-28 bg-[#FAF7F2] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
+    <section id="stories" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="max-w-3xl space-y-4 mb-16 text-center sm:text-left">

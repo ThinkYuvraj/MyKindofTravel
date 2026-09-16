@@ -487,7 +487,7 @@ export const GALLERY_ITEMS: import('../types').GalleryItem[] = [
     title: 'Private Mediterranean Cruise',
     location: 'Amalfi Coast, Italy',
     category: 'Journeys',
-    image: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d17?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80',
     caption: 'Private custom yacht charter cruising between Capri Faraglioni and Positano cliffs.',
     aspect: 'wide',
   },

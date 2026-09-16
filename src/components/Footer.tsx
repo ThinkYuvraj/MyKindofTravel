@@ -256,6 +256,11 @@ export const Footer: React.FC<FooterProps> = ({
                 {COMPANY_INFO.website}
               </a>
             </p>
+            <div className="pt-2">
+              <a href="/admin/login" className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-bold text-[#9E8C7F] hover:text-[#C5A059] transition-colors border border-[#3D251A] hover:border-[#C5A059]/30 rounded-md px-2 py-1 bg-[#1A110B]">
+                Admin CMS Login
+              </a>
+            </div>
           </div>
 
           <button

@@ -7,11 +7,19 @@ interface HeroProps {
   onPlanTrip: () => void;
   onExploreDestinations: () => void;
   onSelectHighlight?: (destinationName: string) => void;
+  title?: string;
+  subtitle?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   onPlanTrip,
   onExploreDestinations,
+  title = 'EXPLORE. DREAM. DISCOVER.',
+  subtitle = "Handcrafted luxury holidays, private European chalets, honeymoon cliffside villas, and bespoke journeys tailored for India's discerning travellers.",
+  primaryButtonText = 'START EXPLORING',
+  secondaryButtonText = 'PLAN TRIP',
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [imgLoaded, setImgLoaded] = useState<boolean>(false);
@@ -54,27 +62,27 @@ export const Hero: React.FC<HeroProps> = ({
       {/* Hero Centered Content: Clean, High-Contrast Typography for My Kind of Travel */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center pt-8 pb-20 sm:pb-24">
         {/* Subtle Brand Pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#201109]/75 backdrop-blur-md border border-white/20 text-[#FAF7F4] text-xs font-bold uppercase tracking-[0.25em] shadow-lg mb-5 animate-in fade-in duration-500">
+        <div className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#201109]/75 backdrop-blur-md border border-white/20 text-[#FAF7F4] text-xs font-bold uppercase tracking-[0.25em] shadow-lg mb-5 animate-in fade-in duration-500">
           <Compass className="w-3.5 h-3.5 text-[#C87428]" />
           <span>My Kind of Travel • Bespoke Journeys</span>
         </div>
 
         {/* Main Display Headline */}
         <h1 className="font-sans font-extrabold uppercase text-white tracking-[0.04em] sm:tracking-[0.08em] text-3xl sm:text-5xl md:text-6xl lg:text-[4.75rem] xl:text-[5.25rem] leading-[1.08] drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] max-w-4xl">
-          EXPLORE. DREAM. DISCOVER.
+          {title}
         </h1>
 
         {/* Descriptive Subtitle for My Kind of Travel */}
-        <p className="mt-4 sm:mt-5 text-white/95 text-sm sm:text-base md:text-lg lg:text-xl font-normal max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
-          Handcrafted luxury holidays, private European chalets, honeymoon cliffside villas, and bespoke journeys tailored for India's discerning travellers.
+        <p className="mt-4 sm:mt-5 text-white/95 text-sm sm:text-base md:text-lg lg:text-xl font-normal max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] whitespace-pre-line">
+          {subtitle}
         </p>
 
         {/* Slogan and Play/Pause Toggle */}
         <div className="mt-5 sm:mt-6 flex flex-col items-center gap-2">
-          {/* Audio/Motion Pause Button */}
+          {/* Audio/Motion Pause Button (Hidden as requested) */}
           <button
             onClick={togglePlayback}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-[#201109]/80 backdrop-blur-md border border-white/40 text-white flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md group"
+            className="hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-[#201109]/80 backdrop-blur-md border border-white/40 text-white items-center justify-center transition-all duration-200 active:scale-95 shadow-md group"
             title={isPlaying ? 'Pause landscape movement' : 'Play landscape movement'}
             aria-label={isPlaying ? 'Pause background motion' : 'Play background motion'}
           >
@@ -94,16 +102,16 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center gap-3.5">
           <button
             onClick={onExploreDestinations}
-            className="inline-block px-8 sm:px-10 py-3 sm:py-3.5 border-2 border-white bg-transparent hover:bg-white text-white hover:text-[#201109] font-bold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95"
+            className="w-full sm:w-auto inline-block px-8 sm:px-10 py-3 sm:py-3.5 border-2 border-white bg-transparent hover:bg-white text-white hover:text-[#201109] font-bold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95"
           >
             START EXPLORING
           </button>
 
           <button
             onClick={onPlanTrip}
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-[#201109] hover:bg-[#FAF7F4] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95 rounded-none"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-[#201109] hover:bg-[#FAF7F4] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95 rounded-none"
           >
-            <span>PLAN TRIP</span>
+            <span>{secondaryButtonText}</span>
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>
         </div>
