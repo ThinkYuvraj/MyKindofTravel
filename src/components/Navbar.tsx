@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Compass, Search, ChevronDown, Menu, X, ArrowRight, Sun, Moon, MapPin, Sparkles } from 'lucide-react';
-import { DESTINATIONS, PACKAGES, COMPANY_INFO } from '../data/travelData';
+import { DESTINATIONS, COMPANY_INFO } from '../data/travelData';
 import { useTheme } from '../context/ThemeContext';
 
 interface NavbarProps {
