@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Compass, ImageOff } from 'lucide-react';
 
 interface GlassImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -20,22 +20,64 @@ export const GlassImage: React.FC<GlassImageProps> = ({
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [isInView, setIsInView] = useState(priority);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // IntersectionObserver for genuine lazy loading
+  useEffect(() => {
+    if (priority) {
+      setIsInView(true);
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      setIsInView(true);
+      return;
+    }
+
+    const currentElem = containerRef.current;
+    if (!currentElem) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        // Begin fetching 250px before entering viewport for smooth seamless scrolling
+        rootMargin: '250px 0px',
+        threshold: 0.01,
+      }
+    );
+
+    observer.observe(currentElem);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [priority]);
 
   // Reset states when src changes
   useEffect(() => {
     setIsLoaded(false);
     setHasError(false);
 
-    // If image is already cached in browser, it might load instantly
-    const img = new Image();
-    img.src = src;
-    if (img.complete && img.naturalWidth > 0) {
-      setIsLoaded(true);
+    if (isInView && src) {
+      // Check if already in browser cache
+      const img = new Image();
+      img.src = src;
+      if (img.complete && img.naturalWidth > 0) {
+        setIsLoaded(true);
+      }
     }
-  }, [src]);
+  }, [src, isInView]);
 
   return (
-    <div className={`relative overflow-hidden ${containerClassName}`}>
+    <div ref={containerRef} className={`relative overflow-hidden ${containerClassName}`}>
       {/* Glassmorphic Loading Skeleton Screen */}
       {!isLoaded && !hasError && (
         <div
@@ -65,19 +107,20 @@ export const GlassImage: React.FC<GlassImageProps> = ({
           <span className="text-xs font-semibold">{alt || 'Luxury Voyage'}</span>
           <span className="text-[10px] opacity-70 mt-1">Image preview unavailable</span>
         </div>
-      ) : (
+      ) : isInView ? (
         <img
           src={src}
           alt={alt}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
           loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
           className={`${className} transition-opacity duration-700 ease-out ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           {...props}
         />
-      )}
+      ) : null}
     </div>
   );
 };

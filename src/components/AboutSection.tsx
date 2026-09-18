@@ -2,13 +2,19 @@ import React from 'react';
 import { Compass, Sparkles, UserCheck, HeartHandshake } from 'lucide-react';
 import { COMPANY_INFO } from '../data/travelData';
 
-export const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  companyInfo?: typeof COMPANY_INFO;
+}
+
+export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo }) => {
+  const info = companyInfo || COMPANY_INFO;
+
   return (
     <section id="philosophy" className="py-12 sm:py-16 lg:py-24 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative overflow-hidden transition-colors duration-300">
       {/* Subtle Decorative Ambient Warm Glow */}
       <div className="absolute top-1/2 right-0 w-80 h-80 bg-[#8C5528]/10 dark:bg-[#D47A2A]/10 rounded-full blur-3xl pointer-events-none animate-ambient-glow" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Story & Philosophy */}
           <div className="lg:col-span-6 space-y-6">
@@ -18,7 +24,7 @@ export const AboutSection: React.FC = () => {
               </span>
               <span className="text-[#B5A496] text-xs">•</span>
               <span className="text-[#7C685B] dark:text-neutral-400 text-xs font-semibold">
-                {COMPANY_INFO.yearsCrafting} Years of crafting journeys
+                {info.yearsCrafting || '10+'} Years of crafting journeys
               </span>
             </div>
 
@@ -30,7 +36,7 @@ export const AboutSection: React.FC = () => {
             </h2>
 
             <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
-              {COMPANY_INFO.philosophy}
+              {info.philosophy || COMPANY_INFO.philosophy}
             </p>
 
             <div className="pt-2 p-6 rounded-2xl bg-[#FAF7F2] dark:bg-[#16100D]/80 backdrop-blur-xl border border-[#EADFD5] dark:border-white/10 space-y-3 shadow-xs">

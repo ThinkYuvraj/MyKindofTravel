@@ -2,9 +2,14 @@ import React from 'react';
 import { MARQUEE_ITEMS } from '../data/travelData';
 import { Plane, Compass } from 'lucide-react';
 
-export const MarqueeTicker: React.FC = () => {
+interface MarqueeTickerProps {
+  items?: string[];
+}
+
+export const MarqueeTicker: React.FC<MarqueeTickerProps> = ({ items = MARQUEE_ITEMS }) => {
+  const activeItems = items && items.length > 0 ? items : MARQUEE_ITEMS;
   // Duplicate array multiple times for smooth continuous loop
-  const repeated = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+  const repeated = [...activeItems, ...activeItems, ...activeItems, ...activeItems];
 
   return (
     <div className="w-full bg-[#F4ECE4] dark:bg-[#120D0A] text-[#2A1810] dark:text-[#EADFD5] border-y border-[#EADFD5] dark:border-white/10 overflow-hidden py-3 select-none relative shadow-xs transition-colors">

@@ -74,3 +74,86 @@ export interface EnquiryForm {
   guestCount: string;
   message: string;
 }
+
+export type BuiltInSectionKey =
+  | 'hero'
+  | 'destinations'
+  | 'marquee'
+  | 'about'
+  | 'radar'
+  | 'experiences'
+  | 'howItWorks'
+  | 'packages'
+  | 'gallery'
+  | 'testimonials'
+  | 'whyUs'
+  | 'contact';
+
+export interface CustomSectionItem {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+  image?: string;
+  icon?: string;
+  badge?: string;
+  linkText?: string;
+  linkUrl?: string;
+}
+
+export interface CustomSection {
+  id: string;
+  title: string;
+  subtitle: string;
+  badgeText: string;
+  layout: 'grid-cards' | 'banner-cta' | 'faq' | 'split-story';
+  theme: 'light' | 'dark' | 'caramel';
+  enabled: boolean;
+  items: CustomSectionItem[];
+}
+
+export interface CMSData {
+  heroTitle: string;
+  heroSubtitle: string;
+  heroBadge?: string;
+  heroBgImage?: string;
+  primaryButton: string;
+  secondaryButton: string;
+  sectionOrder: string[];
+  sectionVisibility: Record<string, boolean>;
+  destinations: DestinationItem[];
+  packages: TravelPackage[];
+  marquee: string[];
+  testimonials: TestimonialItem[];
+  experiencePillars: ExperiencePillar[];
+  gallery?: GalleryItem[];
+  customSections: CustomSection[];
+  companyInfo: {
+    name: string;
+    tagline: string;
+    phone: string;
+    phoneRaw: string;
+    email: string;
+    website: string;
+    supportHours: string;
+    yearsCrafting: string;
+    establishedYear: string;
+    currentYear: string;
+    promise: string;
+    philosophy: string;
+  };
+}
+
+export interface InquiryLead {
+  id: string;
+  refId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  destination: string;
+  tripType: string;
+  message: string;
+  createdAt: string;
+  status: 'new' | 'contacted' | 'quoted' | 'booked';
+}

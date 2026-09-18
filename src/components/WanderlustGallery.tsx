@@ -5,10 +5,12 @@ import { Camera, MapPin, Sparkles, X, ChevronLeft, ChevronRight, Eye, ArrowUpRig
 import { GlassImage } from './GlassImage';
 
 interface WanderlustGalleryProps {
+  items?: GalleryItem[];
   onPlanTripForLocation?: (location: string) => void;
 }
 
 export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
+  items,
   onPlanTripForLocation,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -16,9 +18,11 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
 
   const categories = ['All', 'Stays', 'Journeys', 'Moments', 'Gourmet'];
 
+  const sourceItems = (items && items.length > 0) ? items : GALLERY_ITEMS;
+
   const filteredItems = activeCategory === 'All'
-    ? GALLERY_ITEMS
-    : GALLERY_ITEMS.filter((item) => item.category === activeCategory);
+    ? sourceItems
+    : sourceItems.filter((item) => item.category === activeCategory);
 
   const activePhoto = activeLightboxIndex !== null ? filteredItems[activeLightboxIndex] : null;
 
@@ -34,13 +38,37 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
     }
   };
 
+  // Keyboard navigation & body scroll lock
+  useEffect(() => {
+    if (activeLightboxIndex === null) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveLightboxIndex(null);
+      } else if (e.key === 'ArrowRight') {
+        setActiveLightboxIndex((prev) => (prev !== null ? (prev + 1) % filteredItems.length : null));
+      } else if (e.key === 'ArrowLeft') {
+        setActiveLightboxIndex((prev) => (prev !== null ? (prev - 1 + filteredItems.length) % filteredItems.length : null));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeLightboxIndex, filteredItems.length]);
+
   return (
     <section id="gallery" className="py-20 sm:py-28 relative overflow-hidden transition-colors duration-300">
       {/* Background ambient lighting orbs for glassmorphism */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-[#8C5528]/10 dark:bg-[#D47A2A]/10 blur-3xl pointer-events-none animate-ambient-glow" />
       <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-[#C5A059]/10 dark:bg-[#C87428]/10 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
@@ -150,40 +178,41 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
             {/* Close Button */}
             <button
               onClick={() => setActiveLightboxIndex(null)}
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-[#8C5528] text-white border border-white/20 flex items-center justify-center transition-all"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-[#8C5528] text-white border border-white/20 flex items-center justify-center transition-all"
               aria-label="Close image preview"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             {/* Lightbox Navigation */}
             <button
               onClick={handlePrev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/50 hover:bg-[#8C5528] text-white border border-white/20 flex items-center justify-center transition-all"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#8C5528] text-white border border-white/20 flex items-center justify-center transition-all"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/50 hover:bg-[#8C5528] text-white border border-white/20 flex items-center justify-center transition-all"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-[#8C5528] text-white border border-white/20 flex items-center justify-center transition-all"
               aria-label="Next image"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             {/* Image with Glassmorphic Skeleton */}
-            <div className="w-full max-h-[65vh] h-[55vh] overflow-hidden bg-black flex items-center justify-center">
+            <div className="w-full max-h-[60vh] sm:max-h-[65vh] h-[45vh] sm:h-[55vh] overflow-hidden bg-black flex items-center justify-center">
               <GlassImage
                 src={activePhoto.image}
                 alt={activePhoto.title}
                 containerClassName="w-full h-full"
                 className="w-full h-full max-h-[65vh] object-contain"
+                priority={true}
               />
             </div>
 
             {/* Details Footer with Secondary Brown Accents */}
-            <div className="p-6 bg-[#16100D] border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="p-4 sm:p-6 bg-[#16100D] border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#A0683B] dark:bg-[#B36D33] text-white">
@@ -193,11 +222,14 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                     <MapPin className="w-3.5 h-3.5" />
                     {activePhoto.location}
                   </span>
+                  <span className="text-[11px] text-white/50 ml-2 hidden sm:inline">
+                    {activeLightboxIndex + 1} of {filteredItems.length} • ← / → to browse
+                  </span>
                 </div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+                <h3 className="font-serif text-lg sm:text-2xl font-bold text-white">
                   {activePhoto.title}
                 </h3>
-                <p className="text-sm text-[#D4A276] mt-1 max-w-xl">
+                <p className="text-xs sm:text-sm text-[#D4A276] mt-0.5 sm:mt-1 max-w-xl">
                   {activePhoto.caption}
                 </p>
               </div>
@@ -208,7 +240,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                     onPlanTripForLocation(activePhoto.location);
                     setActiveLightboxIndex(null);
                   }}
-                  className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#8C5528] hover:bg-[#70421D] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#8C5528]/30 transition-all"
+                  className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#8C5528] hover:bg-[#70421D] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#8C5528]/30 transition-all"
                 >
                   <span>Experience This</span>
                   <ArrowUpRight className="w-4 h-4" />

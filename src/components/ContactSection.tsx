@@ -26,11 +26,30 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     if (initialTripType) setTripType(initialTripType);
   }, [initialDestination, initialTripType]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const generatedRef = 'MKT-' + Math.floor(100000 + Math.random() * 900000);
     setRefId(generatedRef);
     setSubmitted(true);
+
+    try {
+      await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          refId: generatedRef,
+          firstName,
+          lastName,
+          email,
+          phone,
+          destination,
+          tripType,
+          message,
+        }),
+      });
+    } catch (err) {
+      console.warn('Could not post inquiry to server', err);
+    }
   };
 
   const handleWhatsAppDirect = () => {
@@ -44,7 +63,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
   return (
     <section id="contact" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Contact details & intro */}
           <div className="lg:col-span-5 space-y-8">
@@ -123,7 +142,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
           {/* Right Column: Interactive Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl backdrop-blur-xl bg-white/85 dark:bg-[#16100D]/85 border border-white/80 dark:border-white/10 shadow-[0_12px_45px_rgba(42,24,16,0.06)] dark:shadow-[0_12px_45px_rgba(0,0,0,0.4)] relative">
+            <div className="p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-xl bg-white/85 dark:bg-[#16100D]/85 border border-white/80 dark:border-white/10 shadow-[0_12px_45px_rgba(42,24,16,0.06)] dark:shadow-[0_12px_45px_rgba(0,0,0,0.4)] relative">
               {submitted ? (
                 <div className="py-12 text-center space-y-6 animate-in zoom-in-95 duration-300">
                   <div className="w-16 h-16 rounded-2xl bg-[#E6F4EA] dark:bg-emerald-950/40 text-[#2E7D32] dark:text-emerald-400 border border-[#B7DFC2] dark:border-emerald-800/40 flex items-center justify-center mx-auto shadow-md">

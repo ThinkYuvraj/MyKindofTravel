@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -23,6 +23,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return 'light';
   });
 
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
@@ -41,13 +43,48 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [theme]);
 
-  const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
+  // Execute smooth theme transition across CSS and View Transition API
+  const applyThemeSmoothly = useCallback((nextTheme: Theme) => {
+    const root = document.documentElement;
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-  };
+    // Apply temporary class for smooth CSS interpolation of colors, backgrounds, borders & shadows
+    root.classList.add('theme-transitioning');
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+    transitionTimerRef.current = setTimeout(() => {
+      root.classList.remove('theme-transitioning');
+    }, 480);
+
+    // If browser supports View Transitions API and user hasn't requested reduced motion, use it
+    if (
+      typeof document !== 'undefined' &&
+      'startViewTransition' in document &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      try {
+        (document as unknown as { startViewTransition: (cb: () => void) => void }).startViewTransition(() => {
+          setThemeState(nextTheme);
+        });
+        return;
+      } catch {
+        // fallback to standard state update
+      }
+    }
+
+    setThemeState(nextTheme);
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    const next = theme === 'light' ? 'dark' : 'light';
+    applyThemeSmoothly(next);
+  }, [theme, applyThemeSmoothly]);
+
+  const setTheme = useCallback((newTheme: Theme) => {
+    if (newTheme !== theme) {
+      applyThemeSmoothly(newTheme);
+    }
+  }, [theme, applyThemeSmoothly]);
 
   return (
     <ThemeContext.Provider value={{ theme, isDark: theme === 'dark', toggleTheme, setTheme }}>

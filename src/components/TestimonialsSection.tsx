@@ -1,12 +1,19 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data/travelData';
+import { TestimonialItem } from '../types';
 import { Star, Heart } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
-export const TestimonialsSection: React.FC = () => {
+interface TestimonialsSectionProps {
+  testimonials?: TestimonialItem[];
+}
+
+export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testimonials }) => {
+  const activeReviews = testimonials && testimonials.length > 0 ? testimonials : TESTIMONIALS;
+
   return (
     <section id="stories" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Heading */}
         <div className="max-w-3xl space-y-4 mb-16 text-center sm:text-left">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
@@ -25,7 +32,7 @@ export const TestimonialsSection: React.FC = () => {
 
         {/* 4 Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8">
-          {TESTIMONIALS.map((review) => (
+          {activeReviews.map((review) => (
             <div
               key={review.id}
               className="p-8 rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/50 dark:hover:border-[#E28C38]/50 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative group"

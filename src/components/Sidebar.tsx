@@ -114,19 +114,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {/* Theme toggle inside drawer */}
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/80 dark:bg-white/10 border border-[#DFD0C0] dark:border-white/15 text-xs font-semibold text-[#594336] dark:text-white hover:bg-white transition-all shadow-2xs"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white/80 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 border border-[#DFD0C0] dark:border-white/15 text-xs font-semibold text-[#594336] dark:text-white transition-all duration-300 shadow-2xs active:scale-95"
               >
-                {isDark ? (
-                  <>
-                    <Sun className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Light Mode</span>
-                  </>
-                ) : (
-                  <>
-                    <Moon className="w-3.5 h-3.5 text-[#8C5528]" />
-                    <span>Dark Mode</span>
-                  </>
-                )}
+                <div className="relative w-3.5 h-3.5 flex items-center justify-center">
+                  <Sun
+                    className={`w-3.5 h-3.5 text-amber-400 transition-all duration-500 ease-out transform ${
+                      isDark
+                        ? 'rotate-0 scale-100 opacity-100'
+                        : 'rotate-90 scale-0 opacity-0 absolute pointer-events-none'
+                    }`}
+                  />
+                  <Moon
+                    className={`w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38] transition-all duration-500 ease-out transform ${
+                      !isDark
+                        ? 'rotate-0 scale-100 opacity-100'
+                        : '-rotate-90 scale-0 opacity-0 absolute pointer-events-none'
+                    }`}
+                  />
+                </div>
+                <span className="transition-colors duration-300">
+                  {isDark ? 'Light Mode' : 'Dark Mode'}
+                </span>
               </button>
             </div>
 

@@ -30,7 +30,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
   return (
     <section id="packages" className="py-12 sm:py-16 lg:py-24 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Header & Filter Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
           <div className="max-w-2xl space-y-4">
@@ -49,12 +49,12 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
           </div>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             {filters.map((f) => (
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all shadow-xs backdrop-blur-md ${
+                className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all shadow-xs backdrop-blur-md ${
                   activeFilter === f
                     ? 'bg-[#8C5528] dark:bg-[#C87428] text-white shadow-md'
                     : 'bg-white/80 dark:bg-[#16100D]/80 text-[#6E4424] dark:text-[#D4A276] hover:bg-[#A0683B]/10 dark:hover:bg-[#B36D33]/15 border border-[#DFD0C0] dark:border-[#B36D33]/30'
@@ -104,9 +104,9 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                 </div>
 
                 {/* Content */}
-                <div className="p-6 space-y-4">
+                <div className="p-5 sm:p-6 space-y-3.5 sm:space-y-4">
                   <div>
-                    <h3 className="font-serif text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
                       {pkg.title}
                     </h3>
                     <div className="flex items-center gap-1.5 mt-1 text-xs text-[#A0683B] dark:text-[#D4A276] font-medium">
@@ -117,7 +117,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
                   {/* 4 Feature Bullet Points */}
                   <ul className="space-y-2 py-2 border-t border-b border-[#EADFD5]/80 dark:border-white/10">
-                    {pkg.features.map((feature, i) => (
+                    {(pkg.features || []).map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-[#594336] dark:text-[#DFD0C0]">
                         <Check className="w-4 h-4 text-[#A0683B] dark:text-[#D4A276] shrink-0 mt-0.5" />
                         <span>{feature}</span>
@@ -139,7 +139,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
               </div>
 
               {/* Bottom Actions with Secondary Brown Itinerary Button */}
-              <div className="px-6 pb-6 pt-2 border-t border-dashed border-[#EADFD5]/80 dark:border-white/15 flex items-center gap-3">
+              <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-dashed border-[#EADFD5]/80 dark:border-white/15 flex items-center gap-3">
                 <button
                   onClick={() => onViewPackageDetails(pkg)}
                   className="flex-1 py-2.5 rounded-xl bg-[#A0683B]/10 dark:bg-[#B36D33]/15 hover:bg-[#A0683B]/20 dark:hover:bg-[#B36D33]/25 text-[#A0683B] dark:text-[#D4A276] text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-[#A0683B]/30 dark:border-[#B36D33]/40"

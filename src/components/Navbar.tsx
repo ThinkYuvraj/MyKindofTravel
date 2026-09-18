@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 interface NavbarProps {
   onPlanTripClick: () => void;
   onNavigate: (sectionId: string) => void;
-  onOpenSidebar: () => void;
+  onOpenSidebar?: () => void;
   onSelectDestination?: (destId: string) => void;
 }
 
@@ -250,15 +250,24 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Theme Toggle (Light / Dark) */}
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/15 text-white flex items-center justify-center transition-all duration-300 border border-white/15 hover:border-white/30 active:scale-90 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C87428]"
                 title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
                 aria-label="Toggle theme"
               >
-                {isDark ? (
-                  <Sun className="w-4 h-4 text-amber-300" />
-                ) : (
-                  <Moon className="w-4 h-4 text-white/90" />
-                )}
+                <Sun
+                  className={`w-4 h-4 text-amber-300 transition-all duration-500 ease-out transform ${
+                    isDark
+                      ? 'rotate-0 scale-100 opacity-100'
+                      : 'rotate-90 scale-0 opacity-0 absolute pointer-events-none'
+                  }`}
+                />
+                <Moon
+                  className={`w-4 h-4 text-white/90 transition-all duration-500 ease-out transform ${
+                    !isDark
+                      ? 'rotate-0 scale-100 opacity-100'
+                      : '-rotate-90 scale-0 opacity-0 absolute pointer-events-none'
+                  }`}
+                />
               </button>
 
               {/* Plan Trip Button: Crisp Pure White Button with Dark Brown Text */}
