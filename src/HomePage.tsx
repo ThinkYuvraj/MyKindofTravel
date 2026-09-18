@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { MarqueeTicker } from './components/MarqueeTicker';
 import { Hero } from './components/Hero';
@@ -75,7 +74,7 @@ export default function HomePage() {
     companyInfo: COMPANY_INFO,
   });
 
-React.useEffect(() => {
+useEffect(() => {
   const fetchCmsData = async () => {
     try {
       const response = await fetch('/api/cms');
