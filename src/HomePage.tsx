@@ -75,33 +75,36 @@ export default function HomePage() {
     companyInfo: COMPANY_INFO,
   });
 
-  useEffect(() => {
-    const fetchCmsData = async () => {
-      try {
-        const response = await fetch('/api/cms');
-        if (response.ok) {
-          const data = await response.json();
-          setCmsData((prev) => ({
-            ...prev,
-            ...data,
-            sectionOrder: data.sectionOrder || prev.sectionOrder,
-            sectionVisibility: data.sectionVisibility || prev.sectionVisibility,
-            destinations: data.destinations || prev.destinations,
-            packages: data.packages || prev.packages,
-            marquee: data.marquee || prev.marquee,
-            testimonials: data.testimonials || prev.testimonials,
-            experiencePillars: data.experiencePillars || prev.experiencePillars,
-            gallery: data.gallery || prev.gallery,
-            customSections: data.customSections || prev.customSections,
-            companyInfo: data.companyInfo || prev.companyInfo,
-          }));
-        }
-      } catch (e) {
-        console.error("Error loading CMS data", e);
+React.useEffect(() => {
+  const fetchCmsData = async () => {
+    try {
+      const response = await fetch('/api/cms');
+
+      if (response.ok) {
+        const data = await response.json();
+
+        setCmsData((prev) => ({
+          ...prev,
+          ...data,
+          sectionOrder: data.sectionOrder || prev.sectionOrder,
+          sectionVisibility: data.sectionVisibility || prev.sectionVisibility,
+          destinations: data.destinations || prev.destinations,
+          packages: data.packages || prev.packages,
+          marquee: data.marquee || prev.marquee,
+          testimonials: data.testimonials || prev.testimonials,
+          experiencePillars: data.experiencePillars || prev.experiencePillars,
+          gallery: data.gallery || prev.gallery,
+          customSections: data.customSections || prev.customSections,
+          companyInfo: data.companyInfo || prev.companyInfo,
+        }));
       }
-    };
-    fetchCmsData();
-  }, []);
+    } catch (e) {
+      console.error("Error loading CMS data", e);
+    }
+  };
+
+  fetchCmsData();
+}, []);
 
   const scrollToSection = (sectionId: string) => {
     const el = document.getElementById(sectionId);
