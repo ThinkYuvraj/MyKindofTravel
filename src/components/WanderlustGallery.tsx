@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GALLERY_ITEMS } from '../data/travelData';
 import { GalleryItem } from '../types';
 import { Camera, MapPin, Sparkles, X, ChevronLeft, ChevronRight, Eye, ArrowUpRight } from 'lucide-react';
