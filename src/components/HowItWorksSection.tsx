@@ -4,9 +4,21 @@ import { Compass, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface HowItWorksSectionProps {
   onStartPlanning: () => void;
+  steps?: typeof HOW_IT_WORKS_STEPS;
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
 }
 
-export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ onStartPlanning }) => {
+export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
+  onStartPlanning,
+  steps,
+  customBadge,
+  customTitle,
+  customSubtitle,
+}) => {
+  const activeSteps = steps && steps.length > 0 ? steps : HOW_IT_WORKS_STEPS;
+
   return (
     <section id="how-it-works" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
       <div className="section-container">
@@ -14,21 +26,27 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ onStartPla
         <div className="max-w-3xl space-y-4 mb-16 text-center sm:text-left">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
             <Compass className="w-3.5 h-3.5" />
-            <span>How it works</span>
+            <span>{customBadge || 'How it works'}</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
-            From dream to <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">departure</span>
-          </h2>
+          {customTitle ? (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              {customTitle}
+            </h2>
+          ) : (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              From dream to <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">departure</span>
+            </h2>
+          )}
 
           <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
-            A simple, seamless process from your first call to your flight home. We handle every detail — you handle the excitement.
+            {customSubtitle || 'A simple, seamless process from your first call to your flight home. We handle every detail — you handle the excitement.'}
           </p>
         </div>
 
         {/* 4 Steps Timeline / Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 sm:gap-8 relative">
-          {HOW_IT_WORKS_STEPS.map((step, index) => (
+          {activeSteps.map((step, index) => (
             <div
               key={step.step}
               className="p-7 rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/60 dark:hover:border-[#E28C38]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative group"
@@ -39,7 +57,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ onStartPla
                     {step.step}
                   </span>
                   <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-lg bg-[#F4ECE4] dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] border border-[#DFD0C0] dark:border-white/15">
-                    {step.actionBadge}
+                    {step.actionBadge || step.badge || `Step ${index + 1}`}
                   </span>
                 </div>
 
@@ -54,7 +72,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ onStartPla
 
               <div className="pt-2 border-t border-[#EADFD5]/80 dark:border-white/10 flex items-center text-xs text-[#8C5528] dark:text-[#E28C38] font-semibold">
                 <CheckCircle2 className="w-4 h-4 mr-1.5 text-[#8C5528] dark:text-[#E28C38]" />
-                <span>Step {index + 1} of 4</span>
+                <span>Step {index + 1} of {activeSteps.length}</span>
               </div>
             </div>
           ))}

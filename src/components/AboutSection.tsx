@@ -3,10 +3,12 @@ import { Compass, Sparkles, UserCheck, HeartHandshake } from 'lucide-react';
 import { COMPANY_INFO } from '../data/travelData';
 
 interface AboutSectionProps {
-  companyInfo?: typeof COMPANY_INFO;
+  companyInfo?: typeof COMPANY_INFO & { standardText?: string };
+  customBadge?: string;
+  customTitle?: string;
 }
 
-export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo }) => {
+export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo, customBadge, customTitle }) => {
   const info = companyInfo || COMPANY_INFO;
 
   return (
@@ -20,20 +22,26 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo }) => {
           <div className="lg:col-span-6 space-y-6">
             <div className="flex items-center gap-3">
               <span className="px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] border border-[#DFD0C0]/80 dark:border-white/10 text-xs uppercase tracking-widest font-bold backdrop-blur-md shadow-xs">
-                About My Kind of Travel
+                {customBadge || 'About My Kind of Travel'}
               </span>
               <span className="text-[#B5A496] text-xs">•</span>
               <span className="text-[#7C685B] dark:text-neutral-400 text-xs font-semibold">
-                {info.yearsCrafting || '10+'} Years of crafting journeys
+                {info.yearsCrafting || '7+'} Years of crafting journeys
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
-              Our philosophy — <br />
-              <span className="italic text-[#8C5528] dark:text-[#E28C38] font-serif font-normal">
-                Travel that fits who you are
-              </span>
-            </h2>
+            {customTitle ? (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
+                {customTitle}
+              </h2>
+            ) : (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
+                Our philosophy — <br />
+                <span className="italic text-[#8C5528] dark:text-[#E28C38] font-serif font-normal">
+                  Travel that fits who you are
+                </span>
+              </h2>
+            )}
 
             <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
               {info.philosophy || COMPANY_INFO.philosophy}
@@ -45,7 +53,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo }) => {
                 <span>The My Kind of Travel Standard</span>
               </div>
               <p className="text-[#594336] dark:text-[#D1C2B8] text-sm leading-relaxed">
-                Whether you are dreaming of floating breakfasts in an Ubud jungle villa, private Louvre access after public hours, or business-class train journeys through the Swiss Alps, our specialists orchestrate every transfer, reservation, and local nuance.
+                {info.standardText || 'Whether you are dreaming of floating breakfasts in an Ubud jungle villa, private Louvre access after public hours, or business-class train journeys through the Swiss Alps, our specialists orchestrate every transfer, reservation, and local nuance.'}
               </p>
             </div>
           </div>

@@ -8,6 +8,9 @@ interface DestinationsSectionProps {
   data?: DestinationItem[];
   onSelectDestination: (dest: DestinationItem) => void;
   onEnquireDestination: (destName: string) => void;
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
 }
 
 const DESTINATION_META: Record<string, { code: string; flightTime: string }> = {
@@ -34,6 +37,9 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
   data = DESTINATIONS,
   onSelectDestination,
   onEnquireDestination,
+  customBadge,
+  customTitle,
+  customSubtitle,
 }) => {
   const [selectedRegion, setSelectedRegion] = useState('All');
 
@@ -89,15 +95,21 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-md text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 shadow-xs">
             <Compass className="w-3.5 h-3.5" />
-            <span>Handpicked Guides & Journeys</span>
+            <span>{customBadge || 'Handpicked Guides & Journeys'}</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#2A1810] dark:text-white">
-            Featured <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">Destinations</span>
-          </h2>
+          {customTitle ? (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#2A1810] dark:text-white">
+              {customTitle}
+            </h2>
+          ) : (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#2A1810] dark:text-white">
+              Featured <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">Destinations</span>
+            </h2>
+          )}
 
           <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal max-w-2xl mx-auto">
-            Explore world-renowned wonders, secret terraced hills, private island villas, and bucket-list cultural expeditions.
+            {customSubtitle || 'Explore world-renowned wonders, secret terraced hills, private island villas, and bucket-list cultural expeditions.'}
           </p>
         </div>
 

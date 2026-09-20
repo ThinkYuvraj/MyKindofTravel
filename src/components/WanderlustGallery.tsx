@@ -6,11 +6,17 @@ import { GlassImage } from './GlassImage';
 
 interface WanderlustGalleryProps {
   items?: GalleryItem[];
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
   onPlanTripForLocation?: (location: string) => void;
 }
 
 export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
   items,
+  customBadge,
+  customTitle,
+  customSubtitle,
   onPlanTripForLocation,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -74,16 +80,22 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-md border border-[#EADFD5]/80 dark:border-white/15 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest mb-3 shadow-xs">
               <Camera className="w-3.5 h-3.5" />
-              <span>Visual Wanderlust & Real Moments</span>
+              <span>{customBadge || 'Visual Wanderlust & Real Moments'}</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-[1.15]">
-              Curated by Us, <br className="hidden sm:inline" />
-              <span className="text-[#8C5528] dark:text-[#E28C38] italic font-normal">Experienced by You</span>
-            </h2>
+            {customTitle ? (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-[1.15]">
+                {customTitle}
+              </h2>
+            ) : (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-[1.15]">
+                Curated by Us, <br className="hidden sm:inline" />
+                <span className="text-[#8C5528] dark:text-[#E28C38] italic font-normal">Experienced by You</span>
+              </h2>
+            )}
           </div>
 
           <p className="max-w-md text-sm sm:text-base text-[#594336] dark:text-[#D1C2B8] leading-relaxed">
-            Real snapshots from the destinations, private chalets, overwater lagoons, and bespoke journeys we craft for our travelers.
+            {customSubtitle || 'Real snapshots from the destinations, private chalets, overwater lagoons, and bespoke journeys we craft for our travelers.'}
           </p>
         </div>
 

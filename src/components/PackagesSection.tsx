@@ -8,6 +8,9 @@ interface PackagesSectionProps {
   data?: TravelPackage[];
   onEnquirePackage: (pkg: TravelPackage) => void;
   onViewPackageDetails: (pkg: TravelPackage) => void;
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
 }
 
 // ── Filter definitions ────────────────────────────────────────────────────────
@@ -41,6 +44,9 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
   data = POPULAR_PACKAGES,
   onEnquirePackage,
   onViewPackageDetails,
+  customBadge,
+  customTitle,
+  customSubtitle,
 }) => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
 
@@ -66,19 +72,24 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
           <div className="max-w-2xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
               <Ticket className="w-3.5 h-3.5" />
-              <span>Popular packages</span>
+              <span>{customBadge || 'Popular packages'}</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
-              Curated journeys{' '}
-              <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">
-                ready to personalise
-              </span>
-            </h2>
+            {customTitle ? (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+                {customTitle}
+              </h2>
+            ) : (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+                Curated journeys{' '}
+                <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">
+                  ready to personalise
+                </span>
+              </h2>
+            )}
 
             <p className="text-[#594336] dark:text-[#D1C2B8] text-sm sm:text-base leading-relaxed font-normal">
-              Proven itineraries designed for discerning travelers. Every package can be modified,
-              upgraded, and reshuffled to match your exact dates and preferences.
+              {customSubtitle || 'Proven itineraries designed for discerning travelers. Every package can be modified, upgraded, and reshuffled to match your exact dates and preferences.'}
             </p>
           </div>
 

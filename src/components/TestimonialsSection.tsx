@@ -6,9 +6,17 @@ import { GlassImage } from './GlassImage';
 
 interface TestimonialsSectionProps {
   testimonials?: TestimonialItem[];
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
 }
 
-export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testimonials }) => {
+export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
+  testimonials,
+  customBadge,
+  customTitle,
+  customSubtitle,
+}) => {
   const activeReviews = testimonials && testimonials.length > 0 ? testimonials : TESTIMONIALS;
 
   return (
@@ -18,15 +26,21 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testim
         <div className="max-w-3xl space-y-4 mb-16 text-center sm:text-left">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
             <Heart className="w-3.5 h-3.5 fill-[#8C5528]/20 dark:fill-[#E28C38]/20 text-[#8C5528] dark:text-[#E28C38]" />
-            <span>Real stories</span>
+            <span>{customBadge || 'Real stories'}</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
-            Trips that <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">changed everything</span>
-          </h2>
+          {customTitle ? (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              {customTitle}
+            </h2>
+          ) : (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              Trips that <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">changed everything</span>
+            </h2>
+          )}
 
           <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
-            Honest feedback from Indian couples, corporate leaders, and families who trusted us with their most cherished milestones.
+            {customSubtitle || 'Honest feedback from Indian couples, corporate leaders, and families who trusted us with their most cherished milestones.'}
           </p>
         </div>
 

@@ -112,6 +112,27 @@ export interface CustomSection {
   items: CustomSectionItem[];
 }
 
+export interface HowItWorksStep {
+  step: string;
+  title: string;
+  description: string;
+  actionBadge?: string;
+  badge?: string;
+}
+
+export interface WhyUsPillar {
+  title: string;
+  description: string;
+  iconName?: string;
+  stat?: string;
+}
+
+export interface SectionCustomContent {
+  title?: string;
+  subtitle?: string;
+  badge?: string;
+}
+
 export interface CMSData {
   heroTitle: string;
   heroSubtitle: string;
@@ -128,6 +149,9 @@ export interface CMSData {
   experiencePillars: ExperiencePillar[];
   gallery?: GalleryItem[];
   customSections: CustomSection[];
+  howItWorksSteps?: HowItWorksStep[];
+  whyUsPillars?: WhyUsPillar[];
+  sectionHeaders?: Record<string, SectionCustomContent>;
   companyInfo: {
     name: string;
     tagline: string;
@@ -141,6 +165,7 @@ export interface CMSData {
     currentYear: string;
     promise: string;
     philosophy: string;
+    standardText?: string;
   };
 }
 

@@ -5,11 +5,17 @@ import { ArrowRight, Sparkles, Check } from 'lucide-react';
 
 interface ExperiencesSectionProps {
   pillars?: ExperiencePillar[];
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
   onPlanTripType: (tripType: string) => void;
 }
 
 export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
   pillars,
+  customBadge,
+  customTitle,
+  customSubtitle,
   onPlanTripType,
 }) => {
   const activePillars = pillars && pillars.length > 0 ? pillars : EXPERIENCE_PILLARS;
@@ -21,15 +27,21 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
         <div className="max-w-3xl space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-md text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 shadow-xs">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>What we curate</span>
+            <span>{customBadge || 'What we curate'}</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
-            Every kind of <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">extraordinary</span>
-          </h2>
+          {customTitle ? (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              {customTitle}
+            </h2>
+          ) : (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              Every kind of <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">extraordinary</span>
+            </h2>
+          )}
 
           <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
-            Tailored journeys created for personal celebrations, multi-city cultural quests, executive gatherings, and spontaneous luxury getaways.
+            {customSubtitle || 'Tailored journeys created for personal celebrations, multi-city cultural quests, executive gatherings, and spontaneous luxury getaways.'}
           </p>
         </div>
 

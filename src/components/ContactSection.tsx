@@ -5,12 +5,21 @@ import { Phone, Mail, MessageCircle, CheckCircle2, Clock, Sparkles } from 'lucid
 interface ContactSectionProps {
   initialDestination?: string;
   initialTripType?: string;
+  companyInfo?: typeof COMPANY_INFO;
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
   initialDestination = '',
   initialTripType = '',
+  companyInfo,
+  customBadge,
+  customTitle,
+  customSubtitle,
 }) => {
+  const info = companyInfo || COMPANY_INFO;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -70,18 +79,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Get in touch</span>
+                <span>{customBadge || 'Get in touch'}</span>
               </div>
 
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
-                Let's design your <br />
-                <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">
-                  perfect trip
-                </span>
-              </h2>
+              {customTitle ? (
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
+                  {customTitle}
+                </h2>
+              ) : (
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
+                  Let's design your <br />
+                  <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">
+                    perfect trip
+                  </span>
+                </h2>
+              )}
 
               <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
-                Share your travel dreams and we'll get back to you within 24 hours with a custom plan. No obligation, no pressure — just inspiration.
+                {customSubtitle || "Share your travel dreams and we'll get back to you within 24 hours with a custom plan. No obligation, no pressure — just inspiration."}
               </p>
             </div>
 
@@ -89,7 +104,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             <div className="space-y-4">
               {/* Phone / WhatsApp */}
               <a
-                href={`tel:${COMPANY_INFO.phone}`}
+                href={`tel:${info.phone}`}
                 className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/50 dark:hover:border-[#E28C38]/50 transition-colors flex items-center gap-4 group shadow-xs"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#F4ECE4] dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] flex items-center justify-center border border-[#DFD0C0] dark:border-white/15 shrink-0 group-hover:scale-105 transition-transform">
@@ -100,14 +115,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     Call / WhatsApp
                   </span>
                   <span className="font-serif text-lg font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
-                    {COMPANY_INFO.phone}
+                    {info.phone}
                   </span>
                 </div>
               </a>
 
               {/* Email */}
               <a
-                href={`mailto:${COMPANY_INFO.email}`}
+                href={`mailto:${info.email}`}
                 className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/50 dark:hover:border-[#E28C38]/50 transition-colors flex items-center gap-4 group shadow-xs"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#F4ECE4] dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] flex items-center justify-center border border-[#DFD0C0] dark:border-white/15 shrink-0 group-hover:scale-105 transition-transform">
@@ -118,7 +133,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     Email us
                   </span>
                   <span className="font-serif text-lg font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
-                    {COMPANY_INFO.email}
+                    {info.email}
                   </span>
                 </div>
               </a>
@@ -133,7 +148,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     WhatsApp chat
                   </span>
                   <span className="text-sm font-semibold text-[#22543D] dark:text-emerald-400">
-                    {COMPANY_INFO.supportHours}
+                    {info.supportHours}
                   </span>
                 </div>
               </div>

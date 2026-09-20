@@ -11,6 +11,8 @@ import {
   EXPERIENCE_PILLARS,
   COMPANY_INFO,
   GALLERY_ITEMS,
+  HOW_IT_WORKS_STEPS,
+  WHY_US_PILLARS,
 } from "./src/data/travelData";
 
 const app = express();
@@ -152,7 +154,10 @@ let cmsData: any = {
   experiencePillars: EXPERIENCE_PILLARS,
   gallery: GALLERY_ITEMS,
   customSections: DEFAULT_CUSTOM_SECTIONS,
-  companyInfo: COMPANY_INFO
+  companyInfo: COMPANY_INFO,
+  howItWorksSteps: HOW_IT_WORKS_STEPS,
+  whyUsPillars: WHY_US_PILLARS,
+  sectionHeaders: {}
 };
 
 // Load saved CMS data if exists
@@ -173,7 +178,10 @@ if (fs.existsSync(DATA_FILE)) {
       experiencePillars: parsed.experiencePillars || EXPERIENCE_PILLARS,
       gallery: parsed.gallery || GALLERY_ITEMS,
       customSections: parsed.customSections || DEFAULT_CUSTOM_SECTIONS,
-      companyInfo: { ...COMPANY_INFO, ...(parsed.companyInfo || {}) }
+      companyInfo: { ...COMPANY_INFO, ...(parsed.companyInfo || {}) },
+      howItWorksSteps: parsed.howItWorksSteps || HOW_IT_WORKS_STEPS,
+      whyUsPillars: parsed.whyUsPillars || WHY_US_PILLARS,
+      sectionHeaders: parsed.sectionHeaders || {}
     };
   } catch (e) {
     console.error("Error parsing cms-data.json", e);
@@ -306,6 +314,9 @@ app.post("/api/cms", (req, res) => {
       experiencePillars: req.body.experiencePillars || cmsData.experiencePillars || [],
       gallery: req.body.gallery || cmsData.gallery || GALLERY_ITEMS,
       companyInfo: req.body.companyInfo || cmsData.companyInfo || COMPANY_INFO,
+      howItWorksSteps: req.body.howItWorksSteps || cmsData.howItWorksSteps || HOW_IT_WORKS_STEPS,
+      whyUsPillars: req.body.whyUsPillars || cmsData.whyUsPillars || WHY_US_PILLARS,
+      sectionHeaders: req.body.sectionHeaders || cmsData.sectionHeaders || {},
     };
 
     fs.writeFileSync(DATA_FILE, JSON.stringify(cmsData, null, 2));

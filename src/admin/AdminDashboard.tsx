@@ -7,6 +7,9 @@ import {
   TestimonialItem,
   ExperiencePillar,
   GalleryItem,
+  HowItWorksStep,
+  WhyUsPillar,
+  SectionCustomContent,
 } from '../types';
 import {
   Layers,
@@ -86,6 +89,9 @@ export default function AdminDashboard() {
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [customSections, setCustomSections] = useState<CustomSection[]>([]);
   const [companyInfo, setCompanyInfo] = useState<any>(COMPANY_INFO);
+  const [sectionHeaders, setSectionHeaders] = useState<Record<string, SectionCustomContent>>({});
+  const [howItWorksSteps, setHowItWorksSteps] = useState<HowItWorksStep[]>([]);
+  const [whyUsPillars, setWhyUsPillars] = useState<WhyUsPillar[]>([]);
 
   useEffect(() => {
     if (localStorage.getItem('isAdminLoggedIn') !== 'true') {
@@ -120,6 +126,13 @@ export default function AdminDashboard() {
         setGallery(data.gallery || GALLERY_ITEMS);
         setCustomSections(data.customSections || []);
         setCompanyInfo(data.companyInfo || COMPANY_INFO);
+        setSectionHeaders(data.sectionHeaders || {});
+        if (data.howItWorksSteps && Array.isArray(data.howItWorksSteps)) {
+          setHowItWorksSteps(data.howItWorksSteps);
+        }
+        if (data.whyUsPillars && Array.isArray(data.whyUsPillars)) {
+          setWhyUsPillars(data.whyUsPillars);
+        }
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -152,6 +165,9 @@ export default function AdminDashboard() {
           gallery,
           customSections,
           companyInfo,
+          sectionHeaders,
+          howItWorksSteps,
+          whyUsPillars,
         }),
       });
 
@@ -270,7 +286,7 @@ export default function AdminDashboard() {
               }`}
             >
               <Layers className="w-4 h-4" />
-              <span>Section Flow & Custom</span>
+              <span>Sections & Page Builder</span>
             </button>
 
             <button
@@ -405,6 +421,13 @@ export default function AdminDashboard() {
                 setSectionVisibility={setSectionVisibility}
                 customSections={customSections}
                 setCustomSections={setCustomSections}
+                sectionHeaders={sectionHeaders}
+                setSectionHeaders={setSectionHeaders}
+                howItWorksSteps={howItWorksSteps}
+                setHowItWorksSteps={setHowItWorksSteps}
+                whyUsPillars={whyUsPillars}
+                setWhyUsPillars={setWhyUsPillars}
+                onNavigateTab={(tab) => setActiveTab(tab)}
               />
             )}
 

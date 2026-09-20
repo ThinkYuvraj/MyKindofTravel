@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { CustomSection, CustomSectionItem } from '../types';
+import {
+  CustomSection,
+  CustomSectionItem,
+  SectionCustomContent,
+  HowItWorksStep,
+  WhyUsPillar,
+} from '../types';
 import { ImageUploadField } from './ImageUploadField';
 import {
   Layers,
@@ -17,7 +23,24 @@ import {
   HelpCircle,
   Columns,
   Sparkles,
+  RotateCcw,
+  ExternalLink,
+  Search,
+  Filter,
+  SlidersHorizontal,
+  Compass,
+  CheckCircle2,
 } from 'lucide-react';
+
+export type AdminTab =
+  | 'sections'
+  | 'hero'
+  | 'destinations'
+  | 'packages'
+  | 'gallery'
+  | 'content'
+  | 'leads'
+  | 'settings';
 
 interface SectionsManagerProps {
   sectionOrder: string[];
@@ -26,22 +49,183 @@ interface SectionsManagerProps {
   setSectionVisibility: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
   customSections: CustomSection[];
   setCustomSections: React.Dispatch<React.SetStateAction<CustomSection[]>>;
+  sectionHeaders?: Record<string, SectionCustomContent>;
+  setSectionHeaders?: React.Dispatch<React.SetStateAction<Record<string, SectionCustomContent>>>;
+  howItWorksSteps?: HowItWorksStep[];
+  setHowItWorksSteps?: React.Dispatch<React.SetStateAction<HowItWorksStep[]>>;
+  whyUsPillars?: WhyUsPillar[];
+  setWhyUsPillars?: React.Dispatch<React.SetStateAction<WhyUsPillar[]>>;
+  onNavigateTab?: (tab: AdminTab) => void;
 }
 
-const SECTION_LABELS: Record<string, { label: string; desc: string }> = {
-  hero: { label: 'Hero Banner', desc: 'Main headline, search cues, video/image banner' },
-  destinations: { label: 'Featured Destinations', desc: 'Handpicked destination cards with flight time' },
-  marquee: { label: 'Marquee Ticker', desc: 'Flowing ticker with destinations and icons' },
-  about: { label: 'Philosophy & About', desc: 'Bespoke philosophy and company credentials' },
-  radar: { label: 'Flight Route Radar', desc: 'Interactive flight routes from India' },
-  experiences: { label: 'Experience Pillars', desc: '6 pillars: Honeymoon, Family, Luxury, etc.' },
-  howItWorks: { label: 'How It Works', desc: '4-step journey from dream to departure' },
-  packages: { label: 'Popular Packages', desc: 'Curated itineraries ready to personalise' },
-  gallery: { label: 'Wanderlust Gallery', desc: 'Photo mosaic with category filters' },
-  testimonials: { label: 'Client Stories', desc: 'Reviews from discerning travellers' },
-  whyUs: { label: 'Why Choose Us', desc: 'Key promises and 24/7 concierge guarantee' },
-  contact: { label: 'Enquiry & Contact', desc: 'Lead capture form and direct contact info' },
+interface BuiltInSectionConfig {
+  label: string;
+  desc: string;
+  defaultBadge: string;
+  defaultTitle: string;
+  defaultSubtitle: string;
+  dedicatedTab?: AdminTab;
+  tabLabel?: string;
+  hasSpecialEditor?: 'howItWorks' | 'whyUs' | 'about';
+}
+
+const BUILT_IN_SECTIONS: Record<string, BuiltInSectionConfig> = {
+  hero: {
+    label: 'Hero Banner',
+    desc: 'Top marquee headline, travel badges, CTA buttons & background photography',
+    defaultBadge: 'My Kind of Travel • Bespoke Journeys',
+    defaultTitle: 'EXPLORE. DREAM. DISCOVER.',
+    defaultSubtitle: "Handcrafted luxury holidays, private European chalets, honeymoon cliffside villas, and bespoke journeys tailored for India's discerning travellers.",
+    dedicatedTab: 'hero',
+    tabLabel: 'Edit Hero & Banner Media',
+  },
+  destinations: {
+    label: 'Featured Destinations',
+    desc: 'Handpicked destination cards with flight corridors, pricing & guides',
+    defaultBadge: 'Handpicked Guides & Journeys',
+    defaultTitle: 'Featured Destinations',
+    defaultSubtitle: 'Explore world-renowned wonders, secret terraced hills, private island villas, and bucket-list cultural expeditions.',
+    dedicatedTab: 'destinations',
+    tabLabel: 'Manage All Destinations',
+  },
+  marquee: {
+    label: 'Marquee Ticker',
+    desc: 'Flowing animated ticker highlighting top travel hotspots and specializations',
+    defaultBadge: 'Trending Destinations',
+    defaultTitle: 'Direct Corridors & Specialist Tags',
+    defaultSubtitle: 'Real-time flowing ribbon of luxury destinations from India.',
+    dedicatedTab: 'hero',
+    tabLabel: 'Manage Marquee Items',
+  },
+  about: {
+    label: 'Philosophy & About',
+    desc: 'Bespoke holiday philosophy, company credentials & boutique travel agency values',
+    defaultBadge: 'Bespoke Travel Philosophy',
+    defaultTitle: 'Journeys designed around who you are, not just where you are going.',
+    defaultSubtitle: 'We reject cookie-cutter mass tourism. Every holiday is designed from an empty canvas.',
+    hasSpecialEditor: 'about',
+    dedicatedTab: 'settings',
+    tabLabel: 'Company Contacts & Credentials',
+  },
+  radar: {
+    label: 'Flight Route Radar',
+    desc: 'Interactive flight corridor viewer with flight times and direct routes from India',
+    defaultBadge: 'Direct Route Radar',
+    defaultTitle: 'Bespoke Flight Corridors from India',
+    defaultSubtitle: 'Preview flight times, curated connections, and signature on-ground luxury waiting for you at each destination.',
+  },
+  experiences: {
+    label: 'Experience Pillars',
+    desc: '6 distinct travel themes: Honeymoon, Family, Ultra-Luxury, Culinary & Adventure',
+    defaultBadge: 'Tailored Travel Styles',
+    defaultTitle: 'How do you want your journey to feel?',
+    defaultSubtitle: 'Whether seeking quiet alpine solitude or bustling street markets, we shape each day around your tempo.',
+    dedicatedTab: 'content',
+    tabLabel: 'Manage 6 Experience Pillars',
+  },
+  howItWorks: {
+    label: 'How It Works',
+    desc: '4-step journey from initial spark to dream departure with 24/7 concierge',
+    defaultBadge: 'Effortless Planning',
+    defaultTitle: 'From First Spark to Unforgettable Return',
+    defaultSubtitle: 'A transparent, four-step approach ensuring your holiday is seamless, private, and memorable.',
+    hasSpecialEditor: 'howItWorks',
+  },
+  packages: {
+    label: 'Popular Packages',
+    desc: 'Ready-to-personalize itineraries with pricing, day breakdown, and inclusions',
+    defaultBadge: 'Popular packages',
+    defaultTitle: 'Curated journeys ready to personalise',
+    defaultSubtitle: 'Proven itineraries designed for discerning travelers. Every package can be modified, upgraded, and reshuffled to match your exact dates and preferences.',
+    dedicatedTab: 'packages',
+    tabLabel: 'Manage Itineraries & Pricing',
+  },
+  gallery: {
+    label: 'Wanderlust Gallery',
+    desc: 'Visual photo mosaic filterable by Villas, Romance, Culture, Nature & Dining',
+    defaultBadge: 'Visual Diary',
+    defaultTitle: 'Moments Captured on Our Journeys',
+    defaultSubtitle: 'A glimpse into the private villas, twilight dinners, and secluded landscapes crafted for our guests.',
+    dedicatedTab: 'gallery',
+    tabLabel: 'Manage Visual Gallery & Photos',
+  },
+  testimonials: {
+    label: 'Client Stories',
+    desc: 'Verified reviews from Indian couples, families, and solo travellers',
+    defaultBadge: 'Traveller Stories',
+    defaultTitle: 'Words from Our Discerning Guests',
+    defaultSubtitle: 'Real experiences from honeymooners, families, and solo explorers who trusted us with their vacations.',
+    dedicatedTab: 'content',
+    tabLabel: 'Manage Client Reviews',
+  },
+  whyUs: {
+    label: 'Why Choose Us',
+    desc: 'Four core commitments: 100% Bespoke, <5 min WhatsApp concierge, verified stays, zero hidden fees',
+    defaultBadge: 'The My Kind of Travel Difference',
+    defaultTitle: 'Why Discerning Travellers Trust Us',
+    defaultSubtitle: 'Direct insider access, verified boutique villas, and around-the-clock bespoke care from India to your destination.',
+    hasSpecialEditor: 'whyUs',
+  },
+  contact: {
+    label: 'Enquiry & Contact',
+    desc: 'Lead generation form, direct WhatsApp/phone numbers and customer support hours',
+    defaultBadge: 'Get in touch',
+    defaultTitle: "Let's design your perfect trip",
+    defaultSubtitle: "Share your travel dreams and we'll get back to you within 24 hours with a custom plan. No obligation, no pressure — just inspiration.",
+    dedicatedTab: 'leads',
+    tabLabel: 'View Incoming Inquiries CRM',
+  },
 };
+
+const DEFAULT_HOW_IT_WORKS: HowItWorksStep[] = [
+  {
+    step: '01',
+    title: 'Private Consultation',
+    description: 'Tell us your dreams, tempo, and budget over WhatsApp or a personalized call with your dedicated holiday curator.',
+    badge: 'Step 1 • Connect',
+  },
+  {
+    step: '02',
+    title: 'Tailored Master Blueprint',
+    description: 'We draft a day-by-day itinerary with boutique stays, private transfers, and bespoke experiences tailored to you.',
+    badge: 'Step 2 • Crafting',
+  },
+  {
+    step: '03',
+    title: 'Seamless Confirmations',
+    description: 'We lock in flights, visas, 5-star handpicked hotels, skip-the-line tickets, and vetted on-ground chauffeurs.',
+    badge: 'Step 3 • Lock-in',
+  },
+  {
+    step: '04',
+    title: 'Unscripted Wanderlust',
+    description: 'Travel effortlessly with 24/7 WhatsApp concierge support, private guides, and round-the-clock peace of mind.',
+    badge: 'Step 4 • Travel',
+  },
+];
+
+const DEFAULT_WHY_US: WhyUsPillar[] = [
+  {
+    title: 'Zero Pre-Packaged Templates',
+    description: 'Every journey is handcrafted from scratch. No cookie-cutter tour buses, no crowded tourist traps.',
+    stat: '100% Bespoke',
+  },
+  {
+    title: '24/7 India & Global Concierge',
+    description: 'Your dedicated travel specialist is one WhatsApp tap away before, during, and after your entire journey.',
+    stat: '< 5 Min Response',
+  },
+  {
+    title: 'Vetted 5-Star & Boutique Partners',
+    description: 'We only recommend hotels, villas, and private chauffeurs that have been rigorously inspected and vetted.',
+    stat: '450+ Verified Stays',
+  },
+  {
+    title: 'Transparent Pricing & Fair Value',
+    description: 'Direct relationships with local destination management companies guarantee genuine value without hidden surcharges.',
+    stat: 'Zero Hidden Fees',
+  },
+];
 
 export const SectionsManager: React.FC<SectionsManagerProps> = ({
   sectionOrder,
@@ -50,9 +234,98 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
   setSectionVisibility,
   customSections,
   setCustomSections,
+  sectionHeaders = {},
+  setSectionHeaders,
+  howItWorksSteps = DEFAULT_HOW_IT_WORKS,
+  setHowItWorksSteps,
+  whyUsPillars = DEFAULT_WHY_US,
+  setWhyUsPillars,
+  onNavigateTab,
 }) => {
-  const [editingSection, setEditingSection] = useState<CustomSection | null>(null);
-  const [isCreating, setIsCreating] = useState(false);
+  // Modal states
+  const [editingBuiltInKey, setEditingBuiltInKey] = useState<string | null>(null);
+  const [builtInForm, setBuiltInForm] = useState<SectionCustomContent>({
+    badge: '',
+    title: '',
+    subtitle: '',
+  });
+
+  // Local copies for special sub-editors
+  const [localSteps, setLocalSteps] = useState<HowItWorksStep[]>([]);
+  const [localPillars, setLocalPillars] = useState<WhyUsPillar[]>([]);
+
+  // Custom section state
+  const [editingCustomSection, setEditingCustomSection] = useState<CustomSection | null>(null);
+  const [isCreatingCustom, setIsCreatingCustom] = useState(false);
+
+  // Search & Filter
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterType, setFilterType] = useState<'all' | 'visible' | 'hidden' | 'custom'>('all');
+
+  // Open Built-in Editor
+  const handleOpenBuiltInEditor = (key: string) => {
+    const config = BUILT_IN_SECTIONS[key];
+    const currentHeader = sectionHeaders[key] || {};
+    setBuiltInForm({
+      badge: currentHeader.badge !== undefined ? currentHeader.badge : config?.defaultBadge || '',
+      title: currentHeader.title !== undefined ? currentHeader.title : config?.defaultTitle || '',
+      subtitle: currentHeader.subtitle !== undefined ? currentHeader.subtitle : config?.defaultSubtitle || '',
+    });
+
+    if (key === 'howItWorks') {
+      setLocalSteps(howItWorksSteps.length > 0 ? [...howItWorksSteps] : [...DEFAULT_HOW_IT_WORKS]);
+    }
+    if (key === 'whyUs') {
+      setLocalPillars(whyUsPillars.length > 0 ? [...whyUsPillars] : [...DEFAULT_WHY_US]);
+    }
+
+    setEditingBuiltInKey(key);
+  };
+
+  // Save Built-in Editor Changes
+  const handleSaveBuiltInEditor = () => {
+    if (!editingBuiltInKey) return;
+
+    if (setSectionHeaders) {
+      setSectionHeaders((prev) => ({
+        ...prev,
+        [editingBuiltInKey]: {
+          badge: builtInForm.badge,
+          title: builtInForm.title,
+          subtitle: builtInForm.subtitle,
+        },
+      }));
+    }
+
+    if (editingBuiltInKey === 'howItWorks' && setHowItWorksSteps) {
+      setHowItWorksSteps(localSteps);
+    }
+
+    if (editingBuiltInKey === 'whyUs' && setWhyUsPillars) {
+      setWhyUsPillars(localPillars);
+    }
+
+    setEditingBuiltInKey(null);
+  };
+
+  // Reset Built-in Section to Default
+  const handleResetBuiltInToDefault = (key: string) => {
+    const config = BUILT_IN_SECTIONS[key];
+    if (!config) return;
+
+    setBuiltInForm({
+      badge: config.defaultBadge,
+      title: config.defaultTitle,
+      subtitle: config.defaultSubtitle,
+    });
+
+    if (key === 'howItWorks') {
+      setLocalSteps([...DEFAULT_HOW_IT_WORKS]);
+    }
+    if (key === 'whyUs') {
+      setLocalPillars([...DEFAULT_WHY_US]);
+    }
+  };
 
   // Toggle Visibility
   const toggleVisibility = (key: string) => {
@@ -83,7 +356,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
   };
 
   // Initiate New Custom Section
-  const handleStartCreate = () => {
+  const handleStartCreateCustom = () => {
     const newId = `custom-${Date.now()}`;
     const newSection: CustomSection = {
       id: newId,
@@ -98,42 +371,33 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
           id: `item-${Date.now()}-1`,
           title: 'Amalfi Coast Cliffside Villa',
           subtitle: 'Positano, Italy',
-          description: 'Private infinity pool overlooking the Tyrrhenian Sea with yacht charter.',
+          description: 'Private infinity pool overlooking the Mediterranean with concierge chauffeur.',
           badge: 'Exclusive',
-          image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=80',
+          image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80',
           linkText: 'Explore Villa',
-        },
-        {
-          id: `item-${Date.now()}-2`,
-          title: 'Swiss Chalet Retreat',
-          subtitle: 'Zermatt, Switzerland',
-          description: 'Matterhorn view sauna, private ski butler, and Michelin star dining.',
-          badge: 'Popular',
-          image: 'https://images.unsplash.com/photo-1502784444187-359ac186c5bb?auto=format&fit=crop&w=1200&q=80',
-          linkText: 'View Details',
         },
       ],
     };
-    setEditingSection(newSection);
-    setIsCreating(true);
+    setEditingCustomSection(newSection);
+    setIsCreatingCustom(true);
   };
 
-  // Save Custom Section (Create or Update)
+  // Save Custom Section
   const handleSaveCustomSection = () => {
-    if (!editingSection) return;
+    if (!editingCustomSection) return;
 
-    if (isCreating) {
-      setCustomSections((prev) => [...prev, editingSection]);
-      setSectionOrder((prev) => [...prev, editingSection.id]);
-      setSectionVisibility((prev) => ({ ...prev, [editingSection.id]: true }));
+    if (isCreatingCustom) {
+      setCustomSections((prev) => [...prev, editingCustomSection]);
+      setSectionOrder((prev) => [...prev, editingCustomSection.id]);
+      setSectionVisibility((prev) => ({ ...prev, [editingCustomSection.id]: true }));
     } else {
       setCustomSections((prev) =>
-        prev.map((s) => (s.id === editingSection.id ? editingSection : s))
+        prev.map((s) => (s.id === editingCustomSection.id ? editingCustomSection : s))
       );
     }
 
-    setEditingSection(null);
-    setIsCreating(false);
+    setEditingCustomSection(null);
+    setIsCreatingCustom(false);
   };
 
   // Delete Custom Section
@@ -151,7 +415,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
 
   // Add Item to Editing Custom Section
   const handleAddItemToEditing = () => {
-    if (!editingSection) return;
+    if (!editingCustomSection) return;
     const newItem: CustomSectionItem = {
       id: `item-${Date.now()}`,
       title: 'New Highlight or Question',
@@ -161,200 +425,668 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
       image: '',
       linkText: 'Learn More',
     };
-    setEditingSection({
-      ...editingSection,
-      items: [...editingSection.items, newItem],
+    setEditingCustomSection({
+      ...editingCustomSection,
+      items: [...editingCustomSection.items, newItem],
     });
   };
 
   // Update Item in Editing Custom Section
   const handleUpdateEditingItem = (index: number, field: keyof CustomSectionItem, val: string) => {
-    if (!editingSection) return;
-    const updated = [...editingSection.items];
+    if (!editingCustomSection) return;
+    const updated = [...editingCustomSection.items];
     updated[index] = { ...updated[index], [field]: val };
-    setEditingSection({ ...editingSection, items: updated });
+    setEditingCustomSection({ ...editingCustomSection, items: updated });
   };
 
   // Remove Item from Editing Custom Section
   const handleRemoveEditingItem = (index: number) => {
-    if (!editingSection) return;
-    const updated = editingSection.items.filter((_, i) => i !== index);
-    setEditingSection({ ...editingSection, items: updated });
+    if (!editingCustomSection) return;
+    const updated = editingCustomSection.items.filter((_, i) => i !== index);
+    setEditingCustomSection({ ...editingCustomSection, items: updated });
   };
 
+  // Filtered section list
+  const filteredOrder = sectionOrder.filter((key) => {
+    const isCustom = key.startsWith('custom-');
+    const customSec = isCustom ? customSections.find((s) => s.id === key) : null;
+    const info = isCustom
+      ? { label: customSec?.title || 'Custom Section', desc: customSec?.subtitle || '' }
+      : BUILT_IN_SECTIONS[key] || { label: key, desc: '' };
+
+    // Search filter
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const matchLabel = info.label.toLowerCase().includes(q);
+      const matchDesc = info.desc.toLowerCase().includes(q);
+      const matchKey = key.toLowerCase().includes(q);
+      if (!matchLabel && !matchDesc && !matchKey) return false;
+    }
+
+    // Type filter
+    const isVisible = sectionVisibility[key] !== false;
+    if (filterType === 'visible' && !isVisible) return false;
+    if (filterType === 'hidden' && isVisible) return false;
+    if (filterType === 'custom' && !isCustom) return false;
+
+    return true;
+  });
+
+  const totalVisible = sectionOrder.filter((k) => sectionVisibility[k] !== false).length;
+  const totalHidden = sectionOrder.length - totalVisible;
+
   return (
-    <div className="p-6 space-y-8">
-      {/* Header Info */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#3D2315]">
+    <div className="p-6 sm:p-8 space-y-8">
+      {/* Top Banner & Title */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#3D2315]">
         <div>
-          <div className="flex items-center gap-2 text-[#C87428] font-bold text-xs uppercase tracking-widest mb-1">
+          <div className="flex items-center gap-2 text-[#C87428] font-bold text-xs uppercase tracking-widest mb-1.5">
             <Layers className="w-4 h-4" />
-            <span>Layout & Flow Engine</span>
+            <span>Modular Page Builder</span>
           </div>
-          <h3 className="text-xl font-serif font-bold text-white">Homepage Sections Manager</h3>
-          <p className="text-sm text-[#EADFD5]/70 mt-1">
-            Drag, reorder, show/hide, or create custom sections to customise your site structure in real time.
+          <h3 className="text-2xl font-serif font-bold text-white tracking-tight">
+            Homepage Sections Manager
+          </h3>
+          <p className="text-sm text-[#EADFD5]/70 mt-1.5 max-w-2xl">
+            Fully control every section on your live homepage. Reorder sections, toggle visibility,
+            customize section headings, badges, and subtitles, or create dynamic custom layouts.
           </p>
         </div>
 
-        <button
-          onClick={handleStartCreate}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-sm font-bold shadow-md shadow-[#C87428]/20 transition-all cursor-pointer self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4 stroke-[2.5]" />
-          <span>Add Custom Section</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={handleStartCreateCustom}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#C87428]/25 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4 stroke-[2.5]" />
+            <span>Create Custom Section</span>
+          </button>
+        </div>
       </div>
 
-      {/* Reorderable Section List */}
-      <div className="space-y-3">
-        {sectionOrder.map((key, index) => {
-          const isCustom = key.startsWith('custom-');
-          const customSec = isCustom ? customSections.find((s) => s.id === key) : null;
-          const info = isCustom
-            ? {
-                label: customSec?.title || 'Custom Section',
-                desc: `Layout: ${customSec?.layout || 'grid-cards'} • ${customSec?.items?.length || 0} items`,
-              }
-            : SECTION_LABELS[key] || { label: key, desc: 'Built-in section' };
+      {/* Filter and Search Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-3 bg-[#1A0E08] border border-[#3D2315] rounded-xl">
+        {/* Search */}
+        <div className="relative flex-1 max-w-md">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#EADFD5]/40" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search sections by name or keyword..."
+            className="w-full pl-9 pr-3.5 py-2 bg-[#2A1810] border border-[#3D2315] rounded-lg text-xs text-white placeholder-[#EADFD5]/40 outline-none focus:border-[#C87428]"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-[#EADFD5]/50 hover:text-white"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
 
-          const isVisible = sectionVisibility[key] !== false;
-
-          return (
-            <div
-              key={key}
-              className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
-                isVisible
-                  ? 'bg-[#1A0E08]/80 border-[#3D2315] hover:border-[#C87428]/40'
-                  : 'bg-[#140B06]/40 border-white/5 opacity-50'
+        {/* Filter Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+          {[
+            { id: 'all', label: `All (${sectionOrder.length})` },
+            { id: 'visible', label: `Live (${totalVisible})` },
+            { id: 'hidden', label: `Hidden (${totalHidden})` },
+            { id: 'custom', label: `Custom (${customSections.length})` },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setFilterType(tab.id as any)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
+                filterType === tab.id
+                  ? 'bg-[#C87428] text-white shadow-xs'
+                  : 'bg-[#2A1810] text-[#EADFD5]/70 hover:text-white hover:bg-[#3D2315]'
               }`}
             >
-              {/* Order Number & Title */}
-              <div className="flex items-center gap-4 min-w-0">
-                <span className="w-7 h-7 rounded-lg bg-[#2A1810] text-[#C87428] border border-[#3D2315] text-xs font-mono font-bold flex items-center justify-center shrink-0">
-                  {index + 1}
-                </span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2.5 flex-wrap">
-                    <h4 className="text-sm font-bold text-white truncate">{info.label}</h4>
-                    {isCustom ? (
-                      <span className="px-2 py-0.5 rounded-md bg-[#C87428]/20 text-[#E28C38] border border-[#C87428]/40 text-[10px] uppercase tracking-wider font-bold">
-                        Custom Section
+      {/* Sections List */}
+      <div className="space-y-3">
+        {filteredOrder.length === 0 ? (
+          <div className="p-8 text-center bg-[#1A0E08]/60 border border-[#3D2315] rounded-xl text-[#EADFD5]/60">
+            <SlidersHorizontal className="w-8 h-8 text-[#C87428] mx-auto mb-2 opacity-50" />
+            <p className="text-sm font-medium">No sections found matching your query.</p>
+          </div>
+        ) : (
+          filteredOrder.map((key) => {
+            const actualIndex = sectionOrder.indexOf(key);
+            const isCustom = key.startsWith('custom-');
+            const customSec = isCustom ? customSections.find((s) => s.id === key) : null;
+            const config = BUILT_IN_SECTIONS[key];
+
+            const currentHeader = sectionHeaders[key];
+            const displayTitle = isCustom
+              ? customSec?.title || 'Custom Section'
+              : currentHeader?.title || config?.defaultTitle || key;
+            const displayBadge = isCustom
+              ? customSec?.badgeText || 'Custom'
+              : currentHeader?.badge || config?.defaultBadge || '';
+            const displayDesc = isCustom
+              ? `Layout: ${customSec?.layout || 'grid-cards'} • ${customSec?.items?.length || 0} items`
+              : config?.desc || 'Built-in section';
+
+            const isVisible = sectionVisibility[key] !== false;
+
+            return (
+              <div
+                key={key}
+                className={`p-4 rounded-xl border transition-all ${
+                  isVisible
+                    ? 'bg-[#1A0E08]/90 border-[#3D2315] hover:border-[#C87428]/40 shadow-xs'
+                    : 'bg-[#140B06]/50 border-white/5 opacity-60'
+                }`}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  {/* Left: Position Number, Info, and Status */}
+                  <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
+                    {/* Position index badge */}
+                    <div className="flex flex-col items-center justify-center shrink-0">
+                      <span className="w-8 h-8 rounded-lg bg-[#2A1810] text-[#C87428] border border-[#3D2315] text-xs font-mono font-bold flex items-center justify-center shadow-inner">
+                        {actualIndex + 1}
                       </span>
-                    ) : (
-                      <span className="px-2 py-0.5 rounded-md bg-white/5 text-[#EADFD5]/70 border border-white/10 text-[10px] uppercase tracking-wider font-semibold">
-                        Built-in
-                      </span>
+                    </div>
+
+                    {/* Section Details */}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-serif text-sm sm:text-base font-bold text-white truncate">
+                          {config?.label || displayTitle}
+                        </span>
+
+                        {displayBadge && (
+                          <span className="px-2 py-0.5 rounded-full bg-[#C87428]/15 text-[#E28C38] border border-[#C87428]/30 text-[10px] uppercase tracking-wider font-bold">
+                            {displayBadge}
+                          </span>
+                        )}
+
+                        {isCustom ? (
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-950/40 text-emerald-400 border border-emerald-800/40 text-[10px] uppercase tracking-wider font-bold">
+                            Custom Section
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded-full bg-white/5 text-[#EADFD5]/60 border border-white/10 text-[10px] uppercase tracking-wider font-medium">
+                            Built-in
+                          </span>
+                        )}
+
+                        {isVisible ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            Live on Site
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#EADFD5]/40">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#EADFD5]/30" />
+                            Hidden
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-xs text-[#EADFD5]/60 truncate mt-1">
+                        {displayDesc}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right: Actions */}
+                  <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                    {/* Move Up */}
+                    <button
+                      onClick={() => moveUp(actualIndex)}
+                      disabled={actualIndex === 0}
+                      title="Move section up"
+                      className="p-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] disabled:opacity-20 disabled:pointer-events-none text-[#EADFD5] transition-colors border border-transparent hover:border-[#3D2315]"
+                    >
+                      <ArrowUp className="w-4 h-4" />
+                    </button>
+
+                    {/* Move Down */}
+                    <button
+                      onClick={() => moveDown(actualIndex)}
+                      disabled={actualIndex === sectionOrder.length - 1}
+                      title="Move section down"
+                      className="p-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] disabled:opacity-20 disabled:pointer-events-none text-[#EADFD5] transition-colors border border-transparent hover:border-[#3D2315]"
+                    >
+                      <ArrowDown className="w-4 h-4" />
+                    </button>
+
+                    {/* Visibility Toggle */}
+                    <button
+                      onClick={() => toggleVisibility(key)}
+                      title={isVisible ? 'Hide this section from live homepage' : 'Show this section on live homepage'}
+                      className={`p-2 rounded-lg transition-colors border ${
+                        isVisible
+                          ? 'bg-[#C87428]/20 border-[#C87428]/40 text-[#E28C38] hover:bg-[#C87428]/30'
+                          : 'bg-white/5 border-white/10 text-neutral-500 hover:text-neutral-300'
+                      }`}
+                    >
+                      {isVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                    </button>
+
+                    {/* Edit Section Button (Works for BOTH built-in AND custom!) */}
+                    <button
+                      onClick={() => {
+                        if (isCustom && customSec) {
+                          setEditingCustomSection(customSec);
+                          setIsCreatingCustom(false);
+                        } else {
+                          handleOpenBuiltInEditor(key);
+                        }
+                      }}
+                      title="Update section content, titles & details"
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#C87428]/20 hover:bg-[#C87428]/35 text-[#E28C38] border border-[#C87428]/50 text-xs font-bold transition-all shadow-xs"
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                      <span>Edit Content</span>
+                    </button>
+
+                    {/* If Custom, allow deleting */}
+                    {isCustom && (
+                      <button
+                        onClick={() => handleDeleteCustomSection(key)}
+                        title="Delete custom section"
+                        className="p-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     )}
                   </div>
-                  <p className="text-xs text-[#EADFD5]/60 truncate mt-0.5">{info.desc}</p>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* ── MODAL 1: Built-in Section Content & Sub-editor ──────────────── */}
+      {editingBuiltInKey && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="w-full max-w-3xl bg-[#201109] border border-[#3D2315] rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-[#3D2315]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-[#C87428]/20 text-[#E28C38] border border-[#C87428]/40 flex items-center justify-center">
+                  <Edit3 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-serif font-bold text-white">
+                    Update Section: {BUILT_IN_SECTIONS[editingBuiltInKey]?.label || editingBuiltInKey}
+                  </h3>
+                  <p className="text-xs text-[#EADFD5]/60">
+                    Customize titles, badges, subtitles, and internal content.
+                  </p>
                 </div>
               </div>
 
-              {/* Action Controls */}
-              <div className="flex items-center gap-2 shrink-0 ml-4">
-                {/* Move Up */}
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => moveUp(index)}
-                  disabled={index === 0}
-                  title="Move section up"
-                  className="p-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] disabled:opacity-30 disabled:pointer-events-none text-[#EADFD5] transition-colors"
+                  type="button"
+                  onClick={() => handleResetBuiltInToDefault(editingBuiltInKey)}
+                  title="Reset to original default texts"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-xs text-[#EADFD5]/70 hover:text-white border border-[#3D2315] transition-colors"
                 >
-                  <ArrowUp className="w-4 h-4" />
+                  <RotateCcw className="w-3.5 h-3.5 text-[#C87428]" />
+                  <span>Reset Default</span>
                 </button>
 
-                {/* Move Down */}
                 <button
-                  onClick={() => moveDown(index)}
-                  disabled={index === sectionOrder.length - 1}
-                  title="Move section down"
-                  className="p-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] disabled:opacity-30 disabled:pointer-events-none text-[#EADFD5] transition-colors"
+                  onClick={() => setEditingBuiltInKey(null)}
+                  className="p-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5]"
                 >
-                  <ArrowDown className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
-
-                {/* Toggle Visibility */}
-                <button
-                  onClick={() => toggleVisibility(key)}
-                  title={isVisible ? 'Hide on Homepage' : 'Show on Homepage'}
-                  className={`p-2 rounded-lg transition-colors ${
-                    isVisible
-                      ? 'bg-[#C87428]/20 text-[#E28C38] hover:bg-[#C87428]/30'
-                      : 'bg-white/5 text-neutral-500 hover:text-neutral-300'
-                  }`}
-                >
-                  {isVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                </button>
-
-                {/* If Custom, allow editing and deleting */}
-                {isCustom && customSec && (
-                  <>
-                    <button
-                      onClick={() => {
-                        setEditingSection(customSec);
-                        setIsCreating(false);
-                      }}
-                      title="Edit Custom Section"
-                      className="p-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#E28C38] transition-colors"
-                    >
-                      <Edit3 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteCustomSection(key)}
-                      title="Delete Custom Section"
-                      className="p-2 rounded-lg bg-red-950/30 hover:bg-red-900/50 text-red-400 transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </>
-                )}
               </div>
             </div>
-          );
-        })}
-      </div>
 
-      {/* Custom Section Editor Modal */}
-      {editingSection && (
+            {/* Quick jump to dedicated manager if available */}
+            {BUILT_IN_SECTIONS[editingBuiltInKey]?.dedicatedTab && onNavigateTab && (
+              <div className="p-3.5 rounded-xl bg-[#C87428]/10 border border-[#C87428]/30 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2.5 text-xs text-[#E28C38]">
+                  <Compass className="w-4 h-4 shrink-0" />
+                  <span>
+                    Need to add or modify individual items (images, cards, prices)?
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const targetTab = BUILT_IN_SECTIONS[editingBuiltInKey]?.dedicatedTab;
+                    setEditingBuiltInKey(null);
+                    if (targetTab) onNavigateTab(targetTab);
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold shrink-0 transition-colors"
+                >
+                  <span>{BUILT_IN_SECTIONS[editingBuiltInKey]?.tabLabel || 'Open Dedicated Tab'}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+
+            {/* General Header Inputs */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+                  Section Badge / Tagline Eyebrow
+                </label>
+                <input
+                  type="text"
+                  value={builtInForm.badge || ''}
+                  onChange={(e) => setBuiltInForm({ ...builtInForm, badge: e.target.value })}
+                  placeholder="e.g. Handpicked Guides & Journeys"
+                  className="w-full px-3.5 py-2.5 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428] transition-colors"
+                />
+                <p className="text-[11px] text-[#EADFD5]/50 mt-1">
+                  Small pill tag displayed directly above the section headline.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+                  Main Section Headline / Title
+                </label>
+                <input
+                  type="text"
+                  value={builtInForm.title || ''}
+                  onChange={(e) => setBuiltInForm({ ...builtInForm, title: e.target.value })}
+                  placeholder="e.g. Featured Destinations"
+                  className="w-full px-3.5 py-2.5 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm font-semibold outline-none focus:border-[#C87428] transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+                  Section Subtitle / Narrative Description
+                </label>
+                <textarea
+                  rows={3}
+                  value={builtInForm.subtitle || ''}
+                  onChange={(e) => setBuiltInForm({ ...builtInForm, subtitle: e.target.value })}
+                  placeholder="Introductory text providing context for discerning travellers"
+                  className="w-full px-3.5 py-2.5 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428] transition-colors"
+                />
+              </div>
+            </div>
+
+            {/* Special Sub-Editor: How It Works Steps */}
+            {editingBuiltInKey === 'howItWorks' && (
+              <div className="space-y-4 pt-4 border-t border-[#3D2315]">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-bold text-white">Interactive Planning Steps ({localSteps.length})</h4>
+                    <p className="text-xs text-[#EADFD5]/60">Customize the step titles and descriptions.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const nextNum = String(localSteps.length + 1).padStart(2, '0');
+                      setLocalSteps([
+                        ...localSteps,
+                        {
+                          step: nextNum,
+                          title: 'New Step',
+                          description: 'Step explanation goes here.',
+                          badge: `Step ${localSteps.length + 1}`,
+                        },
+                      ]);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3D2315] hover:bg-[#4A2D1B] text-xs font-bold text-white transition-colors"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add Step</span>
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {localSteps.map((s, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3 relative"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono font-bold text-[#C87428]">
+                          Step #{idx + 1}
+                        </span>
+                        {localSteps.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => setLocalSteps(localSteps.filter((_, i) => i !== idx))}
+                            className="p-1 text-red-400 hover:text-red-300 transition-colors"
+                            title="Remove Step"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                            Step Badge
+                          </label>
+                          <input
+                            type="text"
+                            value={s.badge || ''}
+                            onChange={(e) => {
+                              const updated = [...localSteps];
+                              updated[idx] = { ...updated[idx], badge: e.target.value };
+                              setLocalSteps(updated);
+                            }}
+                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                            Step Title
+                          </label>
+                          <input
+                            type="text"
+                            value={s.title}
+                            onChange={(e) => {
+                              const updated = [...localSteps];
+                              updated[idx] = { ...updated[idx], title: e.target.value };
+                              setLocalSteps(updated);
+                            }}
+                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                          />
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                            Step Description
+                          </label>
+                          <textarea
+                            rows={2}
+                            value={s.description}
+                            onChange={(e) => {
+                              const updated = [...localSteps];
+                              updated[idx] = { ...updated[idx], description: e.target.value };
+                              setLocalSteps(updated);
+                            }}
+                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Special Sub-Editor: Why Us Pillars */}
+            {editingBuiltInKey === 'whyUs' && (
+              <div className="space-y-4 pt-4 border-t border-[#3D2315]">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-bold text-white">Service Pillars & Trust Guarantees ({localPillars.length})</h4>
+                    <p className="text-xs text-[#EADFD5]/60">Customize your key client promises and stats.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLocalPillars([
+                        ...localPillars,
+                        {
+                          title: 'New Promise',
+                          description: 'Promise details.',
+                          stat: '100% Quality',
+                        },
+                      ]);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3D2315] hover:bg-[#4A2D1B] text-xs font-bold text-white transition-colors"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add Pillar</span>
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {localPillars.map((p, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3 relative"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono font-bold text-[#C87428]">
+                          Pillar #{idx + 1}
+                        </span>
+                        {localPillars.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => setLocalPillars(localPillars.filter((_, i) => i !== idx))}
+                            className="p-1 text-red-400 hover:text-red-300 transition-colors"
+                            title="Remove Pillar"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                            Pillar Title
+                          </label>
+                          <input
+                            type="text"
+                            value={p.title}
+                            onChange={(e) => {
+                              const updated = [...localPillars];
+                              updated[idx] = { ...updated[idx], title: e.target.value };
+                              setLocalPillars(updated);
+                            }}
+                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                            Stat Badge (e.g. 100% Bespoke, &lt;5 Min Response)
+                          </label>
+                          <input
+                            type="text"
+                            value={p.stat || ''}
+                            onChange={(e) => {
+                              const updated = [...localPillars];
+                              updated[idx] = { ...updated[idx], stat: e.target.value };
+                              setLocalPillars(updated);
+                            }}
+                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                          />
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                            Pillar Description
+                          </label>
+                          <textarea
+                            rows={2}
+                            value={p.description}
+                            onChange={(e) => {
+                              const updated = [...localPillars];
+                              updated[idx] = { ...updated[idx], description: e.target.value };
+                              setLocalPillars(updated);
+                            }}
+                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Modal Bottom Controls */}
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#3D2315]">
+              <button
+                type="button"
+                onClick={() => setEditingBuiltInKey(null)}
+                className="px-5 py-2.5 rounded-xl bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-xs font-bold uppercase tracking-wider transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveBuiltInEditor}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#C87428]/25 transition-all"
+              >
+                <Check className="w-4 h-4 stroke-[2.5]" />
+                <span>Save Section Content</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL 2: Custom Section Editor ──────────────────────────────── */}
+      {editingCustomSection && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
           <div className="w-full max-w-3xl bg-[#201109] border border-[#3D2315] rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-[#3D2315]">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <Sparkles className="w-5 h-5 text-[#C87428]" />
-                <h3 className="text-lg font-serif font-bold text-white">
-                  {isCreating ? 'Create New Custom Section' : 'Edit Custom Section'}
-                </h3>
+                <div>
+                  <h3 className="text-lg font-serif font-bold text-white">
+                    {isCreatingCustom ? 'Create New Custom Section' : 'Edit Custom Section'}
+                  </h3>
+                  <p className="text-xs text-[#EADFD5]/60">Design a bespoke layout with custom media and cards.</p>
+                </div>
               </div>
               <button
-                onClick={() => setEditingSection(null)}
+                onClick={() => setEditingCustomSection(null)}
                 className="p-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5]"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Layout Type Selection */}
+            {/* Layout Archetype */}
             <div>
               <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-2">
-                Section Layout Archetype
+                Section Layout Style
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { id: 'grid-cards', name: 'Grid Cards', icon: LayoutGrid, desc: 'Image cards with perks' },
-                  { id: 'banner-cta', name: 'Banner CTA', icon: Megaphone, desc: 'Full-width promotion banner' },
+                  { id: 'grid-cards', name: 'Grid Cards', icon: LayoutGrid, desc: 'Cards with media & highlights' },
+                  { id: 'banner-cta', name: 'Banner CTA', icon: Megaphone, desc: 'Full-width promotion strip' },
                   { id: 'faq', name: 'Q&A / FAQ', icon: HelpCircle, desc: 'Accordion knowledge base' },
-                  { id: 'split-story', name: 'Split Story', icon: Columns, desc: 'Editorial image + text' },
+                  { id: 'split-story', name: 'Split Story', icon: Columns, desc: 'Editorial image + narrative' },
                 ].map((type) => {
                   const Icon = type.icon;
-                  const isSelected = editingSection.layout === type.id;
+                  const isSelected = editingCustomSection.layout === type.id;
                   return (
                     <button
                       key={type.id}
                       type="button"
                       onClick={() =>
-                        setEditingSection({
-                          ...editingSection,
+                        setEditingCustomSection({
+                          ...editingCustomSection,
                           layout: type.id as any,
                         })
                       }
@@ -381,21 +1113,28 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 <label className="block text-xs font-bold text-[#EADFD5] mb-1">Section Badge / Eyebrow</label>
                 <input
                   type="text"
-                  value={editingSection.badgeText}
-                  onChange={(e) => setEditingSection({ ...editingSection, badgeText: e.target.value })}
+                  value={editingCustomSection.badgeText || ''}
+                  onChange={(e) =>
+                    setEditingCustomSection({ ...editingCustomSection, badgeText: e.target.value })
+                  }
                   placeholder="e.g. Limited Edition"
                   className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#EADFD5] mb-1">Color Theme</label>
+                <label className="block text-xs font-bold text-[#EADFD5] mb-1">Color Atmosphere</label>
                 <select
-                  value={editingSection.theme}
-                  onChange={(e) => setEditingSection({ ...editingSection, theme: e.target.value as any })}
+                  value={editingCustomSection.theme}
+                  onChange={(e) =>
+                    setEditingCustomSection({
+                      ...editingCustomSection,
+                      theme: e.target.value as any,
+                    })
+                  }
                   className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
                 >
-                  <option value="light">Crisp Light (Warm Cream)</option>
+                  <option value="light">Crisp Light (Warm Cream & Linen)</option>
                   <option value="dark">Luxury Dark (Onyx Velvet)</option>
                   <option value="caramel">Cognac Caramel Glow</option>
                 </select>
@@ -405,8 +1144,10 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 <label className="block text-xs font-bold text-[#EADFD5] mb-1">Section Heading Title</label>
                 <input
                   type="text"
-                  value={editingSection.title}
-                  onChange={(e) => setEditingSection({ ...editingSection, title: e.target.value })}
+                  value={editingCustomSection.title}
+                  onChange={(e) =>
+                    setEditingCustomSection({ ...editingCustomSection, title: e.target.value })
+                  }
                   placeholder="e.g. Private Island Retreats"
                   className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
                 />
@@ -416,9 +1157,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 <label className="block text-xs font-bold text-[#EADFD5] mb-1">Subtitle / Context</label>
                 <textarea
                   rows={2}
-                  value={editingSection.subtitle}
-                  onChange={(e) => setEditingSection({ ...editingSection, subtitle: e.target.value })}
-                  placeholder="Brief introductory description"
+                  value={editingCustomSection.subtitle}
+                  onChange={(e) =>
+                    setEditingCustomSection({ ...editingCustomSection, subtitle: e.target.value })
+                  }
+                  placeholder="Brief introductory description for the section"
                   className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
                 />
               </div>
@@ -428,7 +1171,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             <div className="space-y-3 pt-2 border-t border-[#3D2315]">
               <div className="flex items-center justify-between">
                 <label className="text-xs uppercase tracking-wider font-bold text-[#EADFD5]">
-                  Content Items ({editingSection.items.length})
+                  Content Items ({editingCustomSection.items.length})
                 </label>
                 <button
                   type="button"
@@ -441,8 +1184,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
               </div>
 
               <div className="space-y-4">
-                {editingSection.items.map((item, idx) => (
-                  <div key={item.id || idx} className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3 relative">
+                {editingCustomSection.items.map((item, idx) => (
+                  <div
+                    key={item.id || idx}
+                    className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3 relative"
+                  >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-[#C87428]">Item #{idx + 1}</span>
                       <button
@@ -460,23 +1206,23 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         placeholder="Item Title / Question"
                         value={item.title}
                         onChange={(e) => handleUpdateEditingItem(idx, 'title', e.target.value)}
-                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none"
+                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
                       />
                       <input
                         placeholder="Subtitle or Location (optional)"
                         value={item.subtitle || ''}
                         onChange={(e) => handleUpdateEditingItem(idx, 'subtitle', e.target.value)}
-                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none"
+                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
                       />
                       <input
                         placeholder="Badge (e.g. Popular, Included)"
                         value={item.badge || ''}
                         onChange={(e) => handleUpdateEditingItem(idx, 'badge', e.target.value)}
-                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none"
+                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
                       />
                       <div className="sm:col-span-2">
                         <ImageUploadField
-                          label="Item Photography / Illustration"
+                          label="Item Photography / Media"
                           value={item.image || ''}
                           onChange={(url) => handleUpdateEditingItem(idx, 'image', url)}
                           aspectRatio="video"
@@ -489,7 +1235,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         placeholder="Description or Answer text"
                         value={item.description}
                         onChange={(e) => handleUpdateEditingItem(idx, 'description', e.target.value)}
-                        className="sm:col-span-2 w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none"
+                        className="sm:col-span-2 w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
                       />
                     </div>
                   </div>
@@ -501,18 +1247,18 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#3D2315]">
               <button
                 type="button"
-                onClick={() => setEditingSection(null)}
-                className="px-5 py-2 rounded-xl bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-sm font-medium transition-colors"
+                onClick={() => setEditingCustomSection(null)}
+                className="px-5 py-2 rounded-xl bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-xs font-bold uppercase tracking-wider transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSaveCustomSection}
-                className="flex items-center gap-2 px-6 py-2 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-sm font-bold shadow-md shadow-[#C87428]/25 transition-all"
+                className="flex items-center gap-2 px-6 py-2 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#C87428]/25 transition-all"
               >
                 <Check className="w-4 h-4 stroke-[2.5]" />
-                <span>{isCreating ? 'Add to Homepage' : 'Apply Changes'}</span>
+                <span>{isCreatingCustom ? 'Add to Homepage' : 'Apply Changes'}</span>
               </button>
             </div>
           </div>

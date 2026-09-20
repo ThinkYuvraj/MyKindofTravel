@@ -111,9 +111,17 @@ const ROUTES: RouteData[] = [
 
 interface FlightRouteRadarProps {
   onSelectRoute: (destinationName: string) => void;
+  customBadge?: string;
+  customTitle?: string;
+  customSubtitle?: string;
 }
 
-export const FlightRouteRadar: React.FC<FlightRouteRadarProps> = ({ onSelectRoute }) => {
+export const FlightRouteRadar: React.FC<FlightRouteRadarProps> = ({
+  onSelectRoute,
+  customBadge,
+  customTitle,
+  customSubtitle,
+}) => {
   const [activeRouteId, setActiveRouteId] = useState<string>('bali');
 
   const currentRoute = ROUTES.find((r) => r.id === activeRouteId) || ROUTES[0];
@@ -138,15 +146,21 @@ export const FlightRouteRadar: React.FC<FlightRouteRadarProps> = ({ onSelectRout
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
               <Plane className="w-3.5 h-3.5 -rotate-45" />
-              <span>Direct Route Radar</span>
+              <span>{customBadge || 'Direct Route Radar'}</span>
             </div>
 
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2A1810] dark:text-white">
-              Bespoke Flight Corridors <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">from India</span>
-            </h2>
+            {customTitle ? (
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2A1810] dark:text-white">
+                {customTitle}
+              </h2>
+            ) : (
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2A1810] dark:text-white">
+                Bespoke Flight Corridors <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">from India</span>
+              </h2>
+            )}
 
             <p className="text-[#594336] dark:text-[#D1C2B8] text-xs sm:text-sm max-w-xl font-normal">
-              Preview flight times, curated connections, and signature on-ground luxury waiting for you at each destination.
+              {customSubtitle || 'Preview flight times, curated connections, and signature on-ground luxury waiting for you at each destination.'}
             </p>
           </div>
 

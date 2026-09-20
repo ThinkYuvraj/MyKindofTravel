@@ -180,6 +180,9 @@ useEffect(() => {
           <DestinationsSection
             key="destinations"
             data={cmsData.destinations}
+            customBadge={cmsData.sectionHeaders?.destinations?.badge}
+            customTitle={cmsData.sectionHeaders?.destinations?.title}
+            customSubtitle={cmsData.sectionHeaders?.destinations?.subtitle}
             onSelectDestination={(dest) => setSelectedDestination(dest)}
             onEnquireDestination={handleEnquireDestination}
           />
@@ -189,12 +192,22 @@ useEffect(() => {
         return <MarqueeTicker key="marquee" items={cmsData.marquee} />;
 
       case 'about':
-        return <AboutSection key="about" companyInfo={cmsData.companyInfo} />;
+        return (
+          <AboutSection
+            key="about"
+            companyInfo={cmsData.companyInfo}
+            customBadge={cmsData.sectionHeaders?.about?.badge}
+            customTitle={cmsData.sectionHeaders?.about?.title}
+          />
+        );
 
       case 'radar':
         return (
           <FlightRouteRadar
             key="radar"
+            customBadge={cmsData.sectionHeaders?.radar?.badge}
+            customTitle={cmsData.sectionHeaders?.radar?.title}
+            customSubtitle={cmsData.sectionHeaders?.radar?.subtitle}
             onSelectRoute={(destinationName) => {
               setEnquiryDestination(destinationName);
               scrollToSection('contact');
@@ -207,18 +220,33 @@ useEffect(() => {
           <ExperiencesSection
             key="experiences"
             pillars={cmsData.experiencePillars}
+            customBadge={cmsData.sectionHeaders?.experiences?.badge}
+            customTitle={cmsData.sectionHeaders?.experiences?.title}
+            customSubtitle={cmsData.sectionHeaders?.experiences?.subtitle}
             onPlanTripType={handlePlanTripType}
           />
         );
 
       case 'howItWorks':
-        return <HowItWorksSection key="howItWorks" onStartPlanning={handlePlanTripClick} />;
+        return (
+          <HowItWorksSection
+            key="howItWorks"
+            steps={cmsData.howItWorksSteps}
+            customBadge={cmsData.sectionHeaders?.howItWorks?.badge}
+            customTitle={cmsData.sectionHeaders?.howItWorks?.title}
+            customSubtitle={cmsData.sectionHeaders?.howItWorks?.subtitle}
+            onStartPlanning={handlePlanTripClick}
+          />
+        );
 
       case 'packages':
         return (
           <PackagesSection
             key="packages"
             data={cmsData.packages}
+            customBadge={cmsData.sectionHeaders?.packages?.badge}
+            customTitle={cmsData.sectionHeaders?.packages?.title}
+            customSubtitle={cmsData.sectionHeaders?.packages?.subtitle}
             onEnquirePackage={handleEnquirePackage}
             onViewPackageDetails={(pkg) => setSelectedPackage(pkg)}
           />
@@ -229,20 +257,44 @@ useEffect(() => {
           <WanderlustGallery
             key="gallery"
             items={cmsData.gallery}
+            customBadge={cmsData.sectionHeaders?.gallery?.badge}
+            customTitle={cmsData.sectionHeaders?.gallery?.title}
+            customSubtitle={cmsData.sectionHeaders?.gallery?.subtitle}
             onPlanTripForLocation={handleSelectHighlight}
           />
         );
 
       case 'testimonials':
-        return <TestimonialsSection key="testimonials" testimonials={cmsData.testimonials} />;
+        return (
+          <TestimonialsSection
+            key="testimonials"
+            testimonials={cmsData.testimonials}
+            customBadge={cmsData.sectionHeaders?.testimonials?.badge}
+            customTitle={cmsData.sectionHeaders?.testimonials?.title}
+            customSubtitle={cmsData.sectionHeaders?.testimonials?.subtitle}
+          />
+        );
 
       case 'whyUs':
-        return <WhyUsSection key="whyUs" companyInfo={cmsData.companyInfo} />;
+        return (
+          <WhyUsSection
+            key="whyUs"
+            companyInfo={cmsData.companyInfo}
+            pillars={cmsData.whyUsPillars}
+            customBadge={cmsData.sectionHeaders?.whyUs?.badge}
+            customTitle={cmsData.sectionHeaders?.whyUs?.title}
+            customSubtitle={cmsData.sectionHeaders?.whyUs?.subtitle}
+          />
+        );
 
       case 'contact':
         return (
           <ContactSection
             key="contact"
+            companyInfo={cmsData.companyInfo}
+            customBadge={cmsData.sectionHeaders?.contact?.badge}
+            customTitle={cmsData.sectionHeaders?.contact?.title}
+            customSubtitle={cmsData.sectionHeaders?.contact?.subtitle}
             initialDestination={enquiryDestination}
             initialTripType={enquiryTripType}
           />
