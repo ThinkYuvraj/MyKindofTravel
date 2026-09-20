@@ -52,7 +52,7 @@ export default function AdminLogin() {
             CMS Portal Management
           </p>
         </div>
-        
+
         {error && (
           <div className="mb-6 p-4 bg-red-950/40 text-red-300 rounded-xl text-sm border border-red-900/50">
             {error}
@@ -70,13 +70,13 @@ export default function AdminLogin() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-xl bg-[#1A0E08] border border-[#3D2315] text-[#FAF7F4] focus:ring-2 focus:ring-[#C87428] focus:border-[#C87428] outline-none transition-all placeholder-[#7A4522] text-sm"
-              placeholder="marketing2glue@gmail.com"
+              placeholder="Please enter your email"
             />
           </div>
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5]">
-                Password
+                Please enter your password
               </label>
             </div>
             <input
