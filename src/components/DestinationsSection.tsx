@@ -84,7 +84,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
       {/* Subtle ambient lighting */}
       <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-[#8C5528]/10 dark:bg-[#D47A2A]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
+      <div className="section-container relative z-10">
         {/* Section Heading - Featured Destinations directly below Torn Paper */}
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-md text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 shadow-xs">
@@ -122,7 +122,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
         </div>
 
         {/* Grid of Destinations */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
+        <div className="content-grid">
           {filteredData.map((dest) => {
             const meta = DESTINATION_META[dest.id] || { code: 'INT', flightTime: 'Curated Route' };
 

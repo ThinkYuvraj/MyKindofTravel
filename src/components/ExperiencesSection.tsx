@@ -16,7 +16,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
 
   return (
     <section id="experiences" className="py-12 sm:py-16 lg:py-24 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="section-container">
         {/* Section Heading */}
         <div className="max-w-3xl space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-md text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 shadow-xs">
@@ -34,7 +34,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
         </div>
 
         {/* 6 Experience Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="content-grid sm:gap-8">
           {activePillars.map((exp) => (
             <div
               key={exp.number}

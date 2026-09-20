@@ -86,6 +86,47 @@ html.theme-transitioning *::after {
   }
 }
 
+/* ==========================================================================
+   Navbar / Overlay Entry Animations (slide + fade)
+   Used by search panel, mobile drawer, and dropdown menus.
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInFromTop2 {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromTop3 {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+.slide-in-from-top-2 {
+  animation-name: slideInFromTop2;
+}
+
+.slide-in-from-top-3 {
+  animation-name: slideInFromTop3;
+}
+
+.duration-150 { animation-duration: 150ms; }
+.duration-200 { animation-duration: 200ms; }
+
 :root {
   /* Dark Brown & White Primary Theme Variables */
   --primary-dark-brown: #24130A;
@@ -98,6 +139,60 @@ html.theme-transitioning *::after {
   --canvas-white: #FAF7F4;
   --pure-white: #FFFFFF;
 }
+
+/* ==========================================================================
+   Shared layout utilities — stretch content to fill wide displays
+   ========================================================================== */
+
+/* Replaces the repetitive "w-full max-w-7xl mx-auto px-4 …" pattern.
+   On 2XL screens the cap moves to 1536 px with larger side gutters so
+   content naturally fills ultra-wide monitors instead of leaving dead space. */
+.section-container {
+  width: 100%;
+  max-width: 80rem;   /* 1280px  — same as max-w-7xl */
+  margin-inline: auto;
+  padding-inline: 1rem;        /* px-4   */
+}
+
+@media (min-width: 640px) {   /* sm */
+  .section-container { padding-inline: 1.5rem; }
+}
+
+@media (min-width: 1024px) {  /* lg */
+  .section-container { padding-inline: 2rem; }
+}
+
+@media (min-width: 1280px) {  /* xl */
+  .section-container { padding-inline: 3rem; }
+}
+
+@media (min-width: 1536px) {  /* 2xl */
+  .section-container {
+    max-width: 1536px;         /* fill the full 2xl viewport */
+    padding-inline: 4rem;
+  }
+}
+
+/* Responsive grid: 1 → 2 → 3 → 4 columns */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 768px) {   /* md */
+  .content-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {  /* lg */
+  .content-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1536px) {  /* 2xl */
+  .content-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+}
+
+
 
 .dark {
   --primary-dark-brown: #FFFFFF;

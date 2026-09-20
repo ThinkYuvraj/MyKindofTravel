@@ -34,7 +34,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   useEffect(() => {
     if (searchOpen && searchInputRef.current) {
-      setTimeout(() => searchInputRef.current?.focus(), 100);
+      const t = setTimeout(() => searchInputRef.current?.focus(), 100);
+      return () => clearTimeout(t);
     }
   }, [searchOpen]);
 
@@ -68,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-[#201109] border-b border-[#331C10] py-3 sm:py-3.5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="section-container">
           <div className="flex items-center justify-between gap-4">
             {/* Left: Compass Monogram & My Kind of Travel Branding */}
             <div className="flex items-center gap-3">
@@ -436,7 +437,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenSidebar();
+                  onOpenSidebar?.();
                 }}
                 className="px-4 py-2.5 rounded-xl bg-white/10 text-white text-xs font-bold uppercase tracking-wider flex-1"
               >

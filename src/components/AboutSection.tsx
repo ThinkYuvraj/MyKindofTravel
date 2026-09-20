@@ -14,7 +14,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo }) => {
       {/* Subtle Decorative Ambient Warm Glow */}
       <div className="absolute top-1/2 right-0 w-80 h-80 bg-[#8C5528]/10 dark:bg-[#D47A2A]/10 rounded-full blur-3xl pointer-events-none animate-ambient-glow" />
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
+      <div className="section-container relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Story & Philosophy */}
           <div className="lg:col-span-6 space-y-6">

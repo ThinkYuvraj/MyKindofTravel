@@ -14,6 +14,10 @@ export const BackToTop: React.FC<BackToTopProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Keep hovered state in a ref so the inactivity callback always sees the
+  // latest value without being listed as a useEffect dependency (which would
+  // otherwise tear-down & re-add every event listener on each hover toggle).
+  const isHoveredRef = useRef(false);
 
   useEffect(() => {
     const updateScrollProgress = () => {
@@ -33,7 +37,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
 
       timerRef.current = setTimeout(() => {
         // Auto-hide only if the user is not currently hovering over the button
-        setIsVisible((prev) => (isHovered ? true : false));
+        setIsVisible(isHoveredRef.current ? true : false);
       }, inactivityDelayMs);
     };
 
@@ -69,7 +73,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
         clearTimeout(timerRef.current);
       }
     };
-  }, [threshold, inactivityDelayMs, isHovered]);
+  }, [threshold, inactivityDelayMs]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -91,12 +95,14 @@ export const BackToTop: React.FC<BackToTopProps> = ({
         onClick={scrollToTop}
         onMouseEnter={() => {
           setIsHovered(true);
+          isHoveredRef.current = true;
           if (timerRef.current) {
             clearTimeout(timerRef.current);
           }
         }}
         onMouseLeave={() => {
           setIsHovered(false);
+          isHoveredRef.current = false;
           // Restart inactivity countdown when cursor leaves
           if (timerRef.current) {
             clearTimeout(timerRef.current);

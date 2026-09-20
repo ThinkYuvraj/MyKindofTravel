@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useLayoutEffect, useState, useRef, useCallback } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -25,7 +25,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
+  // Apply theme classes synchronously before first paint to prevent FOUC
+  useLayoutEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
@@ -42,6 +43,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       // ignore in iframe storage restrict
     }
   }, [theme]);
+
+  // Cleanup transition timer and CSS class on unmount
+  useEffect(() => {
+    return () => {
+      if (transitionTimerRef.current) {
+        clearTimeout(transitionTimerRef.current);
+      }
+      document.documentElement.classList.remove('theme-transitioning');
+    };
+  }, []);
 
   // Execute smooth theme transition across CSS and View Transition API
   const applyThemeSmoothly = useCallback((nextTheme: Theme) => {

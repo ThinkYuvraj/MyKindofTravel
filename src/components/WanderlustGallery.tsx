@@ -68,7 +68,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
       <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-[#8C5528]/10 dark:bg-[#D47A2A]/10 blur-3xl pointer-events-none animate-ambient-glow" />
       <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-[#C5A059]/10 dark:bg-[#C87428]/10 blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
+      <div className="section-container relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>

@@ -68,7 +68,7 @@ export const Hero: React.FC<HeroProps> = ({
       </div>
 
       {/* Hero Centered Content: Clean, High-Contrast Typography for My Kind of Travel */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center pt-8 pb-20 sm:pb-24">
+      <div className="relative z-10 w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center flex flex-col items-center justify-center pt-8 pb-20 sm:pb-24">
         {/* Subtle Brand Pill */}
         <div className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#201109]/75 backdrop-blur-md border border-white/20 text-[#FAF7F4] text-xs font-bold uppercase tracking-[0.25em] shadow-lg mb-5 animate-in fade-in duration-500">
           <Compass className="w-3.5 h-3.5 text-[#C87428]" />
