@@ -108,6 +108,7 @@ export interface CustomSection {
   badgeText: string;
   layout: 'grid-cards' | 'banner-cta' | 'faq' | 'split-story';
   theme: 'light' | 'dark' | 'caramel';
+  backgroundImage?: string;
   enabled: boolean;
   items: CustomSectionItem[];
 }
@@ -131,6 +132,8 @@ export interface SectionCustomContent {
   title?: string;
   subtitle?: string;
   badge?: string;
+  image?: string;
+  backgroundImage?: string;
 }
 
 export interface CMSData {

@@ -6,9 +6,17 @@ interface AboutSectionProps {
   companyInfo?: typeof COMPANY_INFO & { standardText?: string };
   customBadge?: string;
   customTitle?: string;
+  customSubtitle?: string;
+  customImage?: string;
 }
 
-export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo, customBadge, customTitle }) => {
+export const AboutSection: React.FC<AboutSectionProps> = ({
+  companyInfo,
+  customBadge,
+  customTitle,
+  customSubtitle,
+  customImage,
+}) => {
   const info = companyInfo || COMPANY_INFO;
 
   return (
@@ -44,8 +52,26 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ companyInfo, customB
             )}
 
             <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
-              {info.philosophy || COMPANY_INFO.philosophy}
+              {customSubtitle || info.philosophy || COMPANY_INFO.philosophy}
             </p>
+
+            {/* Custom Editorial Photography if configured */}
+            {customImage && (
+              <div className="relative rounded-2xl overflow-hidden shadow-lg border border-[#EADFD5] dark:border-white/15 h-56 sm:h-64 w-full group">
+                <img
+                  src={customImage}
+                  alt="My Kind of Travel Experience"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white text-xs">
+                  <span className="font-serif font-semibold italic">Handcrafted with discretion</span>
+                  <span className="px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] uppercase tracking-wider font-bold">
+                    Private Atelier
+                  </span>
+                </div>
+              </div>
+            )}
 
             <div className="pt-2 p-6 rounded-2xl bg-[#FAF7F2] dark:bg-[#16100D]/80 backdrop-blur-xl border border-[#EADFD5] dark:border-white/10 space-y-3 shadow-xs">
               <div className="flex items-center gap-2 text-[#8C5528] dark:text-[#E28C38] font-serif font-bold text-base">

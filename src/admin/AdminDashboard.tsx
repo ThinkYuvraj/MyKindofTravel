@@ -427,6 +427,10 @@ export default function AdminDashboard() {
                 setHowItWorksSteps={setHowItWorksSteps}
                 whyUsPillars={whyUsPillars}
                 setWhyUsPillars={setWhyUsPillars}
+                heroBgImage={heroBgImage}
+                setHeroBgImage={setHeroBgImage}
+                experiencePillars={experiencePillars}
+                setExperiencePillars={setExperiencePillars}
                 onNavigateTab={(tab) => setActiveTab(tab)}
               />
             )}

@@ -66,6 +66,18 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
       id={`section-${section.id}`}
       className={`py-12 sm:py-16 lg:py-20 relative overflow-hidden transition-colors duration-300 ${theme.bg}`}
     >
+      {/* Background Image if configured */}
+      {section.backgroundImage && (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <GlassImage
+            src={section.backgroundImage}
+            alt={section.title}
+            className="w-full h-full object-cover filter brightness-40 dark:brightness-25"
+          />
+          <div className="absolute inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-[2px]" />
+        </div>
+      )}
+
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
@@ -98,42 +110,62 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
               return (
                 <div
                   key={item.id}
-                  className={`group rounded-3xl p-6 sm:p-7 backdrop-blur-xl border transition-all duration-300 shadow-[0_8px_30px_rgba(42,24,16,0.06)] hover:-translate-y-1 flex flex-col justify-between ${theme.card}`}
+                  className={`group rounded-3xl overflow-hidden backdrop-blur-xl border transition-all duration-300 shadow-[0_8px_30px_rgba(42,24,16,0.06)] hover:-translate-y-1 flex flex-col justify-between ${theme.card}`}
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-2xl bg-white/70 dark:bg-white/10 flex items-center justify-center border border-current/20 text-[#8C5528] dark:text-[#E28C38] group-hover:scale-110 transition-transform">
-                        <IconComponent className="w-6 h-6" />
-                      </div>
+                  {item.image && (
+                    <div className="relative w-full h-44 overflow-hidden border-b border-current/10">
+                      <GlassImage
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       {item.badge && (
-                        <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#8C5528]/10 dark:bg-[#C87428]/20 text-[#8C5528] dark:text-[#E28C38]">
+                        <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
                           {item.badge}
                         </span>
                       )}
                     </div>
-
-                    <h3 className="font-serif text-xl font-bold">{item.title}</h3>
-                    {item.subtitle && (
-                      <p className="text-xs font-semibold text-[#8C5528] dark:text-[#E28C38]">
-                        {item.subtitle}
-                      </p>
-                    )}
-                    <p className={`text-xs sm:text-sm leading-relaxed ${theme.subtext}`}>
-                      {item.description}
-                    </p>
-                  </div>
-
-                  {item.linkText && (
-                    <div className="pt-5 mt-4 border-t border-current/10">
-                      <button
-                        onClick={onCtaClick}
-                        className={`text-xs font-bold flex items-center gap-1.5 transition-colors group-hover:underline ${theme.accent}`}
-                      >
-                        <span>{item.linkText}</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                      </button>
-                    </div>
                   )}
+
+                  <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                    <div className="space-y-3">
+                      {!item.image && (
+                        <div className="flex items-center justify-between">
+                          <div className="w-12 h-12 rounded-2xl bg-white/70 dark:bg-white/10 flex items-center justify-center border border-current/20 text-[#8C5528] dark:text-[#E28C38] group-hover:scale-110 transition-transform">
+                            <IconComponent className="w-6 h-6" />
+                          </div>
+                          {item.badge && (
+                            <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#8C5528]/10 dark:bg-[#C87428]/20 text-[#8C5528] dark:text-[#E28C38]">
+                              {item.badge}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      <h3 className="font-serif text-xl font-bold">{item.title}</h3>
+                      {item.subtitle && (
+                        <p className="text-xs font-semibold text-[#8C5528] dark:text-[#E28C38]">
+                          {item.subtitle}
+                        </p>
+                      )}
+                      <p className={`text-xs sm:text-sm leading-relaxed ${theme.subtext}`}>
+                        {item.description}
+                      </p>
+                    </div>
+
+                    {item.linkText && (
+                      <div className="pt-4 border-t border-current/10">
+                        <button
+                          onClick={onCtaClick}
+                          className={`text-xs font-bold flex items-center gap-1.5 transition-colors group-hover:underline ${theme.accent}`}
+                        >
+                          <span>{item.linkText}</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}

@@ -166,7 +166,7 @@ useEffect(() => {
             title={cmsData.heroTitle}
             subtitle={cmsData.heroSubtitle}
             badgeText={cmsData.heroBadge}
-            bgImage={cmsData.heroBgImage}
+            bgImage={cmsData.sectionHeaders?.hero?.image || cmsData.heroBgImage}
             primaryButtonText={cmsData.primaryButton}
             secondaryButtonText={cmsData.secondaryButton}
             onPlanTrip={handlePlanTripClick}
@@ -198,6 +198,8 @@ useEffect(() => {
             companyInfo={cmsData.companyInfo}
             customBadge={cmsData.sectionHeaders?.about?.badge}
             customTitle={cmsData.sectionHeaders?.about?.title}
+            customSubtitle={cmsData.sectionHeaders?.about?.subtitle}
+            customImage={cmsData.sectionHeaders?.about?.image}
           />
         );
 

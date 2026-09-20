@@ -5,6 +5,7 @@ import {
   SectionCustomContent,
   HowItWorksStep,
   WhyUsPillar,
+  ExperiencePillar,
 } from '../types';
 import { ImageUploadField } from './ImageUploadField';
 import {
@@ -30,6 +31,8 @@ import {
   SlidersHorizontal,
   Compass,
   CheckCircle2,
+  Camera,
+  Image as ImageIcon,
 } from 'lucide-react';
 
 export type AdminTab =
@@ -55,6 +58,10 @@ interface SectionsManagerProps {
   setHowItWorksSteps?: React.Dispatch<React.SetStateAction<HowItWorksStep[]>>;
   whyUsPillars?: WhyUsPillar[];
   setWhyUsPillars?: React.Dispatch<React.SetStateAction<WhyUsPillar[]>>;
+  heroBgImage?: string;
+  setHeroBgImage?: React.Dispatch<React.SetStateAction<string>>;
+  experiencePillars?: ExperiencePillar[];
+  setExperiencePillars?: React.Dispatch<React.SetStateAction<ExperiencePillar[]>>;
   onNavigateTab?: (tab: AdminTab) => void;
 }
 
@@ -227,6 +234,89 @@ const DEFAULT_WHY_US: WhyUsPillar[] = [
   },
 ];
 
+const SECTION_IMAGE_CONFIG: Record<
+  string,
+  {
+    title: string;
+    description: string;
+    aspectRatio?: 'video' | 'wide' | 'square' | 'portrait';
+    placeholder?: string;
+  }
+> = {
+  hero: {
+    title: 'Hero Panoramic Background & Visual Banner',
+    description: 'The primary marquee panoramic visual displayed across the top hero banner of the live homepage.',
+    aspectRatio: 'wide',
+    placeholder: 'Select luxury preset, upload high-res image, or enter image URL',
+  },
+  about: {
+    title: 'About Story & Atelier Editorial Photography',
+    description: 'Boutique photography showcasing the atelier craftsmanship, private guides, or luxury travel ambiance.',
+    aspectRatio: 'video',
+    placeholder: 'Select preset or paste photo URL',
+  },
+  experiences: {
+    title: 'Experiences Section Background / Accent Banner',
+    description: 'Atmospheric visual header for the curated travel styles and bespoke theme pillars.',
+    aspectRatio: 'wide',
+    placeholder: 'Select preset or paste image URL',
+  },
+  radar: {
+    title: 'Flight Route Radar Section Accent / Map Graphic',
+    description: 'Visual accent or global route graphic displayed above or behind the flight corridors.',
+    aspectRatio: 'wide',
+    placeholder: 'Paste route graphic or aviation landscape URL',
+  },
+  howItWorks: {
+    title: 'How It Works Feature Visual',
+    description: 'Editorial imagery illustrating the bespoke planning & private consultation process.',
+    aspectRatio: 'video',
+    placeholder: 'Select luxury preset or upload photo',
+  },
+  whyUs: {
+    title: 'Why Discerning Travellers Trust Us Photography',
+    description: 'Concierge, private aviation, or luxury hospitality imagery highlighting trust pillars.',
+    aspectRatio: 'wide',
+    placeholder: 'Select preset or enter photo URL',
+  },
+  destinations: {
+    title: 'Destinations Section Header Banner',
+    description: 'Header banner imagery for the featured world destinations section.',
+    aspectRatio: 'wide',
+    placeholder: 'Paste destination banner image URL',
+  },
+  packages: {
+    title: 'Popular Packages Section Header Banner',
+    description: 'Visual banner imagery for curated holiday itineraries.',
+    aspectRatio: 'wide',
+    placeholder: 'Paste packages banner image URL',
+  },
+  gallery: {
+    title: 'Wanderlust Visual Gallery Section Header Banner',
+    description: 'Featured photography banner for the mosaic gallery.',
+    aspectRatio: 'wide',
+    placeholder: 'Paste gallery banner image URL',
+  },
+  testimonials: {
+    title: 'Client Stories Section Header Banner',
+    description: 'Editorial traveler photo or banner displayed above client reviews.',
+    aspectRatio: 'wide',
+    placeholder: 'Paste traveler story banner URL',
+  },
+  contact: {
+    title: 'Concierge Lounge & Consultation Photography',
+    description: 'Visual imagery representing the 24/7 private concierge desk and booking consultation.',
+    aspectRatio: 'wide',
+    placeholder: 'Paste concierge lounge photo URL or select a preset',
+  },
+  marquee: {
+    title: 'Marquee Ticker Accent Graphic',
+    description: 'Optional subtle backdrop or brand graphic for the marquee ticker strip.',
+    aspectRatio: 'wide',
+    placeholder: 'Paste accent graphic URL',
+  },
+};
+
 export const SectionsManager: React.FC<SectionsManagerProps> = ({
   sectionOrder,
   setSectionOrder,
@@ -240,19 +330,27 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
   setHowItWorksSteps,
   whyUsPillars = DEFAULT_WHY_US,
   setWhyUsPillars,
+  heroBgImage,
+  setHeroBgImage,
+  experiencePillars,
+  setExperiencePillars,
   onNavigateTab,
 }) => {
   // Modal states
   const [editingBuiltInKey, setEditingBuiltInKey] = useState<string | null>(null);
+  const [modalTab, setModalTab] = useState<'content' | 'images'>('content');
   const [builtInForm, setBuiltInForm] = useState<SectionCustomContent>({
     badge: '',
     title: '',
     subtitle: '',
+    image: '',
+    backgroundImage: '',
   });
 
   // Local copies for special sub-editors
   const [localSteps, setLocalSteps] = useState<HowItWorksStep[]>([]);
   const [localPillars, setLocalPillars] = useState<WhyUsPillar[]>([]);
+  const [localExperiencePillars, setLocalExperiencePillars] = useState<ExperiencePillar[]>([]);
 
   // Custom section state
   const [editingCustomSection, setEditingCustomSection] = useState<CustomSection | null>(null);
@@ -262,14 +360,40 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'visible' | 'hidden' | 'custom'>('all');
 
+  // Helper to extract active preview image for a section
+  const getSectionPreviewImage = (key: string): string | null => {
+    if (key.startsWith('custom-')) {
+      const sec = customSections.find((c) => c.id === key.replace('custom-', ''));
+      return sec?.backgroundImage || sec?.items.find((item) => item.image)?.image || null;
+    }
+    if (sectionHeaders[key]?.image) {
+      return sectionHeaders[key].image!;
+    }
+    if (key === 'hero' && heroBgImage) {
+      return heroBgImage;
+    }
+    if (key === 'experiences' && experiencePillars && experiencePillars.length > 0) {
+      return experiencePillars.find((p) => p.image)?.image || null;
+    }
+    return null;
+  };
+
   // Open Built-in Editor
-  const handleOpenBuiltInEditor = (key: string) => {
+  const handleOpenBuiltInEditor = (key: string, initialTab: 'content' | 'images' = 'content') => {
     const config = BUILT_IN_SECTIONS[key];
     const currentHeader = sectionHeaders[key] || {};
+
+    let currentImg = currentHeader.image || '';
+    if (key === 'hero' && !currentImg && heroBgImage) {
+      currentImg = heroBgImage;
+    }
+
     setBuiltInForm({
       badge: currentHeader.badge !== undefined ? currentHeader.badge : config?.defaultBadge || '',
       title: currentHeader.title !== undefined ? currentHeader.title : config?.defaultTitle || '',
       subtitle: currentHeader.subtitle !== undefined ? currentHeader.subtitle : config?.defaultSubtitle || '',
+      image: currentImg,
+      backgroundImage: currentHeader.backgroundImage || '',
     });
 
     if (key === 'howItWorks') {
@@ -278,7 +402,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
     if (key === 'whyUs') {
       setLocalPillars(whyUsPillars.length > 0 ? [...whyUsPillars] : [...DEFAULT_WHY_US]);
     }
+    if (key === 'experiences' && experiencePillars) {
+      setLocalExperiencePillars([...experiencePillars]);
+    }
 
+    setModalTab(initialTab);
     setEditingBuiltInKey(key);
   };
 
@@ -293,8 +421,18 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
           badge: builtInForm.badge,
           title: builtInForm.title,
           subtitle: builtInForm.subtitle,
+          image: builtInForm.image,
+          backgroundImage: builtInForm.backgroundImage,
         },
       }));
+    }
+
+    if (editingBuiltInKey === 'hero' && setHeroBgImage && builtInForm.image) {
+      setHeroBgImage(builtInForm.image);
+    }
+
+    if (editingBuiltInKey === 'experiences' && setExperiencePillars) {
+      setExperiencePillars(localExperiencePillars);
     }
 
     if (editingBuiltInKey === 'howItWorks' && setHowItWorksSteps) {
@@ -317,6 +455,8 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
       badge: config.defaultBadge,
       title: config.defaultTitle,
       subtitle: config.defaultSubtitle,
+      image: '',
+      backgroundImage: '',
     });
 
     if (key === 'howItWorks') {
@@ -564,6 +704,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             const config = BUILT_IN_SECTIONS[key];
 
             const currentHeader = sectionHeaders[key];
+            const previewImg = getSectionPreviewImage(key);
             const displayTitle = isCustom
               ? customSec?.title || 'Custom Section'
               : currentHeader?.title || config?.defaultTitle || key;
@@ -586,7 +727,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  {/* Left: Position Number, Info, and Status */}
+                  {/* Left: Position Number, Thumbnail, Info, and Status */}
                   <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
                     {/* Position index badge */}
                     <div className="flex flex-col items-center justify-center shrink-0">
@@ -594,6 +735,25 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         {actualIndex + 1}
                       </span>
                     </div>
+
+                    {/* Section Thumbnail Preview */}
+                    {previewImg ? (
+                      <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 border border-[#3D2315] shadow-xs group/thumb">
+                        <img
+                          src={previewImg}
+                          alt="Section photo preview"
+                          className="w-full h-full object-cover group-hover/thumb:scale-110 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-black/20" />
+                        <span className="absolute bottom-0 right-0 p-0.5 bg-black/75 rounded-tl text-[8px] text-white">
+                          <Camera className="w-2.5 h-2.5" />
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="w-11 h-11 rounded-xl bg-[#2A1810] border border-[#3D2315]/80 text-[#EADFD5]/30 flex items-center justify-center shrink-0">
+                        <ImageIcon className="w-4 h-4" />
+                      </div>
+                    )}
 
                     {/* Section Details */}
                     <div className="min-w-0 flex-1">
@@ -672,14 +832,32 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       {isVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                     </button>
 
-                    {/* Edit Section Button (Works for BOTH built-in AND custom!) */}
+                    {/* Change Image Button */}
                     <button
                       onClick={() => {
                         if (isCustom && customSec) {
                           setEditingCustomSection(customSec);
                           setIsCreatingCustom(false);
                         } else {
-                          handleOpenBuiltInEditor(key);
+                          handleOpenBuiltInEditor(key, 'images');
+                        }
+                      }}
+                      title="Change, upload, or preview imagery for this section"
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#FAF7F4] hover:text-[#E28C38] border border-[#3D2315] hover:border-[#C87428]/50 text-xs font-bold transition-all shadow-xs"
+                    >
+                      <Camera className="w-3.5 h-3.5 text-[#C87428]" />
+                      <span className="hidden sm:inline">Change Image</span>
+                      <span className="sm:hidden">Photo</span>
+                    </button>
+
+                    {/* Edit Section Content Button */}
+                    <button
+                      onClick={() => {
+                        if (isCustom && customSec) {
+                          setEditingCustomSection(customSec);
+                          setIsCreatingCustom(false);
+                        } else {
+                          handleOpenBuiltInEditor(key, 'content');
                         }
                       }}
                       title="Update section content, titles & details"
@@ -747,7 +925,42 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
               </div>
             </div>
 
-            {/* Quick jump to dedicated manager if available */}
+            {/* Modal Tab Switcher */}
+            <div className="flex items-center gap-2 border-b border-[#3D2315] pb-3">
+              <button
+                type="button"
+                onClick={() => setModalTab('content')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                  modalTab === 'content'
+                    ? 'bg-[#C87428] text-white shadow-md shadow-[#C87428]/20'
+                    : 'bg-[#2A1810] text-[#EADFD5]/70 hover:text-white border border-[#3D2315]'
+                }`}
+              >
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>Content & Typography</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setModalTab('images')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all relative ${
+                  modalTab === 'images'
+                    ? 'bg-[#C87428] text-white shadow-md shadow-[#C87428]/20'
+                    : 'bg-[#2A1810] text-[#EADFD5]/70 hover:text-white border border-[#3D2315]'
+                }`}
+              >
+                <Camera className="w-3.5 h-3.5" />
+                <span>Section Images & Media</span>
+                {builtInForm.image && (
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                )}
+              </button>
+            </div>
+
+            {/* TAB 1: Content & Typography */}
+            {modalTab === 'content' && (
+              <div className="space-y-6">
+                {/* Quick jump to dedicated manager if available */}
             {BUILT_IN_SECTIONS[editingBuiltInKey]?.dedicatedTab && onNavigateTab && (
               <div className="p-3.5 rounded-xl bg-[#C87428]/10 border border-[#C87428]/30 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2.5 text-xs text-[#E28C38]">
@@ -1021,6 +1234,120 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 </div>
               </div>
             )}
+              </div>
+            )}
+
+            {/* TAB 2: Images & Photography */}
+            {modalTab === 'images' && (
+              <div className="space-y-6">
+                <div className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                      <Camera className="w-4 h-4 text-[#C87428]" />
+                      <span>
+                        {SECTION_IMAGE_CONFIG[editingBuiltInKey]?.title || 'Section Visual & Photography'}
+                      </span>
+                    </h4>
+                    {builtInForm.image && (
+                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-950/40 text-emerald-400 border border-emerald-800/40 text-[10px] font-bold uppercase tracking-wider">
+                        Custom Image Set
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-[#EADFD5]/60">
+                    {SECTION_IMAGE_CONFIG[editingBuiltInKey]?.description ||
+                      'Customize the imagery, photography, or backdrop banner for this section.'}
+                  </p>
+                </div>
+
+                {/* Primary Image Upload Field for Section */}
+                <ImageUploadField
+                  label={SECTION_IMAGE_CONFIG[editingBuiltInKey]?.title || 'Section Photograph / Backdrop'}
+                  value={builtInForm.image || ''}
+                  onChange={(url) => setBuiltInForm({ ...builtInForm, image: url })}
+                  aspectRatio={SECTION_IMAGE_CONFIG[editingBuiltInKey]?.aspectRatio || 'wide'}
+                  placeholder={
+                    SECTION_IMAGE_CONFIG[editingBuiltInKey]?.placeholder ||
+                    'Select a travel preset, upload from device, or paste URL'
+                  }
+                  helperText={
+                    editingBuiltInKey === 'hero'
+                      ? 'This image serves as the main high-definition backdrop across the hero marquee.'
+                      : editingBuiltInKey === 'about'
+                      ? 'Featured atelier photography rendered directly beside the luxury travel philosophy.'
+                      : 'High-definition photography or visual asset displayed in this section.'
+                  }
+                />
+
+                {/* Special Experiences 6 Themes Sub-editor */}
+                {editingBuiltInKey === 'experiences' && localExperiencePillars.length > 0 && (
+                  <div className="space-y-4 pt-6 border-t border-[#3D2315]">
+                    <div>
+                      <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#C87428]" />
+                        <span>Individual Experience Theme Photography (6 Themes)</span>
+                      </h4>
+                      <p className="text-xs text-[#EADFD5]/60 mt-0.5">
+                        Change the photograph for each of the 6 core experience cards on the homepage.
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {localExperiencePillars.map((pillar, pIdx) => (
+                        <div
+                          key={pillar.number || pIdx}
+                          className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-white font-serif">
+                              {pillar.number}. {pillar.title}
+                            </span>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#C87428] px-2 py-0.5 rounded-full bg-[#C87428]/10 border border-[#C87428]/20">
+                              {pillar.typeKey}
+                            </span>
+                          </div>
+                          <ImageUploadField
+                            label={`Card Photo (${pillar.title})`}
+                            value={pillar.image || ''}
+                            onChange={(url) => {
+                              const updated = [...localExperiencePillars];
+                              updated[pIdx] = { ...updated[pIdx], image: url };
+                              setLocalExperiencePillars(updated);
+                            }}
+                            aspectRatio="video"
+                            placeholder="Select luxury preset or upload photo"
+                            helperText={`Photo displayed on top of the ${pillar.title} card.`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Direct link to dedicated manager if available */}
+                {BUILT_IN_SECTIONS[editingBuiltInKey]?.dedicatedTab && onNavigateTab && (
+                  <div className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div>
+                      <h5 className="text-xs font-bold text-white">Need to manage individual item photos?</h5>
+                      <p className="text-[11px] text-[#EADFD5]/60">
+                        Open the dedicated manager to configure every single destination card, package itinerary, or gallery photo.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const targetTab = BUILT_IN_SECTIONS[editingBuiltInKey]?.dedicatedTab;
+                        setEditingBuiltInKey(null);
+                        if (targetTab) onNavigateTab(targetTab);
+                      }}
+                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold shrink-0 transition-colors"
+                    >
+                      <span>{BUILT_IN_SECTIONS[editingBuiltInKey]?.tabLabel || 'Open Dedicated Tab'}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Modal Bottom Controls */}
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#3D2315]">
@@ -1165,6 +1492,20 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
                 />
               </div>
+            </div>
+
+            {/* Section Background Media */}
+            <div className="pt-2 border-t border-[#3D2315]">
+              <ImageUploadField
+                label="Section Background Photography (Optional Full-Width Backdrop)"
+                value={editingCustomSection.backgroundImage || ''}
+                onChange={(url) =>
+                  setEditingCustomSection({ ...editingCustomSection, backgroundImage: url })
+                }
+                aspectRatio="wide"
+                placeholder="Select luxury preset, upload high-res image, or enter image URL"
+                helperText="Optional full-width background photo displayed behind this custom section with ambient glass overlay."
+              />
             </div>
 
             {/* Section Items Manager */}

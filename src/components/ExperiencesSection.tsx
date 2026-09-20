@@ -50,46 +50,67 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
           {activePillars.map((exp) => (
             <div
               key={exp.number}
-              className="rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/60 dark:hover:border-[#E28C38]/60 p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-all duration-500 shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative overflow-hidden"
+              className="rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/60 dark:hover:border-[#E28C38]/60 overflow-hidden flex flex-col justify-between group transition-all duration-500 shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative"
             >
-              {/* Background Ambient Number Accent */}
-              <span className="absolute -top-4 -right-2 font-serif text-8xl font-bold text-[#EADFD5]/30 dark:text-white/5 select-none pointer-events-none group-hover:text-[#8C5528]/15 dark:group-hover:text-[#E28C38]/15 transition-colors">
-                {exp.number}
-              </span>
+              {/* Optional Pillar Image Header */}
+              {exp.image && (
+                <div className="relative w-full h-44 overflow-hidden border-b border-[#EADFD5]/80 dark:border-white/10">
+                  <img
+                    src={exp.image}
+                    alt={exp.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className="absolute top-3 left-3 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-black/60 backdrop-blur-md text-white font-serif font-bold text-xs border border-white/20">
+                    {exp.number}
+                  </div>
+                </div>
+              )}
 
-              <div className="space-y-3.5 sm:space-y-4 relative z-10">
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#F4ECE4] dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] font-serif font-bold text-sm border border-[#DFD0C0] dark:border-white/10">
+              {/* Background Ambient Number Accent if no image */}
+              {!exp.image && (
+                <span className="absolute -top-4 -right-2 font-serif text-8xl font-bold text-[#EADFD5]/30 dark:text-white/5 select-none pointer-events-none group-hover:text-[#8C5528]/15 dark:group-hover:text-[#E28C38]/15 transition-colors">
                   {exp.number}
-                </div>
+                </span>
+              )}
 
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
-                  {exp.title}
-                </h3>
-
-                <p className="text-[#594336] dark:text-[#D1C2B8] text-sm leading-relaxed font-normal">
-                  {exp.description}
-                </p>
-
-                {/* Micro Highlights */}
-                <div className="pt-2 space-y-1.5 border-t border-[#EADFD5]/80 dark:border-white/10">
-                  {exp.highlights.slice(0, 2).map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-[#7C685B] dark:text-[#DFD0C0]">
-                      <Check className="w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38] shrink-0" />
-                      <span className="truncate font-medium">{item}</span>
+              <div className="p-6 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 relative z-10">
+                <div className="space-y-3.5">
+                  {!exp.image && (
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#F4ECE4] dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] font-serif font-bold text-sm border border-[#DFD0C0] dark:border-white/10">
+                      {exp.number}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  )}
 
-              {/* Action Link */}
-              <div className="pt-6 relative z-10">
-                <button
-                  onClick={() => onPlanTripType(exp.typeKey)}
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8C5528] dark:text-[#E28C38] hover:text-[#72421D] dark:hover:text-white transition-colors"
-                >
-                  <span>{exp.ctaText}</span>
-                  <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
-                </button>
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
+                    {exp.title}
+                  </h3>
+
+                  <p className="text-[#594336] dark:text-[#D1C2B8] text-sm leading-relaxed font-normal">
+                    {exp.description}
+                  </p>
+
+                  {/* Micro Highlights */}
+                  <div className="pt-2 space-y-1.5 border-t border-[#EADFD5]/80 dark:border-white/10">
+                    {exp.highlights.slice(0, 2).map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-xs text-[#7C685B] dark:text-[#DFD0C0]">
+                        <Check className="w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38] shrink-0" />
+                        <span className="truncate font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Link */}
+                <div className="pt-4 relative z-10">
+                  <button
+                    onClick={() => onPlanTripType(exp.typeKey)}
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8C5528] dark:text-[#E28C38] hover:text-[#72421D] dark:hover:text-white transition-colors"
+                  >
+                    <span>{exp.ctaText}</span>
+                    <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
