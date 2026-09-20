@@ -376,11 +376,38 @@ app.post("/api/inquiries", (req, res) => {
   }
 });
 
+// Update inquiry status
+app.patch("/api/inquiries/:id/status", (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const validStatuses = ['new', 'contacted', 'quoted', 'booked'];
+    if (!status || !validStatuses.includes(status)) {
+      return res.status(400).json({ error: 'Invalid status value.' });
+    }
+    let inquiries = getStoredInquiries();
+    const index = inquiries.findIndex((item: any) => item.id === id);
+    if (index === -1) {
+      return res.status(404).json({ error: 'Inquiry not found.' });
+    }
+    inquiries[index] = { ...inquiries[index], status };
+    saveInquiries(inquiries);
+    res.json({ success: true, inquiry: inquiries[index] });
+  } catch (e) {
+    res.status(500).json({ error: 'Failed to update inquiry status.' });
+  }
+});
+
+// Delete inquiry
 app.delete("/api/inquiries/:id", (req, res) => {
   try {
     const { id } = req.params;
     let inquiries = getStoredInquiries();
-    inquiries = inquiries.filter(item => item.id !== id);
+    const before = inquiries.length;
+    inquiries = inquiries.filter((item: any) => item.id !== id);
+    if (inquiries.length === before) {
+      return res.status(404).json({ error: 'Inquiry not found.' });
+    }
     saveInquiries(inquiries);
     res.json({ success: true, message: 'Inquiry deleted' });
   } catch (e) {

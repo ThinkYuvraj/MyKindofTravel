@@ -14,6 +14,7 @@ import {
   Clock,
   Send,
   AlertCircle,
+  Trash2,
 } from 'lucide-react';
 
 export const InquiriesManager: React.FC = () => {
@@ -43,22 +44,33 @@ export const InquiriesManager: React.FC = () => {
   }, []);
 
   const handleUpdateStatus = async (id: string, newStatus: InquiryLead['status']) => {
+    // Optimistically update UI first
+    setLeads((prev) =>
+      prev.map((l) => (l.id === id ? { ...l, status: newStatus } : l))
+    );
+    if (selectedLead && selectedLead.id === id) {
+      setSelectedLead({ ...selectedLead, status: newStatus });
+    }
     try {
-      const res = await fetch(`/api/inquiries/${id}/status`, {
+      await fetch(`/api/inquiries/${id}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
       });
-      if (res.ok) {
-        setLeads((prev) =>
-          prev.map((l) => (l.id === id ? { ...l, status: newStatus } : l))
-        );
-        if (selectedLead && selectedLead.id === id) {
-          setSelectedLead({ ...selectedLead, status: newStatus });
-        }
-      }
     } catch (e) {
       console.error('Error updating status:', e);
+    }
+  };
+
+  const handleDeleteLead = async (id: string) => {
+    if (!confirm('Are you sure you want to permanently delete this inquiry?')) return;
+    // Optimistically remove from UI
+    setLeads((prev) => prev.filter((l) => l.id !== id));
+    if (selectedLead && selectedLead.id === id) setSelectedLead(null);
+    try {
+      await fetch(`/api/inquiries/${id}`, { method: 'DELETE' });
+    } catch (e) {
+      console.error('Error deleting inquiry:', e);
     }
   };
 
@@ -266,6 +278,15 @@ export const InquiriesManager: React.FC = () => {
                     <Mail className="w-3.5 h-3.5" />
                     <span>Email</span>
                   </a>
+
+                  {/* Delete Lead */}
+                  <button
+                    onClick={() => handleDeleteLead(lead.id)}
+                    className="p-2 rounded-xl bg-red-950/30 hover:bg-red-900/50 text-red-400 border border-red-900/30 transition-all"
+                    title="Delete Inquiry"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             );
