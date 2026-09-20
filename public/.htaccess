@@ -1,0 +1,10 @@
+Options -MultiViews
+RewriteEngine On
+RewriteBase /
+
+# Serve existing files and directories directly (JS, CSS, images, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# For everything else (SPA routes like /admin/login, /admin, etc.) → serve index.html
+RewriteRule ^ index.html [L]
