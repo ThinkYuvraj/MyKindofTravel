@@ -49,36 +49,42 @@ export default function StoriesPage() {
                     </div>
                     <span className="text-[11px] font-semibold text-[#8C7667] dark:text-[#A7978A] flex items-center gap-1">
                       <MapPin className="w-3.5 h-3.5 text-[#E37500]" />
-                      <span>{review.destination}</span>
+                      <span>{review.tripInfo}</span>
                     </span>
                   </div>
 
                   {/* Quote */}
                   <blockquote className="font-serif text-base sm:text-lg leading-relaxed text-[#24130A] dark:text-white italic">
-                    "{review.text}"
+                    "{review.quote}"
                   </blockquote>
                 </div>
 
                 {/* Author Info */}
                 <div className="pt-4 border-t border-[#E8DFD5] dark:border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <img
-                      src={review.image}
-                      alt={review.name}
-                      className="w-11 h-11 rounded-full object-cover border border-[#E8DFD5] dark:border-white/20"
-                    />
+                    {review.avatar ? (
+                      <img
+                        src={review.avatar}
+                        alt={review.author}
+                        className="w-11 h-11 rounded-full object-cover border border-[#E8DFD5] dark:border-white/20"
+                      />
+                    ) : (
+                      <div className="w-11 h-11 rounded-full bg-[#E37500] text-white flex items-center justify-center font-bold text-sm">
+                        {review.initial || review.author[0]}
+                      </div>
+                    )}
                     <div>
                       <h4 className="font-serif font-bold text-sm text-[#24130A] dark:text-white">
-                        {review.name}
+                        {review.author}
                       </h4>
                       <span className="text-xs text-[#6F5B4E] dark:text-[#A7978A]">
-                        {review.location}
+                        {review.year}
                       </span>
                     </div>
                   </div>
 
                   <span className="text-[11px] font-bold text-[#E37500] px-2.5 py-1 rounded-full bg-[#E37500]/10 border border-[#E37500]/20">
-                    {review.tripType}
+                    Verified Journey
                   </span>
                 </div>
               </div>

@@ -278,15 +278,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Wishlist */}
             <button
-              onClick={() => setWishlistOpen(true)}
+              onClick={openWishlist}
               className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#24130A] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               title="Saved Journeys"
               aria-label="Wishlist"
             >
-              <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] ${wishlistItems.length > 0 ? 'fill-[#E37500] text-[#E37500]' : ''}`} />
-              {wishlistItems.length > 0 && (
+              <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] ${totalSavedCount > 0 ? 'fill-[#E37500] text-[#E37500]' : ''}`} />
+              {totalSavedCount > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#E37500] text-white text-[8px] font-bold flex items-center justify-center shadow-xs">
-                  {wishlistItems.length}
+                  {totalSavedCount}
                 </span>
               )}
             </button>
