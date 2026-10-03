@@ -68,23 +68,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   )}`;
 
   return (
-    <section id="contact" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
+    <section id="contact" className="py-12 sm:py-16 lg:py-24 bg-white dark:bg-black text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-white/10 relative transition-colors duration-300">
       <div className="section-container">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Contact details & intro */}
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{customBadge || 'Get in touch'}</span>
               </div>
 
               {customTitle ? (
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
                   {customTitle}
                 </h2>
               ) : (
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
                   Let's design your <br />
                   <span className="italic font-serif text-[#E37500] font-normal">
                     perfect trip
@@ -92,7 +92,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 </h2>
               )}
 
-              <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
+              <p className="text-neutral-600 dark:text-neutral-300 text-base sm:text-lg leading-relaxed font-normal">
                 {customSubtitle || "Share your travel dreams and we'll get back to you within 24 hours with a custom plan. No obligation, no pressure — just inspiration."}
               </p>
             </div>
@@ -104,7 +104,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 href={`https://wa.me/${info.phoneRaw || COMPANY_INFO.phoneRaw}?text=Hi%20My%20Kind%20of%20Travel%2C%20I%20am%20interested%20in%20planning%20a%20luxury%20holiday.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#0E0E0E]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
+                className="p-5 rounded-2xl bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center border border-[#E37500]/30 shrink-0 group-hover:scale-105 transition-transform">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-label="WhatsApp">
@@ -112,10 +112,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   </svg>
                 </div>
                 <div>
-                  <span className="block text-[11px] uppercase tracking-wider text-[#7C685B] dark:text-[#A7978A] font-bold font-sans">
+                  <span className="block text-[11px] uppercase tracking-wider text-neutral-500 dark:text-[#A7978A] font-bold font-sans">
                     WhatsApp / Call
                   </span>
-                  <span className="font-sans text-base sm:text-lg font-semibold tracking-wide text-[#2A1810] dark:text-white group-hover:text-[#E37500] dark:group-hover:text-[#E37500] transition-colors">
+                  <span className="font-sans text-base sm:text-lg font-semibold tracking-wide text-neutral-900 dark:text-white group-hover:text-[#E37500] dark:group-hover:text-[#E37500] transition-colors">
                     {info.phone}
                   </span>
                 </div>
@@ -124,31 +124,31 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               {/* Email */}
               <a
                 href={`mailto:${info.email}`}
-                className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#0E0E0E]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
+                className="p-5 rounded-2xl bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center border border-[#E37500]/30 shrink-0 group-hover:scale-105 transition-transform">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-[11px] uppercase tracking-wider text-[#7C685B] dark:text-[#A7978A] font-bold font-sans">
+                  <span className="block text-[11px] uppercase tracking-wider text-neutral-500 dark:text-[#A7978A] font-bold font-sans">
                     Email us
                   </span>
-                  <span className="font-sans text-sm sm:text-base font-semibold text-[#2A1810] dark:text-white group-hover:text-[#E37500] dark:group-hover:text-[#E37500] transition-colors break-all">
+                  <span className="font-sans text-sm sm:text-base font-semibold text-neutral-900 dark:text-white group-hover:text-[#E37500] dark:group-hover:text-[#E37500] transition-colors break-all">
                     {info.email}
                   </span>
                 </div>
               </a>
 
               {/* WhatsApp Support Hours */}
-              <div className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#0E0E0E]/90 border border-white/80 dark:border-white/10 flex items-center gap-4 shadow-xs">
+              <div className="p-5 rounded-2xl bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 flex items-center gap-4 shadow-xs">
                 <div className="w-12 h-12 rounded-xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center border border-[#E37500]/30 shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-[11px] uppercase tracking-wider text-[#7C685B] dark:text-[#A7978A] font-bold font-sans">
+                  <span className="block text-[11px] uppercase tracking-wider text-neutral-500 dark:text-[#A7978A] font-bold font-sans">
                     WhatsApp chat
                   </span>
-                  <span className="font-sans text-xs sm:text-sm font-medium text-[#2A1810] dark:text-white">
+                  <span className="font-sans text-xs sm:text-sm font-medium text-neutral-900 dark:text-white">
                     {info.supportHours}
                   </span>
                 </div>
@@ -158,7 +158,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
           {/* Right Column: Interactive Form */}
           <div className="lg:col-span-7">
-            <div className="p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-xl bg-white/85 dark:bg-[#0B0B0B]/95 border border-white/80 dark:border-white/10 shadow-[0_12px_45px_rgba(42,24,16,0.06)] dark:shadow-[0_12px_45px_rgba(0,0,0,0.4)] relative">
+            <div className="p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-[0_12px_45px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_45px_rgba(0,0,0,0.4)] relative">
               {submitted ? (
                 <div className="py-12 text-center space-y-6 animate-in zoom-in-95 duration-300">
                   <div className="w-16 h-16 rounded-2xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] border border-[#E37500]/30 flex items-center justify-center mx-auto shadow-md">
@@ -166,13 +166,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#2A1810] dark:text-white">
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white">
                       Enquiry Received!
                     </h3>
                     <p className="text-[#E37500] dark:text-[#E37500] font-bold text-sm">
                       Reference #{refId}
                     </p>
-                    <p className="text-[#594336] dark:text-[#D1C2B8] text-sm max-w-md mx-auto leading-relaxed">
+                    <p className="text-neutral-600 dark:text-neutral-300 text-sm max-w-md mx-auto leading-relaxed">
                       Thank you, {firstName || 'traveller'}. A dedicated luxury travel specialist from My Kind of Travel has been assigned to your request and will reach out within 24 hours.
                     </p>
                   </div>
@@ -193,7 +193,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         setSubmitted(false);
                         setMessage('');
                       }}
-                      className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#F4ECE4] dark:bg-white/10 hover:bg-[#EBE0D5] dark:hover:bg-white/20 text-[#2A1810] dark:text-white text-xs font-bold border border-[#DFD0C0] dark:border-white/15"
+                      className="w-full sm:w-auto px-6 py-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-white/10 dark:hover:bg-white/20 text-neutral-900 dark:text-white text-xs font-bold border border-neutral-200 dark:border-white/15"
                     >
                       Submit Another Trip
                     </button>
@@ -204,7 +204,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* First Name */}
                     <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                         First name
                       </label>
                       <input
@@ -213,13 +213,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="Rahul"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
                     {/* Last Name */}
                     <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                         Last name
                       </label>
                       <input
@@ -228,7 +228,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="Sharma"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
                   </div>
@@ -236,7 +236,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Email */}
                     <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                         Email address
                       </label>
                       <input
@@ -245,13 +245,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="rahul@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
                     {/* Phone / WhatsApp */}
                     <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                         WhatsApp / Phone
                       </label>
                       <input
@@ -260,7 +260,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="+91 98000 00000"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
                   </div>
@@ -268,14 +268,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Destination */}
                     <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                         Destination
                       </label>
                       <select
                         required
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                       >
                         <option value="">Select destination</option>
                         {DESTINATIONS.map((d) => (
@@ -290,14 +290,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
                     {/* Trip Type */}
                     <div className="space-y-1.5">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                         Trip type
                       </label>
                       <select
                         required
                         value={tripType}
                         onChange={(e) => setTripType(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                       >
                         <option value="">Select type</option>
                         {EXPERIENCE_PILLARS.map((p) => (
@@ -312,7 +312,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
                   {/* Dream Trip Description */}
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                       Tell us your dream trip
                     </label>
                     <textarea
@@ -320,7 +320,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       placeholder="Dates, budget, must-haves, special occasions..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
                     />
                   </div>
 
@@ -332,7 +332,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     <span>Send My Enquiry →</span>
                   </button>
 
-                  <p className="text-center text-[11px] text-[#7C685B] dark:text-neutral-400 pt-1">
+                  <p className="text-center text-[11px] text-neutral-500 dark:text-neutral-400 pt-1">
+                    No spam. We respect your privacy and will never share your personal contact information.
+                  </p>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
                     No spam. We respect your privacy and will never share your personal contact information.
                   </p>
                 </form>

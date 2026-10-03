@@ -157,28 +157,28 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
   return (
     <section
       id="how-it-works"
-      className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#C2B299]/40 dark:border-white/10 relative transition-colors duration-300"
+      className="py-12 sm:py-16 lg:py-24 bg-transparent text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-white/10 relative transition-colors duration-300"
     >
       <div className="section-container relative">
         {/* Section Header with Title and Caret Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/10 text-[#2A1810] dark:text-[#E3BA91] text-xs font-bold uppercase tracking-widest border border-[#C2B299]/60 dark:border-white/10 backdrop-blur-md shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-white/10 text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
               <Compass className="w-3.5 h-3.5 text-[#E37500]" />
               <span>{customBadge || 'How it works'}</span>
             </div>
 
             {customTitle ? (
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 {customTitle}
               </h2>
             ) : (
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 From dream to <span className="italic font-serif text-[#E37500] font-normal">departure</span>
               </h2>
             )}
 
-            <p className="text-[#3D2B22] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base sm:text-lg leading-relaxed font-normal">
               {customSubtitle ||
                 'A simple, seamless process from your first call to your flight home. We handle every detail — you handle the excitement.'}
             </p>
@@ -194,7 +194,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                   className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                     activeDotIndex === idx
                       ? 'w-8 bg-[#E37500] shadow-xs'
-                      : 'w-2.5 bg-[#C2B299]/50 dark:bg-white/20 hover:bg-[#E37500]/60'
+                      : 'w-2.5 bg-neutral-200 dark:bg-white/20 hover:bg-[#E37500]/60'
                   }`}
                   aria-label={`Go to step ${idx + 1}`}
                 />
@@ -204,14 +204,14 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
             <div className="flex items-center gap-2 ml-2">
               <button
                 onClick={handlePrev}
-                className="w-10 h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/15 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
+                className="w-10 h-10 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
                 aria-label="Previous step"
               >
                 <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
               </button>
               <button
                 onClick={handleNext}
-                className="w-10 h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/15 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
+                className="w-10 h-10 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
                 aria-label="Next step"
               >
                 <ChevronRight className="w-4 h-4 stroke-[2.5]" />
@@ -225,7 +225,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
           {/* Floating Left Side Caret */}
           <button
             onClick={handlePrev}
-            className="hidden sm:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/20 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
+            className="hidden sm:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
@@ -234,7 +234,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
           {/* Floating Right Side Caret */}
           <button
             onClick={handleNext}
-            className="hidden sm:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/20 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
+            className="hidden sm:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
@@ -279,10 +279,10 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                     className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-2.5 sm:px-3.5"
                   >
                     <div
-                      className={`h-full p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/95 dark:bg-[#0B0B0B]/95 border transition-all duration-300 flex flex-col justify-between space-y-6 relative group ${
+                      className={`h-full p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border transition-all duration-300 flex flex-col justify-between space-y-6 relative group ${
                         isCurrentActive
                           ? 'border-[#E37500]/70 dark:border-[#E37500]/70 shadow-[0_12px_36px_rgba(227,117,0,0.12)] -translate-y-1'
-                          : 'border-white/80 dark:border-white/10 hover:border-[#E37500]/40 dark:hover:border-[#E37500]/40 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1'
+                          : 'border-neutral-200 dark:border-white/10 hover:border-[#E37500]/40 dark:hover:border-[#E37500]/40 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1'
                       }`}
                     >
                       <div className="space-y-4">
@@ -297,38 +297,38 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                           >
                             {step.step}
                           </span>
-                          <span className="text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-full bg-[#FAF7F2] dark:bg-white/10 text-[#E37500] border border-[#C2B299]/60 dark:border-white/15 shadow-xs">
+                          <span className="text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-full bg-neutral-100 dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/15 shadow-xs">
                             {step.actionBadge || `Step ${stepIdx + 1}`}
                           </span>
                         </div>
 
                         {/* Title & Subtitle */}
                         <div>
-                          <h3 className="font-serif text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
+                          <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
                             {step.title}
                           </h3>
                           {step.subtitle && (
-                            <p className="text-xs font-semibold text-[#8C7667] dark:text-[#E3BA91]/80 mt-1 uppercase tracking-wider">
+                            <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 mt-1 uppercase tracking-wider">
                               {step.subtitle}
                             </p>
                           )}
                         </div>
 
                         {/* Description */}
-                        <p className="text-[#4A3222] dark:text-[#D1C2B8] text-sm leading-relaxed font-normal">
+                        <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-normal">
                           {step.description}
                         </p>
                       </div>
 
                       {/* Card Footer */}
-                      <div className="pt-4 border-t border-[#C2B299]/30 dark:border-white/10 flex items-center justify-between text-xs text-[#E37500] font-semibold">
+                      <div className="pt-4 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between text-xs text-[#E37500] font-semibold">
                         <div className="flex items-center">
                           <CheckCircle2 className="w-4 h-4 mr-1.5 text-[#E37500]" />
                           <span>
                             Step {stepIdx + 1} of {N}
                           </span>
                         </div>
-                        <span className="text-[11px] text-[#8C7667] dark:text-[#A7978A] font-medium">
+                        <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">
                           Bespoke Fluidity
                         </span>
                       </div>
@@ -341,12 +341,12 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
         </div>
 
         {/* Bottom CTA Banner */}
-        <div className="mt-12 p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#0B0B0B]/90 border border-white/80 dark:border-white/15 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="mt-12 p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/90 border border-neutral-200 dark:border-white/15 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="space-y-1 text-center sm:text-left">
-            <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-white">
+            <h4 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
               Ready to take the first step?
             </h4>
-            <p className="text-[#4A3222] dark:text-[#D1C2B8] text-xs sm:text-sm font-normal">
+            <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm font-normal">
               A 15-minute consultation is all it takes to turn ideas into a bespoke itinerary.
             </p>
           </div>

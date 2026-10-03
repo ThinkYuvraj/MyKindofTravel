@@ -54,40 +54,40 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   };
 
   return (
-    <section id="stories" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#C2B299]/40 dark:border-white/10 relative transition-colors duration-300">
+    <section id="stories" className="py-12 sm:py-16 lg:py-24 bg-white dark:bg-black text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-white/10 relative transition-colors duration-300">
       <div className="section-container">
         {/* Heading & Caret Controls */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
           <div className="max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/10 text-[#2A1810] dark:text-[#E3BA91] text-xs font-bold uppercase tracking-widest border border-[#C2B299]/60 dark:border-white/10 backdrop-blur-md shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-white/10 text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
               <Heart className="w-3.5 h-3.5 fill-[#E37500]/20 text-[#E37500]" />
               <span>{customBadge || 'Real stories'}</span>
             </div>
 
             {customTitle ? (
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 {customTitle}
               </h2>
             ) : (
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 Trips that <span className="italic font-serif text-[#E37500] font-normal">changed everything</span>
               </h2>
             )}
 
-            <p className="text-[#3D2B22] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
+            <p className="text-neutral-600 dark:text-neutral-300 text-base sm:text-lg leading-relaxed font-normal">
               {customSubtitle || 'Honest feedback from Indian couples, corporate leaders, and families who trusted us with their most cherished milestones.'}
             </p>
           </div>
 
           {/* Caret Controls & Mode Switcher */}
           <div className="flex items-center gap-2 self-start lg:self-end">
-            <div className="flex items-center bg-white/85 dark:bg-white/10 p-1 rounded-full border border-[#C2B299]/60 dark:border-white/10 shadow-xs">
+            <div className="flex items-center bg-white dark:bg-white/10 p-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-xs">
               <button
                 onClick={() => setViewMode('carousel')}
                 className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   viewMode === 'carousel'
                     ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-[#4A3222] dark:text-neutral-300 hover:text-[#E37500]'
+                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
                 }`}
                 title="Caret Carousel"
               >
@@ -98,7 +98,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                 className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   viewMode === 'grid'
                     ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-[#4A3222] dark:text-neutral-300 hover:text-[#E37500]'
+                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
                 }`}
                 title="Grid View"
               >
@@ -111,7 +111,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                 <button
                   onClick={scrollLeft}
                   disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#111111] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                   aria-label="Previous story"
                   title="Previous"
                 >
@@ -120,7 +120,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                 <button
                   onClick={scrollRight}
                   disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#111111] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                   aria-label="Next story"
                   title="Next"
                 >
@@ -143,7 +143,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           {activeReviews.map((review) => (
             <div
               key={review.id}
-              className={`p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#0B0B0B]/95 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group ${
+              className={`p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group ${
                 viewMode === 'carousel' ? 'shrink-0 w-[90vw] sm:w-[480px] lg:w-[540px] snap-start' : ''
               }`}
             >
@@ -156,18 +156,18 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                 </div>
 
                 {/* Quote */}
-                <p className="text-[#3D2B22] dark:text-[#EADFD5] text-sm sm:text-base leading-relaxed font-normal italic">
+                <p className="text-neutral-700 dark:text-neutral-200 text-sm sm:text-base leading-relaxed font-normal italic">
                   "{review.quote}"
                 </p>
               </div>
 
               {/* Author & Avatar */}
-              <div className="pt-4 border-t border-[#C2B299]/30 dark:border-white/10 flex items-center gap-3">
+              <div className="pt-4 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
                 {review.avatar ? (
                   <GlassImage
                     src={review.avatar}
                     alt={review.author}
-                    containerClassName="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-[#C2B299]/60 dark:border-white/20 shadow-xs"
+                    containerClassName="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-neutral-200 dark:border-white/20 shadow-xs"
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -176,7 +176,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                   </div>
                 )}
                 <div>
-                  <h4 className="font-serif font-bold text-[#2A1810] dark:text-white text-base">
+                  <h4 className="font-serif font-bold text-neutral-900 dark:text-white text-base">
                     {review.author}
                   </h4>
                   <p className="text-xs text-[#E37500] font-semibold">

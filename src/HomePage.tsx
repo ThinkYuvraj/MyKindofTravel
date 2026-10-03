@@ -314,10 +314,10 @@ useEffect(() => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF6F1] dark:bg-black text-[#24130A] dark:text-white flex flex-col selection:bg-[#E37500] selection:text-white font-sans relative transition-colors duration-500">
-      {/* Light Warm Gradient Canvas with #E3BA91 Champagne/Gold undertone */}
+    <div className="min-h-screen bg-white dark:bg-black text-[#111827] dark:text-white flex flex-col selection:bg-[#E37500] selection:text-white font-sans relative transition-colors duration-500">
+      {/* Light Mode Pure White Canvas */}
       <div
-        className="fixed inset-0 bg-gradient-to-br from-[#FAF6F1] via-[#F4E6D7] to-[#FAF6F1] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-100 dark:opacity-0 -z-10"
+        className="fixed inset-0 bg-white pointer-events-none transition-opacity duration-500 ease-in-out opacity-100 dark:opacity-0 -z-10"
         aria-hidden="true"
       />
 

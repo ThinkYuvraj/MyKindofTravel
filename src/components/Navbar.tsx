@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Floating Slim Luxury Navbar */}
       <header className="fixed top-2.5 sm:top-3.5 inset-x-0 mx-auto w-[95%] max-w-6xl z-50 transition-all duration-300 pointer-events-auto">
         <div
-          className="w-full h-13 sm:h-14 rounded-full transition-all duration-300 px-3.5 sm:px-5 flex items-center justify-between gap-3 bg-[#FAF7F2]/95 dark:bg-[#0A0A0A]/95 backdrop-blur-2xl border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(36,19,10,0.08)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.8)] text-[#24130A] dark:text-white"
+          className="w-full h-13 sm:h-14 rounded-full transition-all duration-300 px-3.5 sm:px-5 flex items-center justify-between gap-3 bg-white/95 dark:bg-[#0A0A0A]/95 backdrop-blur-2xl border border-neutral-200 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.8)] text-neutral-900 dark:text-white"
         >
           {/* Left: Compass Monogram & Branding */}
           <div className="flex items-center shrink-0">
@@ -109,10 +109,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-300 group-hover:rotate-45" />
               </div>
               <div className="flex items-baseline gap-1.5">
-                <span className="font-serif text-sm sm:text-base font-bold tracking-tight text-[#24130A] dark:text-white group-hover:text-[#E37500] transition-colors leading-none">
+                <span className="font-serif text-sm sm:text-base font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-none">
                   My Kind of Travel
                 </span>
-                <span className="hidden md:inline text-[9px] uppercase tracking-widest text-[#8C7667] dark:text-[#A7978A] font-medium">
+                <span className="hidden md:inline text-[9px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-medium">
                   · Bespoke
                 </span>
               </div>
@@ -120,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Center: Sleek Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-[12px] xl:text-[13px] font-medium text-[#4A3225] dark:text-[#E2D4C8]">
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-[12px] xl:text-[13px] font-medium text-neutral-700 dark:text-neutral-200">
             {/* DESTINATIONS Dropdown */}
             <div
               className="relative"
@@ -132,12 +132,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors flex items-center gap-1 group"
               >
                 <span>Destinations</span>
-                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'destinations' ? 'rotate-180 text-[#E37500]' : scrolled ? 'text-[#8D7466]' : 'text-white/70'}`} />
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'destinations' ? 'rotate-180 text-[#E37500]' : scrolled ? 'text-neutral-500' : 'text-white/70'}`} />
               </button>
 
               {activeDropdown === 'destinations' && (
                 <div className="absolute top-full left-0 pt-2 w-60 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                  <div className="bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
+                  <div className="bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
                     <div className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest text-[#E37500]">
                       Curated Destinations
                     </div>
@@ -146,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         <button
                           key={dest.id}
                           onClick={() => handleDestinationClick(dest.id)}
-                          className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs text-[#2A1810] dark:text-white hover:bg-[#E37500]/10 hover:text-[#E37500] transition-colors flex items-center justify-between group/item"
+                          className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs text-neutral-900 dark:text-white hover:bg-[#E37500]/10 hover:text-[#E37500] transition-colors flex items-center justify-between group/item"
                         >
                           <span>{dest.name}</span>
                           <ArrowRight className="w-3 h-3 text-[#E37500] opacity-0 group-hover/item:opacity-100 transition-opacity" />
@@ -157,7 +157,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           setActiveDropdown(null);
                           onNavigate('destinations');
                         }}
-                        className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs font-semibold text-[#E37500] hover:bg-[#E37500]/15 transition-colors border-t border-[#E8DFD5] dark:border-white/10 mt-1 flex items-center justify-between"
+                        className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs font-semibold text-[#E37500] hover:bg-[#E37500]/15 transition-colors border-t border-neutral-200 dark:border-white/10 mt-1 flex items-center justify-between"
                       >
                         <span>View All Destinations</span>
                         <ArrowRight className="w-3 h-3" />
@@ -187,12 +187,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors flex items-center gap-1 group"
               >
                 <span>Experiences</span>
-                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'experiences' ? 'rotate-180 text-[#E37500]' : scrolled ? 'text-[#8D7466]' : 'text-white/70'}`} />
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'experiences' ? 'rotate-180 text-[#E37500]' : scrolled ? 'text-neutral-500' : 'text-white/70'}`} />
               </button>
 
               {activeDropdown === 'experiences' && (
                 <div className="absolute top-full left-0 pt-2 w-56 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                  <div className="bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
+                  <div className="bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
                     <div className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest text-[#E37500]">
                       Holiday Pillars
                     </div>
@@ -211,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                             setActiveDropdown(null);
                             onNavigate('experiences');
                           }}
-                          className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs text-[#2A1810] dark:text-white hover:bg-[#E37500]/10 hover:text-[#E37500] transition-colors"
+                          className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs text-neutral-900 dark:text-white hover:bg-[#E37500]/10 hover:text-[#E37500] transition-colors"
                         >
                           {exp}
                         </button>
@@ -257,7 +257,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Search Trigger */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#24130A] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               title="Search destinations"
               aria-label="Search"
             >
@@ -267,7 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Wishlist */}
             <button
               onClick={openWishlist}
-              className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#24130A] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               title="Saved Journeys"
               aria-label="Wishlist"
             >
@@ -282,14 +282,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#24130A] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
               aria-label="Toggle theme"
             >
               {isDark ? (
                 <Sun className="w-3.5 h-3.5 text-[#E37500]" />
               ) : (
-                <Moon className="w-3.5 h-3.5 text-[#5A3825]" />
+                <Moon className="w-3.5 h-3.5 text-neutral-700" />
               )}
             </button>
 
@@ -305,7 +305,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-8 h-8 rounded-full flex items-center justify-center text-[#24130A] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors ml-0.5"
+              className="lg:hidden w-8 h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors ml-0.5"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -315,21 +315,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Live Search Floating Card Dropdown */}
         {searchOpen && (
-          <div className="mt-2 w-full max-w-xl mx-auto bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl p-3 shadow-xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="mt-2 w-full max-w-xl mx-auto bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 rounded-2xl p-3 shadow-xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 duration-150">
             <div className="relative">
-              <Search className="w-4 h-4 text-[#8D7466] absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 ref={searchInputRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search Bali, Switzerland, Paris, Maldives, Santorini..."
-                className="w-full pl-10 pr-9 py-2 rounded-xl bg-white dark:bg-white/10 border border-[#E5DCD2] dark:border-white/10 text-[#24130A] dark:text-white placeholder-[#8D7466] text-xs focus:outline-none focus:ring-1 focus:ring-[#E37500] transition-all"
+                className="w-full pl-10 pr-9 py-2 rounded-xl bg-white dark:bg-white/10 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white placeholder-neutral-400 text-xs focus:outline-none focus:ring-1 focus:ring-[#E37500] transition-all"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-neutral-400 hover:text-[#24130A] dark:hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -349,19 +349,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <div className="flex items-center gap-2.5">
                         <MapPin className="w-3.5 h-3.5 text-[#E37500]" />
                         <div>
-                          <span className="font-semibold text-[#24130A] dark:text-white text-xs block">
+                          <span className="font-semibold text-neutral-900 dark:text-white text-xs block">
                             {dest.name}
                           </span>
-                          <span className="text-[10px] text-[#6E5548] dark:text-neutral-400">
+                          <span className="text-[10px] text-neutral-500 dark:text-neutral-400">
                             {dest.region} · {dest.priceNote}
                           </span>
                         </div>
                       </div>
-                      <ArrowRight className="w-3 h-3 text-[#8D7466] group-hover:text-[#E37500] group-hover:translate-x-0.5 transition-all" />
+                      <ArrowRight className="w-3 h-3 text-neutral-400 group-hover:text-[#E37500] group-hover:translate-x-0.5 transition-all" />
                     </button>
                   ))
                 ) : (
-                  <p className="text-xs text-[#8D7466] text-center py-3">
+                  <p className="text-xs text-neutral-500 text-center py-3">
                     No destinations matching "{searchQuery}". Try "Bali", "Switzerland", or "Santorini".
                   </p>
                 )}
@@ -372,7 +372,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 w-full bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl p-4 shadow-xl backdrop-blur-2xl space-y-3 animate-in fade-in duration-150">
+          <div className="lg:hidden mt-2 w-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 rounded-2xl p-4 shadow-xl backdrop-blur-2xl space-y-3 animate-in fade-in duration-150">
             <div className="flex flex-col space-y-1 text-xs font-semibold">
               <button
                 onClick={() => {
@@ -389,7 +389,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setMobileMenuOpen(false);
                   onNavigate('destinations');
                 }}
-                className="text-left text-[#24130A] dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
               >
                 Destinations
               </button>
@@ -399,7 +399,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setMobileMenuOpen(false);
                   onNavigate('packages');
                 }}
-                className="text-left text-[#24130A] dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
               >
                 Packages
               </button>
@@ -409,7 +409,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setMobileMenuOpen(false);
                   onNavigate('experiences');
                 }}
-                className="text-left text-[#24130A] dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
               >
                 Experiences
               </button>
@@ -435,7 +435,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setMobileMenuOpen(false);
                   onNavigate('gallery');
                 }}
-                className="text-left text-[#24130A] dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
               >
                 Moments
               </button>
@@ -445,20 +445,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setMobileMenuOpen(false);
                   onNavigate('contact');
                 }}
-                className="text-left text-[#24130A] dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
               >
                 Contact
               </button>
             </div>
 
-            <div className="pt-2 border-t border-[#E8DFD5] dark:border-white/10 flex items-center justify-between gap-2">
+            <div className="pt-2 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between gap-2">
               {onOpenSidebar && (
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenSidebar();
                   }}
-                  className="px-3.5 py-2 rounded-xl bg-white dark:bg-white/10 text-[#24130A] dark:text-white text-xs font-semibold flex-1 text-center"
+                  className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white text-xs font-semibold flex-1 text-center"
                 >
                   Menu Drawer
                 </button>

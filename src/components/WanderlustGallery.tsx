@@ -69,35 +69,35 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
   }, [activeLightboxIndex, filteredItems.length]);
 
   return (
-    <section id="gallery" className="py-20 sm:py-24 bg-[#FAF7F2] dark:bg-black relative overflow-hidden transition-colors duration-300">
+    <section id="gallery" className="py-20 sm:py-24 bg-white dark:bg-black relative overflow-hidden transition-colors duration-300">
       <div className="section-container relative z-10">
         
         {/* Section Header: Clean & Uncluttered */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest mb-3 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest mb-3 shadow-xs">
               <Camera className="w-3.5 h-3.5" />
               <span>{customBadge || 'Moments & Memories'}</span>
             </div>
             {customTitle ? (
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white leading-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
                 {customTitle}
               </h2>
             ) : (
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white leading-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
                 Curated by Us, <br className="hidden sm:inline" />
                 <span className="text-[#E37500] italic font-normal">Experienced by You</span>
               </h2>
             )}
           </div>
 
-          <p className="max-w-md text-sm sm:text-base text-[#6F5B4E] dark:text-neutral-300 leading-relaxed">
+          <p className="max-w-md text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
             {customSubtitle || 'Real travel snapshots captured across our private chalets, cliffside villas, overwater bungalows, and bespoke European journeys.'}
           </p>
         </div>
 
         {/* Minimalist Tactile Category Tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-[#EBE2D8] dark:bg-[#111111] rounded-2xl w-fit mb-8 overflow-x-auto no-scrollbar shadow-xs">
+        <div className="flex items-center gap-1.5 p-1 bg-neutral-100 dark:bg-[#111111] rounded-2xl w-fit mb-8 overflow-x-auto no-scrollbar shadow-xs">
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             return (
@@ -106,8 +106,8 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   isActive
-                    ? 'bg-white dark:bg-[#222222] text-[#24130A] dark:text-white shadow-xs'
-                    : 'text-[#6F5B4E] dark:text-neutral-400 hover:text-[#24130A] dark:hover:text-white'
+                    ? 'bg-white dark:bg-[#222222] text-neutral-900 dark:text-white shadow-xs'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                 }`}
               >
                 {cat}
@@ -122,10 +122,10 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
             <div
               key={item.id || idx}
               onClick={() => setActiveLightboxIndex(idx)}
-              className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_24px_rgba(42,24,16,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col"
+              className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col"
             >
               {/* Image Frame with Clean Aspect Ratio */}
-              <div className="w-full aspect-[4/3] overflow-hidden relative bg-[#EBE2D8] dark:bg-[#111111]">
+              <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
                 <GlassImage
                   src={item.image}
                   alt={item.title}
@@ -142,7 +142,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
 
               {/* Clean Uncluttered Typography Footer */}
               <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 space-y-1.5">
-                <div className="flex items-center justify-between text-[11px] text-[#8C7667] dark:text-[#A7978A]">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-[#A7978A]">
                   <span className="flex items-center gap-1 font-medium text-[#E37500]">
                     <MapPin className="w-3.5 h-3.5" />
                     <span>{item.location}</span>
@@ -150,12 +150,12 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                   <span>{item.category}</span>
                 </div>
 
-                <h3 className="font-serif text-base sm:text-lg font-bold text-[#24130A] dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
+                <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
                   {item.title}
                 </h3>
 
                 {item.caption && (
-                  <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-neutral-600 dark:text-[#C5B7AC] line-clamp-2 leading-relaxed">
                     {item.caption}
                   </p>
                 )}
@@ -172,7 +172,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
           onClick={() => setActiveLightboxIndex(null)}
         >
           <div
-            className="relative max-w-4xl w-full rounded-3xl overflow-hidden bg-[#FAF7F2] dark:bg-[#0A0A0A] border border-[#E8DFD5] dark:border-white/10 shadow-2xl text-[#24130A] dark:text-white flex flex-col"
+            className="relative max-w-4xl w-full rounded-3xl overflow-hidden bg-white dark:bg-[#0A0A0A] border border-neutral-200 dark:border-white/10 shadow-2xl text-neutral-900 dark:text-white flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -210,9 +210,9 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
             </div>
 
             {/* Details Footer */}
-            <div className="p-4 sm:p-6 bg-[#FAF7F2] dark:bg-[#0A0A0A] border-t border-[#E8DFD5] dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="p-4 sm:p-6 bg-white dark:bg-[#0A0A0A] border-t border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <div className="flex items-center gap-2 text-xs text-[#8C7667] dark:text-[#A7978A] mb-1">
+                <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-[#A7978A] mb-1">
                   <span className="font-semibold text-[#E37500] flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5" />
                     {activePhoto.location}
@@ -220,11 +220,11 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                   <span>·</span>
                   <span>{activePhoto.category}</span>
                 </div>
-                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#24130A] dark:text-white">
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">
                   {activePhoto.title}
                 </h3>
                 {activePhoto.caption && (
-                  <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] mt-1 max-w-xl">
+                  <p className="text-xs text-neutral-600 dark:text-[#C5B7AC] mt-1 max-w-xl">
                     {activePhoto.caption}
                   </p>
                 )}

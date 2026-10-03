@@ -67,22 +67,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
         />
       )}
 
-      {/* Sidebar Drawer Container in Glassmorphic White / Obsidian Black */}
+      {/* Sidebar Drawer Container in Pure White / Obsidian Black */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-50 w-80 sm:w-96 bg-[#FAF7F2]/95 dark:bg-[#0A0A0A]/95 backdrop-blur-2xl border-r border-[#EADFD5] dark:border-white/10 text-[#2A1810] dark:text-white shadow-[0_20px_60px_rgba(0,0,0,0.6)] flex flex-col justify-between transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 bottom-0 z-50 w-80 sm:w-96 bg-white/95 dark:bg-[#0A0A0A]/95 backdrop-blur-2xl border-r border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white shadow-[0_20px_60px_rgba(0,0,0,0.4)] flex flex-col justify-between transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         aria-label="Sidebar navigation"
       >
         {/* Top Header with Brand & Close Button */}
-        <div className="p-5 sm:p-6 border-b border-[#EADFD5] dark:border-white/10 bg-[#FAF7F2] dark:bg-[#0E0E0E] shrink-0">
+        <div className="p-5 sm:p-6 border-b border-neutral-200 dark:border-white/10 bg-white dark:bg-[#0E0E0E] shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[#E37500] text-white flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md shadow-[#E37500]/20">
                 <Compass className="w-5 h-5 stroke-[2.2]" />
               </div>
               <div>
-                <span className="font-serif text-lg font-bold text-[#2A1810] dark:text-white block leading-tight">
+                <span className="font-serif text-lg font-bold text-neutral-900 dark:text-white block leading-tight">
                   My Kind of Travel
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-[#E37500] font-bold block">
@@ -93,7 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-white/70 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-[#594336] dark:text-white border border-[#DFD0C0] dark:border-white/15 transition-colors"
+              className="p-2 rounded-xl bg-neutral-100 dark:bg-white/10 hover:bg-neutral-200 dark:hover:bg-white/20 text-neutral-700 dark:text-white border border-neutral-200 dark:border-white/15 transition-colors"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -112,7 +112,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {/* Theme toggle inside drawer */}
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white/80 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 border border-[#DFD0C0] dark:border-white/15 text-xs font-semibold text-[#594336] dark:text-white transition-all duration-300 shadow-2xs active:scale-95"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/10 hover:bg-neutral-200 dark:hover:bg-white/20 border border-neutral-200 dark:border-white/15 text-xs font-semibold text-neutral-700 dark:text-white transition-all duration-300 shadow-2xs active:scale-95"
               >
                 <div className="relative w-3.5 h-3.5 flex items-center justify-center">
                   <Sun
@@ -143,22 +143,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className="w-full px-3.5 py-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-white/10 text-[#3D2B22] dark:text-white/90 hover:text-[#E37500] dark:hover:text-white flex items-center justify-between group transition-all text-left border border-transparent hover:border-[#EADFD5] dark:hover:border-white/10"
+                    className="w-full px-3.5 py-2.5 rounded-xl hover:bg-neutral-100 dark:hover:bg-white/10 text-neutral-800 dark:text-white/90 hover:text-[#E37500] dark:hover:text-white flex items-center justify-between group transition-all text-left border border-transparent hover:border-neutral-200 dark:hover:border-white/10"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 group-hover:bg-[#E37500]/15 text-[#E37500] flex items-center justify-center border border-[#EADFD5] dark:border-white/10 group-hover:border-[#E37500]/30 transition-colors">
+                      <div className="w-8 h-8 rounded-lg bg-neutral-100 dark:bg-white/10 group-hover:bg-[#E37500]/15 text-[#E37500] flex items-center justify-center border border-neutral-200 dark:border-white/10 group-hover:border-[#E37500]/30 transition-colors">
                         <IconComp className="w-4 h-4" />
                       </div>
                       <div>
                         <span className="text-sm font-semibold block group-hover:text-[#E37500] transition-colors">
                           {item.label}
                         </span>
-                        <span className="text-[11px] text-[#7C685B] dark:text-[#A8988C] block">
+                        <span className="text-[11px] text-neutral-500 dark:text-[#A8988C] block">
                           {item.desc}
                         </span>
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#B5A496] dark:text-white/40 group-hover:text-[#E37500] group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-3.5 h-3.5 text-neutral-400 dark:text-white/40 group-hover:text-[#E37500] group-hover:translate-x-1 transition-all" />
                   </button>
                 );
               })}
@@ -166,8 +166,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Quick Destination Pins */}
-          <div className="space-y-2 pt-4 border-t border-[#EADFD5] dark:border-white/10">
-            <span className="px-3 text-[10px] font-bold uppercase tracking-widest text-[#7C685B] dark:text-neutral-400 block">
+          <div className="space-y-2 pt-4 border-t border-neutral-200 dark:border-white/10">
+            <span className="px-3 text-[10px] font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 block">
               Trending Destinations
             </span>
             <div className="flex flex-wrap gap-1.5 px-3">
@@ -175,7 +175,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={dest.id}
                   onClick={() => handleNavClick('destinations')}
-                  className="px-2.5 py-1 rounded-lg bg-white/70 dark:bg-white/10 hover:bg-[#E37500] text-[#594336] dark:text-neutral-200 hover:text-white border border-[#EADFD5] dark:border-white/10 text-xs font-semibold transition-colors"
+                  className="px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-white/10 hover:bg-[#E37500] text-neutral-700 dark:text-neutral-200 hover:text-white border border-neutral-200 dark:border-white/10 text-xs font-semibold transition-colors"
                 >
                   {dest.name.split(',')[0]}
                 </button>
@@ -185,7 +185,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Bottom Actions & Direct Contacts */}
-        <div className="p-5 sm:p-6 border-t border-[#EADFD5] dark:border-white/10 bg-[#FAF7F2] dark:bg-[#120D0B] shrink-0 space-y-3.5">
+        <div className="p-5 sm:p-6 border-t border-neutral-200 dark:border-white/10 bg-white dark:bg-[#0E0E0E] shrink-0 space-y-3.5">
           {/* Primary CTA Button */}
           <button
             onClick={handlePlanClick}
@@ -199,7 +199,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="grid grid-cols-2 gap-2 text-xs">
             <a
               href={`tel:${COMPANY_INFO.phone}`}
-              className="px-3 py-2.5 rounded-xl bg-white dark:bg-white/10 hover:bg-[#F4ECE4] dark:hover:bg-white/15 text-[#2A1810] dark:text-white border border-[#EADFD5] dark:border-white/10 flex items-center justify-center gap-2 font-semibold transition-colors shadow-xs"
+              className="px-3 py-2.5 rounded-xl bg-white dark:bg-white/10 hover:bg-neutral-100 dark:hover:bg-white/15 text-neutral-900 dark:text-white border border-neutral-200 dark:border-white/10 flex items-center justify-center gap-2 font-semibold transition-colors shadow-xs"
             >
               <Phone className="w-3.5 h-3.5 text-[#E37500]" />
               <span>Call Us</span>
@@ -218,7 +218,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {/* Support Hours */}
           <div className="text-center pt-1">
-            <span className="text-[11px] text-[#7C685B] dark:text-neutral-400 font-medium">
+            <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">
               Concierge Active: {COMPANY_INFO.supportHours}
             </span>
           </div>

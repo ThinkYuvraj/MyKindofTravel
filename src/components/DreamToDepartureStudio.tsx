@@ -169,28 +169,28 @@ Please share availability and current bespoke perks for this curated itinerary.`
   )}`;
 
   return (
-    <section id="dream-to-departure" className="py-20 sm:py-24 bg-[#FAF7F2] dark:bg-black relative transition-colors duration-300">
+    <section id="dream-to-departure" className="py-20 sm:py-24 bg-white dark:bg-black border-b border-neutral-200 dark:border-white/10 relative transition-colors duration-300">
       <div className="section-container relative z-10">
         
         {/* Section Header with Explicit Niche Positioning */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E5DCD2] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
             <Compass className="w-3.5 h-3.5" />
             <span>My Dream to Departure · Clearly Defined Niche</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white font-serif leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white font-serif leading-tight">
             Curated. Ready to Personalize.
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed">
             Never build a luxury trip from scratch. We provide masterfully handcrafted starting points — ready for you to personalize, confirm with dedicated concierge, and depart in effortless luxury.
           </p>
         </div>
 
         {/* 4-Step Visual Progress Track: Curated -> Personalize -> Confirm -> Depart */}
         <div className="max-w-4xl mx-auto mb-10">
-          <div className="grid grid-cols-4 gap-2 sm:gap-3 p-1.5 sm:p-2 bg-[#EBE2D8] dark:bg-[#111111] rounded-2xl sm:rounded-3xl border border-[#E5DCD2] dark:border-white/10">
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 p-1.5 sm:p-2 bg-neutral-100 dark:bg-[#111111] rounded-2xl sm:rounded-3xl border border-neutral-200 dark:border-white/10">
             {[
               { num: 1, title: 'Curated', desc: 'Choose Blueprint' },
               { num: 2, title: 'Personalize', desc: 'Tailor Vibe & Levers' },
@@ -202,8 +202,8 @@ Please share availability and current bespoke perks for this curated itinerary.`
                 onClick={() => setCurrentStep(s.num as any)}
                 className={`py-2 sm:py-3 px-2 sm:px-4 rounded-xl sm:rounded-2xl text-center transition-all ${
                   currentStep === s.num
-                    ? 'bg-white dark:bg-[#222222] text-[#24130A] dark:text-white shadow-[0_4px_16px_rgba(42,24,16,0.08)]'
-                    : 'text-[#6F5B4E] dark:text-[#A7978A] hover:text-[#24130A] dark:hover:text-white'
+                    ? 'bg-white dark:bg-[#222222] text-neutral-900 dark:text-white shadow-[0_4px_16px_rgba(0,0,0,0.06)]'
+                    : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                 }`}
               >
                 <div className="flex items-center justify-center gap-1.5">
@@ -216,7 +216,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                   </span>
                   <span className="font-bold text-xs sm:text-sm hidden sm:inline">{s.title}</span>
                 </div>
-                <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] hidden md:block mt-0.5">
+                <span className="text-[10px] text-neutral-500 dark:text-neutral-400 hidden md:block mt-0.5">
                   {s.desc}
                 </span>
               </button>
@@ -225,17 +225,17 @@ Please share availability and current bespoke perks for this curated itinerary.`
         </div>
 
         {/* Studio Interactive Card (Softsurface Container) */}
-        <div className="max-w-5xl mx-auto bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 rounded-3xl sm:rounded-4xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] transition-all">
+        <div className="max-w-5xl mx-auto bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 rounded-3xl sm:rounded-4xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] transition-all">
           
           {/* STEP 1: CURATED STARTING POINT WITH AUTO-SWIPE CARET CAROUSEL */}
           {currentStep === 1 && (
             <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8DFD5] dark:border-white/10 pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-white/10 pb-4">
                 <div>
                   <span className="text-[11px] uppercase tracking-wider font-bold text-[#E37500]">
                     Step 01 · Curated Blueprint
                   </span>
-                  <h3 className="font-serif text-2xl font-bold text-[#24130A] dark:text-white">
+                  <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">
                     Select Your Starting Journey
                   </h3>
                 </div>
@@ -250,7 +250,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         className={`h-2 rounded-full transition-all duration-300 ${
                           carouselIndex === idx
                             ? 'w-6 bg-[#E37500]'
-                            : 'w-2 bg-[#E8DFD5] dark:bg-white/20 hover:bg-[#E37500]/50'
+                            : 'w-2 bg-neutral-200 dark:bg-white/20 hover:bg-[#E37500]/50'
                         }`}
                         aria-label={`Go to slide ${idx + 1}`}
                       />
@@ -259,14 +259,14 @@ Please share availability and current bespoke perks for this curated itinerary.`
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={handlePrevBlueprint}
-                      className="p-2 rounded-full bg-[#FAF7F2] dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#24130A] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                      className="p-2 rounded-full bg-neutral-100 dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                       aria-label="Previous Blueprint"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                       onClick={handleNextBlueprint}
-                      className="p-2 rounded-full bg-[#FAF7F2] dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#24130A] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                      className="p-2 rounded-full bg-neutral-100 dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                       aria-label="Next Blueprint"
                     >
                       <ChevronRight className="w-4 h-4" />
@@ -297,10 +297,10 @@ Please share availability and current bespoke perks for this curated itinerary.`
                             setSelectedBlueprint(bp);
                             setVibe(bp.defaultVibe);
                           }}
-                          className={`relative rounded-3xl overflow-hidden border cursor-pointer transition-all duration-300 group flex flex-col md:flex-row bg-[#FAF7F2] dark:bg-[#0E0E0E] min-h-[280px] ${
+                          className={`relative rounded-3xl overflow-hidden border cursor-pointer transition-all duration-300 group flex flex-col md:flex-row bg-neutral-50 dark:bg-[#0E0E0E] min-h-[280px] ${
                             isSelected
                               ? 'border-[#E37500] ring-2 ring-[#E37500]/30 shadow-[0_12px_32px_rgba(227,117,0,0.18)]'
-                              : 'border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50 shadow-xs'
+                              : 'border-neutral-200 dark:border-white/10 hover:border-[#E37500]/50 shadow-xs'
                           }`}
                         >
                           {/* Image Frame */}
@@ -311,7 +311,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-                            <div className="absolute top-3.5 left-3.5 bg-white/90 dark:bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-[#24130A] dark:text-white uppercase tracking-wider">
+                            <div className="absolute top-3.5 left-3.5 bg-white/90 dark:bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-neutral-900 dark:text-white uppercase tracking-wider">
                               {bp.region} · {bp.duration}
                             </div>
                             {isSelected && (
@@ -333,15 +333,15 @@ Please share availability and current bespoke perks for this curated itinerary.`
                               <span className="text-[10px] font-bold uppercase tracking-widest text-[#E37500]">
                                 {bp.defaultVibe}
                               </span>
-                              <h4 className="hidden md:block font-serif text-xl sm:text-2xl font-bold text-[#24130A] dark:text-white leading-tight">
+                              <h4 className="hidden md:block font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white leading-tight">
                                 {bp.name}
                               </h4>
-                              <p className="text-xs sm:text-sm text-[#594336] dark:text-[#C5B7AC] leading-relaxed">
+                              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
                                 {bp.highlight}
                               </p>
                             </div>
 
-                            <div className="pt-3 border-t border-[#EAE2D8] dark:border-white/10 flex items-center justify-between text-xs text-[#8C7667] dark:text-[#A7978A]">
+                            <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                               <span className="flex items-center gap-1.5 font-medium">
                                 <MapPin className="w-4 h-4 text-[#E37500]" />
                                 <span className="truncate max-w-[200px] sm:max-w-[240px]">{bp.routeSummary}</span>
@@ -360,7 +360,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
 
               {/* Next Step Action */}
               <div className="pt-4 flex items-center justify-between">
-                <span className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
+                <span className="text-xs text-neutral-600 dark:text-neutral-300">
                   Ready to personalize: <strong>{selectedBlueprint.name}</strong>
                 </span>
                 <button
@@ -373,27 +373,32 @@ Please share availability and current bespoke perks for this curated itinerary.`
               </div>
             </div>
           )}
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* STEP 2: PERSONALIZE (Experience-first, Personalization-driven) */}
           {currentStep === 2 && (
             <div className="space-y-8 animate-in fade-in duration-200">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8DFD5] dark:border-white/10 pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-white/10 pb-4">
                 <div>
                   <span className="text-[11px] uppercase tracking-wider font-bold text-[#E37500]">
                     Step 02 · Personalize Every Dimension
                   </span>
-                  <h3 className="font-serif text-2xl font-bold text-[#24130A] dark:text-white">
+                  <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">
                     Tailor to Your Rhythm, Vibe & Party
                   </h3>
                 </div>
-                <span className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
+                <span className="text-xs text-neutral-500 dark:text-neutral-400">
                   Experience-first · Budget as supporting constraint
                 </span>
               </div>
 
               {/* 1. TRIP TYPE SELECTOR */}
               <div className="space-y-3">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#24130A] dark:text-white flex items-center gap-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white flex items-center gap-2">
                   <Users className="w-4 h-4 text-[#E37500]" />
                   <span>Trip Type</span>
                 </label>
@@ -407,11 +412,11 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
                           isSelected
                             ? 'bg-[#E37500] text-white border-[#E37500] shadow-[0_6px_18px_rgba(227,117,0,0.2)]'
-                            : 'bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]'
+                            : 'bg-white dark:bg-[#141414] text-neutral-900 dark:text-white border-neutral-200 dark:border-white/10 hover:border-[#E37500]'
                         }`}
                       >
                         <span className="font-bold text-xs sm:text-sm">{type}</span>
-                        <span className={`text-[10px] ${isSelected ? 'text-white/80' : 'text-[#8C7667] dark:text-[#A7978A]'}`}>
+                        <span className={`text-[10px] ${isSelected ? 'text-white/80' : 'text-neutral-500 dark:text-neutral-400'}`}>
                           {type === 'Couple' && 'Romantic Pacing'}
                           {type === 'Honeymoon' && 'Caldera & Champagne'}
                           {type === 'Family' && 'Private Villa & Space'}
@@ -426,7 +431,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
               {/* 2. PROPERTY CATEGORY (1★ to 5★) */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#24130A] dark:text-white flex items-center gap-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white flex items-center gap-2">
                     <Star className="w-4 h-4 text-[#E37500]" />
                     <span>Property Category</span>
                   </label>
@@ -448,7 +453,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         className={`py-3 rounded-2xl border font-bold text-sm transition-all flex flex-col items-center justify-center gap-1 ${
                           isSelected
                             ? 'bg-[#E37500] text-white border-[#E37500] shadow-[0_6px_18px_rgba(227,117,0,0.2)]'
-                            : 'bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]'
+                            : 'bg-white dark:bg-[#141414] text-neutral-900 dark:text-white border-neutral-200 dark:border-white/10 hover:border-[#E37500]'
                         }`}
                       >
                         <span>{cat}</span>
@@ -470,7 +475,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
 
               {/* 3. VIBE SELECTOR */}
               <div className="space-y-3">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#24130A] dark:text-white flex items-center gap-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-[#E37500]" />
                   <span>Desired Vibe</span>
                 </label>
@@ -493,7 +498,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         className={`p-3 rounded-2xl border text-left text-xs font-semibold transition-all ${
                           isSelected
                             ? 'bg-white dark:bg-[#222222] text-[#E37500] border-[#E37500] shadow-sm ring-1 ring-[#E37500]'
-                            : 'bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50'
+                            : 'bg-white dark:bg-[#141414] text-neutral-900 dark:text-white border-neutral-200 dark:border-white/10 hover:border-[#E37500]/50'
                         }`}
                       >
                         <span>{v}</span>
@@ -505,7 +510,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
 
               {/* 4. EXPERIENCE-FIRST CURATED ADD-ONS */}
               <div className="space-y-3">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#24130A] dark:text-white flex items-center gap-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white flex items-center gap-2">
                   <Plane className="w-4 h-4 text-[#E37500]" />
                   <span>Signature Experiences (Experience-First Levers)</span>
                 </label>
@@ -525,15 +530,15 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         onClick={() => toggleAddon(exp)}
                         className={`p-3 rounded-2xl border text-left text-xs transition-all flex items-center justify-between ${
                           isSelected
-                            ? 'bg-white dark:bg-[#222222] border-[#E37500] text-[#24130A] dark:text-white shadow-xs'
-                            : 'bg-[#FAF7F2] dark:bg-[#141414] border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#C5B7AC]'
+                            ? 'bg-white dark:bg-[#222222] border-[#E37500] text-neutral-900 dark:text-white shadow-xs'
+                            : 'bg-white dark:bg-[#141414] border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300'
                         }`}
                       >
                         <span className="font-medium pr-2">{exp}</span>
                         <div className={`w-5 h-5 rounded-md flex items-center justify-center shrink-0 border ${
                           isSelected
                             ? 'bg-[#E37500] border-[#E37500] text-white'
-                            : 'border-[#E5DCD2] dark:border-white/20'
+                            : 'border-neutral-300 dark:border-white/20'
                         }`}>
                           {isSelected && <CheckCircle2 className="w-3.5 h-3.5" />}
                         </div>
@@ -544,13 +549,13 @@ Please share availability and current bespoke perks for this curated itinerary.`
               </div>
 
               {/* 5. BUDGET AS SUPPORTING CONSTRAINT */}
-              <div className="space-y-3 p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10">
+              <div className="space-y-3 p-4 rounded-2xl bg-neutral-50 dark:bg-[#111111] border border-neutral-200 dark:border-white/10">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#24130A] dark:text-white flex items-center gap-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white flex items-center gap-2">
                     <Sliders className="w-4 h-4 text-[#E37500]" />
                     <span>Budget as a Supporting Constraint</span>
                   </label>
-                  <span className="text-[11px] text-[#8C7667] dark:text-[#A7978A]">
+                  <span className="text-[11px] text-neutral-500 dark:text-neutral-400">
                     Supporting parameter · Not a restrictive wall
                   </span>
                 </div>
@@ -564,7 +569,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         className={`p-2.5 rounded-xl border text-center text-xs transition-all ${
                           isSelected
                             ? 'bg-white dark:bg-[#222222] border-[#E37500] text-[#E37500] font-bold shadow-xs'
-                            : 'bg-white/60 dark:bg-white/5 border-transparent text-[#6F5B4E] dark:text-[#A7978A]'
+                            : 'bg-white/80 dark:bg-white/5 border-transparent text-neutral-600 dark:text-neutral-400'
                         }`}
                       >
                         {tier}
@@ -575,10 +580,10 @@ Please share availability and current bespoke perks for this curated itinerary.`
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 flex items-center justify-between border-t border-[#E8DFD5] dark:border-white/10">
+              <div className="pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-white/10">
                 <button
                   onClick={() => setCurrentStep(1)}
-                  className="px-4 py-2.5 rounded-xl border border-[#E8DFD5] dark:border-white/10 text-xs font-semibold text-[#6F5B4E] dark:text-[#C5B7AC]"
+                  className="px-4 py-2.5 rounded-xl border border-neutral-200 dark:border-white/10 text-xs font-semibold text-neutral-600 dark:text-neutral-300"
                 >
                   ← Back to Blueprints
                 </button>
@@ -596,12 +601,12 @@ Please share availability and current bespoke perks for this curated itinerary.`
           {/* STEP 3: CONFIRM (Concierge Precision) */}
           {currentStep === 3 && (
             <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8DFD5] dark:border-white/10 pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-white/10 pb-4">
                 <div>
                   <span className="text-[11px] uppercase tracking-wider font-bold text-[#E37500]">
                     Step 03 · Concierge Confirmation
                   </span>
-                  <h3 className="font-serif text-2xl font-bold text-[#24130A] dark:text-white">
+                  <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">
                     Confirm Your Personalized Itinerary
                   </h3>
                 </div>
@@ -612,51 +617,51 @@ Please share availability and current bespoke perks for this curated itinerary.`
               </div>
 
               {/* Summary Dossier Card */}
-              <div className="p-6 rounded-3xl bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E8DFD5] dark:border-white/10 pb-3">
+              <div className="p-6 rounded-3xl bg-neutral-50 dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-200 dark:border-white/10 pb-3">
                   <div>
                     <span className="text-[10px] uppercase tracking-widest text-[#E37500] font-bold">
                       Curated Starting Point
                     </span>
-                    <h4 className="font-serif text-xl font-bold text-[#24130A] dark:text-white">
+                    <h4 className="font-serif text-xl font-bold text-neutral-900 dark:text-white">
                       {selectedBlueprint.name}
                     </h4>
                   </div>
-                  <span className="text-xs font-bold text-[#24130A] dark:text-white bg-white dark:bg-white/10 px-3 py-1.5 rounded-full border border-[#E5DCD2] dark:border-white/10">
+                  <span className="text-xs font-bold text-neutral-900 dark:text-white bg-white dark:bg-white/10 px-3 py-1.5 rounded-full border border-neutral-200 dark:border-white/10">
                     {selectedBlueprint.duration}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
-                    <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Trip Type</span>
-                    <span className="font-bold text-[#24130A] dark:text-white">{tripType}</span>
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/10">
+                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Trip Type</span>
+                    <span className="font-bold text-neutral-900 dark:text-white">{tripType}</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
-                    <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Stay Category</span>
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/10">
+                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Stay Category</span>
                     <span className="font-bold text-[#E37500]">{propertyCategory} Star Stays</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
-                    <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Selected Vibe</span>
-                    <span className="font-bold text-[#24130A] dark:text-white">{vibe}</span>
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/10">
+                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Selected Vibe</span>
+                    <span className="font-bold text-neutral-900 dark:text-white">{vibe}</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
-                    <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Budget Comfort Tier</span>
-                    <span className="font-bold text-[#24130A] dark:text-white">{budgetTier}</span>
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/10">
+                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Budget Comfort Tier</span>
+                    <span className="font-bold text-neutral-900 dark:text-white">{budgetTier}</span>
                   </div>
                 </div>
 
                 {/* Experiences */}
                 {selectedAddons.length > 0 && (
                   <div className="pt-2">
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#8C7667] dark:text-[#A7978A] block mb-2">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-500 dark:text-neutral-400 block mb-2">
                       Included Signature Experiences ({selectedAddons.length})
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedAddons.map((exp, idx) => (
                         <span
                           key={idx}
-                          className="px-2.5 py-1 rounded-xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs text-[#24130A] dark:text-white font-medium"
+                          className="px-2.5 py-1 rounded-xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/10 text-xs text-neutral-900 dark:text-white font-medium"
                         >
                           ✓ {exp}
                         </span>
@@ -670,7 +675,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
                 <button
                   onClick={() => setCurrentStep(2)}
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-[#E8DFD5] dark:border-white/10 text-xs font-semibold text-[#6F5B4E] dark:text-[#C5B7AC]"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-neutral-200 dark:border-white/10 text-xs font-semibold text-neutral-600 dark:text-neutral-300"
                 >
                   ← Modify Personalization
                 </button>
@@ -710,13 +715,13 @@ Please share availability and current bespoke perks for this curated itinerary.`
                 <span className="text-[11px] uppercase tracking-widest text-[#E37500] font-bold">
                   Step 04 · Ready to Depart
                 </span>
-                <h3 className="font-serif text-3xl font-bold text-[#24130A] dark:text-white">
+                <h3 className="font-serif text-3xl font-bold text-neutral-900 dark:text-white">
                   Your Journey Blueprint is Ready
                 </h3>
-                <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
                   Your personal travel director is curating live partner upgrades and verifying transit fluidity for <strong>{selectedBlueprint.name}</strong>.
                 </p>
-                <div className="mt-3 p-3 bg-[#FAF7F2] dark:bg-[#111111] rounded-2xl border border-[#E8DFD5] dark:border-white/10 text-xs font-mono text-[#E37500]">
+                <div className="mt-3 p-3 bg-neutral-100 dark:bg-[#111111] rounded-2xl border border-neutral-200 dark:border-white/10 text-xs font-mono text-[#E37500]">
                   Reference ID: {confirmedRef || 'MKT-DEPART-849201'}
                 </div>
               </div>
@@ -749,7 +754,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
 
                 <button
                   onClick={() => setCurrentStep(1)}
-                  className="px-5 py-3 rounded-2xl border border-[#E8DFD5] dark:border-white/10 text-xs font-semibold text-[#6F5B4E] dark:text-[#C5B7AC] hover:bg-black/5"
+                  className="px-5 py-3 rounded-2xl border border-neutral-200 dark:border-white/10 text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-black/5"
                 >
                   Personalize Another Trip
                 </button>

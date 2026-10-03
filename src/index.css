@@ -20,8 +20,8 @@
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    color: #24140D;
-    background-color: #FAF6F1;
+    color: #111827;
+    background-color: #FFFFFF;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -137,19 +137,19 @@ html.theme-transitioning *::after {
 .duration-200 { animation-duration: 200ms; }
 
 :root {
-  /* Website Theme Variables centered on uploaded website colour #C2B299 & button #E37500 */
-  --website-sand: #C2B299;
-  --website-bg: #C2B299;
-  --website-sand-light: #DDD0BF;
-  --website-sand-subtle: #EBE3D7;
-  --primary-dark-brown: #24130A;
-  --primary-dark-brown-hover: #170B05;
+  /* Website Theme Variables: White primary, neutral borders, orange accent #E37500 */
+  --website-sand: #E5E7EB;
+  --website-bg: #FFFFFF;
+  --website-sand-light: #F3F4F6;
+  --website-sand-subtle: #F9FAFB;
+  --primary-dark-brown: #111827;
+  --primary-dark-brown-hover: #000000;
   --secondary-brown: #E37500;
   --secondary-brown-hover: #C66500;
   --accent-caramel: #E37500;
   --secondary-brown-subtle: rgba(227, 117, 0, 0.14);
   --secondary-brown-border: rgba(227, 117, 0, 0.35);
-  --canvas-white: #FAF6F1;
+  --canvas-white: #FFFFFF;
   --pure-white: #FFFFFF;
   --btn-primary-bg: #E37500;
   --btn-primary-hover: #C66500;
@@ -218,17 +218,16 @@ html.theme-transitioning *::after {
 }
 
 
-
 .dark {
   --primary-dark-brown: #FFFFFF;
-  --primary-dark-brown-hover: #FAF7F4;
+  --primary-dark-brown-hover: #F9FAFB;
   --secondary-brown: #E37500;
   --secondary-brown-hover: #C66500;
   --accent-caramel: #E37500;
   --secondary-brown-subtle: rgba(227, 117, 0, 0.15);
   --secondary-brown-border: rgba(227, 117, 0, 0.30);
-  --canvas-white: #1A0E08;
-  --pure-white: #24130A;
+  --canvas-white: #000000;
+  --pure-white: #0A0A0A;
 }
 
 /* Glassmorphic Shimmer Animation for Image Skeleton Screens */
@@ -257,9 +256,9 @@ html.theme-transitioning *::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(122, 69, 34, 0.08) 25%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(122, 69, 34, 0.08) 75%,
+    rgba(0, 0, 0, 0.04) 25%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(0, 0, 0, 0.04) 75%,
     transparent 100%
   );
   animation: glassShimmer 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -269,23 +268,23 @@ html.theme-transitioning *::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(200, 116, 40, 0.08) 25%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(200, 116, 40, 0.08) 75%,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.03) 75%,
     transparent 100%
   );
 }
 
 /* Glassmorphism helpers */
 .glass-panel-light {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 215, 206, 0.85);
+  border: 1px solid rgba(229, 231, 235, 0.9);
 }
 
 .glass-panel-dark {
-  background: rgba(36, 19, 10, 0.85);
+  background: rgba(10, 10, 10, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -303,7 +302,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF6F0;
+  background: #FFFFFF;
 }
 
 .dark ::-webkit-scrollbar-track {
@@ -311,7 +310,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E3BA91;
+  background: #D1D5DB;
   border-radius: 4px;
 }
 
@@ -320,7 +319,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4A87C;
+  background: #9CA3AF;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
