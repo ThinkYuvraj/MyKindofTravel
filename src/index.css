@@ -215,11 +215,11 @@ html.theme-transitioning *::after {
 .dark {
   --primary-dark-brown: #FFFFFF;
   --primary-dark-brown-hover: #FAF7F4;
-  --secondary-brown: #C87428;
-  --secondary-brown-hover: #DF8738;
-  --accent-caramel: #E28C38;
-  --secondary-brown-subtle: rgba(200, 116, 40, 0.15);
-  --secondary-brown-border: rgba(200, 116, 40, 0.30);
+  --secondary-brown: #E37500;
+  --secondary-brown-hover: #C66500;
+  --accent-caramel: #E37500;
+  --secondary-brown-subtle: rgba(227, 117, 0, 0.15);
+  --secondary-brown-border: rgba(227, 117, 0, 0.30);
   --canvas-white: #1A0E08;
   --pure-white: #24130A;
 }

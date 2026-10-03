@@ -22,12 +22,6 @@ export const TornPaperDivider: React.FC<TornPaperDividerProps> = ({
         preserveAspectRatio="none"
         className="w-full h-12 sm:h-16 md:h-20 lg:h-24 block drop-shadow-[0_-4px_8px_rgba(0,0,0,0.35)]"
       >
-        {/* Soft secondary ripped paper fiber layer */}
-        <path
-          d="M0,35 Q40,48 80,32 T160,42 T240,28 T320,44 T400,31 T480,45 T560,30 T640,46 T720,33 T800,47 T880,32 T960,46 T1040,30 T1120,45 T1200,33 T1280,47 T1360,32 L1440,42 L1440,85 L0,85 Z"
-          className="fill-white/35 dark:fill-white/10"
-        />
-
         {/* Primary ragged torn paper edge matching page background */}
         <path
           d="M0,48 

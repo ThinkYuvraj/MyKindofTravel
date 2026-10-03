@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
-import { Play, Pause, Compass, ArrowRight } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 import heroBgImage from '../assets/images/hero-terraces.jpg';
 import { TornPaperDivider } from './TornPaperDivider';
+
+// High-definition scenic aerial travel video stream (canyons, mountains, forests, dunes)
+const DEFAULT_HERO_VIDEOS = [
+  'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-mountain-range-at-sunset-41628-large.mp4',
+  'https://cdn.pixabay.com/video/2020/05/25/40130-424930032_large.mp4',
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+];
 
 interface HeroProps {
   onPlanTrip: () => void;
@@ -20,90 +27,148 @@ export const Hero: React.FC<HeroProps> = ({
   onExploreDestinations,
   title = 'EXPLORE. DREAM. DISCOVER.',
   subtitle = "Handcrafted luxury holidays, private European chalets, honeymoon cliffside villas, and bespoke journeys tailored for India's discerning travellers.",
-  badgeText = 'My Kind of Travel • Bespoke Journeys',
   bgImage,
   primaryButtonText = 'START EXPLORING',
   secondaryButtonText = 'PLAN TRIP',
 }) => {
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [imgLoaded, setImgLoaded] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [customVideoUrl, setCustomVideoUrl] = useState<string | null>(null);
+  const [videoFailed, setVideoFailed] = useState<boolean>(false);
 
-  const activeBg = bgImage && bgImage.trim() ? bgImage : heroBgImage;
+  // Determine if bgImage is a video URL or custom uploaded video
+  const isBgVideo =
+    Boolean(bgImage) &&
+    (bgImage!.includes('.mp4') ||
+      bgImage!.includes('.webm') ||
+      bgImage!.includes('.mov') ||
+      bgImage!.startsWith('data:video/') ||
+      bgImage!.startsWith('/hero-video.mp4'));
 
-  const togglePlayback = () => {
-    setIsPlaying((prev) => !prev);
+  const activeVideoSrc = customVideoUrl || (isBgVideo ? bgImage! : DEFAULT_HERO_VIDEOS[0]);
+  const activePoster = !isBgVideo && bgImage && bgImage.trim() ? bgImage : heroBgImage;
+
+  // Ensure video autoplays and loops infinitely with controls hidden
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    vid.muted = true;
+    vid.defaultMuted = true;
+    vid.loop = true;
+    vid.playsInline = true;
+    vid.controls = false;
+    const playPromise = vid.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Retry muted playback on user interaction if browser policy blocked initial frame
+      });
+    }
+  }, [activeVideoSrc]);
+
+  // Allow dropping a video file directly onto the Hero section to set it immediately
+  const handleDropVideo = async (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (!file || !file.type.startsWith('video/')) return;
+
+    const localBlobUrl = URL.createObjectURL(file);
+    setCustomVideoUrl(localBlobUrl);
+    setVideoFailed(false);
+
+    try {
+      const res = await fetch('/api/upload-video', {
+        method: 'POST',
+        headers: { 'Content-Type': file.type || 'video/mp4' },
+        body: file,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.videoUrl) {
+          setCustomVideoUrl(data.videoUrl);
+        }
+      }
+    } catch (err) {
+      console.warn('Could not persist dropped video to server:', err);
+    }
   };
 
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[90vh] sm:min-h-[92vh] flex items-center justify-center overflow-hidden bg-[#1A0E08] text-white select-none"
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={handleDropVideo}
+      className="relative w-full h-screen min-h-[100dvh] flex items-center justify-center overflow-hidden bg-[#1A0E08] text-white select-none"
     >
-      {/* Background Image Container with Ken Burns effect */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <img
-          src={activeBg}
-          alt="Lush emerald mountain terraces and scenic paths"
-          loading="lazy"
-          decoding="async"
-          onLoad={() => setImgLoaded(true)}
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src =
-              'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=2400&q=85';
-            setImgLoaded(true);
-          }}
-          className={`w-full h-full object-cover object-center transition-transform duration-1000 ease-out ${
-            isPlaying ? 'scale-105 transition-transform duration-[22000ms]' : 'scale-100'
-          } ${imgLoaded ? 'opacity-100 filter brightness-95' : 'opacity-0'}`}
-        />
-
-        {/* Fallback skeleton if image is loading */}
-        {!imgLoaded && (
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1C1009] via-[#2A170F] to-[#120B06] animate-pulse" />
+      {/* Background Infinite Autoplay Video (No Controls) */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+        {!videoFailed ? (
+          <video
+            ref={videoRef}
+            key={activeVideoSrc}
+            poster={activePoster}
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls={false}
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noremoteplayback"
+            onEnded={(e) => {
+              e.currentTarget.currentTime = 0;
+              e.currentTarget.play().catch(() => {});
+            }}
+            onError={() => setVideoFailed(true)}
+            className="w-full h-full object-cover object-center scale-[1.02] pointer-events-none select-none [&::-webkit-media-controls]:hidden [&::-webkit-media-controls-enclosure]:hidden"
+          >
+            <source src={activeVideoSrc} type="video/mp4" />
+            {DEFAULT_HERO_VIDEOS.map((url, idx) => (
+              <source key={idx} src={url} type="video/mp4" />
+            ))}
+          </video>
+        ) : (
+          <img
+            src={activePoster}
+            alt="Bespoke luxury travel landscapes"
+            className="w-full h-full object-cover object-center scale-105"
+          />
         )}
 
         {/* Subtle Vignette & Gradient Overlays for Crystal-Clear Text Contrast */}
         <div className="absolute inset-0 bg-black/35 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/65 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/70 pointer-events-none" />
       </div>
 
-      {/* Hero Centered Content: Clean, High-Contrast Typography for My Kind of Travel */}
-      <div className="relative z-10 w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center flex flex-col items-center justify-center pt-8 pb-20 sm:pb-24">
-        {/* Subtle Brand Pill */}
-        <div className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#201109]/75 backdrop-blur-md border border-white/20 text-[#FAF7F4] text-xs font-bold uppercase tracking-[0.25em] shadow-lg mb-5 animate-in fade-in duration-500">
-          <Compass className="w-3.5 h-3.5 text-[#E3BA91]" />
-          <span>{badgeText}</span>
-        </div>
-
-        {/* Main Display Headline */}
-        <h1 className="font-sans font-extrabold uppercase text-white tracking-[0.04em] sm:tracking-[0.08em] text-3xl sm:text-5xl md:text-6xl lg:text-[4.75rem] xl:text-[5.25rem] leading-[1.08] drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] max-w-4xl">
+      {/* Hero Centered Content Acquiring Full Main Frame */}
+      <div className="relative z-10 w-full max-w-6xl 2xl:max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 text-center flex flex-col items-center justify-center pt-16 sm:pt-20 pb-16 sm:pb-20">
+        {/* Main Display Headline - Increased Size */}
+        <h1 className="font-sans font-extrabold uppercase text-white tracking-[0.04em] sm:tracking-[0.06em] md:tracking-[0.08em] text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.75rem] leading-[1.08] sm:leading-[1.06] drop-shadow-[0_4px_22px_rgba(0,0,0,0.9)] max-w-2xl sm:max-w-4xl lg:max-w-5xl mx-auto">
           {title}
         </h1>
 
         {/* Descriptive Subtitle for My Kind of Travel */}
-        <p className="mt-4 sm:mt-5 text-white/95 text-sm sm:text-base md:text-lg lg:text-xl font-normal max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] whitespace-pre-line">
+        <p className="mt-4 sm:mt-6 px-2 sm:px-4 text-white/95 text-sm sm:text-base md:text-lg lg:text-xl font-normal max-w-[22rem] sm:max-w-xl md:max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] whitespace-pre-line">
           {subtitle}
         </p>
 
-        {/* Slogan and Play/Pause Toggle */}
-        <div className="mt-5 sm:mt-6 flex flex-col items-center gap-2">
-          <span className="text-white/90 text-sm sm:text-base font-normal tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+        {/* Slogan */}
+        <div className="mt-3.5 sm:mt-5 flex flex-col items-center">
+          <span className="text-white/90 text-xs sm:text-sm md:text-base font-medium tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
             Your personal travel designer awaits
           </span>
         </div>
 
-        {/* Action Buttons: Signature #E37500 Styling */}
-        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
+        {/* Action Buttons: Balanced Sizing on Mobile, Tablet & Desktop */}
+        <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-[270px] sm:max-w-none mx-auto">
           <button
             onClick={onExploreDestinations}
-            className="w-full sm:w-auto inline-block px-8 sm:px-10 py-3.5 sm:py-4 bg-[#E37500] hover:bg-[#C66500] text-white font-extrabold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-[#E37500]/30 hover:shadow-2xl hover:scale-[1.02] active:scale-95 text-center rounded-full border border-[#E37500]"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-9 md:px-11 py-3.5 sm:py-4 bg-[#E37500] hover:bg-[#C66500] text-white font-extrabold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-[#E37500]/30 hover:shadow-2xl hover:scale-[1.02] active:scale-95 text-center rounded-full border border-[#E37500]"
           >
             {primaryButtonText}
           </button>
 
           <button
             onClick={onPlanTrip}
-            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 py-3.5 sm:py-4 bg-white/95 hover:bg-white text-[#24130A] hover:text-[#E37500] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/25 hover:shadow-2xl hover:scale-[1.02] active:scale-95 rounded-full text-center border-2 border-white/80"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 md:px-10 py-3.5 sm:py-4 bg-white/95 hover:bg-white text-[#24130A] hover:text-[#E37500] font-bold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/25 hover:shadow-2xl hover:scale-[1.02] active:scale-95 rounded-full text-center border-2 border-white/80"
           >
             <span>{secondaryButtonText}</span>
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />

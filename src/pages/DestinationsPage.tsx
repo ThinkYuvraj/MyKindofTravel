@@ -4,6 +4,7 @@ import { DestinationItem } from '../types';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { DestinationModal } from '../components/DestinationModal';
+import { EnquiryModal } from '../components/EnquiryModal';
 import { FloatingWhatsApp } from '../components/FloatingWhatsApp';
 import { BackToTop } from '../components/BackToTop';
 import { GlassImage } from '../components/GlassImage';
@@ -31,6 +32,9 @@ export default function DestinationsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('All');
   const [selectedDestination, setSelectedDestination] = useState<DestinationItem | null>(null);
+  const [enquiryDestination, setEnquiryDestination] = useState('');
+  const [enquiryTripType, setEnquiryTripType] = useState('');
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const { toggleDestinationWishlist, isDestinationSaved } = useWishlist();
 
   const filteredDestinations = useMemo(() => {
@@ -57,13 +61,14 @@ export default function DestinationsPage() {
   }, [searchQuery, selectedRegion]);
 
   const handleEnquire = (destName: string) => {
-    navigate(`/?enquiry=${encodeURIComponent(destName)}#contact`);
+    setEnquiryDestination(destName);
+    setIsEnquiryOpen(true);
   };
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#140D0A] text-[#24130A] dark:text-[#F8F4EE] flex flex-col font-sans transition-colors duration-300">
       {/* Floating Navbar */}
-      <Navbar onPlanTrip={() => navigate('/plan')} />
+      <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
         <div className="section-container space-y-10">
@@ -257,19 +262,30 @@ export default function DestinationsPage() {
         />
       )}
 
+      {/* Popup Enquiry Card */}
+      <EnquiryModal
+        isOpen={isEnquiryOpen}
+        onClose={() => setIsEnquiryOpen(false)}
+        initialDestination={enquiryDestination}
+        initialTripType={enquiryTripType}
+      />
+
       {/* Wishlist Drawer */}
       <WishlistModal />
 
       <Footer
         onNavigate={(path) => {
-          if (path === 'contact') navigate('/?enquiry=general#contact');
+          if (path === 'contact') setIsEnquiryOpen(true);
           else if (path === 'packages') navigate('/packages');
           else if (path === 'stories') navigate('/stories');
           else navigate(`/#${path}`);
         }}
         onSelectDestination={(name) => handleEnquire(name)}
-        onSelectTripType={(type) => navigate(`/?type=${encodeURIComponent(type)}#contact`)}
-        onPlanTrip={() => navigate('/plan')}
+        onSelectTripType={(type) => {
+          setEnquiryTripType(type);
+          setIsEnquiryOpen(true);
+        }}
+        onPlanTrip={() => setIsEnquiryOpen(true)}
       />
 
       <FloatingWhatsApp />

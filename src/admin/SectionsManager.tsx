@@ -73,7 +73,7 @@ interface BuiltInSectionConfig {
   defaultSubtitle: string;
   dedicatedTab?: AdminTab;
   tabLabel?: string;
-  hasSpecialEditor?: 'howItWorks' | 'whyUs' | 'about';
+  hasSpecialEditor?: 'howItWorks' | 'whyUs';
 }
 
 const BUILT_IN_SECTIONS: Record<string, BuiltInSectionConfig> = {
@@ -103,16 +103,6 @@ const BUILT_IN_SECTIONS: Record<string, BuiltInSectionConfig> = {
     defaultSubtitle: 'Real-time flowing ribbon of luxury destinations from India.',
     dedicatedTab: 'hero',
     tabLabel: 'Manage Marquee Items',
-  },
-  about: {
-    label: 'Philosophy & About',
-    desc: 'Bespoke holiday philosophy, company credentials & boutique travel agency values',
-    defaultBadge: 'Bespoke Travel Philosophy',
-    defaultTitle: 'Journeys designed around who you are, not just where you are going.',
-    defaultSubtitle: 'We reject cookie-cutter mass tourism. Every holiday is designed from an empty canvas.',
-    hasSpecialEditor: 'about',
-    dedicatedTab: 'settings',
-    tabLabel: 'Company Contacts & Credentials',
   },
   radar: {
     label: 'Flight Route Radar',
@@ -248,12 +238,6 @@ const SECTION_IMAGE_CONFIG: Record<
     description: 'The primary marquee panoramic visual displayed across the top hero banner of the live homepage.',
     aspectRatio: 'wide',
     placeholder: 'Select luxury preset, upload high-res image, or enter image URL',
-  },
-  about: {
-    title: 'About Story & Atelier Editorial Photography',
-    description: 'Boutique photography showcasing the atelier craftsmanship, private guides, or luxury travel ambiance.',
-    aspectRatio: 'video',
-    placeholder: 'Select preset or paste photo URL',
   },
   experiences: {
     title: 'Experiences Section Background / Accent Banner',

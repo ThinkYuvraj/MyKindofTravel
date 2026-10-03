@@ -19,8 +19,41 @@ import { mapsRouter } from "./server/mapsRouter";
 const app = express();
 const PORT = 3000;
 
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '100mb' }));
+app.use(express.raw({ type: ['video/mp4', 'video/webm', 'video/quicktime', 'application/octet-stream'], limit: '100mb' }));
 app.use("/api/maps", mapsRouter);
+
+// Upload Hero Video directly to /public/hero-video.mp4
+app.post("/api/upload-video", (req, res) => {
+  try {
+    const publicDir = path.join(process.cwd(), 'public');
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    const videoPath = path.join(publicDir, 'hero-video.mp4');
+
+    if (Buffer.isBuffer(req.body) && req.body.length > 0) {
+      fs.writeFileSync(videoPath, req.body);
+    } else if (req.body && typeof req.body.dataUrl === 'string') {
+      const base64Data = req.body.dataUrl.replace(/^data:video\/\w+;base64,/, '');
+      fs.writeFileSync(videoPath, Buffer.from(base64Data, 'base64'));
+    } else {
+      return res.status(400).json({ error: 'No video payload received.' });
+    }
+
+    const videoUrl = `/hero-video.mp4?t=${Date.now()}`;
+    cmsData.heroBgImage = videoUrl;
+    if (cmsData.sectionHeaders?.hero) {
+      cmsData.sectionHeaders.hero.image = videoUrl;
+    }
+    fs.writeFileSync(DATA_FILE, JSON.stringify(cmsData, null, 2));
+
+    res.json({ success: true, videoUrl });
+  } catch (err: any) {
+    console.error("Failed to save uploaded video:", err);
+    res.status(500).json({ error: 'Failed to save video file.' });
+  }
+});
 
 const DATA_FILE = path.join(process.cwd(), 'cms-data.json');
 const CREDENTIALS_FILE = path.join(process.cwd(), 'cms-credentials.json');
@@ -71,11 +104,11 @@ function saveCredentials(creds: AdminCredentials) {
 const DEFAULT_SECTION_ORDER = [
   'hero',
   'destinations',
+  'mapsRadar',
   'marquee',
-  'about',
+  'packages',
   'experiences',
   'howItWorks',
-  'packages',
   'gallery',
   'testimonials',
   'whyUs',
@@ -86,7 +119,6 @@ const DEFAULT_SECTION_VISIBILITY: Record<string, boolean> = {
   hero: true,
   destinations: true,
   marquee: true,
-  about: true,
   experiences: true,
   howItWorks: true,
   packages: true,
@@ -169,7 +201,7 @@ if (fs.existsSync(DATA_FILE)) {
       ...cmsData,
       ...parsed,
       // Ensure arrays and objects exist if missing in older saves
-      sectionOrder: parsed.sectionOrder || DEFAULT_SECTION_ORDER,
+      sectionOrder: (parsed.sectionOrder || DEFAULT_SECTION_ORDER).filter((k: string) => k !== 'about'),
       sectionVisibility: { ...DEFAULT_SECTION_VISIBILITY, ...(parsed.sectionVisibility || {}) },
       destinations: parsed.destinations || DESTINATIONS,
       packages: parsed.packages || POPULAR_PACKAGES,

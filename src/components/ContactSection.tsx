@@ -74,7 +74,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           {/* Left Column: Contact details & intro */}
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{customBadge || 'Get in touch'}</span>
               </div>
@@ -86,7 +86,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               ) : (
                 <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white leading-tight">
                   Let's design your <br />
-                  <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">
+                  <span className="italic font-serif text-[#E37500] font-normal">
                     perfect trip
                   </span>
                 </h2>
@@ -213,7 +213,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="Rahul"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#8C5528] dark:focus:border-[#E28C38] focus:ring-1 focus:ring-[#8C5528]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
@@ -228,7 +228,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="Sharma"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#8C5528] dark:focus:border-[#E28C38] focus:ring-1 focus:ring-[#8C5528]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
                   </div>
@@ -245,7 +245,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="rahul@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#8C5528] dark:focus:border-[#E28C38] focus:ring-1 focus:ring-[#8C5528]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
@@ -260,7 +260,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="+91 98000 00000"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#8C5528] dark:focus:border-[#E28C38] focus:ring-1 focus:ring-[#8C5528]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
                   </div>
@@ -275,7 +275,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         required
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#8C5528] dark:focus:border-[#E28C38] focus:ring-1 focus:ring-[#8C5528] cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                       >
                         <option value="">Select destination</option>
                         {DESTINATIONS.map((d) => (
@@ -297,7 +297,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         required
                         value={tripType}
                         onChange={(e) => setTripType(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#8C5528] dark:focus:border-[#E28C38] focus:ring-1 focus:ring-[#8C5528] cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                       >
                         <option value="">Select type</option>
                         {EXPERIENCE_PILLARS.map((p) => (
@@ -320,7 +320,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       placeholder="Dates, budget, must-haves, special occasions..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#8C5528] dark:focus:border-[#E28C38] focus:ring-1 focus:ring-[#8C5528] resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
                     />
                   </div>
 

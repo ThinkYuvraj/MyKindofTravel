@@ -5,15 +5,18 @@ import { Footer } from '../components/Footer';
 import { FloatingWhatsApp } from '../components/FloatingWhatsApp';
 import { BackToTop } from '../components/BackToTop';
 import { WishlistModal } from '../components/WishlistModal';
+import { EnquiryModal } from '../components/EnquiryModal';
 import { Heart, Star, MapPin, Quote, ShieldCheck, ArrowRight, MessageCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function StoriesPage() {
   const navigate = useNavigate();
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+  const [enquiryTripType, setEnquiryTripType] = useState('');
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#140D0A] text-[#24130A] dark:text-[#F8F4EE] flex flex-col font-sans transition-colors duration-300">
-      <Navbar onPlanTrip={() => navigate('/plan')} />
+      <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
         <div className="section-container space-y-12">
@@ -103,7 +106,7 @@ export default function StoriesPage() {
             </div>
 
             <button
-              onClick={() => navigate('/plan')}
+              onClick={() => setIsEnquiryOpen(true)}
               className="px-8 py-3.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-[#E37500]/30 transition-all shrink-0 active:scale-95"
             >
               <span>Design Your Trip</span>
@@ -114,17 +117,27 @@ export default function StoriesPage() {
         </div>
       </main>
 
+      <EnquiryModal
+        isOpen={isEnquiryOpen}
+        onClose={() => setIsEnquiryOpen(false)}
+        initialTripType={enquiryTripType}
+      />
+
       <WishlistModal />
 
       <Footer
         onNavigate={(path) => {
           if (path === 'destinations') navigate('/destinations');
           else if (path === 'packages') navigate('/packages');
+          else if (path === 'contact') setIsEnquiryOpen(true);
           else navigate(`/#${path}`);
         }}
-        onSelectDestination={(name) => navigate(`/destinations`)}
-        onSelectTripType={(type) => navigate(`/?type=${encodeURIComponent(type)}#contact`)}
-        onPlanTrip={() => navigate('/plan')}
+        onSelectDestination={() => setIsEnquiryOpen(true)}
+        onSelectTripType={(type) => {
+          setEnquiryTripType(type);
+          setIsEnquiryOpen(true);
+        }}
+        onPlanTrip={() => setIsEnquiryOpen(true)}
       />
 
       <FloatingWhatsApp />

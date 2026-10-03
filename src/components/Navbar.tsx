@@ -247,14 +247,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               Moments
             </button>
 
-            {/* ABOUT */}
-            <button
-              onClick={() => onNavigate('about')}
-              className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors"
-            >
-              About
-            </button>
-
             {/* CONTACT */}
             <button
               onClick={() => onNavigate('contact')}
@@ -450,16 +442,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="text-left text-[#24130A] dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
               >
                 Moments
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('about');
-                }}
-                className="text-left text-[#24130A] dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
-              >
-                About
               </button>
 
               <button

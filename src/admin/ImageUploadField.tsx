@@ -159,11 +159,42 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
     auto: 'h-40',
   }[aspectRatio];
 
-  // Process file upload and compress image via HTML5 Canvas
-  const processImageFile = (file: File) => {
+  // Process file upload (supports both images and MP4/WebM video files)
+  const processImageFile = async (file: File) => {
     setUploadError(null);
+
+    if (file.type.startsWith('video/')) {
+      if (file.size > 95 * 1024 * 1024) {
+        setUploadError('Video file size is too large (max 95MB).');
+        return;
+      }
+      setProcessing(true);
+      try {
+        const res = await fetch('/api/upload-video', {
+          method: 'POST',
+          headers: { 'Content-Type': file.type || 'video/mp4' },
+          body: file,
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.videoUrl) {
+            onChange(data.videoUrl);
+            setProcessing(false);
+            setIsOpen(false);
+            return;
+          }
+        }
+        setUploadError('Failed to upload video file to server.');
+      } catch (e) {
+        setUploadError('Error uploading video file.');
+      } finally {
+        setProcessing(false);
+      }
+      return;
+    }
+
     if (!file.type.startsWith('image/')) {
-      setUploadError('Please select a valid image file (JPG, PNG, WebP).');
+      setUploadError('Please select a valid image (JPG, PNG, WebP) or video (MP4, WebM) file.');
       return;
     }
 
@@ -453,7 +484,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept="image/*"
+                      accept="image/*,video/mp4,video/webm,video/quicktime"
                       onChange={handleFileChange}
                       className="hidden"
                     />

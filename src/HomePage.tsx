@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { MarqueeTicker } from './components/MarqueeTicker';
 import { Hero } from './components/Hero';
-import { AboutSection } from './components/AboutSection';
 import { DestinationsSection } from './components/DestinationsSection';
 import { ExperiencesSection } from './components/ExperiencesSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
@@ -14,6 +13,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { PackageModal } from './components/PackageModal';
 import { DestinationModal } from './components/DestinationModal';
+import { EnquiryModal } from './components/EnquiryModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BackToTop } from './components/BackToTop';
 import { CustomSectionRenderer } from './components/CustomSectionRenderer';
@@ -27,10 +27,9 @@ const DEFAULT_ORDER = [
   'destinations',
   'mapsRadar',
   'marquee',
-  'about',
+  'packages',
   'experiences',
   'howItWorks',
-  'packages',
   'gallery',
   'testimonials',
   'whyUs',
@@ -42,6 +41,8 @@ export default function HomePage() {
   const [selectedDestination, setSelectedDestination] = useState<DestinationItem | null>(null);
   const [enquiryDestination, setEnquiryDestination] = useState<string>('');
   const [enquiryTripType, setEnquiryTripType] = useState<string>('');
+  const [enquiryPackageName, setEnquiryPackageName] = useState<string>('');
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState<boolean>(false);
   const [isMapsAgentOpen, setIsMapsAgentOpen] = useState(false);
   const [mapsAgentPrompt, setMapsAgentPrompt] = useState<string | undefined>(undefined);
 
@@ -62,7 +63,6 @@ export default function HomePage() {
       hero: true,
       destinations: true,
       marquee: true,
-      about: true,
       experiences: true,
       howItWorks: true,
       packages: true,
@@ -113,6 +113,10 @@ useEffect(() => {
 }, []);
 
   const scrollToSection = (sectionId: string) => {
+    if (sectionId === 'contact') {
+      setIsEnquiryModalOpen(true);
+      return;
+    }
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -120,30 +124,35 @@ useEffect(() => {
   };
 
   const handlePlanTripClick = () => {
-    scrollToSection('contact');
+    setEnquiryPackageName('');
+    setIsEnquiryModalOpen(true);
   };
 
   const handleSelectHighlight = (destName: string) => {
     setEnquiryDestination(destName);
-    scrollToSection('contact');
+    setEnquiryPackageName('');
+    setIsEnquiryModalOpen(true);
   };
 
   const handleEnquireDestination = (destName: string) => {
     setEnquiryDestination(destName);
+    setEnquiryPackageName('');
     setSelectedDestination(null);
-    scrollToSection('contact');
+    setIsEnquiryModalOpen(true);
   };
 
   const handlePlanTripType = (tripType: string) => {
     setEnquiryTripType(tripType);
-    scrollToSection('contact');
+    setEnquiryPackageName('');
+    setIsEnquiryModalOpen(true);
   };
 
   const handleEnquirePackage = (pkg: TravelPackage) => {
     setEnquiryDestination(pkg.destination);
     setEnquiryTripType(pkg.tag.includes('Honeymoon') ? 'Honeymoon' : 'Luxury Europe Tour');
+    setEnquiryPackageName(pkg.title);
     setSelectedPackage(null);
-    scrollToSection('contact');
+    setIsEnquiryModalOpen(true);
   };
 
   // Section Component Factory
@@ -205,18 +214,6 @@ useEffect(() => {
 
       case 'marquee':
         return <MarqueeTicker key="marquee" items={cmsData.marquee} />;
-
-      case 'about':
-        return (
-          <AboutSection
-            key="about"
-            companyInfo={cmsData.companyInfo}
-            customBadge={cmsData.sectionHeaders?.about?.badge}
-            customTitle={cmsData.sectionHeaders?.about?.title}
-            customSubtitle={cmsData.sectionHeaders?.about?.subtitle}
-            customImage={cmsData.sectionHeaders?.about?.image}
-          />
-        );
 
       case 'experiences':
         return (
@@ -369,6 +366,16 @@ useEffect(() => {
         destination={selectedDestination}
         onClose={() => setSelectedDestination(null)}
         onEnquire={handleEnquireDestination}
+      />
+
+      {/* Popup Enquiry Card Modal */}
+      <EnquiryModal
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setIsEnquiryModalOpen(false)}
+        initialDestination={enquiryDestination}
+        initialTripType={enquiryTripType}
+        initialPackageName={enquiryPackageName}
+        companyInfo={cmsData.companyInfo}
       />
 
       {/* Google Maps Real-Time Intelligence Agent Modal */}

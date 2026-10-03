@@ -36,12 +36,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const { isDark, toggleTheme } = useTheme();
 
   const navItems = [
-    { label: 'Our Philosophy', id: 'philosophy', icon: Sparkles, desc: 'Bespoke by design' },
     { label: 'Destinations', id: 'destinations', icon: MapPin, desc: 'Bali, Swiss, Paris & more' },
-    { label: 'Visual Moments', id: 'gallery', icon: Camera, desc: 'Wanderlust photo mosaic' },
+    { label: 'Popular Packages', id: 'packages', icon: Calendar, desc: 'Ready to personalise' },
     { label: 'What We Curate', id: 'experiences', icon: Layers, desc: 'Honeymoon, Luxury & Corporate' },
     { label: 'How It Works', id: 'how-it-works', icon: Clock, desc: '4-step journey flow' },
-    { label: 'Popular Packages', id: 'packages', icon: Calendar, desc: 'Ready to personalise' },
+    { label: 'Visual Moments', id: 'gallery', icon: Camera, desc: 'Wanderlust photo mosaic' },
     { label: 'Real Stories', id: 'stories', icon: Heart, desc: 'Client reviews & milestones' },
     { label: 'Why Us & Promise', id: 'why-us', icon: ShieldCheck, desc: 'The difference you feel' },
     { label: 'Get in Touch', id: 'contact', icon: Phone, desc: 'Start custom planning' },
@@ -79,14 +78,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="p-5 sm:p-6 border-b border-[#EADFD5] dark:border-white/10 bg-[#FAF7F2] dark:bg-[#120D0B] shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#8C5528] dark:bg-[#C87428] text-white flex items-center justify-center border border-[#70421D] dark:border-white/20 shadow-md shadow-[#8C5528]/20">
+              <div className="w-10 h-10 rounded-xl bg-[#E37500] text-white flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md shadow-[#E37500]/20">
                 <Compass className="w-5 h-5 stroke-[2.2]" />
               </div>
               <div>
                 <span className="font-serif text-lg font-bold text-[#2A1810] dark:text-white block leading-tight">
                   My Kind of Travel
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C5528] dark:text-[#E28C38] font-bold block">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#E37500] font-bold block">
                   Bespoke Luxury Journeys
                 </span>
               </div>
@@ -107,7 +106,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Main Navigation Menu */}
           <div className="space-y-1">
             <div className="flex items-center justify-between px-3 mb-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#8C5528] dark:text-[#E28C38]">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#E37500]">
                 Explore & Plan
               </span>
               {/* Theme toggle inside drawer */}
@@ -124,7 +123,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }`}
                   />
                   <Moon
-                    className={`w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38] transition-all duration-500 ease-out transform ${
+                    className={`w-3.5 h-3.5 text-[#E37500] transition-all duration-500 ease-out transform ${
                       !isDark
                         ? 'rotate-0 scale-100 opacity-100'
                         : '-rotate-90 scale-0 opacity-0 absolute pointer-events-none'
@@ -144,14 +143,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className="w-full px-3.5 py-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-white/10 text-[#3D2B22] dark:text-white/90 hover:text-[#8C5528] dark:hover:text-white flex items-center justify-between group transition-all text-left border border-transparent hover:border-[#EADFD5] dark:hover:border-white/10"
+                    className="w-full px-3.5 py-2.5 rounded-xl hover:bg-white/80 dark:hover:bg-white/10 text-[#3D2B22] dark:text-white/90 hover:text-[#E37500] dark:hover:text-white flex items-center justify-between group transition-all text-left border border-transparent hover:border-[#EADFD5] dark:hover:border-white/10"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 group-hover:bg-[#8C5528]/15 dark:group-hover:bg-[#C87428]/25 text-[#8C5528] dark:text-[#E28C38] flex items-center justify-center border border-[#EADFD5] dark:border-white/10 group-hover:border-[#8C5528]/30 transition-colors">
+                      <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 group-hover:bg-[#E37500]/15 text-[#E37500] flex items-center justify-center border border-[#EADFD5] dark:border-white/10 group-hover:border-[#E37500]/30 transition-colors">
                         <IconComp className="w-4 h-4" />
                       </div>
                       <div>
-                        <span className="text-sm font-semibold block group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
+                        <span className="text-sm font-semibold block group-hover:text-[#E37500] transition-colors">
                           {item.label}
                         </span>
                         <span className="text-[11px] text-[#7C685B] dark:text-[#A8988C] block">
@@ -159,7 +158,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         </span>
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#B5A496] dark:text-white/40 group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#B5A496] dark:text-white/40 group-hover:text-[#E37500] group-hover:translate-x-1 transition-all" />
                   </button>
                 );
               })}
@@ -176,7 +175,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={dest.id}
                   onClick={() => handleNavClick('destinations')}
-                  className="px-2.5 py-1 rounded-lg bg-white/70 dark:bg-white/10 hover:bg-[#8C5528] dark:hover:bg-[#C87428] text-[#594336] dark:text-neutral-200 hover:text-white border border-[#EADFD5] dark:border-white/10 text-xs font-semibold transition-colors"
+                  className="px-2.5 py-1 rounded-lg bg-white/70 dark:bg-white/10 hover:bg-[#E37500] text-[#594336] dark:text-neutral-200 hover:text-white border border-[#EADFD5] dark:border-white/10 text-xs font-semibold transition-colors"
                 >
                   {dest.name.split(',')[0]}
                 </button>
@@ -202,7 +201,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               href={`tel:${COMPANY_INFO.phone}`}
               className="px-3 py-2.5 rounded-xl bg-white dark:bg-white/10 hover:bg-[#F4ECE4] dark:hover:bg-white/15 text-[#2A1810] dark:text-white border border-[#EADFD5] dark:border-white/10 flex items-center justify-center gap-2 font-semibold transition-colors shadow-xs"
             >
-              <Phone className="w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38]" />
+              <Phone className="w-3.5 h-3.5 text-[#E37500]" />
               <span>Call Us</span>
             </a>
 
@@ -210,9 +209,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               href={`https://wa.me/${COMPANY_INFO.phoneRaw}?text=Hi%20My%20Kind%20of%20Travel%2C%20I%20would%20like%20to%20plan%20a%20luxury%20holiday.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-2.5 rounded-xl bg-[#E6F4EA] dark:bg-[#064E3B]/40 hover:bg-[#D7EEDF] dark:hover:bg-[#064E3B]/60 text-[#22543D] dark:text-[#A7F3D0] border border-[#B7DFC2] dark:border-[#059669]/40 flex items-center justify-center gap-2 font-semibold transition-colors shadow-xs"
+              className="px-3 py-2.5 rounded-xl bg-[#E37500]/10 dark:bg-[#E37500]/20 hover:bg-[#E37500] text-[#E37500] hover:text-white border border-[#E37500]/30 flex items-center justify-center gap-2 font-semibold transition-colors shadow-xs"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-[#2E7D32] dark:text-[#34D399]" />
+              <MessageCircle className="w-3.5 h-3.5" />
               <span>WhatsApp</span>
             </a>
           </div>
