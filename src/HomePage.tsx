@@ -25,12 +25,12 @@ import { DestinationItem, TravelPackage, CMSData } from './types';
 const DEFAULT_ORDER = [
   'hero',
   'destinations',
+  'experiences',
+  'gallery',
   'mapsRadar',
   'marquee',
   'packages',
-  'experiences',
   'howItWorks',
-  'gallery',
   'testimonials',
   'whyUs',
   'contact',
@@ -314,7 +314,7 @@ useEffect(() => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF6F1] dark:bg-[#140D0A] text-[#24130A] dark:text-[#F8F4EE] flex flex-col selection:bg-[#E3BA91] selection:text-[#24130A] font-sans relative transition-colors duration-500">
+    <div className="min-h-screen bg-[#1A0E08] text-[#24130A] dark:text-[#F8F4EE] flex flex-col selection:bg-[#E3BA91] selection:text-[#24130A] font-sans relative transition-colors duration-500">
       {/* Light Warm Gradient Canvas with #E3BA91 Champagne/Gold undertone */}
       <div
         className="fixed inset-0 bg-gradient-to-br from-[#FAF6F1] via-[#F4E6D7] to-[#FAF6F1] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-100 dark:opacity-0 -z-10"

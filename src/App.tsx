@@ -23,9 +23,9 @@ export default function App() {
     <BrowserRouter>
       <WishlistProvider>
         {quotaExceeded && (
-          <div className="bg-[#FAF7F2] dark:bg-[#1C1410] border-b border-[#E37500]/30 text-[#24130A] dark:text-[#F8F4EE] px-4 py-2.5 text-xs md:text-sm text-center sticky top-0 z-50 shadow-sm">
+          <div className="fixed bottom-4 right-4 max-w-md bg-[#1C1410]/95 backdrop-blur-md text-[#F8F4EE] border border-[#E37500]/40 px-4 py-3 rounded-2xl text-xs z-50 shadow-2xl flex items-center justify-between gap-3">
             <span>
-              Google Maps Platform quota reached. If you are the app owner, visit{' '}
+              Google Maps Platform quota reached. Visit{' '}
               <a
                 href="https://developers.google.com/maps/ai/ai-studio?utm_campaign=gmp_mcp_codeassist_v1_aistudio#quota_exceeded_errors"
                 target="_blank"
@@ -34,8 +34,14 @@ export default function App() {
               >
                 maps developer site
               </a>{' '}
-              for instructions to update your account.
+              to update account.
             </span>
+            <button
+              onClick={() => setQuotaExceeded(false)}
+              className="text-white/60 hover:text-white p-1 text-sm font-bold"
+            >
+              ✕
+            </button>
           </div>
         )}
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#FAF7F2] text-[#24130A] font-serif text-lg">Loading My Kind of Travel...</div>}>

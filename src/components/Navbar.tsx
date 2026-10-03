@@ -96,11 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Floating Slim Luxury Navbar */}
       <header className="fixed top-2.5 sm:top-3.5 inset-x-0 mx-auto w-[95%] max-w-6xl z-50 transition-all duration-300 pointer-events-auto">
         <div
-          className={`w-full h-13 sm:h-14 rounded-full transition-all duration-300 px-3.5 sm:px-5 flex items-center justify-between gap-3 ${
-            scrolled
-              ? 'bg-[#FAF7F2]/95 dark:bg-[#16100D]/95 backdrop-blur-2xl border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(36,19,10,0.08)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)]'
-              : 'bg-[#FAF7F2]/85 dark:bg-[#16100D]/85 backdrop-blur-xl border border-[#EAE2D8]/80 dark:border-white/10 shadow-[0_4px_20px_rgba(36,19,10,0.04)] dark:shadow-[0_6px_25px_rgba(0,0,0,0.4)]'
-          }`}
+          className="w-full h-13 sm:h-14 rounded-full transition-all duration-300 px-3.5 sm:px-5 flex items-center justify-between gap-3 bg-[#FAF7F2]/95 dark:bg-[#16100D]/95 backdrop-blur-2xl border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(36,19,10,0.08)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-[#24130A] dark:text-white"
         >
           {/* Left: Compass Monogram & Branding */}
           <div className="flex items-center shrink-0">
@@ -136,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors flex items-center gap-1 group"
               >
                 <span>Destinations</span>
-                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'destinations' ? 'rotate-180 text-[#E37500]' : 'text-[#8D7466]'}`} />
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'destinations' ? 'rotate-180 text-[#E37500]' : scrolled ? 'text-[#8D7466]' : 'text-white/70'}`} />
               </button>
 
               {activeDropdown === 'destinations' && (
@@ -191,7 +187,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors flex items-center gap-1 group"
               >
                 <span>Experiences</span>
-                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'experiences' ? 'rotate-180 text-[#E37500]' : 'text-[#8D7466]'}`} />
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'experiences' ? 'rotate-180 text-[#E37500]' : scrolled ? 'text-[#8D7466]' : 'text-white/70'}`} />
               </button>
 
               {activeDropdown === 'experiences' && (

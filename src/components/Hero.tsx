@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
+import heroVideo from '../assets/videos/HeroVideo.mp4';
 import heroBgImage from '../assets/images/hero-terraces.jpg';
 import { TornPaperDivider } from './TornPaperDivider';
 
-// High-definition scenic aerial travel video stream (canyons, mountains, forests, dunes)
+// High-definition scenic aerial travel video stream (HeroVideo.mp4 primary)
 const DEFAULT_HERO_VIDEOS = [
+  heroVideo,
   'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-mountain-range-at-sunset-41628-large.mp4',
   'https://cdn.pixabay.com/video/2020/05/25/40130-424930032_large.mp4',
-  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
 ];
 
 interface HeroProps {
@@ -44,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({
       bgImage!.startsWith('data:video/') ||
       bgImage!.startsWith('/hero-video.mp4'));
 
-  const activeVideoSrc = customVideoUrl || (isBgVideo ? bgImage! : DEFAULT_HERO_VIDEOS[0]);
+  const activeVideoSrc = customVideoUrl || (isBgVideo ? bgImage! : heroVideo);
   const activePoster = !isBgVideo && bgImage && bgImage.trim() ? bgImage : heroBgImage;
 
   // Ensure video autoplays and loops infinitely with controls hidden
@@ -157,18 +158,18 @@ export const Hero: React.FC<HeroProps> = ({
           </span>
         </div>
 
-        {/* Action Buttons: Balanced Sizing on Mobile, Tablet & Desktop */}
+        {/* Action Buttons: Glassmorphic Frosted Styling */}
         <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-[270px] sm:max-w-none mx-auto">
           <button
             onClick={onExploreDestinations}
-            className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-9 md:px-11 py-3.5 sm:py-4 bg-[#E37500] hover:bg-[#C66500] text-white font-extrabold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-[#E37500]/30 hover:shadow-2xl hover:scale-[1.02] active:scale-95 text-center rounded-full border border-[#E37500]"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-9 md:px-11 py-3.5 sm:py-4 bg-[#E37500]/80 hover:bg-[#E37500]/95 backdrop-blur-md border border-white/35 text-white font-extrabold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_8px_32px_rgba(227,117,0,0.45)] hover:shadow-[0_12px_40px_rgba(227,117,0,0.65)] hover:scale-[1.03] active:scale-95 text-center rounded-full drop-shadow-md cursor-pointer"
           >
             {primaryButtonText}
           </button>
 
           <button
             onClick={onPlanTrip}
-            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 md:px-10 py-3.5 sm:py-4 bg-white/95 hover:bg-white text-[#24130A] hover:text-[#E37500] font-bold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/25 hover:shadow-2xl hover:scale-[1.02] active:scale-95 rounded-full text-center border-2 border-white/80"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 md:px-10 py-3.5 sm:py-4 bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/40 text-white hover:text-white font-bold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.18em] uppercase transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.35)] hover:shadow-[0_12px_40px_rgba(255,255,255,0.25)] hover:scale-[1.03] active:scale-95 rounded-full text-center drop-shadow-md cursor-pointer"
           >
             <span>{secondaryButtonText}</span>
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />

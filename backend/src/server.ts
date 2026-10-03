@@ -1,0 +1,76 @@
+import express from 'express';
+import path from 'path';
+import { createServer as createViteServer } from 'vite';
+import { env } from './config/env';
+import { authRouter } from './routes/authRouter';
+import { cmsRouter } from './routes/cmsRouter';
+import { inquiriesRouter } from './routes/inquiriesRouter';
+import { uploadRouter } from './routes/uploadRouter';
+import { mapsRouter } from './routes/mapsRouter';
+
+const app = express();
+const PORT = env.port;
+
+// Payload Parsers
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
+app.use(
+  express.raw({
+    type: ['video/mp4', 'video/webm', 'video/quicktime', 'application/octet-stream'],
+    limit: '100mb',
+  })
+);
+
+// Register Modular API Endpoints
+app.use('/api', authRouter);
+app.use('/api/cms', cmsRouter);
+app.use('/api/inquiries', inquiriesRouter);
+app.use('/api', uploadRouter);
+app.use('/api/maps', mapsRouter);
+
+// Health Check Endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'healthy', environment: env.nodeEnv, timestamp: new Date().toISOString() });
+});
+
+// Vite Middleware (Development Mode) vs Static File Serving (Production Mode / Hostinger)
+async function startServer() {
+  if (process.env.NODE_ENV === 'development') {
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+  } else {
+    // Hostinger production static files serving
+    const publicDistPath = path.join(process.cwd(), 'dist');
+    const frontendDistPath = path.join(process.cwd(), 'frontend', 'dist');
+    const staticPath = fsExists(publicDistPath) ? publicDistPath : frontendDistPath;
+
+    app.use(express.static(staticPath));
+    app.use(express.static(path.join(process.cwd(), 'public')));
+
+    app.get('*all', (req, res) => {
+      const indexPath = path.join(staticPath, 'index.html');
+      if (fsExists(indexPath)) {
+        res.sendFile(indexPath);
+      } else {
+        res.send('Server running in Production mode. Build frontend via npm run build.');
+      }
+    });
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`[My Kind of Travel Server] Running on http://localhost:${PORT} in ${env.nodeEnv} mode`);
+  });
+}
+
+function fsExists(p: string): boolean {
+  try {
+    return require('fs').existsSync(p);
+  } catch {
+    return false;
+  }
+}
+
+startServer();
