@@ -14,15 +14,15 @@ interface DestinationsSectionProps {
 }
 
 const DESTINATION_META: Record<string, { code: string; flightTime: string }> = {
-  'bali': { code: 'DPS', flightTime: 'Direct & Connecting Flights · 8 Hours 45 Minutes' },
-  'paris': { code: 'CDG', flightTime: 'Direct Flight · 9 Hours 15 Minutes' },
-  'switzerland': { code: 'ZRH', flightTime: 'Direct Flight · 8 Hours 30 Minutes' },
-  'santorini': { code: 'JTR', flightTime: 'Connecting Flight · 10 Hours 30 Minutes' },
-  'maldives': { code: 'MLE', flightTime: 'Direct Flight · 2 Hours 45 Minutes' },
-  'amalfi': { code: 'NAP', flightTime: 'Connecting Flight · 9 Hours 40 Minutes' },
-  'kyoto': { code: 'HND', flightTime: 'Direct Flight · 8 Hours 20 Minutes' },
-  'cappadocia': { code: 'NAV', flightTime: 'Connecting Flight · 8 Hours 15 Minutes' },
-  'prague': { code: 'PRG', flightTime: 'Connecting Flight · 9 Hours 50 Minutes' },
+  'bali': { code: 'DPS', flightTime: '8h 45m · 1-Stop' },
+  'paris': { code: 'CDG', flightTime: '9h 15m · Direct' },
+  'switzerland': { code: 'ZRH', flightTime: '8h 30m · Direct' },
+  'santorini': { code: 'JTR', flightTime: '10h 30m · 1-Stop' },
+  'maldives': { code: 'MLE', flightTime: '2h 45m · Direct' },
+  'amalfi': { code: 'NAP', flightTime: '9h 40m · 1-Stop' },
+  'kyoto': { code: 'HND', flightTime: '8h 20m · Direct' },
+  'cappadocia': { code: 'NAV', flightTime: '8h 15m · 1-Stop' },
+  'prague': { code: 'PRG', flightTime: '9h 50m · 1-Stop' },
 };
 
 const REGION_FILTERS = [
@@ -242,7 +242,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                   viewMode === 'carousel' ? 'shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start' : ''
                 }`}
               >
-                {/* Image with Tag & Price Badge & Glassmorphic Skeleton */}
+                {/* Image with Tag & Price Badge */}
                 <div className="relative h-64 overflow-hidden w-full">
                   <GlassImage
                     src={dest.image}
@@ -250,41 +250,44 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                     containerClassName="w-full h-full"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0706]/90 via-[#0A0706]/30 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0706]/90 via-[#0A0706]/25 to-transparent pointer-events-none" />
 
-                  {/* Header Badges Bar: Clean, flight route & clear pricing with NO shortcuts */}
-                  <div className="absolute top-3 inset-x-3 sm:top-4 sm:inset-x-4 flex items-center justify-between gap-2 z-10 pointer-events-none">
-                    <span className="px-3 py-1 rounded-full bg-black/65 backdrop-blur-md text-white text-[11px] font-medium border border-white/20 flex items-center gap-1.5 shadow-sm pointer-events-auto">
-                      <Clock className="w-3.5 h-3.5 text-[#E37500]" />
-                      <span className="truncate max-w-[190px] sm:max-w-none">{meta.flightTime}</span>
+                  {/* Top Badges: Clean, well-spaced & never truncated */}
+                  <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between gap-2 z-10">
+                    <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-medium border border-white/20 flex items-center gap-1.5 shadow-xs">
+                      <Clock className="w-3 h-3 text-[#E37500]" />
+                      <span>{meta.flightTime}</span>
                     </span>
 
-                    <span className="px-3 py-1 rounded-full bg-[#E37500] text-white text-[11px] sm:text-xs font-bold shadow-md shadow-[#E37500]/30 border border-white/20 shrink-0 whitespace-nowrap ml-auto pointer-events-auto">
-                      {dest.priceNote}
+                    <span className="px-3 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-md shadow-[#E37500]/30 border border-white/20 shrink-0 whitespace-nowrap">
+                      {dest.priceNote.replace('Starting from ', 'From ')}
                     </span>
                   </div>
 
-                  {/* Bottom Overlay Title */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-baseline justify-between z-10">
-                    <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#F3D7BD] transition-colors">
+                  {/* Bottom Overlay Title with Region Tag */}
+                  <div className="absolute bottom-3.5 left-4 right-4 z-10">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#E3BA91] drop-shadow-sm block mb-0.5">
+                      {dest.tag || dest.region}
+                    </span>
+                    <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#F3D7BD] transition-colors leading-tight">
                       {dest.name}
                     </h3>
                   </div>
                 </div>
 
-                {/* Card Body */}
-                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-3.5 sm:space-y-4">
-                  <p className="text-[#4A3222] dark:text-[#D1C2B8] text-xs sm:text-sm leading-relaxed line-clamp-3">
+                {/* Card Body: Soft-surface typography */}
+                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <p className="text-[#594336] dark:text-[#C5B7AC] text-xs sm:text-sm leading-relaxed line-clamp-2">
                     {dest.description}
                   </p>
 
                   {/* Highlights List */}
-                  <div className="space-y-1.5 sm:space-y-2 pt-2 border-t border-[#C2B299]/30 dark:border-white/10">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-[#2A1810] dark:text-[#D4A276]">
+                  <div className="space-y-1.5 pt-3 border-t border-[#E8DFD5] dark:border-white/10">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-[#24130A] dark:text-[#E8DDD2]">
                       <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
                       <span>Signature Inclusions:</span>
                     </div>
-                    <ul className="grid grid-cols-1 gap-1 text-xs text-[#523B2D] dark:text-[#DFD0C0]">
+                    <ul className="space-y-1 text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
                       {(dest.highlights || []).slice(0, 2).map((hl, i) => (
                         <li key={i} className="flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] shrink-0" />
@@ -294,19 +297,19 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                     </ul>
                   </div>
 
-                  {/* Bottom Actions with Vibrant #E37500 Button */}
-                  <div className="pt-3.5 sm:pt-4 flex items-center justify-between gap-2 sm:gap-3 border-t border-[#C2B299]/30 dark:border-white/10">
+                  {/* Bottom Actions */}
+                  <div className="pt-3.5 flex items-center justify-between gap-3 border-t border-[#E8DFD5] dark:border-white/10">
                     <button
                       onClick={() => onSelectDestination(dest)}
-                      className="text-xs font-semibold text-[#4A3222] dark:text-[#D1C2B8] hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors truncate"
+                      className="text-xs font-semibold text-[#6F5B4E] dark:text-[#C5B7AC] hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors"
                     >
-                      <span className="truncate">View Complete Itinerary</span>
+                      <span>View Itinerary</span>
                       <ArrowUpRight className="w-3.5 h-3.5 shrink-0 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-[#E37500]" />
                     </button>
 
                     <button
                       onClick={() => onEnquireDestination(dest.name)}
-                      className="px-4 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0 border border-white/20"
+                      className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
                     >
                       Enquire
                     </button>

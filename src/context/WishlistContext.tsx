@@ -1,84 +1,109 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-
-export interface WishlistItem {
-  id: string;
-  title: string;
-  destination: string;
-  image: string;
-  startingPrice: string;
-  tag?: string;
-  duration?: string;
-}
+import { DESTINATIONS, POPULAR_PACKAGES } from '../data/travelData';
+import { DestinationItem, TravelPackage } from '../types';
 
 interface WishlistContextType {
-  items: WishlistItem[];
-  addItem: (item: WishlistItem) => void;
-  removeItem: (id: string) => void;
-  toggleItem: (item: WishlistItem) => void;
-  isSaved: (id: string) => boolean;
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  savedDestinationIds: string[];
+  savedPackageIds: string[];
+  toggleDestinationWishlist: (id: string) => void;
+  togglePackageWishlist: (id: string) => void;
+  isDestinationSaved: (id: string) => boolean;
+  isPackageSaved: (id: string) => boolean;
+  savedDestinations: DestinationItem[];
+  savedPackages: TravelPackage[];
+  totalSavedCount: number;
   clearWishlist: () => void;
+  isWishlistOpen: boolean;
+  openWishlist: () => void;
+  closeWishlist: () => void;
+  items: any[];
+  setIsOpen: (open: boolean) => void;
 }
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
+const DEST_STORAGE_KEY = 'mkot_saved_destinations';
+const PKG_STORAGE_KEY = 'mkot_saved_packages';
+
 export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [items, setItems] = useState<WishlistItem[]>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('mkt_wishlist');
-        return saved ? JSON.parse(saved) : [];
-      } catch {
-        return [];
-      }
+  const [savedDestinationIds, setSavedDestinationIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem(DEST_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : ['bali', 'switzerland'];
+    } catch {
+      return ['bali', 'switzerland'];
     }
-    return [];
   });
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [savedPackageIds, setSavedPackageIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem(PKG_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : ['pkg-1'];
+    } catch {
+      return ['pkg-1'];
+    }
+  });
+
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
 
   useEffect(() => {
     try {
-      localStorage.setItem('mkt_wishlist', JSON.stringify(items));
-    } catch {
-      // ignore
+      localStorage.setItem(DEST_STORAGE_KEY, JSON.stringify(savedDestinationIds));
+    } catch (e) {
+      console.warn('Failed to save destination wishlist to localStorage', e);
     }
-  }, [items]);
+  }, [savedDestinationIds]);
 
-  const addItem = (item: WishlistItem) => {
-    setItems((prev) => (prev.some((i) => i.id === item.id) ? prev : [...prev, item]));
+  useEffect(() => {
+    try {
+      localStorage.setItem(PKG_STORAGE_KEY, JSON.stringify(savedPackageIds));
+    } catch (e) {
+      console.warn('Failed to save package wishlist to localStorage', e);
+    }
+  }, [savedPackageIds]);
+
+  const toggleDestinationWishlist = (id: string) => {
+    setSavedDestinationIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   };
 
-  const removeItem = (id: string) => {
-    setItems((prev) => prev.filter((i) => i.id !== id));
+  const togglePackageWishlist = (id: string) => {
+    setSavedPackageIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   };
 
-  const toggleItem = (item: WishlistItem) => {
-    setItems((prev) => {
-      const exists = prev.some((i) => i.id === item.id);
-      if (exists) {
-        return prev.filter((i) => i.id !== item.id);
-      }
-      return [...prev, item];
-    });
+  const isDestinationSaved = (id: string) => savedDestinationIds.includes(id);
+  const isPackageSaved = (id: string) => savedPackageIds.includes(id);
+
+  const clearWishlist = () => {
+    setSavedDestinationIds([]);
+    setSavedPackageIds([]);
   };
 
-  const isSaved = (id: string) => items.some((i) => i.id === id);
-
-  const clearWishlist = () => setItems([]);
+  const savedDestinations = DESTINATIONS.filter((d) => savedDestinationIds.includes(d.id));
+  const savedPackages = POPULAR_PACKAGES.filter((p) => savedPackageIds.includes(p.id));
+  const totalSavedCount = savedDestinationIds.length + savedPackageIds.length;
 
   return (
     <WishlistContext.Provider
       value={{
-        items,
-        addItem,
-        removeItem,
-        toggleItem,
-        isSaved,
-        isOpen,
-        setIsOpen,
+        savedDestinationIds,
+        savedPackageIds,
+        toggleDestinationWishlist,
+        togglePackageWishlist,
+        isDestinationSaved,
+        isPackageSaved,
+        savedDestinations,
+        savedPackages,
+        totalSavedCount,
         clearWishlist,
+        isWishlistOpen,
+        openWishlist: () => setIsWishlistOpen(true),
+        closeWishlist: () => setIsWishlistOpen(false),
+        items: [...savedDestinations, ...savedPackages],
+        setIsOpen: (open: boolean) => setIsWishlistOpen(open),
       }}
     >
       {children}
@@ -89,16 +114,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 export const useWishlist = () => {
   const context = useContext(WishlistContext);
   if (!context) {
-    return {
-      items: [],
-      addItem: () => {},
-      removeItem: () => {},
-      toggleItem: () => {},
-      isSaved: () => false,
-      isOpen: false,
-      setIsOpen: () => {},
-      clearWishlist: () => {},
-    };
+    throw new Error('useWishlist must be used within a WishlistProvider');
   }
   return context;
 };

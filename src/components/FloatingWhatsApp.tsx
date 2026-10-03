@@ -1,32 +1,10 @@
-import React, { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import React from 'react';
+import { MessageCircle } from 'lucide-react';
 import { COMPANY_INFO } from '../data/travelData';
 
 export const FloatingWhatsApp: React.FC = () => {
-  const [showTooltip, setShowTooltip] = useState(true);
-
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2">
-      {showTooltip && (
-        <div className="bg-white/95 dark:bg-[#16100D]/95 backdrop-blur-xl border border-[#EADFD5] dark:border-white/15 text-[#2A1810] dark:text-white text-xs p-2.5 sm:p-3 rounded-2xl shadow-[0_10px_30px_rgba(42,24,16,0.12)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-2.5 sm:gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300 max-w-[240px] sm:max-w-xs">
-          <div className="space-y-0.5">
-            <span className="font-bold text-[#2E7D32] dark:text-emerald-400 block text-[10px] sm:text-[11px] uppercase tracking-wider">
-              Concierge Online
-            </span>
-            <p className="text-[#594336] dark:text-[#D1C2B8] text-[10px] sm:text-[11px] leading-tight font-normal">
-              Chat directly with our luxury travel specialist on WhatsApp.
-            </p>
-          </div>
-          <button
-            onClick={() => setShowTooltip(false)}
-            className="text-[#A8988B] hover:text-[#2A1810] dark:text-neutral-400 dark:hover:text-white p-1 transition-colors shrink-0"
-            aria-label="Dismiss WhatsApp popup"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      )}
-
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
       <a
         href={`https://wa.me/${COMPANY_INFO.phoneRaw}?text=Hi%20My%20Kind%20of%20Travel%2C%20I%20am%20interested%20in%20planning%20a%20luxury%20holiday.`}
         target="_blank"

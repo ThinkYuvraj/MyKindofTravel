@@ -92,18 +92,18 @@ export const Hero: React.FC<HeroProps> = ({
           </span>
         </div>
 
-        {/* Action Buttons: Signature #E3BA91 Champagne/Gold Styling */}
+        {/* Action Buttons: Signature #E37500 Styling */}
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
           <button
             onClick={onExploreDestinations}
-            className="w-full sm:w-auto inline-block px-8 sm:px-10 py-3.5 sm:py-4 bg-[#E3BA91] hover:bg-[#D4A87C] text-[#24130A] font-extrabold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-[#E3BA91]/35 hover:shadow-2xl hover:scale-[1.02] active:scale-95 text-center rounded-full border border-[#E3BA91]"
+            className="w-full sm:w-auto inline-block px-8 sm:px-10 py-3.5 sm:py-4 bg-[#E37500] hover:bg-[#C66500] text-white font-extrabold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-[#E37500]/30 hover:shadow-2xl hover:scale-[1.02] active:scale-95 text-center rounded-full border border-[#E37500]"
           >
             {primaryButtonText}
           </button>
 
           <button
             onClick={onPlanTrip}
-            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 py-3.5 sm:py-4 bg-white/95 hover:bg-white text-[#24130A] hover:text-[#B37943] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/25 hover:shadow-2xl hover:scale-[1.02] active:scale-95 rounded-full text-center border-2 border-white/80"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 py-3.5 sm:py-4 bg-white/95 hover:bg-white text-[#24130A] hover:text-[#E37500] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/25 hover:shadow-2xl hover:scale-[1.02] active:scale-95 rounded-full text-center border-2 border-white/80"
           >
             <span>{secondaryButtonText}</span>
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />

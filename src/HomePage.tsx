@@ -17,12 +17,15 @@ import { DestinationModal } from './components/DestinationModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BackToTop } from './components/BackToTop';
 import { CustomSectionRenderer } from './components/CustomSectionRenderer';
+import { GoogleMapsSection } from './components/GoogleMapsSection';
+import { GoogleMapsAgentModal } from './components/GoogleMapsAgentModal';
 import { DESTINATIONS, POPULAR_PACKAGES, MARQUEE_ITEMS, TESTIMONIALS, EXPERIENCE_PILLARS, COMPANY_INFO, GALLERY_ITEMS } from './data/travelData';
 import { DestinationItem, TravelPackage, CMSData } from './types';
 
 const DEFAULT_ORDER = [
   'hero',
   'destinations',
+  'mapsRadar',
   'marquee',
   'about',
   'experiences',
@@ -39,6 +42,13 @@ export default function HomePage() {
   const [selectedDestination, setSelectedDestination] = useState<DestinationItem | null>(null);
   const [enquiryDestination, setEnquiryDestination] = useState<string>('');
   const [enquiryTripType, setEnquiryTripType] = useState<string>('');
+  const [isMapsAgentOpen, setIsMapsAgentOpen] = useState(false);
+  const [mapsAgentPrompt, setMapsAgentPrompt] = useState<string | undefined>(undefined);
+
+  const handleOpenMapsAgent = (prompt?: string) => {
+    setMapsAgentPrompt(prompt);
+    setIsMapsAgentOpen(true);
+  };
 
   const [cmsData, setCmsData] = useState<CMSData>({
     heroTitle: 'EXPLORE. DREAM. DISCOVER.',
@@ -185,6 +195,14 @@ useEffect(() => {
           />
         );
 
+      case 'mapsRadar':
+        return (
+          <GoogleMapsSection
+            key="mapsRadar"
+            onOpenAgentModal={handleOpenMapsAgent}
+          />
+        );
+
       case 'marquee':
         return <MarqueeTicker key="marquee" items={cmsData.marquee} />;
 
@@ -316,6 +334,7 @@ useEffect(() => {
       <Navbar
         onPlanTripClick={handlePlanTripClick}
         onNavigate={scrollToSection}
+        onOpenMapsAgent={handleOpenMapsAgent}
         onSelectDestination={(destId) => {
           const dest = (cmsData.destinations || DESTINATIONS).find((d) => d.id === destId);
           if (dest) {
@@ -350,6 +369,13 @@ useEffect(() => {
         destination={selectedDestination}
         onClose={() => setSelectedDestination(null)}
         onEnquire={handleEnquireDestination}
+      />
+
+      {/* Google Maps Real-Time Intelligence Agent Modal */}
+      <GoogleMapsAgentModal
+        isOpen={isMapsAgentOpen}
+        onClose={() => setIsMapsAgentOpen(false)}
+        initialPrompt={mapsAgentPrompt}
       />
 
       {/* Floating 1-Click WhatsApp Concierge */}

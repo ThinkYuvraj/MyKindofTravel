@@ -174,7 +174,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
             </button>
             <button
               onClick={() => onEnquire(destination.name)}
-              className="flex-[2] sm:flex-none px-5 py-2.5 rounded-xl bg-[#B65D2A] hover:bg-[#9E4D1E] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-[#B65D2A]/25 border border-white/20"
+              className="flex-[2] sm:flex-none px-5 py-2.5 rounded-xl bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-[#E37500]/25 border border-white/20"
             >
               <span>Enquire for {destination.name.split(',')[0]}</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5]" />

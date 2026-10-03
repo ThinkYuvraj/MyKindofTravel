@@ -267,7 +267,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
               {section.items[0]?.linkText && (
                 <button
                   onClick={onCtaClick}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#B65D2A] hover:bg-[#9E4D1E] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#B65D2A]/25 border border-white/20 active:scale-95"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 border border-white/20 active:scale-95"
                 >
                   <span>{section.items[0].linkText}</span>
                   <ArrowRight className="w-3.5 h-3.5" />

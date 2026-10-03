@@ -190,7 +190,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Primary CTA Button */}
           <button
             onClick={handlePlanClick}
-            className="w-full py-3.5 rounded-xl bg-[#B65D2A] hover:bg-[#9E4D1E] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#B65D2A]/25 flex items-center justify-center gap-2 border border-white/20"
+            className="w-full py-3.5 rounded-xl bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 flex items-center justify-center gap-2 border border-white/20"
           >
             <span>Plan My Trip</span>
             <ArrowRight className="w-4 h-4 stroke-[2.5]" />

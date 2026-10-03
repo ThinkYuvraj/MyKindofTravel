@@ -199,27 +199,31 @@ export const EXPERIENCE_PILLARS: ExperiencePillar[] = [
 export const HOW_IT_WORKS_STEPS = [
   {
     step: '01',
-    title: 'Share your vision',
-    description: 'Tell us your dream destination, travel style, dates, and budget. A 15-minute conversation is all it takes.',
-    actionBadge: 'Initial Consultation',
+    title: 'Curated',
+    subtitle: 'Thoughtfully Handcrafted Starting Points',
+    description: "Never build a trip from zero. Explore insider-crafted journey blueprints with handpicked luxury stays, private villas, scenic routes, and hidden-gem tables.",
+    actionBadge: 'Curated Starting Point',
   },
   {
     step: '02',
-    title: 'We craft your plan',
-    description: 'Our experts design a bespoke itinerary — handpicked stays, private experiences, and seamless logistics.',
-    actionBadge: 'Bespoke Proposal',
+    title: 'Personalize',
+    subtitle: 'Tailor Every Nuance to Your Taste',
+    description: 'Customize Trip Type (Couple, Honeymoon, Family, Corporate), Property Category (1★ to 5★), and Vibe with budget as a supporting constraint.',
+    actionBadge: 'Ready to Personalize',
   },
   {
     step: '03',
-    title: 'Refine together',
-    description: 'We fine-tune every detail until it\'s exactly right — visas, transfers, dining reservations included.',
-    actionBadge: 'Flawless Curation',
+    title: 'Confirm',
+    subtitle: 'White-Glove Concierge Precision',
+    description: 'Our dedicated travel director locks in preferred partner rates, private transfers, exclusive dining reservations, and visa logistics.',
+    actionBadge: 'Concierge Confirmation',
   },
   {
     step: '04',
-    title: 'Travel with ease',
-    description: 'Your expert is available 24/7 throughout your trip. You just show up and live the experience.',
-    actionBadge: '24/7 White Glove',
+    title: 'Depart',
+    subtitle: 'Effortless Luxury Departure',
+    description: 'Board your flight with a complete digital dossier in hand, Google Maps live route navigation, and 24/7 travel director support on WhatsApp.',
+    actionBadge: 'Dream to Departure',
   },
 ];
 

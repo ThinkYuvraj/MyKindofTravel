@@ -14,11 +14,13 @@ import {
   HOW_IT_WORKS_STEPS,
   WHY_US_PILLARS,
 } from "./src/data/travelData";
+import { mapsRouter } from "./server/mapsRouter";
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json({ limit: '50mb' }));
+app.use("/api/maps", mapsRouter);
 
 const DATA_FILE = path.join(process.cwd(), 'cms-data.json');
 const CREDENTIALS_FILE = path.join(process.cwd(), 'cms-credentials.json');
