@@ -181,7 +181,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
             </button>
             <button
               onClick={() => onCustomise(pkg)}
-              className="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl bg-[#8C5528] dark:bg-[#C87428] hover:bg-[#72421D] dark:hover:bg-[#B86620] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#8C5528]/25 border border-white/20"
+              className="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl bg-[#B65D2A] hover:bg-[#9E4D1E] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#B65D2A]/25 border border-white/20"
             >
               <span>Customise This Package</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5]" />

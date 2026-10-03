@@ -112,7 +112,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
           }, inactivityDelayMs);
         }}
         aria-label="Back to top"
-        className="group relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/90 dark:bg-[#1C120C]/90 text-[#8C5528] dark:text-[#E28C38] hover:text-white dark:hover:text-white hover:bg-[#8C5528] dark:hover:bg-[#C87428] backdrop-blur-xl border border-[#DFD0C0] dark:border-white/15 shadow-[0_8px_25px_rgba(42,24,16,0.18)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5)] transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C5528]"
+        className="group relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 dark:bg-[#1C120C]/90 text-[#B65D2A] hover:text-white dark:hover:text-white hover:bg-[#B65D2A] dark:hover:bg-[#B65D2A] backdrop-blur-xl border border-[#DFD0C0] dark:border-white/15 shadow-[0_8px_25px_rgba(42,24,16,0.18)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5)] transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B65D2A]"
       >
         {/* Subtle circular SVG progress meter */}
         <svg
@@ -130,7 +130,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
             cx="24"
             cy="24"
             r="21"
-            className="stroke-[#8C5528] dark:stroke-[#E28C38] group-hover:stroke-white fill-none transition-colors duration-300"
+            className="stroke-[#B65D2A] group-hover:stroke-white fill-none transition-colors duration-300"
             strokeWidth="2.5"
             strokeDasharray="131.95"
             strokeDashoffset={131.95 - (131.95 * scrollProgress) / 100}

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TESTIMONIALS } from '../data/travelData';
 import { TestimonialItem } from '../types';
-import { Star, Heart } from 'lucide-react';
+import { Star, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
 interface TestimonialsSectionProps {
@@ -18,44 +18,140 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   customSubtitle,
 }) => {
   const activeReviews = testimonials && testimonials.length > 0 ? testimonials : TESTIMONIALS;
+  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = carouselRef.current;
+    if (el) {
+      el.addEventListener('scroll', checkScroll, { passive: true });
+      window.addEventListener('resize', checkScroll);
+      return () => {
+        el.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, [viewMode, activeReviews]);
+
+  const scrollLeft = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: -480, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: 480, behavior: 'smooth' });
+  };
 
   return (
-    <section id="stories" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
+    <section id="stories" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#C2B299]/40 dark:border-white/10 relative transition-colors duration-300">
       <div className="section-container">
-        {/* Heading */}
-        <div className="max-w-3xl space-y-4 mb-16 text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
-            <Heart className="w-3.5 h-3.5 fill-[#8C5528]/20 dark:fill-[#E28C38]/20 text-[#8C5528] dark:text-[#E28C38]" />
-            <span>{customBadge || 'Real stories'}</span>
+        {/* Heading & Caret Controls */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+          <div className="max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/10 text-[#2A1810] dark:text-[#E3BA91] text-xs font-bold uppercase tracking-widest border border-[#C2B299]/60 dark:border-white/10 backdrop-blur-md shadow-xs">
+              <Heart className="w-3.5 h-3.5 fill-[#E37500]/20 text-[#E37500]" />
+              <span>{customBadge || 'Real stories'}</span>
+            </div>
+
+            {customTitle ? (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+                {customTitle}
+              </h2>
+            ) : (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
+                Trips that <span className="italic font-serif text-[#E37500] font-normal">changed everything</span>
+              </h2>
+            )}
+
+            <p className="text-[#3D2B22] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
+              {customSubtitle || 'Honest feedback from Indian couples, corporate leaders, and families who trusted us with their most cherished milestones.'}
+            </p>
           </div>
 
-          {customTitle ? (
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
-              {customTitle}
-            </h2>
-          ) : (
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
-              Trips that <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">changed everything</span>
-            </h2>
-          )}
+          {/* Caret Controls & Mode Switcher */}
+          <div className="flex items-center gap-2 self-start lg:self-end">
+            <div className="flex items-center bg-white/85 dark:bg-white/10 p-1 rounded-full border border-[#C2B299]/60 dark:border-white/10 shadow-xs">
+              <button
+                onClick={() => setViewMode('carousel')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  viewMode === 'carousel'
+                    ? 'bg-[#E37500] text-white shadow-xs'
+                    : 'text-[#4A3222] dark:text-neutral-300 hover:text-[#E37500]'
+                }`}
+                title="Caret Carousel"
+              >
+                Carousel
+              </button>
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  viewMode === 'grid'
+                    ? 'bg-[#E37500] text-white shadow-xs'
+                    : 'text-[#4A3222] dark:text-neutral-300 hover:text-[#E37500]'
+                }`}
+                title="Grid View"
+              >
+                Grid
+              </button>
+            </div>
 
-          <p className="text-[#594336] dark:text-[#D1C2B8] text-base sm:text-lg leading-relaxed font-normal">
-            {customSubtitle || 'Honest feedback from Indian couples, corporate leaders, and families who trusted us with their most cherished milestones.'}
-          </p>
+            {viewMode === 'carousel' && (
+              <div className="flex items-center gap-1.5 ml-1">
+                <button
+                  onClick={scrollLeft}
+                  disabled={!canScrollLeft}
+                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  aria-label="Previous story"
+                  title="Previous"
+                >
+                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                </button>
+                <button
+                  onClick={scrollRight}
+                  disabled={!canScrollRight}
+                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  aria-label="Next story"
+                  title="Next"
+                >
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8">
+        {/* Stories Carousel / Grid */}
+        <div
+          ref={carouselRef}
+          className={
+            viewMode === 'carousel'
+              ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
+              : 'grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8'
+          }
+        >
           {activeReviews.map((review) => (
             <div
               key={review.id}
-              className="p-8 rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/50 dark:hover:border-[#E28C38]/50 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative group"
+              className={`p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#16100D]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative group ${
+                viewMode === 'carousel' ? 'shrink-0 w-[90vw] sm:w-[480px] lg:w-[540px] snap-start' : ''
+              }`}
             >
               <div className="space-y-4">
-                {/* 5 Stars in rich cognac/gold */}
-                <div className="flex items-center gap-1 text-[#8C5528] dark:text-[#E28C38]">
+                {/* 5 Stars in vibrant #E37500 */}
+                <div className="flex items-center gap-1 text-[#E37500]">
                   {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#8C5528] dark:fill-[#E28C38] text-[#8C5528] dark:text-[#E28C38]" />
+                    <Star key={i} className="w-4 h-4 fill-[#E37500] text-[#E37500]" />
                   ))}
                 </div>
 
@@ -66,16 +162,16 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
               </div>
 
               {/* Author & Avatar */}
-              <div className="pt-4 border-t border-[#EADFD5]/80 dark:border-white/10 flex items-center gap-3">
+              <div className="pt-4 border-t border-[#C2B299]/30 dark:border-white/10 flex items-center gap-3">
                 {review.avatar ? (
                   <GlassImage
                     src={review.avatar}
                     alt={review.author}
-                    containerClassName="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-[#DFD0C0] dark:border-white/20 shadow-xs"
+                    containerClassName="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-[#C2B299]/60 dark:border-white/20 shadow-xs"
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-11 h-11 rounded-full bg-[#A0683B]/15 dark:bg-[#B36D33]/20 text-[#A0683B] dark:text-[#D4A276] font-serif font-bold text-base flex items-center justify-center border border-[#A0683B]/30 dark:border-[#B36D33]/30 shrink-0">
+                  <div className="w-11 h-11 rounded-full bg-[#E37500]/15 dark:bg-[#E37500]/25 text-[#E37500] font-serif font-bold text-base flex items-center justify-center border border-[#E37500]/30 shrink-0">
                     {review.initial}
                   </div>
                 )}
@@ -83,7 +179,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                   <h4 className="font-serif font-bold text-[#2A1810] dark:text-white text-base">
                     {review.author}
                   </h4>
-                  <p className="text-xs text-[#A0683B] dark:text-[#D4A276] font-semibold">
+                  <p className="text-xs text-[#E37500] font-semibold">
                     {review.tripInfo}
                   </p>
                 </div>

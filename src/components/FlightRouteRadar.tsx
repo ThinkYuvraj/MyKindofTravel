@@ -172,7 +172,7 @@ export const FlightRouteRadar: React.FC<FlightRouteRadarProps> = ({
                 onClick={() => setActiveRouteId(route.id)}
                 className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs backdrop-blur-md ${
                   activeRouteId === route.id
-                    ? 'bg-[#8C5528] dark:bg-[#C87428] text-white shadow-md'
+                    ? 'bg-[#E3BA91] text-[#24130A] shadow-md shadow-[#E3BA91]/25 border border-[#E3BA91]'
                     : 'bg-white/80 dark:bg-white/10 text-[#594336] dark:text-neutral-200 hover:text-[#2A1810] dark:hover:text-white border border-[#EADFD5] dark:border-white/10'
                 }`}
               >
@@ -265,7 +265,7 @@ export const FlightRouteRadar: React.FC<FlightRouteRadarProps> = ({
 
               <button
                 onClick={() => onSelectRoute(currentRoute.destination)}
-                className="px-4 py-2 rounded-xl bg-[#8C5528] dark:bg-[#C87428] hover:bg-[#72421D] dark:hover:bg-[#B86620] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md shadow-[#8C5528]/20 shrink-0 active:scale-95 border border-white/20"
+                className="px-4 py-2.5 rounded-xl bg-[#E3BA91] hover:bg-[#D4A87C] text-[#24130A] font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md shadow-[#E3BA91]/25 shrink-0 active:scale-95 border border-[#E3BA91]/50"
               >
                 <span>Plan Route</span>
                 <ArrowRight className="w-3.5 h-3.5" />

@@ -5,6 +5,8 @@
 @layer base {
   html {
     color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     transition: color-scheme 450ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -14,15 +16,15 @@
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    color: #24130A;
-    background-color: #FAF7F4;
+    color: #24140D;
+    background-color: #C2B299;
     overflow-x: hidden;
     transition: background-color 450ms cubic-bezier(0.4, 0, 0.2, 1), color 450ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark body {
-    color: #FFFFFF;
-    background-color: #0A0706;
+    color: #F8F4EE;
+    background-color: #140D0A;
   }
 
   h1, h2, h3, .font-serif {
@@ -128,16 +130,32 @@ html.theme-transitioning *::after {
 .duration-200 { animation-duration: 200ms; }
 
 :root {
-  /* Dark Brown & White Primary Theme Variables */
+  /* Website Theme Variables centered on uploaded website colour #C2B299 & button #E37500 */
+  --website-sand: #C2B299;
+  --website-bg: #C2B299;
+  --website-sand-light: #DDD0BF;
+  --website-sand-subtle: #EBE3D7;
   --primary-dark-brown: #24130A;
   --primary-dark-brown-hover: #170B05;
-  --secondary-brown: #7A4522;
-  --secondary-brown-hover: #63371A;
-  --accent-caramel: #B86828;
-  --secondary-brown-subtle: rgba(122, 69, 34, 0.10);
-  --secondary-brown-border: rgba(122, 69, 34, 0.22);
-  --canvas-white: #FAF7F4;
+  --secondary-brown: #E37500;
+  --secondary-brown-hover: #C66500;
+  --accent-caramel: #E37500;
+  --secondary-brown-subtle: rgba(227, 117, 0, 0.14);
+  --secondary-brown-border: rgba(227, 117, 0, 0.35);
+  --canvas-white: #FAF6F1;
   --pure-white: #FFFFFF;
+  --btn-primary-bg: #E37500;
+  --btn-primary-hover: #C66500;
+  --btn-primary-active: #A85500;
+}
+
+/* Hide scrollbar for clean caret carousels while keeping smooth swipe/touch scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* ==========================================================================
@@ -278,28 +296,28 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF7F4;
+  background: #FAF6F0;
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: #1A0E08;
+  background: #1C1410;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #7A4522;
+  background: #E3BA91;
   border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #3D2214;
+  background: #6D4C31;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5E3418;
+  background: #D4A87C;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #522E1B;
+  background: #8A603E;
 }
 
 @keyframes slowGradientShift {

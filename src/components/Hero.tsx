@@ -71,7 +71,7 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="relative z-10 w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center flex flex-col items-center justify-center pt-8 pb-20 sm:pb-24">
         {/* Subtle Brand Pill */}
         <div className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#201109]/75 backdrop-blur-md border border-white/20 text-[#FAF7F4] text-xs font-bold uppercase tracking-[0.25em] shadow-lg mb-5 animate-in fade-in duration-500">
-          <Compass className="w-3.5 h-3.5 text-[#C87428]" />
+          <Compass className="w-3.5 h-3.5 text-[#E3BA91]" />
           <span>{badgeText}</span>
         </div>
 
@@ -92,18 +92,18 @@ export const Hero: React.FC<HeroProps> = ({
           </span>
         </div>
 
-        {/* Action Buttons: Clean Dark Brown & White Styling */}
+        {/* Action Buttons: Signature #E3BA91 Champagne/Gold Styling */}
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
           <button
             onClick={onExploreDestinations}
-            className="w-full sm:w-auto inline-block px-8 sm:px-10 py-3 sm:py-3.5 border-2 border-white bg-transparent hover:bg-white text-white hover:text-[#201109] font-bold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95 text-center"
+            className="w-full sm:w-auto inline-block px-8 sm:px-10 py-3.5 sm:py-4 bg-[#E3BA91] hover:bg-[#D4A87C] text-[#24130A] font-extrabold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-xl shadow-[#E3BA91]/35 hover:shadow-2xl hover:scale-[1.02] active:scale-95 text-center rounded-full border border-[#E3BA91]"
           >
             {primaryButtonText}
           </button>
 
           <button
             onClick={onPlanTrip}
-            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-[#201109] hover:bg-[#FAF7F4] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/40 hover:shadow-2xl active:scale-95 rounded-none text-center"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 py-3.5 sm:py-4 bg-white/95 hover:bg-white text-[#24130A] hover:text-[#B37943] font-bold text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 shadow-xl shadow-black/25 hover:shadow-2xl hover:scale-[1.02] active:scale-95 rounded-full text-center border-2 border-white/80"
           >
             <span>{secondaryButtonText}</span>
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />

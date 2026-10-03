@@ -71,7 +71,6 @@ export default function AdminDashboard() {
     'destinations',
     'marquee',
     'about',
-    'radar',
     'experiences',
     'howItWorks',
     'packages',
@@ -206,12 +205,12 @@ export default function AdminDashboard() {
       {/* Top Header */}
       <header className="bg-[#1A0E08] border-b border-[#3D2315] px-6 py-3.5 flex items-center justify-between shadow-md sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C87428] to-[#8C5528] flex items-center justify-center text-white shadow-md">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#E37500] to-[#C66500] flex items-center justify-center text-white shadow-md">
             <Compass className="w-5 h-5" />
           </div>
           <div>
             <h1 className="text-base font-serif font-bold text-[#FAF7F4]">My Kind of Travel</h1>
-            <span className="text-[11px] text-[#C87428] font-bold uppercase tracking-widest block">
+            <span className="text-[11px] text-[#E37500] font-bold uppercase tracking-widest block">
               Interactive CMS Portal
             </span>
           </div>
@@ -221,16 +220,16 @@ export default function AdminDashboard() {
           <Link
             to="/"
             target="_blank"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-xs font-semibold transition-colors border border-[#3D2315]"
+            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-xs font-semibold transition-colors border border-[#3D2315]"
           >
-            <ExternalLink className="w-3.5 h-3.5 text-[#C87428]" />
+            <ExternalLink className="w-3.5 h-3.5 text-[#E37500]" />
             <span>View Live Site</span>
           </Link>
 
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 bg-[#C87428] hover:bg-[#E28C38] text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 shadow-md shadow-[#C87428]/25"
+            className="flex items-center gap-2 px-5 py-2 bg-[#E37500] hover:bg-[#C66500] text-white rounded-full text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 shadow-md shadow-[#E37500]/25 active:scale-95"
           >
             <Save className="w-3.5 h-3.5" />
             <span>{saving ? 'Saving...' : 'Publish Changes'}</span>
@@ -239,7 +238,7 @@ export default function AdminDashboard() {
           <button
             onClick={handleLogout}
             title="Logout"
-            className="p-2 rounded-xl bg-[#2A1810] hover:bg-red-950/40 text-neutral-400 hover:text-red-400 transition-colors border border-[#3D2315]"
+            className="p-2 rounded-full bg-[#2A1810] hover:bg-red-950/40 text-neutral-400 hover:text-red-400 transition-colors border border-[#3D2315]"
           >
             <LogOut className="w-4 h-4" />
           </button>

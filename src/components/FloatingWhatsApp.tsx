@@ -5,13 +5,6 @@ import { COMPANY_INFO } from '../data/travelData';
 export const FloatingWhatsApp: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const handleOpenWhatsApp = () => {
-    window.open(
-      `https://wa.me/${COMPANY_INFO.phoneRaw}?text=Hi%20My%20Kind%20of%20Travel%2C%20I%20am%20interested%20in%20planning%20a%20luxury%20holiday.`,
-      '_blank'
-    );
-  };
-
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2">
       {showTooltip && (
@@ -34,8 +27,10 @@ export const FloatingWhatsApp: React.FC = () => {
         </div>
       )}
 
-      <button
-        onClick={handleOpenWhatsApp}
+      <a
+        href={`https://wa.me/${COMPANY_INFO.phoneRaw}?text=Hi%20My%20Kind%20of%20Travel%2C%20I%20am%20interested%20in%20planning%20a%20luxury%20holiday.`}
+        target="_blank"
+        rel="noopener noreferrer"
         className="group relative flex items-center gap-2 p-3 sm:px-4 sm:py-3.5 rounded-full bg-[#2E7D32] hover:bg-[#256529] text-white shadow-xl shadow-[#2E7D32]/25 hover:scale-105 active:scale-95 transition-all focus:outline-none"
         aria-label="Chat on WhatsApp with My Kind of Travel"
       >
@@ -44,7 +39,7 @@ export const FloatingWhatsApp: React.FC = () => {
           Chat on WhatsApp
         </span>
         <span className="absolute -top-1 -right-1 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-[#8C5528] rounded-full border-2 border-[#FAF7F2] animate-pulse" />
-      </button>
+      </a>
     </div>
   );
 };

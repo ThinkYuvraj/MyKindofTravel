@@ -91,7 +91,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-70 shadow-md shadow-[#C87428]/20"
+            className="w-full py-3 rounded-xl bg-[#B65D2A] hover:bg-[#9E4D1E] text-white font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-70 shadow-md shadow-[#B65D2A]/20"
           >
             {loading ? 'Authenticating...' : 'Sign In to Portal'}
           </button>
@@ -104,7 +104,7 @@ export default function AdminLogin() {
               setEmail('marketing2glue@gmail.com');
               setPassword('Admin@8369');
             }}
-            className="text-[#C87428] hover:text-[#E28C38] transition-colors font-semibold"
+            className="text-[#B65D2A] hover:text-[#9E4D1E] transition-colors font-semibold"
           >
             Fill Default Credentials
           </button>

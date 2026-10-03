@@ -100,7 +100,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
         </div>
 
         {/* Modern Glassmorphic Category Filter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             return (
@@ -109,8 +109,8 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                 onClick={() => setActiveCategory(cat)}
                 className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 whitespace-nowrap backdrop-blur-md ${
                   isActive
-                    ? 'bg-[#8C5528] dark:bg-[#C87428] text-white shadow-md shadow-[#8C5528]/25 scale-105 border border-transparent'
-                    : 'bg-white/70 dark:bg-[#16100D]/70 hover:bg-[#A0683B]/10 dark:hover:bg-[#B36D33]/15 text-[#6E4424] dark:text-[#D4A276] border border-[#DFD0C0] dark:border-[#B36D33]/30'
+                    ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-105 border border-transparent'
+                    : 'bg-white/80 dark:bg-[#16100D]/70 hover:bg-[#E37500]/10 text-[#4A3222] dark:text-[#D4A276] border border-[#C2B299]/60 dark:border-white/10'
                 }`}
               >
                 {cat}
@@ -252,7 +252,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                     onPlanTripForLocation(activePhoto.location);
                     setActiveLightboxIndex(null);
                   }}
-                  className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#8C5528] hover:bg-[#70421D] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#8C5528]/30 transition-all"
+                  className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#E37500]/30 transition-all border border-white/20 active:scale-95"
                 >
                   <span>Experience This</span>
                   <ArrowUpRight className="w-4 h-4" />

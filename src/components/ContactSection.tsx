@@ -61,14 +61,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     }
   };
 
-  const handleWhatsAppDirect = () => {
-    const text = encodeURIComponent(
-      `Hi My Kind of Travel Team, I'm ${firstName || 'a traveller'} interested in planning a ${
-        tripType || 'bespoke trip'
-      } to ${destination || 'an unforgettable destination'}. Dates & details: ${message || 'Looking for recommendations.'}`
-    );
-    window.open(`https://wa.me/${COMPANY_INFO.phoneRaw}?text=${text}`, '_blank');
-  };
+  const whatsappUrl = `https://wa.me/${COMPANY_INFO.phoneRaw}?text=${encodeURIComponent(
+    `Hi My Kind of Travel Team, I'm ${firstName || 'a traveller'} interested in planning a ${
+      tripType || 'bespoke trip'
+    } to ${destination || 'an unforgettable destination'}. Dates & details: ${message || 'Looking for recommendations.'}`
+  )}`;
 
   return (
     <section id="contact" className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300">
@@ -177,13 +174,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   </div>
 
                   <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <button
-                      onClick={handleWhatsAppDirect}
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#2E7D32] hover:bg-[#256529] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-md"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Chat on WhatsApp Now</span>
-                    </button>
+                    </a>
 
                     <button
                       onClick={() => {
@@ -324,7 +323,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-[#8C5528] dark:bg-[#C87428] hover:bg-[#72421D] dark:hover:bg-[#B86620] text-white font-bold text-sm uppercase tracking-wider transition-all shadow-lg shadow-[#8C5528]/30 flex items-center justify-center gap-2 active:scale-98 border border-white/20"
+                    className="w-full py-4 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-sm uppercase tracking-wider transition-all shadow-lg shadow-[#E37500]/30 flex items-center justify-center gap-2 active:scale-98 border border-white/20"
                   >
                     <span>Send My Enquiry →</span>
                   </button>

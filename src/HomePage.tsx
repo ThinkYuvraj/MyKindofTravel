@@ -4,7 +4,6 @@ import { MarqueeTicker } from './components/MarqueeTicker';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
 import { DestinationsSection } from './components/DestinationsSection';
-import { FlightRouteRadar } from './components/FlightRouteRadar';
 import { ExperiencesSection } from './components/ExperiencesSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
 import { PackagesSection } from './components/PackagesSection';
@@ -26,7 +25,6 @@ const DEFAULT_ORDER = [
   'destinations',
   'marquee',
   'about',
-  'radar',
   'experiences',
   'howItWorks',
   'packages',
@@ -55,7 +53,6 @@ export default function HomePage() {
       destinations: true,
       marquee: true,
       about: true,
-      radar: true,
       experiences: true,
       howItWorks: true,
       packages: true,
@@ -203,20 +200,6 @@ useEffect(() => {
           />
         );
 
-      case 'radar':
-        return (
-          <FlightRouteRadar
-            key="radar"
-            customBadge={cmsData.sectionHeaders?.radar?.badge}
-            customTitle={cmsData.sectionHeaders?.radar?.title}
-            customSubtitle={cmsData.sectionHeaders?.radar?.subtitle}
-            onSelectRoute={(destinationName) => {
-              setEnquiryDestination(destinationName);
-              scrollToSection('contact');
-            }}
-          />
-        );
-
       case 'experiences':
         return (
           <ExperiencesSection
@@ -316,16 +299,16 @@ useEffect(() => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#0A0706] text-[#2A1810] dark:text-[#FAF7F2] flex flex-col selection:bg-[#8C5528] dark:selection:bg-[#E28C38] selection:text-white font-sans relative transition-colors duration-500">
-      {/* Light Mode Subtle Gradient Canvas (Crossfades seamlessly) */}
+    <div className="min-h-screen bg-[#FAF6F1] dark:bg-[#140D0A] text-[#24130A] dark:text-[#F8F4EE] flex flex-col selection:bg-[#E3BA91] selection:text-[#24130A] font-sans relative transition-colors duration-500">
+      {/* Light Warm Gradient Canvas with #E3BA91 Champagne/Gold undertone */}
       <div
-        className="fixed inset-0 bg-gradient-to-br from-[#FAF7F2] via-[#EFE8DF] to-[#FAF7F2] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-100 dark:opacity-0 -z-10"
+        className="fixed inset-0 bg-gradient-to-br from-[#FAF6F1] via-[#F4E6D7] to-[#FAF6F1] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-100 dark:opacity-0 -z-10"
         aria-hidden="true"
       />
 
-      {/* Dark Mode Obsidian & Deep Espresso Gradient Canvas (Crossfades seamlessly) */}
+      {/* Dark Mode Warm Espresso Canvas with subtle #E3BA91 ambient glow */}
       <div
-        className="fixed inset-0 bg-gradient-to-br from-[#0A0706] via-[#16100D] to-[#0A0706] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-0 dark:opacity-100 -z-10"
+        className="fixed inset-0 bg-gradient-to-br from-[#140D0A] via-[#1F1510] to-[#140D0A] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-0 dark:opacity-100 -z-10"
         aria-hidden="true"
       />
 

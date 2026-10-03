@@ -39,7 +39,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { label: 'Our Philosophy', id: 'philosophy', icon: Sparkles, desc: 'Bespoke by design' },
     { label: 'Destinations', id: 'destinations', icon: MapPin, desc: 'Bali, Swiss, Paris & more' },
     { label: 'Visual Moments', id: 'gallery', icon: Camera, desc: 'Wanderlust photo mosaic' },
-    { label: 'Flight Corridors', id: 'radar', icon: Plane, desc: 'Direct routes from India' },
     { label: 'What We Curate', id: 'experiences', icon: Layers, desc: 'Honeymoon, Luxury & Corporate' },
     { label: 'How It Works', id: 'how-it-works', icon: Clock, desc: '4-step journey flow' },
     { label: 'Popular Packages', id: 'packages', icon: Calendar, desc: 'Ready to personalise' },
@@ -191,7 +190,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Primary CTA Button */}
           <button
             onClick={handlePlanClick}
-            className="w-full py-3.5 rounded-xl bg-[#8C5528] dark:bg-[#C87428] hover:bg-[#72421D] dark:hover:bg-[#B86620] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#8C5528]/25 flex items-center justify-center gap-2 border border-white/20"
+            className="w-full py-3.5 rounded-xl bg-[#B65D2A] hover:bg-[#9E4D1E] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#B65D2A]/25 flex items-center justify-center gap-2 border border-white/20"
           >
             <span>Plan My Trip</span>
             <ArrowRight className="w-4 h-4 stroke-[2.5]" />

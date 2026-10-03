@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { POPULAR_PACKAGES } from '../data/travelData';
 import { TravelPackage } from '../types';
-import { Check, ArrowRight, Eye, Clock, Plane, Ticket, PackageOpen } from 'lucide-react';
+import { Check, ArrowRight, Eye, Clock, Plane, Ticket, PackageOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
 interface PackagesSectionProps {
@@ -14,7 +14,6 @@ interface PackagesSectionProps {
 }
 
 // ── Filter definitions ────────────────────────────────────────────────────────
-// Each filter has an explicit predicate — no fragile string-contains guessing.
 const FILTER_DEFS: { label: string; match: (pkg: TravelPackage) => boolean }[] = [
   { label: 'All',           match: () => true },
   { label: 'Honeymoon',     match: (p) => p.tag.toLowerCase().includes('honeymoon') },
@@ -30,13 +29,12 @@ const FILTER_DEFS: { label: string; match: (pkg: TravelPackage) => boolean }[] =
 ];
 
 // ── Price parser ──────────────────────────────────────────────────────────────
-// Splits e.g. "From ₹1,85,000 /pp" → { amount: '₹1,85,000', suffix: '/pp' }
 function parsePrice(raw: string): { amount: string; suffix: string } {
-  const stripped = raw.replace(/^from\s*/i, '').trim();
-  const match = stripped.match(/^(.*?)\s*(\/pp|per\s*person|\/pax)?$/i);
+  const stripped = raw.replace(/^starting\s+from\s*/i, '').replace(/^from\s*/i, '').trim();
+  const match = stripped.match(/^(.*?)\s*(\/pp|per\s*person|\/pax|\/\s*person)?$/i);
   return {
     amount: match?.[1]?.trim() || stripped,
-    suffix: match?.[2] ? match[2].toLowerCase().replace('per person', '/pp') : '/pp',
+    suffix: '/ Person',
   };
 }
 
@@ -49,8 +47,41 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
   customSubtitle,
 }) => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
+  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Attach counts so the badge next to each tab label stays accurate
+  const checkScroll = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = carouselRef.current;
+    if (el) {
+      el.addEventListener('scroll', checkScroll, { passive: true });
+      window.addEventListener('resize', checkScroll);
+      return () => {
+        el.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, [activeFilter, viewMode, data]);
+
+  const scrollLeft = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: -400, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: 400, behavior: 'smooth' });
+  };
+
   const filtersWithCounts = FILTER_DEFS.map((f) => ({
     ...f,
     count: data.filter(f.match).length,
@@ -63,15 +94,15 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
   return (
     <section
       id="packages"
-      className="py-12 sm:py-16 lg:py-24 bg-[#FFFFFF] dark:bg-[#0A0706] text-[#2A1810] dark:text-white border-b border-[#EADFD5] dark:border-white/10 relative transition-colors duration-300"
+      className="py-12 sm:py-16 lg:py-24 bg-transparent text-[#2A1810] dark:text-white border-b border-[#C2B299]/40 dark:border-white/10 relative transition-colors duration-300"
     >
       <div className="section-container">
 
-        {/* ── Header & Filter Tabs ──────────────────────────────────────── */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+        {/* ── Header & Filter Tabs + Caret Carousel Controls ──────────────── */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
           <div className="max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] text-xs font-bold uppercase tracking-widest border border-[#DFD0C0]/80 dark:border-white/10 backdrop-blur-md shadow-xs">
-              <Ticket className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/10 text-[#2A1810] dark:text-[#E3BA91] text-xs font-bold uppercase tracking-widest border border-[#C2B299]/60 dark:border-white/10 backdrop-blur-md shadow-xs">
+              <Ticket className="w-3.5 h-3.5 text-[#E37500]" />
               <span>{customBadge || 'Popular packages'}</span>
             </div>
 
@@ -82,20 +113,21 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             ) : (
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2A1810] dark:text-white">
                 Curated journeys{' '}
-                <span className="italic font-serif text-[#8C5528] dark:text-[#E28C38] font-normal">
+                <span className="italic font-serif text-[#E37500] font-normal">
                   ready to personalise
                 </span>
               </h2>
             )}
 
-            <p className="text-[#594336] dark:text-[#D1C2B8] text-sm sm:text-base leading-relaxed font-normal">
+            <p className="text-[#3D2B22] dark:text-[#D1C2B8] text-sm sm:text-base leading-relaxed font-normal">
               {customSubtitle || 'Proven itineraries designed for discerning travelers. Every package can be modified, upgraded, and reshuffled to match your exact dates and preferences.'}
             </p>
           </div>
 
-          {/* ── Filter pill row ─────────────────────────────────────────── */}
-          <div className="flex-shrink-0">
-            <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-[#F5EDE4] dark:bg-[#16100D] border border-[#DFD0C0] dark:border-white/10 shadow-inner">
+          {/* ── Filter Row & Caret Navigation ────────────────────────────── */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            {/* Filter pills */}
+            <div className="flex flex-wrap gap-1.5 p-1.5 rounded-full bg-white/85 dark:bg-[#16100D]/85 border border-[#C2B299]/60 dark:border-white/10 shadow-xs backdrop-blur-md">
               {filtersWithCounts.map((f) => {
                 const isActive = activeFilter === f.label;
                 return (
@@ -105,13 +137,12 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     disabled={f.count === 0}
                     aria-pressed={isActive}
                     className={`
-                      relative flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold
-                      transition-all duration-300 whitespace-nowrap
+                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                      transition-all duration-200 whitespace-nowrap
                       disabled:opacity-35 disabled:cursor-not-allowed
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C5528]
                       ${isActive
-                        ? 'bg-[#8C5528] dark:bg-[#C87428] text-white shadow-md shadow-[#8C5528]/30 dark:shadow-[#C87428]/25 scale-[1.02]'
-                        : 'text-[#6E4424] dark:text-[#D4A276] hover:bg-white/60 dark:hover:bg-white/5 hover:scale-[1.01]'
+                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                        : 'text-[#4A3222] dark:text-[#D4A276] hover:bg-[#E37500]/10'
                       }
                     `}
                   >
@@ -120,10 +151,10 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                       <span
                         className={`
                           inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
-                          transition-colors duration-300
+                          transition-colors duration-200
                           ${isActive
                             ? 'bg-white/20 text-white'
-                            : 'bg-[#8C5528]/12 dark:bg-[#C87428]/20 text-[#8C5528] dark:text-[#E28C38]'
+                            : 'bg-[#C2B299]/40 text-[#4A3222] dark:text-[#E3BA91]'
                           }
                         `}
                       >
@@ -134,18 +165,78 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                 );
               })}
             </div>
+
+            {/* View Mode & Carets */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center bg-white/85 dark:bg-white/10 p-1 rounded-full border border-[#C2B299]/60 dark:border-white/10 shadow-xs">
+                <button
+                  onClick={() => setViewMode('carousel')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    viewMode === 'carousel'
+                      ? 'bg-[#E37500] text-white shadow-xs'
+                      : 'text-[#4A3222] dark:text-neutral-300 hover:text-[#E37500]'
+                  }`}
+                  title="Caret Carousel"
+                >
+                  Carousel
+                </button>
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    viewMode === 'grid'
+                      ? 'bg-[#E37500] text-white shadow-xs'
+                      : 'text-[#4A3222] dark:text-neutral-300 hover:text-[#E37500]'
+                  }`}
+                  title="Grid View"
+                >
+                  Grid
+                </button>
+              </div>
+
+              {viewMode === 'carousel' && (
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={scrollLeft}
+                    disabled={!canScrollLeft}
+                    className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                    aria-label="Previous package"
+                    title="Previous"
+                  >
+                    <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                  </button>
+                  <button
+                    onClick={scrollRight}
+                    disabled={!canScrollRight}
+                    className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                    aria-label="Next package"
+                    title="Next"
+                  >
+                    <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* ── Packages Grid ──────────────────────────────────────────────── */}
+        {/* ── Packages Carousel / Grid ───────────────────────────────────── */}
         {filteredPackages.length > 0 ? (
-          <div className="content-grid">
+          <div
+            ref={carouselRef}
+            className={
+              viewMode === 'carousel'
+                ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
+                : 'content-grid'
+            }
+          >
             {filteredPackages.map((pkg) => {
               const { amount, suffix } = parsePrice(pkg.startingPrice);
               return (
                 <div
                   key={pkg.id}
-                  className="rounded-3xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#8C5528]/60 dark:hover:border-[#E28C38]/60 transition-all duration-500 overflow-hidden flex flex-col justify-between group shadow-[0_4px_20px_rgba(42,24,16,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative"
+                  className={`rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#16100D]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_6px_25px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative ${
+                    viewMode === 'carousel' ? 'shrink-0 w-[88vw] sm:w-[380px] lg:w-[410px] snap-start' : ''
+                  }`}
                 >
                   <div>
                     {/* Image & Badges */}
@@ -159,18 +250,18 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0706]/90 via-[#0A0706]/20 to-transparent pointer-events-none" />
 
                       <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-                        <span className="px-3 py-1 rounded-lg bg-[#A0683B]/90 dark:bg-[#B36D33]/90 backdrop-blur-md text-white text-[11px] uppercase tracking-wider font-bold border border-white/20 shadow-xs">
+                        <span className="px-3 py-1 rounded-full bg-black/65 backdrop-blur-md text-white text-[11px] uppercase tracking-wider font-bold border border-white/20 shadow-xs">
                           {pkg.tag}
                         </span>
                         {pkg.badge && (
-                          <span className="px-2.5 py-1 rounded-lg bg-[#8C5528] dark:bg-[#C87428] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-sm border border-white/20">
+                          <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-sm border border-white/20">
                             {pkg.badge}
                           </span>
                         )}
                       </div>
 
                       <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-xs text-[#FAF7F2] font-medium z-10">
-                        <Plane className="w-3.5 h-3.5 text-[#E28C38] -rotate-45" />
+                        <Plane className="w-3.5 h-3.5 text-[#E37500] -rotate-45" />
                         <span>{pkg.destination}</span>
                       </div>
                     </div>
@@ -178,43 +269,38 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     {/* Content */}
                     <div className="p-5 sm:p-6 space-y-3.5 sm:space-y-4">
                       <div>
-                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#8C5528] dark:group-hover:text-[#E28C38] transition-colors">
-                          {pkg.title}
-                        </h3>
-                        <div className="flex items-center gap-1.5 mt-1 text-xs text-[#A0683B] dark:text-[#D4A276] font-medium">
-                          <Clock className="w-3.5 h-3.5 text-[#8C5528] dark:text-[#E28C38]" />
+                        <div className="flex items-center gap-1 text-xs text-[#E37500] font-semibold mb-1">
+                          <Clock className="w-3.5 h-3.5" />
                           <span>{pkg.duration}</span>
                         </div>
+                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
+                          {pkg.title}
+                        </h3>
+                        <p className="text-xs text-[#523B2D] dark:text-[#A8988B] mt-0.5 font-normal">
+                          {pkg.subtitle}
+                        </p>
                       </div>
 
-                      {/* Feature bullets */}
-                      <ul className="space-y-2 py-2 border-t border-b border-[#EADFD5]/80 dark:border-white/10">
-                        {(pkg.features || []).map((feature, i) => (
-                          <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-[#594336] dark:text-[#DFD0C0]">
-                            <Check className="w-4 h-4 text-[#A0683B] dark:text-[#D4A276] shrink-0 mt-0.5" />
-                            <span>{feature}</span>
-                          </li>
+                      {/* Features Bullet List */}
+                      <div className="space-y-2 pt-3 border-t border-[#C2B299]/30 dark:border-white/10">
+                        {pkg.features.slice(0, 3).map((feat, idx) => (
+                          <div key={idx} className="flex items-center gap-2 text-xs text-[#3D2B22] dark:text-[#DFD0C0]">
+                            <div className="w-4 h-4 rounded-full bg-[#E37500]/15 dark:bg-[#E37500]/25 flex items-center justify-center shrink-0">
+                              <Check className="w-2.5 h-2.5 text-[#E37500] stroke-[3]" />
+                            </div>
+                            <span className="truncate font-medium">{feat}</span>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
 
-                      {/* ── Price Row ───────────────────────────────────── */}
-                      <div className="pt-1 flex items-center justify-between gap-3">
-                        {/* Left: labels */}
-                        <div className="flex flex-col leading-tight">
-                          <span className="text-[10px] text-[#A0683B] dark:text-[#D4A276] uppercase tracking-widest font-bold">
-                            Investment
-                          </span>
-                          <span className="text-[11px] text-[#8C7769] dark:text-neutral-400 font-medium">
-                            Starting at
-                          </span>
-                        </div>
-
-                        {/* Right: price amount + suffix */}
+                      {/* Pricing Tag */}
+                      <div className="pt-2">
+                        <span className="text-[11px] text-[#6E5544] dark:text-[#A8988B] block font-medium">Starting from</span>
                         <div className="flex items-baseline gap-1">
-                          <span className="font-serif text-xl sm:text-2xl font-bold text-[#8C5528] dark:text-[#E28C38] leading-none">
+                          <span className="text-xl sm:text-2xl font-bold font-serif text-[#2A1810] dark:text-white tracking-tight">
                             {amount}
                           </span>
-                          <span className="text-[11px] text-[#A0683B] dark:text-[#D4A276] font-semibold leading-none self-end pb-0.5">
+                          <span className="text-xs text-[#6E5544] dark:text-[#A8988B]">
                             {suffix}
                           </span>
                         </div>
@@ -222,19 +308,19 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     </div>
                   </div>
 
-                  {/* ── CTA Buttons ─────────────────────────────────────── */}
-                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-dashed border-[#EADFD5]/80 dark:border-white/15 flex items-center gap-3">
+                  {/* ── CTA Buttons with #E37500 ───────────────────────────── */}
+                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-dashed border-[#C2B299]/40 dark:border-white/15 flex items-center gap-3">
                     <button
                       onClick={() => onViewPackageDetails(pkg)}
-                      className="flex-1 py-2.5 rounded-xl bg-[#A0683B]/10 dark:bg-[#B36D33]/15 hover:bg-[#A0683B]/20 dark:hover:bg-[#B36D33]/25 text-[#A0683B] dark:text-[#D4A276] text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-[#A0683B]/30 dark:border-[#B36D33]/40"
+                      className="flex-1 py-2.5 rounded-full bg-white/80 dark:bg-white/10 hover:bg-[#E37500]/10 text-[#2A1810] dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-[#C2B299]/70 dark:border-white/20"
                     >
-                      <Eye className="w-3.5 h-3.5" />
+                      <Eye className="w-3.5 h-3.5 text-[#E37500]" />
                       <span>Itinerary</span>
                     </button>
 
                     <button
                       onClick={() => onEnquirePackage(pkg)}
-                      className="flex-1 py-2.5 rounded-xl bg-[#8C5528] dark:bg-[#C87428] hover:bg-[#72421D] dark:hover:bg-[#B86620] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#8C5528]/25 active:scale-95 border border-white/20"
+                      className="flex-1 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#E37500]/25 active:scale-95 border border-white/20"
                     >
                       <span>Enquire</span>
                       <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -247,8 +333,8 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
         ) : (
           /* ── Empty state ──────────────────────────────────────────────── */
           <div className="flex flex-col items-center justify-center py-20 gap-5 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#F5EDE4] dark:bg-[#16100D] flex items-center justify-center border border-[#DFD0C0] dark:border-white/10">
-              <PackageOpen className="w-7 h-7 text-[#A0683B] dark:text-[#D4A276]" />
+            <div className="w-16 h-16 rounded-2xl bg-white/80 dark:bg-[#16100D] flex items-center justify-center border border-[#C2B299]/50 dark:border-white/10">
+              <PackageOpen className="w-7 h-7 text-[#E37500]" />
             </div>
             <div className="space-y-1">
               <p className="text-[#2A1810] dark:text-white font-semibold text-sm">No packages in this category yet</p>
@@ -256,7 +342,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             </div>
             <button
               onClick={() => setActiveFilter('All')}
-              className="px-5 py-2.5 rounded-full bg-[#8C5528] dark:bg-[#C87428] text-white text-xs font-bold uppercase tracking-wider transition-all hover:bg-[#72421D] dark:hover:bg-[#B86620] shadow-md"
+              className="px-5 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25"
             >
               View All Packages
             </button>
@@ -266,5 +352,3 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
     </section>
   );
 };
-
-
