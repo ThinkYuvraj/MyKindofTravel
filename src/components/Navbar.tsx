@@ -235,7 +235,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <Compass className="w-3.5 h-3.5 text-[#E37500]" />
                 <span>Live Map</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] animate-pulse" />
               </button>
             )}
 
@@ -299,7 +299,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label="Toggle theme"
             >
               {isDark ? (
-                <Sun className="w-3.5 h-3.5 text-amber-400" />
+                <Sun className="w-3.5 h-3.5 text-[#E37500]" />
               ) : (
                 <Moon className="w-3.5 h-3.5 text-[#5A3825]" />
               )}
@@ -438,7 +438,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <Compass className="w-3.5 h-3.5" />
                     <span>Live Maps Concierge</span>
                   </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] animate-pulse" />
                 </button>
               )}
 

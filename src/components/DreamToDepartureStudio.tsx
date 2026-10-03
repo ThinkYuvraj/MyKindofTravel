@@ -535,7 +535,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                     Confirm Your Personalized Itinerary
                   </h3>
                 </div>
-                <span className="text-xs text-[#2E7D32] dark:text-emerald-400 font-semibold flex items-center gap-1">
+                <span className="text-xs text-[#E37500] font-semibold flex items-center gap-1">
                   <ShieldCheck className="w-4 h-4" />
                   White-Glove Guarantee
                 </span>
@@ -611,7 +611,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => handleConfirm()}
-                    className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-[#25D366] hover:bg-[#20BA5C] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_6px_20px_rgba(37,211,102,0.25)] transition-all"
+                    className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_6px_20px_rgba(227,117,0,0.25)] transition-all"
                   >
                     <MessageCircle className="w-4 h-4 fill-white" />
                     <span>Lock In via WhatsApp Concierge</span>
@@ -632,7 +632,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
           {/* STEP 4: DEPART (Dream to Departure) */}
           {currentStep === 4 && (
             <div className="space-y-6 text-center py-6 animate-in zoom-in-95 duration-200">
-              <div className="w-16 h-16 rounded-3xl bg-[#E6F4EA] dark:bg-emerald-950/40 text-[#2E7D32] dark:text-emerald-400 border border-[#B7DFC2] dark:border-emerald-800/40 flex items-center justify-center mx-auto shadow-md">
+              <div className="w-16 h-16 rounded-3xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] border border-[#E37500]/30 flex items-center justify-center mx-auto shadow-md">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
 

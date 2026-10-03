@@ -769,7 +769,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         )}
 
                         {isCustom ? (
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-950/40 text-emerald-400 border border-emerald-800/40 text-[10px] uppercase tracking-wider font-bold">
+                          <span className="px-2 py-0.5 rounded-full bg-[#E37500]/20 text-[#E37500] border border-[#E37500]/30 text-[10px] uppercase tracking-wider font-bold">
                             Custom Section
                           </span>
                         ) : (
@@ -779,8 +779,8 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         )}
 
                         {isVisible ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#E37500]">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] animate-pulse" />
                             Live on Site
                           </span>
                         ) : (
@@ -872,7 +872,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       <button
                         onClick={() => handleDeleteCustomSection(key)}
                         title="Delete custom section"
-                        className="p-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 transition-colors"
+                        className="p-2 rounded-lg bg-[#24130A] hover:bg-[#E37500]/20 text-[#8C7667] hover:text-[#E37500] border border-[#3D2315] transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -952,7 +952,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 <Camera className="w-3.5 h-3.5" />
                 <span>Section Images & Media</span>
                 {builtInForm.image && (
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-[#E37500] animate-pulse" />
                 )}
               </button>
             </div>
@@ -1249,7 +1249,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       </span>
                     </h4>
                     {builtInForm.image && (
-                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-950/40 text-emerald-400 border border-emerald-800/40 text-[10px] font-bold uppercase tracking-wider">
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#E37500]/20 text-[#E37500] border border-[#E37500]/30 text-[10px] font-bold uppercase tracking-wider">
                         Custom Image Set
                       </span>
                     )}

@@ -74,8 +74,8 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
             >
               {copied ? (
                 <>
-                  <CheckCheck className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
-                  <span className="text-[11px] text-emerald-600 dark:text-emerald-400">Copied!</span>
+                  <CheckCheck className="w-4 h-4 text-[#E37500] dark:text-[#E37500]" />
+                  <span className="text-[11px] text-[#E37500] dark:text-[#E37500]">Copied!</span>
                 </>
               ) : (
                 <>

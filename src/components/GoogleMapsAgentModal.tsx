@@ -665,7 +665,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                         <span className="font-bold text-xs text-[#24130A] dark:text-white">
                           Live Travel Summary
                         </span>
-                        <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                        <span className="text-[10px] text-[#E37500] font-semibold flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" />
                           Traffic-Aware
                         </span>
@@ -885,12 +885,12 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                     {currentPolyline.length > 0 && (
                       <>
                         <AdvancedMarker position={currentPolyline[0]} title="Origin">
-                          <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shadow-lg border-2 border-white">
+                          <div className="w-7 h-7 rounded-full bg-[#E37500] text-white flex items-center justify-center font-bold text-[10px] shadow-lg border-2 border-white">
                             A
                           </div>
                         </AdvancedMarker>
                         <AdvancedMarker position={currentPolyline[currentPolyline.length - 1]} title="Destination">
-                          <div className="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-[10px] shadow-lg border-2 border-white">
+                          <div className="w-7 h-7 rounded-full bg-[#24130A] text-white flex items-center justify-center font-bold text-[10px] shadow-lg border-2 border-white">
                             B
                           </div>
                         </AdvancedMarker>

@@ -300,7 +300,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                     <div className="p-4 rounded-2xl bg-white dark:bg-[#251B15] border border-[#EAE1D7] dark:border-white/10 space-y-2 shadow-xs">
                       <div className="flex items-center justify-between text-xs font-bold text-[#E37500]">
                         <span className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#E37500]" />
                           <span>Traffic-Aware Route</span>
                         </span>
                         <span className="text-[10px] text-[#7E6A5D] dark:text-[#A7978A]">Google Routes API</span>
@@ -450,12 +450,12 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                       {polylineCoords.length > 0 && (
                         <>
                           <AdvancedMarker position={polylineCoords[0]} title="Origin">
-                            <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[9px] shadow-md border-2 border-white">
+                            <div className="w-6 h-6 rounded-full bg-[#E37500] text-white flex items-center justify-center font-bold text-[9px] shadow-md border-2 border-white">
                               A
                             </div>
                           </AdvancedMarker>
                           <AdvancedMarker position={polylineCoords[polylineCoords.length - 1]} title="Destination">
-                            <div className="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-[9px] shadow-md border-2 border-white">
+                            <div className="w-6 h-6 rounded-full bg-[#24130A] text-white flex items-center justify-center font-bold text-[9px] shadow-md border-2 border-white">
                               B
                             </div>
                           </AdvancedMarker>

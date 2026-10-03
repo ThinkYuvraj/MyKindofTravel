@@ -152,7 +152,7 @@ Please share availability and tailored recommendations for this journey.`;
                     step === item.s
                       ? 'bg-[#E37500] text-white shadow-xs'
                       : step > item.s
-                      ? 'text-[#2E7D32] dark:text-emerald-400 bg-black/5 dark:bg-white/5'
+                      ? 'text-[#E37500] dark:text-[#E37500] bg-[#E37500]/10'
                       : 'text-[#8C7667] dark:text-[#A7978A]'
                   }`}
                 >
@@ -505,7 +505,7 @@ Please share availability and tailored recommendations for this journey.`;
             ) : (
               /* CONFIRMATION SCREEN */
               <div className="text-center py-10 space-y-6 animate-in zoom-in-95 duration-400">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950/50 text-[#2E7D32] dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
+                <div className="w-16 h-16 rounded-full bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center mx-auto shadow-sm">
                   <Check className="w-8 h-8 stroke-[3]" />
                 </div>
 

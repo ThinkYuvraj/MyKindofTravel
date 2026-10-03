@@ -250,15 +250,15 @@ export default function AdminDashboard() {
         <div
           className={`px-6 py-2.5 text-xs font-semibold flex items-center justify-between transition-all ${
             saveBanner.type === 'success'
-              ? 'bg-emerald-950 text-emerald-200 border-b border-emerald-800'
-              : 'bg-red-950 text-red-200 border-b border-red-800'
+              ? 'bg-[#E37500]/15 text-[#E37500] border-b border-[#E37500]/30'
+              : 'bg-[#24130A] text-[#FAF7F2] border-b border-[#E37500]/30'
           }`}
         >
           <div className="flex items-center gap-2 max-w-7xl mx-auto w-full">
             {saveBanner.type === 'success' ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-[#E37500] shrink-0" />
             ) : (
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+              <AlertCircle className="w-4 h-4 text-[#E37500] shrink-0" />
             )}
             <span>{saveBanner.message}</span>
           </div>

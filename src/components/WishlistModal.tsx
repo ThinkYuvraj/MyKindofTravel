@@ -69,7 +69,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
             {totalSavedCount > 0 && (
               <button
                 onClick={clearWishlist}
-                className="p-2 text-xs text-[#8C7667] hover:text-red-500 transition-colors flex items-center gap-1"
+                className="p-2 text-xs text-[#8C7667] hover:text-[#E37500] transition-colors flex items-center gap-1"
                 title="Clear all"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -132,7 +132,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                         </div>
                         <button
                           onClick={() => toggleDestinationWishlist(dest.id)}
-                          className="p-2 text-[#8C7667] hover:text-red-500 transition-colors"
+                          className="p-2 text-[#8C7667] hover:text-[#E37500] transition-colors"
                           title="Remove from saved"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -173,7 +173,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                         </div>
                         <button
                           onClick={() => togglePackageWishlist(pkg.id)}
-                          className="p-2 text-[#8C7667] hover:text-red-500 transition-colors"
+                          className="p-2 text-[#8C7667] hover:text-[#E37500] transition-colors"
                           title="Remove from saved"
                         >
                           <Trash2 className="w-4 h-4" />

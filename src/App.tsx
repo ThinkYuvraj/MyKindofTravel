@@ -23,14 +23,14 @@ export default function App() {
     <BrowserRouter>
       <WishlistProvider>
         {quotaExceeded && (
-          <div className="bg-amber-50 border-b border-amber-200 text-amber-900 px-4 py-2.5 text-xs md:text-sm text-center sticky top-0 z-50 shadow-sm">
+          <div className="bg-[#FAF7F2] dark:bg-[#1C1410] border-b border-[#E37500]/30 text-[#24130A] dark:text-[#F8F4EE] px-4 py-2.5 text-xs md:text-sm text-center sticky top-0 z-50 shadow-sm">
             <span>
               Google Maps Platform quota reached. If you are the app owner, visit{' '}
               <a
                 href="https://developers.google.com/maps/ai/ai-studio?utm_campaign=gmp_mcp_codeassist_v1_aistudio#quota_exceeded_errors"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline font-semibold text-amber-950 hover:text-amber-800"
+                className="underline font-semibold text-[#E37500] hover:text-[#C66500]"
               >
                 maps developer site
               </a>{' '}

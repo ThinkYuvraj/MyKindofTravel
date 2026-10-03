@@ -140,7 +140,7 @@ export default function PackagesPage() {
                               }}
                               className={`p-1.5 rounded-full backdrop-blur-md border border-white/20 transition-all ${
                                 isSaved
-                                  ? 'bg-red-500 text-white'
+                                  ? 'bg-[#E37500] text-white'
                                   : 'bg-black/50 text-white hover:bg-black/75'
                               }`}
                               title={isSaved ? 'Remove from shortlist' : 'Save to shortlist'}

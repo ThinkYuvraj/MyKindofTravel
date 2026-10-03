@@ -115,7 +115,7 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
         {/* Current Info Banner */}
         <div className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2 text-[#EADFD5]">
-            <Shield className="w-4 h-4 text-emerald-400" />
+            <Shield className="w-4 h-4 text-[#E37500]" />
             <span>Active Admin Login: <strong className="text-white font-mono">{currentEmail}</strong></span>
           </div>
           {lastUpdated && (
@@ -127,15 +127,15 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
 
         {/* Feedback alerts */}
         {credsSuccess && (
-          <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-2">
+          <div className="p-4 rounded-xl bg-[#E37500]/15 border border-[#E37500]/30 text-[#E37500] text-xs flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>{credsSuccess}</span>
           </div>
         )}
 
         {credsError && (
-          <div className="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0" />
+          <div className="p-4 rounded-xl bg-[#24130A] border border-[#E37500]/30 text-[#FAF7F2] text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 text-[#E37500]" />
             <span>{credsError}</span>
           </div>
         )}

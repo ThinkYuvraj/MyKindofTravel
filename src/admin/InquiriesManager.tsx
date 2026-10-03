@@ -90,25 +90,25 @@ export const InquiriesManager: React.FC = () => {
     switch (status) {
       case 'new':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-[#E37500]/20 text-[#E37500] border border-[#E37500]/30 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
             <Clock className="w-3 h-3" /> New Lead
           </span>
         );
       case 'contacted':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-[#E37500]/15 text-[#E37500] border border-[#E37500]/25 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
             <Send className="w-3 h-3" /> Contacted
           </span>
         );
       case 'quoted':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-[#E37500]/25 text-[#E37500] border border-[#E37500]/35 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
             <Clock className="w-3 h-3" /> Itinerary Sent
           </span>
         );
       case 'booked':
         return (
-          <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white border border-[#E37500] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
             <CheckCircle2 className="w-3 h-3" /> Booked & Confirmed
           </span>
         );
@@ -262,7 +262,7 @@ export const InquiriesManager: React.FC = () => {
                     href={waLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5 transition-all"
+                    className="px-3 py-2 rounded-xl bg-[#E37500]/20 hover:bg-[#E37500]/30 text-[#E37500] border border-[#E37500]/30 text-xs font-bold flex items-center gap-1.5 transition-all"
                     title="Open WhatsApp Chat"
                   >
                     <MessageCircle className="w-3.5 h-3.5" />
@@ -282,7 +282,7 @@ export const InquiriesManager: React.FC = () => {
                   {/* Delete Lead */}
                   <button
                     onClick={() => handleDeleteLead(lead.id)}
-                    className="p-2 rounded-xl bg-red-950/30 hover:bg-red-900/50 text-red-400 border border-red-900/30 transition-all"
+                    className="p-2 rounded-xl bg-[#2A1810]/40 hover:bg-[#E37500]/20 text-[#8C7667] hover:text-[#E37500] border border-[#3D2315] transition-all"
                     title="Delete Inquiry"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
