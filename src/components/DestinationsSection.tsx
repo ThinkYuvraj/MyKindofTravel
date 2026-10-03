@@ -160,7 +160,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                   className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 backdrop-blur-md shadow-xs ${
                     isActive
                       ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/30 scale-105 border border-transparent'
-                      : 'bg-white/85 dark:bg-[#16100D]/85 text-[#4A3222] dark:text-[#D4A276] hover:bg-[#E37500]/10 border border-[#C2B299]/60 dark:border-white/10'
+                      : 'bg-white/85 dark:bg-[#0E0E0E] text-[#4A3222] dark:text-[#E0E0E0] hover:bg-[#E37500]/10 border border-[#C2B299]/60 dark:border-white/10'
                   }`}
                 >
                   {region}
@@ -203,7 +203,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                 <button
                   onClick={scrollLeft}
                   disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#111111] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                   aria-label="Previous destination"
                   title="Previous"
                 >
@@ -212,7 +212,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                 <button
                   onClick={scrollRight}
                   disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#111111] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                   aria-label="Next destination"
                   title="Next"
                 >
@@ -238,7 +238,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             return (
               <div
                 key={dest.id}
-                className={`group rounded-3xl overflow-hidden backdrop-blur-xl bg-white/90 dark:bg-[#16100D]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:-translate-y-1 relative ${
+                className={`group rounded-3xl overflow-hidden backdrop-blur-xl bg-white/90 dark:bg-[#0B0B0B]/95 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative ${
                   viewMode === 'carousel' ? 'shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start' : ''
                 }`}
               >

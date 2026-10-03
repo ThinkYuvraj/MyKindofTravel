@@ -59,7 +59,7 @@ export default function PackagesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#140D0A] text-[#24130A] dark:text-[#F8F4EE] flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
       <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
@@ -67,7 +67,7 @@ export default function PackagesPage() {
           
           {/* Header */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
               <Ticket className="w-3.5 h-3.5" />
               <span>Proven Luxury Itineraries</span>
             </div>
@@ -80,7 +80,7 @@ export default function PackagesPage() {
           </div>
 
           {/* Search & Filter Controls */}
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 shadow-xs">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-white dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 shadow-xs">
             <div className="relative flex-1">
               <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7667]" />
               <input
@@ -88,7 +88,7 @@ export default function PackagesPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search packages (e.g. Swiss Glacier, Maldives Lagoon, Paris Chic)..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm text-[#24130A] dark:text-white placeholder-[#8C7667] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm text-[#24130A] dark:text-white placeholder-[#8C7667] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
               />
             </div>
 
@@ -121,7 +121,7 @@ export default function PackagesPage() {
                 return (
                   <div
                     key={pkg.id}
-                    className="group rounded-3xl overflow-hidden bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                    className="group rounded-3xl overflow-hidden bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
                   >
                     {/* Image Header */}
                     <div>
@@ -210,7 +210,7 @@ export default function PackagesPage() {
                     <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-[#E8DFD5] dark:border-white/10 flex items-center gap-3">
                       <button
                         onClick={() => setSelectedPackage(pkg)}
-                        className="flex-1 py-2.5 rounded-full bg-white dark:bg-[#251B15] hover:bg-[#FAF7F2] text-[#24130A] dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-[#E8DFD5] dark:border-white/20 shadow-xs"
+                        className="flex-1 py-2.5 rounded-full bg-white dark:bg-[#141414] hover:bg-[#FAF7F2] text-[#24130A] dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-[#E8DFD5] dark:border-white/20 shadow-xs"
                       >
                         <Eye className="w-3.5 h-3.5 text-[#E37500]" />
                         <span>Itinerary</span>
@@ -229,7 +229,7 @@ export default function PackagesPage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white dark:bg-[#1C1410] rounded-3xl border border-[#E8DFD5] dark:border-white/10 p-8">
+            <div className="text-center py-20 bg-white dark:bg-[#0E0E0E] rounded-3xl border border-[#E8DFD5] dark:border-white/10 p-8">
               <Compass className="w-10 h-10 text-[#8C7667] mx-auto mb-3" />
               <h3 className="font-serif text-lg font-bold">No packages match your search</h3>
               <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] mt-1 mb-4">

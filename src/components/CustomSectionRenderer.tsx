@@ -50,7 +50,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
       default:
         return {
           bg: 'bg-transparent text-[#24130A] dark:text-white border-y border-[#EADFD5] dark:border-white/10',
-          card: 'bg-white/80 dark:bg-[#16100D]/80 border-white/80 dark:border-white/10 text-[#24130A] dark:text-white hover:border-[#8C5528]/50 dark:hover:border-[#E28C38]/50',
+          card: 'bg-white/80 dark:bg-[#0E0E0E]/90 border-white/80 dark:border-white/10 text-[#24130A] dark:text-white hover:border-[#8C5528]/50 dark:hover:border-[#E28C38]/50',
           badge: 'bg-white/80 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] border-[#DFD0C0]/80 dark:border-white/10',
           heading: 'text-[#24130A] dark:text-white',
           subtext: 'text-[#594336] dark:text-[#D1C2B8]',

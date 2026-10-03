@@ -97,7 +97,7 @@ export const Hero: React.FC<HeroProps> = ({
       id="hero"
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDropVideo}
-      className="relative w-full h-screen min-h-[100dvh] flex items-center justify-center overflow-hidden bg-[#1A0E08] text-white select-none"
+      className="relative w-full h-screen min-h-[100dvh] flex items-center justify-center overflow-hidden bg-black text-white select-none top-0 mt-0 pt-0"
     >
       {/* Background Infinite Autoplay Video (No Controls) */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">

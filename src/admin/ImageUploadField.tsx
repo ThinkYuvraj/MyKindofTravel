@@ -320,7 +320,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
       <div className="relative group">
         {value ? (
           <div className="relative rounded-xl overflow-hidden border border-[#3D2315] bg-[#1A0E08]">
-            <div className={`w-full ${aspectClasses} bg-[#16100D] relative overflow-hidden`}>
+            <div className={`w-full ${aspectClasses} bg-black relative overflow-hidden`}>
               <img
                 src={value}
                 alt="Uploaded preview"
@@ -551,7 +551,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                         onClick={() => handleSelectPreset(preset.url)}
                         className="group relative rounded-xl overflow-hidden border border-[#3D2315] hover:border-[#C87428] cursor-pointer bg-[#1A0E08] transition-all"
                       >
-                        <div className="aspect-[4/3] w-full overflow-hidden bg-[#16100D]">
+                        <div className="aspect-[4/3] w-full overflow-hidden bg-black">
                           <img
                             src={preset.url}
                             alt={preset.title}

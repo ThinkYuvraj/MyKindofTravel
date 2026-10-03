@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Floating Slim Luxury Navbar */}
       <header className="fixed top-2.5 sm:top-3.5 inset-x-0 mx-auto w-[95%] max-w-6xl z-50 transition-all duration-300 pointer-events-auto">
         <div
-          className="w-full h-13 sm:h-14 rounded-full transition-all duration-300 px-3.5 sm:px-5 flex items-center justify-between gap-3 bg-[#FAF7F2]/95 dark:bg-[#16100D]/95 backdrop-blur-2xl border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(36,19,10,0.08)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-[#24130A] dark:text-white"
+          className="w-full h-13 sm:h-14 rounded-full transition-all duration-300 px-3.5 sm:px-5 flex items-center justify-between gap-3 bg-[#FAF7F2]/95 dark:bg-[#0A0A0A]/95 backdrop-blur-2xl border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(36,19,10,0.08)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.8)] text-[#24130A] dark:text-white"
         >
           {/* Left: Compass Monogram & Branding */}
           <div className="flex items-center shrink-0">
@@ -137,7 +137,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {activeDropdown === 'destinations' && (
                 <div className="absolute top-full left-0 pt-2 w-60 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                  <div className="bg-[#FAF7F2] dark:bg-[#1C130E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
+                  <div className="bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
                     <div className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest text-[#E37500]">
                       Curated Destinations
                     </div>
@@ -192,7 +192,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {activeDropdown === 'experiences' && (
                 <div className="absolute top-full left-0 pt-2 w-56 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                  <div className="bg-[#FAF7F2] dark:bg-[#1C130E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
+                  <div className="bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl shadow-xl p-2 backdrop-blur-2xl text-left">
                     <div className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest text-[#E37500]">
                       Holiday Pillars
                     </div>
@@ -315,7 +315,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Live Search Floating Card Dropdown */}
         {searchOpen && (
-          <div className="mt-2 w-full max-w-xl mx-auto bg-[#FAF7F2] dark:bg-[#1C130E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl p-3 shadow-xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="mt-2 w-full max-w-xl mx-auto bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl p-3 shadow-xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 duration-150">
             <div className="relative">
               <Search className="w-4 h-4 text-[#8D7466] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
@@ -372,7 +372,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 w-full bg-[#FAF7F2] dark:bg-[#1C130E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl p-4 shadow-xl backdrop-blur-2xl space-y-3 animate-in fade-in duration-150">
+          <div className="lg:hidden mt-2 w-full bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 rounded-2xl p-4 shadow-xl backdrop-blur-2xl space-y-3 animate-in fade-in duration-150">
             <div className="flex flex-col space-y-1 text-xs font-semibold">
               <button
                 onClick={() => {

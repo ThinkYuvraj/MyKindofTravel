@@ -68,12 +68,12 @@ export default function AdminDashboard() {
 
   const [sectionOrder, setSectionOrder] = useState<string[]>([
     'hero',
-    'destinations',
-    'mapsRadar',
     'marquee',
-    'packages',
-    'experiences',
     'howItWorks',
+    'destinations',
+    'experiences',
+    'packages',
+    'mapsRadar',
     'gallery',
     'testimonials',
     'whyUs',

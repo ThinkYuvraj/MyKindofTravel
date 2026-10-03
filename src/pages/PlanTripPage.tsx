@@ -117,7 +117,7 @@ Please share availability and tailored recommendations for this journey.`;
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#140D0A] text-[#24130A] dark:text-[#F8F4EE] flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
       <Navbar onPlanTrip={() => {}} />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
@@ -125,7 +125,7 @@ Please share availability and tailored recommendations for this journey.`;
           
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
               <Compass className="w-3.5 h-3.5" />
               <span>Bespoke Travel Atelier</span>
             </div>
@@ -139,7 +139,7 @@ Please share availability and tailored recommendations for this journey.`;
 
           {/* Stepper Bar */}
           {!isSubmitted && (
-            <div className="flex items-center justify-between p-2 bg-white dark:bg-[#1C1410] rounded-2xl border border-[#E8DFD5] dark:border-white/10 shadow-xs text-xs">
+            <div className="flex items-center justify-between p-2 bg-white dark:bg-[#111111] rounded-2xl border border-[#E8DFD5] dark:border-white/10 shadow-xs text-xs">
               {[
                 { s: 1, label: '01 Destination' },
                 { s: 2, label: '02 Party & Dates' },
@@ -164,7 +164,7 @@ Please share availability and tailored recommendations for this journey.`;
           )}
 
           {/* Form Wizard Container */}
-          <div className="bg-white dark:bg-[#1C1410] rounded-3xl sm:rounded-4xl p-6 sm:p-10 border border-[#E8DFD5] dark:border-white/10 shadow-[0_16px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.5)]">
+          <div className="bg-white dark:bg-[#0E0E0E] rounded-3xl sm:rounded-4xl p-6 sm:p-10 border border-[#E8DFD5] dark:border-white/10 shadow-[0_16px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.5)]">
             
             {!isSubmitted ? (
               <div>
@@ -277,7 +277,7 @@ Please share availability and tailored recommendations for this journey.`;
                         <select
                           value={duration}
                           onChange={(e) => setDuration(e.target.value)}
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
+                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
                         >
                           <option>5 to 7 Days (Short Getaway)</option>
                           <option>7 to 10 Days (Signature Grand Tour)</option>
@@ -291,7 +291,7 @@ Please share availability and tailored recommendations for this journey.`;
                         <select
                           value={travelMonth}
                           onChange={(e) => setTravelMonth(e.target.value)}
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
+                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
                         >
                           <option>Within 30 Days (Immediate)</option>
                           <option>Next 1-3 Months</option>
@@ -308,7 +308,7 @@ Please share availability and tailored recommendations for this journey.`;
                           value={travelersCount}
                           onChange={(e) => setTravelersCount(e.target.value)}
                           placeholder="e.g. 2 Adults, 1 Child"
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
+                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
                         />
                       </div>
                     </div>
@@ -385,7 +385,7 @@ Please share availability and tailored recommendations for this journey.`;
                               onClick={() => toggleExperience(exp)}
                               className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center gap-2.5 ${
                                 isSelected
-                                  ? 'border-[#E37500] bg-white dark:bg-[#201712] text-[#24130A] dark:text-white shadow-xs font-semibold'
+                                  ? 'border-[#E37500] bg-white dark:bg-[#141414] text-[#24130A] dark:text-white shadow-xs font-semibold'
                                   : 'border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#A7978A]'
                               }`}
                             >
@@ -442,7 +442,7 @@ Please share availability and tailored recommendations for this journey.`;
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           placeholder="e.g. Vikram Malhotra"
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
+                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
                         />
                       </div>
 
@@ -454,7 +454,7 @@ Please share availability and tailored recommendations for this journey.`;
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="+91 98000 00000"
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
+                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
                         />
                       </div>
                     </div>
@@ -466,7 +466,7 @@ Please share availability and tailored recommendations for this journey.`;
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="vikram@example.com"
-                        className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
+                        className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
                       />
                     </div>
 
@@ -477,7 +477,7 @@ Please share availability and tailored recommendations for this journey.`;
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                         placeholder="Anniversary surprises, specific flight airlines, dietary needs, preferred room views..."
-                        className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
+                        className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
                       />
                     </div>
 
@@ -520,7 +520,7 @@ Please share availability and tailored recommendations for this journey.`;
                 </div>
 
                 {/* Summary Card */}
-                <div className="max-w-md mx-auto p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#201712] border border-[#E8DFD5] dark:border-white/10 text-left text-xs space-y-2">
+                <div className="max-w-md mx-auto p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-left text-xs space-y-2">
                   <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
                     <span className="text-[#8C7667]">Destinations:</span>
                     <span className="font-bold">{selectedDestinations.join(', ')}</span>
@@ -551,7 +551,7 @@ Please share availability and tailored recommendations for this journey.`;
 
                   <button
                     onClick={() => navigate('/')}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#FAF7F2] dark:bg-[#251B15] text-[#24130A] dark:text-white border border-[#E8DFD5] text-xs font-bold uppercase tracking-wider"
+                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border border-[#E8DFD5] text-xs font-bold uppercase tracking-wider"
                   >
                     Return Home
                   </button>

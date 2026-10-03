@@ -161,7 +161,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
   };
 
   return (
-    <section id="maps-radar" className="py-20 sm:py-24 bg-[#FAF7F2] dark:bg-[#140D0A] relative overflow-hidden transition-colors">
+    <section id="maps-radar" className="py-20 sm:py-24 bg-[#FAF7F2] dark:bg-black relative overflow-hidden transition-colors">
       {/* Background Soft Aura */}
       <div className="absolute top-1/4 -right-24 w-96 h-96 bg-[#E37500]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 -left-20 w-80 h-80 bg-[#C2B299]/20 rounded-full blur-3xl pointer-events-none" />
@@ -194,12 +194,12 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
         </div>
 
         {/* Softsurface Interactive Card Wrapper */}
-        <div className="rounded-3xl sm:rounded-4xl bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 shadow-[0_20px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div className="rounded-3xl sm:rounded-4xl bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_20px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.6)] overflow-hidden">
           
           {/* Soft Beveled Toolbar */}
-          <div className="px-5 py-3 bg-[#F4EDE4] dark:bg-[#231A15] border-b border-[#E7DED3] dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
+          <div className="px-5 py-3 bg-[#F4EDE4] dark:bg-[#111111] border-b border-[#E7DED3] dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
             {/* Tactile Tab Selector */}
-            <div className="flex items-center p-1 bg-[#EBE2D8] dark:bg-[#2C201A] rounded-xl gap-1">
+            <div className="flex items-center p-1 bg-[#EBE2D8] dark:bg-[#181818] rounded-xl gap-1">
               <button
                 onClick={() => {
                   setActiveTab('routes');
@@ -207,7 +207,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                 }}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   activeTab === 'routes'
-                    ? 'bg-white dark:bg-[#382B23] text-[#24130A] dark:text-white shadow-xs'
+                    ? 'bg-white dark:bg-[#252525] text-[#24130A] dark:text-white shadow-xs'
                     : 'text-[#6F5B4E] dark:text-[#BFAFA2]'
                 }`}
               >
@@ -222,7 +222,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                 }}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   activeTab === 'places'
-                    ? 'bg-white dark:bg-[#382B23] text-[#24130A] dark:text-white shadow-xs'
+                    ? 'bg-white dark:bg-[#252525] text-[#24130A] dark:text-white shadow-xs'
                     : 'text-[#6F5B4E] dark:text-[#BFAFA2]'
                 }`}
               >
@@ -247,7 +247,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
           <div className="grid grid-cols-1 lg:grid-cols-12">
             
             {/* Left Control Panel (4 cols) */}
-            <div className="lg:col-span-4 p-5 sm:p-6 bg-[#FAF7F2] dark:bg-[#1C1410] border-b lg:border-b-0 lg:border-r border-[#E8DFD5] dark:border-white/10 flex flex-col justify-between space-y-6">
+            <div className="lg:col-span-4 p-5 sm:p-6 bg-[#FAF7F2] dark:bg-[#0E0E0E] border-b lg:border-b-0 lg:border-r border-[#E8DFD5] dark:border-white/10 flex flex-col justify-between space-y-6">
               
               {activeTab === 'routes' ? (
                 <div className="space-y-4">
@@ -260,7 +260,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                         type="text"
                         value={origin}
                         onChange={(e) => setOrigin(e.target.value)}
-                        className="w-full bg-white dark:bg-[#251B15] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full bg-white dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
@@ -272,7 +272,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                         type="text"
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
-                        className="w-full bg-white dark:bg-[#251B15] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full bg-white dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
@@ -297,7 +297,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
 
                   {/* Route Result Card */}
                   {routeData && (
-                    <div className="p-4 rounded-2xl bg-white dark:bg-[#251B15] border border-[#EAE1D7] dark:border-white/10 space-y-2 shadow-xs">
+                    <div className="p-4 rounded-2xl bg-white dark:bg-[#181818] border border-[#EAE1D7] dark:border-white/10 space-y-2 shadow-xs">
                       <div className="flex items-center justify-between text-xs font-bold text-[#E37500]">
                         <span className="flex items-center gap-1">
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#E37500]" />
@@ -341,7 +341,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                             setDestination(item.d);
                             calculateRoute(item.o, item.d);
                           }}
-                          className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#2A1F18] border border-[#E5DCD2] dark:border-white/10 hover:border-[#E37500] text-[11px] font-medium text-[#24130A] dark:text-white transition-colors"
+                          className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 hover:border-[#E37500] text-[11px] font-medium text-[#24130A] dark:text-white transition-colors"
                         >
                           {item.o} ➔ {item.d}
                         </button>
@@ -360,12 +360,12 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                         type="text"
                         value={placeQuery}
                         onChange={(e) => setPlaceQuery(e.target.value)}
-                        className="flex-1 bg-white dark:bg-[#251B15] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                        className="flex-1 bg-white dark:bg-[#141414] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                       />
                       <button
                         onClick={() => searchLuxuryPlaces()}
                         disabled={isSearchingPlaces}
-                        className="px-3.5 py-2 rounded-xl bg-[#E37500] text-white text-xs font-bold flex items-center justify-center shrink-0"
+                        className="px-3.5 py-2 rounded-xl bg-[#E37500] text-white text-xs font-bold flex items-center justify-center shrink-0 cursor-pointer"
                       >
                         {isSearchingPlaces ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Find'}
                       </button>
@@ -380,8 +380,8 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                         onClick={() => setSelectedPlace(place)}
                         className={`p-2.5 rounded-xl border text-xs cursor-pointer transition-all ${
                           selectedPlace?.id === place.id
-                            ? 'bg-white dark:bg-[#2E221B] border-[#E37500] shadow-xs'
-                            : 'bg-white dark:bg-[#251B15] border-[#EAE1D7] dark:border-white/10 hover:border-[#E37500]/50'
+                            ? 'bg-white dark:bg-[#202020] border-[#E37500] shadow-xs'
+                            : 'bg-white dark:bg-[#141414] border-[#EAE1D7] dark:border-white/10 hover:border-[#E37500]/50'
                         }`}
                       >
                         <div className="flex items-center justify-between gap-1">
@@ -394,7 +394,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                             </span>
                           )}
                         </div>
-                        <p className="text-[10px] text-[#7E6A5D] dark:text-[#B5A599] truncate mt-0.5">
+                        <p className="text-[10px] text-[#7E6A5D] dark:text-neutral-400 truncate mt-0.5">
                           {place.formattedAddress}
                         </p>
                       </div>
@@ -404,16 +404,16 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
               )}
 
               {/* Bottom CTA to Chat with Agent */}
-              <div className="p-3.5 rounded-2xl bg-[#F4EDE4] dark:bg-[#251B15] border border-[#E7DED3] dark:border-white/10">
+              <div className="p-3.5 rounded-2xl bg-[#F4EDE4] dark:bg-[#141414] border border-[#E7DED3] dark:border-white/10">
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#E37500] block mb-1">
                   Need Personalized Navigation?
                 </span>
-                <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] mb-2 leading-relaxed">
+                <p className="text-xs text-[#6F5B4E] dark:text-neutral-300 mb-2 leading-relaxed">
                   Chat directly with our Google Maps AI agent for curated day itineraries and private chauffeur coordination.
                 </p>
                 <button
                   onClick={() => onOpenAgentModal(`Plan a luxury route from ${origin} to ${destination} with scenic stops.`)}
-                  className="w-full py-2 rounded-xl bg-white dark:bg-[#34241C] hover:bg-[#EAE1D7] dark:hover:bg-[#3E2C22] text-[#24130A] dark:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+                  className="w-full py-2 rounded-xl bg-white dark:bg-[#202020] hover:bg-[#EAE1D7] dark:hover:bg-[#2A2A2A] text-[#24130A] dark:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
                   <span>Ask Concierge About This Route</span>
@@ -422,7 +422,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
             </div>
 
             {/* Right Map Canvas (8 cols) */}
-            <div className="lg:col-span-8 relative h-[380px] sm:h-[460px] lg:h-[560px] bg-[#E5DCD2] dark:bg-[#150E0B]">
+            <div className="lg:col-span-8 relative h-[380px] sm:h-[460px] lg:h-[560px] bg-[#E5DCD2] dark:bg-black">
               {apiKey ? (
                 <APIProvider apiKey={apiKey}>
                   <div className="w-full h-full">

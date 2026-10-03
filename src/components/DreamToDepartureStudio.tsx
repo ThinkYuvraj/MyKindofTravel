@@ -169,12 +169,12 @@ Please share availability and current bespoke perks for this curated itinerary.`
   )}`;
 
   return (
-    <section id="dream-to-departure" className="py-20 sm:py-24 bg-[#FAF7F2] dark:bg-[#140D0A] relative transition-colors duration-300">
+    <section id="dream-to-departure" className="py-20 sm:py-24 bg-[#FAF7F2] dark:bg-black relative transition-colors duration-300">
       <div className="section-container relative z-10">
         
         {/* Section Header with Explicit Niche Positioning */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#201712] border border-[#E5DCD2] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E5DCD2] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
             <Compass className="w-3.5 h-3.5" />
             <span>My Dream to Departure · Clearly Defined Niche</span>
           </div>
@@ -190,7 +190,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
 
         {/* 4-Step Visual Progress Track: Curated -> Personalize -> Confirm -> Depart */}
         <div className="max-w-4xl mx-auto mb-10">
-          <div className="grid grid-cols-4 gap-2 sm:gap-3 p-1.5 sm:p-2 bg-[#EBE2D8] dark:bg-[#201712] rounded-2xl sm:rounded-3xl border border-[#E5DCD2] dark:border-white/10">
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 p-1.5 sm:p-2 bg-[#EBE2D8] dark:bg-[#111111] rounded-2xl sm:rounded-3xl border border-[#E5DCD2] dark:border-white/10">
             {[
               { num: 1, title: 'Curated', desc: 'Choose Blueprint' },
               { num: 2, title: 'Personalize', desc: 'Tailor Vibe & Levers' },
@@ -202,7 +202,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                 onClick={() => setCurrentStep(s.num as any)}
                 className={`py-2 sm:py-3 px-2 sm:px-4 rounded-xl sm:rounded-2xl text-center transition-all ${
                   currentStep === s.num
-                    ? 'bg-white dark:bg-[#34241C] text-[#24130A] dark:text-white shadow-[0_4px_16px_rgba(42,24,16,0.08)]'
+                    ? 'bg-white dark:bg-[#222222] text-[#24130A] dark:text-white shadow-[0_4px_16px_rgba(42,24,16,0.08)]'
                     : 'text-[#6F5B4E] dark:text-[#A7978A] hover:text-[#24130A] dark:hover:text-white'
                 }`}
               >
@@ -225,7 +225,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
         </div>
 
         {/* Studio Interactive Card (Softsurface Container) */}
-        <div className="max-w-5xl mx-auto bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 rounded-3xl sm:rounded-4xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] transition-all">
+        <div className="max-w-5xl mx-auto bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 rounded-3xl sm:rounded-4xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] transition-all">
           
           {/* STEP 1: CURATED STARTING POINT WITH AUTO-SWIPE CARET CAROUSEL */}
           {currentStep === 1 && (
@@ -259,14 +259,14 @@ Please share availability and current bespoke perks for this curated itinerary.`
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={handlePrevBlueprint}
-                      className="p-2 rounded-full bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-[#24130A] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                      className="p-2 rounded-full bg-[#FAF7F2] dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#24130A] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                       aria-label="Previous Blueprint"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                       onClick={handleNextBlueprint}
-                      className="p-2 rounded-full bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 text-[#24130A] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                      className="p-2 rounded-full bg-[#FAF7F2] dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#24130A] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                       aria-label="Next Blueprint"
                     >
                       <ChevronRight className="w-4 h-4" />
@@ -297,7 +297,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                             setSelectedBlueprint(bp);
                             setVibe(bp.defaultVibe);
                           }}
-                          className={`relative rounded-3xl overflow-hidden border cursor-pointer transition-all duration-300 group flex flex-col md:flex-row bg-[#FAF7F2] dark:bg-[#251B15] min-h-[280px] ${
+                          className={`relative rounded-3xl overflow-hidden border cursor-pointer transition-all duration-300 group flex flex-col md:flex-row bg-[#FAF7F2] dark:bg-[#0E0E0E] min-h-[280px] ${
                             isSelected
                               ? 'border-[#E37500] ring-2 ring-[#E37500]/30 shadow-[0_12px_32px_rgba(227,117,0,0.18)]'
                               : 'border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50 shadow-xs'
@@ -407,7 +407,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
                           isSelected
                             ? 'bg-[#E37500] text-white border-[#E37500] shadow-[0_6px_18px_rgba(227,117,0,0.2)]'
-                            : 'bg-[#FAF7F2] dark:bg-[#251B15] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]'
+                            : 'bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]'
                         }`}
                       >
                         <span className="font-bold text-xs sm:text-sm">{type}</span>
@@ -448,7 +448,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         className={`py-3 rounded-2xl border font-bold text-sm transition-all flex flex-col items-center justify-center gap-1 ${
                           isSelected
                             ? 'bg-[#E37500] text-white border-[#E37500] shadow-[0_6px_18px_rgba(227,117,0,0.2)]'
-                            : 'bg-[#FAF7F2] dark:bg-[#251B15] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]'
+                            : 'bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]'
                         }`}
                       >
                         <span>{cat}</span>
@@ -492,8 +492,8 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         onClick={() => setVibe(v)}
                         className={`p-3 rounded-2xl border text-left text-xs font-semibold transition-all ${
                           isSelected
-                            ? 'bg-white dark:bg-[#34241C] text-[#E37500] border-[#E37500] shadow-sm ring-1 ring-[#E37500]'
-                            : 'bg-[#FAF7F2] dark:bg-[#251B15] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50'
+                            ? 'bg-white dark:bg-[#222222] text-[#E37500] border-[#E37500] shadow-sm ring-1 ring-[#E37500]'
+                            : 'bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50'
                         }`}
                       >
                         <span>{v}</span>
@@ -525,8 +525,8 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         onClick={() => toggleAddon(exp)}
                         className={`p-3 rounded-2xl border text-left text-xs transition-all flex items-center justify-between ${
                           isSelected
-                            ? 'bg-white dark:bg-[#34241C] border-[#E37500] text-[#24130A] dark:text-white shadow-xs'
-                            : 'bg-[#FAF7F2] dark:bg-[#251B15] border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#C5B7AC]'
+                            ? 'bg-white dark:bg-[#222222] border-[#E37500] text-[#24130A] dark:text-white shadow-xs'
+                            : 'bg-[#FAF7F2] dark:bg-[#141414] border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#C5B7AC]'
                         }`}
                       >
                         <span className="font-medium pr-2">{exp}</span>
@@ -544,7 +544,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
               </div>
 
               {/* 5. BUDGET AS SUPPORTING CONSTRAINT */}
-              <div className="space-y-3 p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10">
+              <div className="space-y-3 p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold uppercase tracking-wider text-[#24130A] dark:text-white flex items-center gap-2">
                     <Sliders className="w-4 h-4 text-[#E37500]" />
@@ -563,7 +563,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                         onClick={() => setBudgetTier(tier)}
                         className={`p-2.5 rounded-xl border text-center text-xs transition-all ${
                           isSelected
-                            ? 'bg-white dark:bg-[#382B23] border-[#E37500] text-[#E37500] font-bold shadow-xs'
+                            ? 'bg-white dark:bg-[#222222] border-[#E37500] text-[#E37500] font-bold shadow-xs'
                             : 'bg-white/60 dark:bg-white/5 border-transparent text-[#6F5B4E] dark:text-[#A7978A]'
                         }`}
                       >
@@ -612,7 +612,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
               </div>
 
               {/* Summary Dossier Card */}
-              <div className="p-6 rounded-3xl bg-[#FAF7F2] dark:bg-[#251B15] border border-[#E8DFD5] dark:border-white/10 space-y-4">
+              <div className="p-6 rounded-3xl bg-[#FAF7F2] dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E8DFD5] dark:border-white/10 pb-3">
                   <div>
                     <span className="text-[10px] uppercase tracking-widest text-[#E37500] font-bold">
@@ -628,19 +628,19 @@ Please share availability and current bespoke perks for this curated itinerary.`
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#1E1612] border border-[#E8DFD5] dark:border-white/10">
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
                     <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Trip Type</span>
                     <span className="font-bold text-[#24130A] dark:text-white">{tripType}</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#1E1612] border border-[#E8DFD5] dark:border-white/10">
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
                     <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Stay Category</span>
                     <span className="font-bold text-[#E37500]">{propertyCategory} Star Stays</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#1E1612] border border-[#E8DFD5] dark:border-white/10">
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
                     <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Selected Vibe</span>
                     <span className="font-bold text-[#24130A] dark:text-white">{vibe}</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#1E1612] border border-[#E8DFD5] dark:border-white/10">
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10">
                     <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] block">Budget Comfort Tier</span>
                     <span className="font-bold text-[#24130A] dark:text-white">{budgetTier}</span>
                   </div>
@@ -656,7 +656,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                       {selectedAddons.map((exp, idx) => (
                         <span
                           key={idx}
-                          className="px-2.5 py-1 rounded-xl bg-white dark:bg-[#1E1612] border border-[#E8DFD5] dark:border-white/10 text-xs text-[#24130A] dark:text-white font-medium"
+                          className="px-2.5 py-1 rounded-xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs text-[#24130A] dark:text-white font-medium"
                         >
                           ✓ {exp}
                         </span>
@@ -716,7 +716,7 @@ Please share availability and current bespoke perks for this curated itinerary.`
                 <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
                   Your personal travel director is curating live partner upgrades and verifying transit fluidity for <strong>{selectedBlueprint.name}</strong>.
                 </p>
-                <div className="mt-3 p-3 bg-[#FAF7F2] dark:bg-[#251B15] rounded-2xl border border-[#E8DFD5] dark:border-white/10 text-xs font-mono text-[#E37500]">
+                <div className="mt-3 p-3 bg-[#FAF7F2] dark:bg-[#111111] rounded-2xl border border-[#E8DFD5] dark:border-white/10 text-xs font-mono text-[#E37500]">
                   Reference ID: {confirmedRef || 'MKT-DEPART-849201'}
                 </div>
               </div>

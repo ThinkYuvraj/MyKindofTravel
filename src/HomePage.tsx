@@ -24,13 +24,13 @@ import { DestinationItem, TravelPackage, CMSData } from './types';
 
 const DEFAULT_ORDER = [
   'hero',
+  'marquee',
+  'howItWorks',
   'destinations',
   'experiences',
-  'gallery',
-  'mapsRadar',
-  'marquee',
   'packages',
-  'howItWorks',
+  'mapsRadar',
+  'gallery',
   'testimonials',
   'whyUs',
   'contact',
@@ -314,16 +314,16 @@ useEffect(() => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#1A0E08] text-[#24130A] dark:text-[#F8F4EE] flex flex-col selection:bg-[#E3BA91] selection:text-[#24130A] font-sans relative transition-colors duration-500">
+    <div className="min-h-screen bg-[#FAF6F1] dark:bg-black text-[#24130A] dark:text-white flex flex-col selection:bg-[#E37500] selection:text-white font-sans relative transition-colors duration-500">
       {/* Light Warm Gradient Canvas with #E3BA91 Champagne/Gold undertone */}
       <div
         className="fixed inset-0 bg-gradient-to-br from-[#FAF6F1] via-[#F4E6D7] to-[#FAF6F1] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-100 dark:opacity-0 -z-10"
         aria-hidden="true"
       />
 
-      {/* Dark Mode Warm Espresso Canvas with subtle #E3BA91 ambient glow */}
+      {/* Dark Mode Pure Black Obsidian Canvas */}
       <div
-        className="fixed inset-0 bg-gradient-to-br from-[#140D0A] via-[#1F1510] to-[#140D0A] animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-0 dark:opacity-100 -z-10"
+        className="fixed inset-0 bg-black animate-bg-gradient pointer-events-none transition-opacity duration-500 ease-in-out opacity-0 dark:opacity-100 -z-10"
         aria-hidden="true"
       />
 
@@ -343,7 +343,7 @@ useEffect(() => {
       />
 
       {/* Main Dynamic Page Flow */}
-      <main className="flex-1 w-full overflow-x-clip">
+      <main className="flex-1 w-full overflow-x-clip pt-0 mt-0">
         {allSectionKeys.map((key) => renderSectionByKey(key))}
       </main>
 

@@ -127,7 +127,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
           {/* ── Filter Row & Caret Navigation ────────────────────────────── */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
             {/* Filter pills */}
-            <div className="flex flex-wrap gap-1.5 p-1.5 rounded-full bg-white/85 dark:bg-[#16100D]/85 border border-[#C2B299]/60 dark:border-white/10 shadow-xs backdrop-blur-md">
+            <div className="flex flex-wrap gap-1.5 p-1.5 rounded-full bg-white/85 dark:bg-[#0E0E0E]/90 border border-[#C2B299]/60 dark:border-white/10 shadow-xs backdrop-blur-md">
               {filtersWithCounts.map((f) => {
                 const isActive = activeFilter === f.label;
                 return (
@@ -198,7 +198,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                   <button
                     onClick={scrollLeft}
                     disabled={!canScrollLeft}
-                    className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                    className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#111111] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                     aria-label="Previous package"
                     title="Previous"
                   >
@@ -207,7 +207,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                   <button
                     onClick={scrollRight}
                     disabled={!canScrollRight}
-                    className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#1C1410] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                    className="w-9 h-9 rounded-full bg-white/90 dark:bg-[#111111] border border-[#C2B299]/70 dark:border-white/20 text-[#2A1810] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                     aria-label="Next package"
                     title="Next"
                   >
@@ -234,7 +234,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
               return (
                 <div
                   key={pkg.id}
-                  className={`rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#16100D]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_6px_25px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 relative ${
+                  className={`rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#0B0B0B]/95 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_6px_25px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative ${
                     viewMode === 'carousel' ? 'shrink-0 w-[88vw] sm:w-[380px] lg:w-[410px] snap-start' : ''
                   }`}
                 >
@@ -333,7 +333,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
         ) : (
           /* ── Empty state ──────────────────────────────────────────────── */
           <div className="flex flex-col items-center justify-center py-20 gap-5 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/80 dark:bg-[#16100D] flex items-center justify-center border border-[#C2B299]/50 dark:border-white/10">
+            <div className="w-16 h-16 rounded-2xl bg-white/80 dark:bg-[#0E0E0E] flex items-center justify-center border border-[#C2B299]/50 dark:border-white/10">
               <PackageOpen className="w-7 h-7 text-[#E37500]" />
             </div>
             <div className="space-y-1">

@@ -204,14 +204,14 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
             <div className="flex items-center gap-2 ml-2">
               <button
                 onClick={handlePrev}
-                className="w-10 h-10 rounded-full bg-white/95 dark:bg-[#1C1410]/95 border border-[#C2B299]/60 dark:border-white/15 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
+                className="w-10 h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/15 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
                 aria-label="Previous step"
               >
                 <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
               </button>
               <button
                 onClick={handleNext}
-                className="w-10 h-10 rounded-full bg-white/95 dark:bg-[#1C1410]/95 border border-[#C2B299]/60 dark:border-white/15 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
+                className="w-10 h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/15 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
                 aria-label="Next step"
               >
                 <ChevronRight className="w-4 h-4 stroke-[2.5]" />
@@ -225,7 +225,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
           {/* Floating Left Side Caret */}
           <button
             onClick={handlePrev}
-            className="hidden sm:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/95 dark:bg-[#1C1410]/95 border border-[#C2B299]/60 dark:border-white/20 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
+            className="hidden sm:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/20 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
@@ -234,7 +234,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
           {/* Floating Right Side Caret */}
           <button
             onClick={handleNext}
-            className="hidden sm:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/95 dark:bg-[#1C1410]/95 border border-[#C2B299]/60 dark:border-white/20 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
+            className="hidden sm:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/95 dark:bg-[#111111]/95 border border-[#C2B299]/60 dark:border-white/20 text-[#2A1810] dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
@@ -279,10 +279,10 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                     className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-2.5 sm:px-3.5"
                   >
                     <div
-                      className={`h-full p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/95 dark:bg-[#16100D]/95 border transition-all duration-300 flex flex-col justify-between space-y-6 relative group ${
+                      className={`h-full p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/95 dark:bg-[#0B0B0B]/95 border transition-all duration-300 flex flex-col justify-between space-y-6 relative group ${
                         isCurrentActive
                           ? 'border-[#E37500]/70 dark:border-[#E37500]/70 shadow-[0_12px_36px_rgba(227,117,0,0.12)] -translate-y-1'
-                          : 'border-white/80 dark:border-white/10 hover:border-[#E37500]/40 dark:hover:border-[#E37500]/40 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:-translate-y-1'
+                          : 'border-white/80 dark:border-white/10 hover:border-[#E37500]/40 dark:hover:border-[#E37500]/40 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1'
                       }`}
                     >
                       <div className="space-y-4">
@@ -341,7 +341,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
         </div>
 
         {/* Bottom CTA Banner */}
-        <div className="mt-12 p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#16100D]/90 border border-white/80 dark:border-white/15 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="mt-12 p-7 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#0B0B0B]/90 border border-white/80 dark:border-white/15 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="space-y-1 text-center sm:text-left">
             <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-white">
               Ready to take the first step?

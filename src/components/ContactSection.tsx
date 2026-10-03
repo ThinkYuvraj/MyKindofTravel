@@ -104,7 +104,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 href={`https://wa.me/${info.phoneRaw || COMPANY_INFO.phoneRaw}?text=Hi%20My%20Kind%20of%20Travel%2C%20I%20am%20interested%20in%20planning%20a%20luxury%20holiday.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
+                className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#0E0E0E]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center border border-[#E37500]/30 shrink-0 group-hover:scale-105 transition-transform">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-label="WhatsApp">
@@ -124,7 +124,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               {/* Email */}
               <a
                 href={`mailto:${info.email}`}
-                className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
+                className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#0E0E0E]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/50 dark:hover:border-[#E37500]/50 transition-colors flex items-center gap-4 group shadow-xs"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center border border-[#E37500]/30 shrink-0 group-hover:scale-105 transition-transform">
                   <Mail className="w-5 h-5" />
@@ -140,7 +140,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </a>
 
               {/* WhatsApp Support Hours */}
-              <div className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#16100D]/80 border border-white/80 dark:border-white/10 flex items-center gap-4 shadow-xs">
+              <div className="p-5 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-[#0E0E0E]/90 border border-white/80 dark:border-white/10 flex items-center gap-4 shadow-xs">
                 <div className="w-12 h-12 rounded-xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center border border-[#E37500]/30 shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
@@ -158,7 +158,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
           {/* Right Column: Interactive Form */}
           <div className="lg:col-span-7">
-            <div className="p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-xl bg-white/85 dark:bg-[#16100D]/85 border border-white/80 dark:border-white/10 shadow-[0_12px_45px_rgba(42,24,16,0.06)] dark:shadow-[0_12px_45px_rgba(0,0,0,0.4)] relative">
+            <div className="p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-xl bg-white/85 dark:bg-[#0B0B0B]/95 border border-white/80 dark:border-white/10 shadow-[0_12px_45px_rgba(42,24,16,0.06)] dark:shadow-[0_12px_45px_rgba(0,0,0,0.4)] relative">
               {submitted ? (
                 <div className="py-12 text-center space-y-6 animate-in zoom-in-95 duration-300">
                   <div className="w-16 h-16 rounded-2xl bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] border border-[#E37500]/30 flex items-center justify-center mx-auto shadow-md">
@@ -213,7 +213,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="Rahul"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
@@ -228,7 +228,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="Sharma"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
                   </div>
@@ -245,7 +245,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="rahul@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
 
@@ -260,7 +260,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="+91 98000 00000"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                       />
                     </div>
                   </div>
@@ -275,7 +275,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         required
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                       >
                         <option value="">Select destination</option>
                         {DESTINATIONS.map((d) => (
@@ -297,7 +297,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         required
                         value={tripType}
                         onChange={(e) => setTripType(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                       >
                         <option value="">Select type</option>
                         {EXPERIENCE_PILLARS.map((p) => (
@@ -320,7 +320,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       placeholder="Dates, budget, must-haves, special occasions..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1310] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
                     />
                   </div>
 

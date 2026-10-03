@@ -154,7 +154,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
     >
       {/* Popup Enquiry Card */}
       <div
-        className="relative w-full max-w-xl my-auto rounded-3xl bg-[#FAF7F2] dark:bg-[#16100D] text-[#2A1810] dark:text-white border border-[#E5DCD2] dark:border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.55)] overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col"
+        className="relative w-full max-w-xl my-auto rounded-3xl bg-[#FAF7F2] dark:bg-[#0A0A0A] text-[#2A1810] dark:text-white border border-[#E5DCD2] dark:border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.55)] overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Accent Strip */}
@@ -197,18 +197,18 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                 Selected Query:
               </span>
               {initialPackageName && (
-                <span className="px-2.5 py-0.5 rounded-full bg-white dark:bg-[#241812] text-[#24130A] dark:text-white font-semibold border border-[#E37500]/30">
+                <span className="px-2.5 py-0.5 rounded-full bg-white dark:bg-[#141414] text-[#24130A] dark:text-white font-semibold border border-[#E37500]/30">
                   {initialPackageName}
                 </span>
               )}
               {initialDestination && (
-                <span className="px-2.5 py-0.5 rounded-full bg-white dark:bg-[#241812] text-[#24130A] dark:text-white font-semibold border border-[#E37500]/30 flex items-center gap-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-white dark:bg-[#141414] text-[#24130A] dark:text-white font-semibold border border-[#E37500]/30 flex items-center gap-1">
                   <MapPin className="w-3 h-3 text-[#E37500]" />
                   {initialDestination}
                 </span>
               )}
               {initialTripType && (
-                <span className="px-2.5 py-0.5 rounded-full bg-white dark:bg-[#241812] text-[#24130A] dark:text-white font-semibold border border-[#E37500]/30 flex items-center gap-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-white dark:bg-[#141414] text-[#24130A] dark:text-white font-semibold border border-[#E37500]/30 flex items-center gap-1">
                   <Calendar className="w-3 h-3 text-[#E37500]" />
                   {initialTripType}
                 </span>
@@ -267,7 +267,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="Rahul"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#1E1612] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                   />
                 </div>
 
@@ -282,7 +282,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="Sharma"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#1E1612] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                   />
                 </div>
               </div>
@@ -299,7 +299,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="rahul@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#1E1612] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                   />
                 </div>
 
@@ -314,7 +314,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="+91 98000 00000"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#1E1612] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
                   />
                 </div>
               </div>
@@ -329,7 +329,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     required
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#1E1612] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                   >
                     <option value="">Select destination</option>
                     {destinationOptions.map((destName) => (
@@ -349,7 +349,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     required
                     value={tripType}
                     onChange={(e) => setTripType(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#1E1612] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
                   >
                     <option value="">Select trip type</option>
                     {tripTypeOptions.map((t) => {
@@ -374,7 +374,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                   placeholder="Preferred travel dates, number of guests, hotel tier, special occasions..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#1E1612] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
                 />
               </div>
 

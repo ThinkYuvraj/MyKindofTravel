@@ -7,24 +7,31 @@
     color-scheme: light;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
     transition: color-scheme 450ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   html.dark {
     color-scheme: dark;
+    background-color: #000000 !important;
   }
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     color: #24140D;
-    background-color: #C2B299;
+    background-color: #FAF6F1;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
     transition: background-color 450ms cubic-bezier(0.4, 0, 0.2, 1), color 450ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  html.dark body,
   .dark body {
-    color: #F8F4EE;
-    background-color: #140D0A;
+    color: #FFFFFF !important;
+    background-color: #000000 !important;
   }
 
   h1, h2, h3, .font-serif {
@@ -300,7 +307,7 @@ html {
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: #1C1410;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -309,7 +316,7 @@ html {
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #6D4C31;
+  background: #262626;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -317,7 +324,7 @@ html {
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #8A603E;
+  background: #3B3B3B;
 }
 
 @keyframes slowGradientShift {

@@ -67,15 +67,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
         />
       )}
 
-      {/* Sidebar Drawer Container in Glassmorphic White / Obsidian Espresso */}
+      {/* Sidebar Drawer Container in Glassmorphic White / Obsidian Black */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-50 w-80 sm:w-96 bg-[#FAF7F2]/95 dark:bg-[#0E0A08]/95 backdrop-blur-2xl border-r border-[#EADFD5] dark:border-white/10 text-[#2A1810] dark:text-white shadow-[0_20px_60px_rgba(0,0,0,0.4)] flex flex-col justify-between transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 bottom-0 z-50 w-80 sm:w-96 bg-[#FAF7F2]/95 dark:bg-[#0A0A0A]/95 backdrop-blur-2xl border-r border-[#EADFD5] dark:border-white/10 text-[#2A1810] dark:text-white shadow-[0_20px_60px_rgba(0,0,0,0.6)] flex flex-col justify-between transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         aria-label="Sidebar navigation"
       >
         {/* Top Header with Brand & Close Button */}
-        <div className="p-5 sm:p-6 border-b border-[#EADFD5] dark:border-white/10 bg-[#FAF7F2] dark:bg-[#120D0B] shrink-0">
+        <div className="p-5 sm:p-6 border-b border-[#EADFD5] dark:border-white/10 bg-[#FAF7F2] dark:bg-[#0E0E0E] shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[#E37500] text-white flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md shadow-[#E37500]/20">

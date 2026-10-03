@@ -15,7 +15,7 @@ export default function StoriesPage() {
   const [enquiryTripType, setEnquiryTripType] = useState('');
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#140D0A] text-[#24130A] dark:text-[#F8F4EE] flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
       <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
@@ -23,7 +23,7 @@ export default function StoriesPage() {
           
           {/* Header */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
               <Heart className="w-3.5 h-3.5 text-[#E37500]" />
               <span>Real Experiences · India's Discerning Travelers</span>
             </div>
@@ -40,7 +40,7 @@ export default function StoriesPage() {
             {TESTIMONIALS.map((review) => (
               <div
                 key={review.id}
-                className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#1C1410] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between space-y-6 relative group hover:-translate-y-1 transition-all duration-300"
+                className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between space-y-6 relative group hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="space-y-4">
                   {/* Stars & Location */}

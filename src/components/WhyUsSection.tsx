@@ -86,7 +86,7 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({
             </p>
 
             {/* Our Promise Callout Card in Warm Sand & Glass */}
-            <div className="p-7 rounded-3xl bg-white/90 dark:bg-[#16100D]/85 backdrop-blur-xl border border-[#C2B299]/60 dark:border-white/10 space-y-3 shadow-[0_6px_25px_rgba(42,24,16,0.05)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.3)]">
+            <div className="p-7 rounded-3xl bg-white/90 dark:bg-[#0B0B0B]/90 backdrop-blur-xl border border-[#C2B299]/60 dark:border-white/10 space-y-3 shadow-[0_6px_25px_rgba(42,24,16,0.05)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.5)]">
               <div className="flex items-center gap-2 text-[#E37500] font-bold uppercase tracking-wider text-xs">
                 <CheckCircle2 className="w-4 h-4 text-[#E37500]" />
                 <span>Our Promise</span>
@@ -107,7 +107,7 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({
               return (
                 <div
                   key={idx}
-                  className="p-7 rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#16100D]/90 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 space-y-4 group shadow-[0_6px_25px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1"
+                  className="p-7 rounded-3xl backdrop-blur-xl bg-white/90 dark:bg-[#0B0B0B]/95 border border-white/80 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 space-y-4 group shadow-[0_6px_25px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1"
                 >
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 rounded-xl bg-white/80 dark:bg-white/10 text-[#E37500] flex items-center justify-center border border-[#C2B299]/60 dark:border-white/10 group-hover:scale-110 transition-transform">
@@ -122,7 +122,7 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({
                   <h3 className="font-serif text-xl font-bold text-[#2A1810] dark:text-white group-hover:text-[#E37500] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-[#4A3222] dark:text-[#D1C2B8] text-sm leading-relaxed font-normal">
+                  <p className="text-[#4A3222] dark:text-neutral-300 text-sm leading-relaxed font-normal">
                     {item.description}
                   </p>
                 </div>

@@ -32,7 +32,7 @@ export const TornPaperDivider: React.FC<TornPaperDividerProps> = ({
              L1090,56 L1120,40 L1150,58 L1180,46 L1210,61 L1240,44 L1270,55 L1300,41 
              L1330,59 L1360,46 L1390,57 L1415,44 L1440,52 
              L1440,85 L0,85 Z"
-          className="fill-[#FAF6F0] dark:fill-[#140D0A]"
+          className="fill-[#FAF6F0] dark:fill-black"
         />
       </svg>
     </div>

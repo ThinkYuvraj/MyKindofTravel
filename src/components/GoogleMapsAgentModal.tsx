@@ -358,12 +358,12 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-200">
       {/* Soft-Surface Modal Container */}
-      <div className="relative w-full max-w-6xl h-[92vh] max-h-[880px] bg-[#FAF7F2] dark:bg-[#1A120E] text-[#24130A] dark:text-[#F6EFE9] rounded-3xl sm:rounded-4xl border border-[#E8DFD5] dark:border-white/10 shadow-[0_24px_64px_rgba(42,24,16,0.18)] dark:shadow-[0_28px_70px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden">
+      <div className="relative w-full max-w-6xl h-[92vh] max-h-[880px] bg-[#FAF7F2] dark:bg-[#0A0A0A] text-[#24130A] dark:text-[#F6EFE9] rounded-3xl sm:rounded-4xl border border-[#E8DFD5] dark:border-white/10 shadow-[0_24px_64px_rgba(42,24,16,0.18)] dark:shadow-[0_28px_70px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden">
         
         {/* Soft Beveled Header */}
-        <header className="px-4 sm:px-6 py-3.5 sm:py-4 bg-[#F4EDE4] dark:bg-[#201712] border-b border-[#E7DED3] dark:border-white/10 flex items-center justify-between shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)]">
+        <header className="px-4 sm:px-6 py-3.5 sm:py-4 bg-[#F4EDE4] dark:bg-[#0E0E0E] border-b border-[#E7DED3] dark:border-white/10 flex items-center justify-between shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-white dark:bg-[#2A1E18] text-[#E37500] flex items-center justify-center shadow-[0_4px_12px_rgba(227,117,0,0.15)] border border-[#E7DDD2] dark:border-white/10">
+            <div className="w-10 h-10 rounded-2xl bg-white dark:bg-[#141414] text-[#E37500] flex items-center justify-center shadow-[0_4px_12px_rgba(227,117,0,0.15)] border border-[#E7DDD2] dark:border-white/10">
               <Compass className="w-5 h-5 stroke-[2] animate-pulse" />
             </div>
             <div>
@@ -392,13 +392,13 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
         </header>
 
         {/* Soft-Surface Segmented Controls (Tab Bar) */}
-        <div className="px-4 sm:px-6 py-2.5 bg-[#FAF7F2] dark:bg-[#1A120E] border-b border-[#E8DFD5] dark:border-white/10 flex items-center justify-between gap-3 shrink-0">
-          <div className="flex items-center p-1 bg-[#EBE2D8] dark:bg-[#261B15] rounded-2xl shadow-[inset_0_2px_4px_rgba(42,24,16,0.06)] gap-1">
+        <div className="px-4 sm:px-6 py-2.5 bg-[#FAF7F2] dark:bg-[#0A0A0A] border-b border-[#E8DFD5] dark:border-white/10 flex items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center p-1 bg-[#EBE2D8] dark:bg-[#141414] rounded-2xl shadow-[inset_0_2px_4px_rgba(42,24,16,0.06)] gap-1">
             <button
               onClick={() => setActiveTab('agent')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 activeTab === 'agent'
-                  ? 'bg-white dark:bg-[#34241C] text-[#24130A] dark:text-white shadow-[0_2px_8px_rgba(42,24,16,0.08)]'
+                  ? 'bg-white dark:bg-[#222222] text-[#24130A] dark:text-white shadow-[0_2px_8px_rgba(42,24,16,0.08)]'
                   : 'text-[#6F5B4E] dark:text-[#BFAFA2] hover:text-[#24130A] dark:hover:text-white'
               }`}
             >
@@ -410,7 +410,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
               onClick={() => setActiveTab('routes')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 activeTab === 'routes'
-                  ? 'bg-white dark:bg-[#34241C] text-[#24130A] dark:text-white shadow-[0_2px_8px_rgba(42,24,16,0.08)]'
+                  ? 'bg-white dark:bg-[#222222] text-[#24130A] dark:text-white shadow-[0_2px_8px_rgba(42,24,16,0.08)]'
                   : 'text-[#6F5B4E] dark:text-[#BFAFA2] hover:text-[#24130A] dark:hover:text-white'
               }`}
             >
@@ -422,7 +422,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
               onClick={() => setActiveTab('places')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 activeTab === 'places'
-                  ? 'bg-white dark:bg-[#34241C] text-[#24130A] dark:text-white shadow-[0_2px_8px_rgba(42,24,16,0.08)]'
+                  ? 'bg-white dark:bg-[#222222] text-[#24130A] dark:text-white shadow-[0_2px_8px_rgba(42,24,16,0.08)]'
                   : 'text-[#6F5B4E] dark:text-[#BFAFA2] hover:text-[#24130A] dark:hover:text-white'
               }`}
             >
@@ -442,7 +442,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 min-h-0 overflow-hidden">
           
           {/* LEFT PANEL: Interactive Agent Controls (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col min-h-0 bg-[#FAF7F2] dark:bg-[#1A120E] border-r border-[#E8DFD5] dark:border-white/10">
+          <div className="lg:col-span-5 flex flex-col min-h-0 bg-[#FAF7F2] dark:bg-[#0A0A0A] border-r border-[#E8DFD5] dark:border-white/10">
             
             {/* 1. AGENT TAB */}
             {activeTab === 'agent' && (
@@ -463,7 +463,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                         className={`max-w-[90%] rounded-2xl p-3.5 text-xs sm:text-[13px] leading-relaxed transition-all ${
                           msg.role === 'user'
                             ? 'bg-[#E37500] text-white rounded-br-xs shadow-[0_4px_14px_rgba(227,117,0,0.25)]'
-                            : 'bg-white dark:bg-[#231A14] text-[#24130A] dark:text-[#EFE8E0] rounded-bl-xs border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.05)]'
+                            : 'bg-white dark:bg-[#141414] text-[#24130A] dark:text-[#EFE8E0] rounded-bl-xs border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.05)]'
                         }`}
                       >
                         <div className="whitespace-pre-line font-normal">
@@ -498,7 +498,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                                 <button
                                   key={p.id || idx}
                                   onClick={() => setSelectedPlace(p)}
-                                  className="w-full text-left p-2 rounded-xl bg-[#FAF7F2] dark:bg-[#2D211A] hover:bg-[#F2EAE0] dark:hover:bg-[#382B22] border border-[#E8DFD5] dark:border-white/10 flex items-center justify-between group transition-colors"
+                                  className="w-full text-left p-2 rounded-xl bg-[#FAF7F2] dark:bg-[#181818] hover:bg-[#F2EAE0] dark:hover:bg-[#222222] border border-[#E8DFD5] dark:border-white/10 flex items-center justify-between group transition-colors"
                                 >
                                   <div className="truncate pr-2">
                                     <span className="font-semibold text-xs block text-[#24130A] dark:text-white truncate">
@@ -522,7 +522,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                   ))}
 
                   {isLoading && (
-                    <div className="flex items-center gap-2 text-xs text-[#8C7667] dark:text-[#B5A599] p-2 bg-white dark:bg-[#231A14] rounded-2xl w-fit border border-[#EAE1D7] dark:border-white/10">
+                    <div className="flex items-center gap-2 text-xs text-[#8C7667] dark:text-[#B5A599] p-2 bg-white dark:bg-[#141414] rounded-2xl w-fit border border-[#EAE1D7] dark:border-white/10">
                       <Loader2 className="w-3.5 h-3.5 animate-spin text-[#E37500]" />
                       <span>Querying real-time Google Maps data...</span>
                     </div>
@@ -530,7 +530,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                 </div>
 
                 {/* Quick Prompts Carousel */}
-                <div className="p-3 bg-[#F4EDE4] dark:bg-[#1E1510] border-t border-[#E8DFD5] dark:border-white/10">
+                <div className="p-3 bg-[#F4EDE4] dark:bg-[#0E0E0E] border-t border-[#E8DFD5] dark:border-white/10">
                   <div className="text-[10px] uppercase font-bold tracking-wider text-[#8C7667] dark:text-[#A7978A] mb-2 flex items-center gap-1.5">
                     <Sparkles className="w-3 h-3 text-[#E37500]" />
                     <span>Instant Maps Agent Prompts</span>
@@ -546,7 +546,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                       <button
                         key={i}
                         onClick={() => handleSendAgentMessage(prompt)}
-                        className="shrink-0 px-3 py-1.5 rounded-xl bg-white dark:bg-[#2B1F18] hover:bg-[#EAE1D7] dark:hover:bg-[#3A2C23] text-[#24130A] dark:text-white text-xs border border-[#E5DCD2] dark:border-white/10 shadow-xs transition-colors"
+                        className="shrink-0 px-3 py-1.5 rounded-xl bg-white dark:bg-[#181818] hover:bg-[#EAE1D7] dark:hover:bg-[#222222] text-[#24130A] dark:text-white text-xs border border-[#E5DCD2] dark:border-white/10 shadow-xs transition-colors"
                       >
                         {prompt}
                       </button>
@@ -560,14 +560,14 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                     e.preventDefault();
                     handleSendAgentMessage();
                   }}
-                  className="p-3 bg-white dark:bg-[#1C1410] border-t border-[#E8DFD5] dark:border-white/10 flex items-center gap-2"
+                  className="p-3 bg-white dark:bg-[#0E0E0E] border-t border-[#E8DFD5] dark:border-white/10 flex items-center gap-2"
                 >
                   <input
                     type="text"
                     value={inputQuery}
                     onChange={(e) => setInputQuery(e.target.value)}
                     placeholder="Ask for routes, travel duration, or luxury places..."
-                    className="flex-1 bg-[#FAF7F2] dark:bg-[#261C16] border border-[#E5DCD2] dark:border-white/10 rounded-2xl px-4 py-2.5 text-xs text-[#24130A] dark:text-white placeholder-[#9C8A7D] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                    className="flex-1 bg-[#FAF7F2] dark:bg-[#141414] border border-[#E5DCD2] dark:border-white/10 rounded-2xl px-4 py-2.5 text-xs text-[#24130A] dark:text-white placeholder-[#9C8A7D] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                   />
                   <button
                     type="submit"
@@ -584,7 +584,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
             {/* 2. DEDICATED ROUTES TAB */}
             {activeTab === 'routes' && (
               <div className="flex flex-col h-full min-h-0 p-4 space-y-4 overflow-y-auto">
-                <div className="space-y-3 bg-white dark:bg-[#231A14] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
+                <div className="space-y-3 bg-white dark:bg-[#141414] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
                   <div>
                     <label className="text-[11px] font-bold text-[#6F5B4E] dark:text-[#C5B7AC] uppercase tracking-wider block mb-1">
                       Origin Address / Airport
@@ -594,7 +594,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                       value={routeOrigin}
                       onChange={(e) => setRouteOrigin(e.target.value)}
                       placeholder="e.g. Milan Malpensa Airport"
-                      className="w-full bg-[#FAF7F2] dark:bg-[#2A1F19] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                      className="w-full bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                     />
                   </div>
 
@@ -607,12 +607,12 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                       value={routeDestination}
                       onChange={(e) => setRouteDestination(e.target.value)}
                       placeholder="e.g. Grand Hotel Tremezzo, Lake Como"
-                      className="w-full bg-[#FAF7F2] dark:bg-[#2A1F19] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                      className="w-full bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                     />
                   </div>
 
                   <div className="flex items-center justify-between pt-1">
-                    <div className="flex items-center gap-1.5 p-1 bg-[#FAF7F2] dark:bg-[#2A1F19] rounded-xl border border-[#E5DCD2] dark:border-white/10">
+                    <div className="flex items-center gap-1.5 p-1 bg-[#FAF7F2] dark:bg-[#181818] rounded-xl border border-[#E5DCD2] dark:border-white/10">
                       <button
                         onClick={() => setTravelMode('DRIVE')}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
@@ -660,7 +660,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                 {/* Route metrics & maneuvers */}
                 {activeRoute ? (
                   <div className="space-y-3">
-                    <div className="bg-white dark:bg-[#231A14] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
+                    <div className="bg-white dark:bg-[#141414] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
                       <div className="flex items-center justify-between border-b border-[#EAE1D7] dark:border-white/10 pb-2 mb-2">
                         <span className="font-bold text-xs text-[#24130A] dark:text-white">
                           Live Travel Summary
@@ -671,7 +671,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                         </span>
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="p-2.5 rounded-xl bg-[#FAF7F2] dark:bg-[#2D211A] border border-[#E8DFD5] dark:border-white/10">
+                        <div className="p-2.5 rounded-xl bg-[#FAF7F2] dark:bg-[#181818] border border-[#E8DFD5] dark:border-white/10">
                           <span className="text-[10px] text-[#7E6A5D] dark:text-[#B5A599] block">
                             Estimated Duration
                           </span>
@@ -679,7 +679,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                             {formatDuration(activeRoute.duration)}
                           </span>
                         </div>
-                        <div className="p-2.5 rounded-xl bg-[#FAF7F2] dark:bg-[#2D211A] border border-[#E8DFD5] dark:border-white/10">
+                        <div className="p-2.5 rounded-xl bg-[#FAF7F2] dark:bg-[#181818] border border-[#E8DFD5] dark:border-white/10">
                           <span className="text-[10px] text-[#7E6A5D] dark:text-[#B5A599] block">
                             Total Distance
                           </span>
@@ -697,7 +697,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
 
                     {/* Step-by-Step Directions */}
                     {activeRoute.legs?.[0]?.steps && (
-                      <div className="bg-white dark:bg-[#231A14] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10">
+                      <div className="bg-white dark:bg-[#141414] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10">
                         <span className="font-bold text-xs text-[#24130A] dark:text-white block mb-2">
                           Turn-by-Turn Guidance ({activeRoute.legs[0].steps.length} steps)
                         </span>
@@ -705,7 +705,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                           {activeRoute.legs[0].steps.map((step, idx) => (
                             <div
                               key={idx}
-                              className="text-xs p-2 rounded-xl bg-[#FAF7F2] dark:bg-[#2D211A] border border-[#E8DFD5] dark:border-white/10 flex items-start gap-2.5"
+                              className="text-xs p-2 rounded-xl bg-[#FAF7F2] dark:bg-[#181818] border border-[#E8DFD5] dark:border-white/10 flex items-start gap-2.5"
                             >
                               <span className="w-5 h-5 rounded-full bg-[#E37500]/15 text-[#E37500] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                                 {idx + 1}
@@ -725,7 +725,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                     )}
                   </div>
                 ) : (
-                  <div className="p-6 text-center text-xs text-[#7E6A5D] dark:text-[#B5A599] bg-white dark:bg-[#231A14] rounded-2xl border border-dashed border-[#E5DCD2] dark:border-white/10">
+                  <div className="p-6 text-center text-xs text-[#7E6A5D] dark:text-[#B5A599] bg-white dark:bg-[#141414] rounded-2xl border border-dashed border-[#E5DCD2] dark:border-white/10">
                     Enter your departure and destination points above to compute live routing with distance, duration, and maneuvers.
                   </div>
                 )}
@@ -735,7 +735,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
             {/* 3. DEDICATED PLACES TAB */}
             {activeTab === 'places' && (
               <div className="flex flex-col h-full min-h-0 p-4 space-y-4 overflow-y-auto">
-                <div className="space-y-2 bg-white dark:bg-[#231A14] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
+                <div className="space-y-2 bg-white dark:bg-[#141414] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
                   <label className="text-[11px] font-bold text-[#6F5B4E] dark:text-[#C5B7AC] uppercase tracking-wider block">
                     Search Luxury Establishments & POIs
                   </label>
@@ -745,7 +745,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                       value={placeQuery}
                       onChange={(e) => setPlaceQuery(e.target.value)}
                       placeholder="e.g. Michelin restaurants in Amalfi Coast"
-                      className="flex-1 bg-[#FAF7F2] dark:bg-[#2A1F19] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                      className="flex-1 bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                     />
                     <button
                       onClick={handleSearchPlaces}
@@ -771,8 +771,8 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                         onClick={() => setSelectedPlace(place)}
                         className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
                           selectedPlace?.id === place.id
-                            ? 'bg-white dark:bg-[#2D211A] border-[#E37500] shadow-[0_6px_20px_rgba(227,117,0,0.15)] ring-1 ring-[#E37500]'
-                            : 'bg-white dark:bg-[#231A14] border-[#EAE1D7] dark:border-white/10 hover:border-[#E37500]/50 shadow-[0_2px_8px_rgba(42,24,16,0.04)]'
+                            ? 'bg-white dark:bg-[#181818] border-[#E37500] shadow-[0_6px_20px_rgba(227,117,0,0.15)] ring-1 ring-[#E37500]'
+                            : 'bg-white dark:bg-[#141414] border-[#EAE1D7] dark:border-white/10 hover:border-[#E37500]/50 shadow-[0_2px_8px_rgba(42,24,16,0.04)]'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -816,7 +816,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                       </div>
                     ))
                   ) : (
-                    <div className="p-6 text-center text-xs text-[#7E6A5D] dark:text-[#B5A599] bg-white dark:bg-[#231A14] rounded-2xl border border-dashed border-[#E5DCD2] dark:border-white/10">
+                    <div className="p-6 text-center text-xs text-[#7E6A5D] dark:text-[#B5A599] bg-white dark:bg-[#141414] rounded-2xl border border-dashed border-[#E5DCD2] dark:border-white/10">
                       Search for luxury hotels, private villas, or Michelin dining establishments above.
                     </div>
                   )}
@@ -826,7 +826,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
           </div>
 
           {/* RIGHT PANEL: Interactive Google Map Canvas (7 cols) */}
-          <div className="lg:col-span-7 relative h-[360px] sm:h-[440px] lg:h-full bg-[#E5DCD2] dark:bg-[#150E0B] overflow-hidden">
+          <div className="lg:col-span-7 relative h-[360px] sm:h-[440px] lg:h-full bg-[#E5DCD2] dark:bg-black overflow-hidden">
             {apiKey ? (
               <APIProvider apiKey={apiKey}>
                 {/* Explicit height CSS ensures no collapse (CF2) */}
@@ -943,7 +943,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
             )}
 
             {/* Floating Map Mode Switcher */}
-            <div className="absolute top-3 right-3 z-10 flex items-center gap-1 p-1 bg-white/90 dark:bg-[#201712]/90 backdrop-blur-md rounded-xl border border-[#E5DCD2] dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
+            <div className="absolute top-3 right-3 z-10 flex items-center gap-1 p-1 bg-white/90 dark:bg-[#141414]/90 backdrop-blur-md rounded-xl border border-[#E5DCD2] dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
               <button
                 onClick={() => setMapType('roadmap')}
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase transition-all ${

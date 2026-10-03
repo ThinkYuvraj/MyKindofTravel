@@ -18,13 +18,13 @@ export const DATA_FILE = path.join(process.cwd(), 'cms-data.json');
 
 const DEFAULT_SECTION_ORDER = [
   'hero',
+  'marquee',
+  'howItWorks',
   'destinations',
   'experiences',
-  'gallery',
-  'mapsRadar',
-  'marquee',
   'packages',
-  'howItWorks',
+  'mapsRadar',
+  'gallery',
   'testimonials',
   'whyUs',
   'contact',

@@ -23,7 +23,7 @@ export default function App() {
     <BrowserRouter>
       <WishlistProvider>
         {quotaExceeded && (
-          <div className="fixed bottom-4 right-4 max-w-md bg-[#1C1410]/95 backdrop-blur-md text-[#F8F4EE] border border-[#E37500]/40 px-4 py-3 rounded-2xl text-xs z-50 shadow-2xl flex items-center justify-between gap-3">
+          <div className="fixed bottom-4 right-4 max-w-md bg-[#0E0E0E]/95 backdrop-blur-md text-[#F8F4EE] border border-[#E37500]/40 px-4 py-3 rounded-2xl text-xs z-50 shadow-2xl flex items-center justify-between gap-3">
             <span>
               Google Maps Platform quota reached. Visit{' '}
               <a

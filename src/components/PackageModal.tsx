@@ -52,7 +52,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
       }}
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/65 dark:bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
     >
-      <div className="relative w-full max-w-3xl max-h-[92vh] bg-white/95 dark:bg-[#16100D]/95 backdrop-blur-2xl border border-white/80 dark:border-white/15 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.3)] flex flex-col text-[#2A1810] dark:text-white transition-colors">
+      <div className="relative w-full max-w-3xl max-h-[92vh] bg-white/95 dark:bg-[#0A0A0A]/95 backdrop-blur-2xl border border-white/80 dark:border-white/15 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.3)] flex flex-col text-[#2A1810] dark:text-white transition-colors">
         {/* Modal Header with Glassmorphic Skeleton Image */}
         <div className="relative h-60 sm:h-72 shrink-0 overflow-hidden w-full">
           <GlassImage
@@ -68,7 +68,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
           <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
             <button
               onClick={handleShare}
-              className="p-2 rounded-full bg-white/80 dark:bg-[#16100D]/80 hover:bg-[#8C5528] dark:hover:bg-[#E28C38] text-[#2A1810] dark:text-white hover:text-white border border-white/40 dark:border-white/20 transition-colors shadow-sm backdrop-blur-md flex items-center gap-1.5 text-xs font-semibold px-3"
+              className="p-2 rounded-full bg-white/80 dark:bg-[#141414]/90 hover:bg-[#8C5528] dark:hover:bg-[#E28C38] text-[#2A1810] dark:text-white hover:text-white border border-white/40 dark:border-white/20 transition-colors shadow-sm backdrop-blur-md flex items-center gap-1.5 text-xs font-semibold px-3"
               title="Share Itinerary"
               aria-label="Share package"
             >
@@ -87,7 +87,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
 
             <button
               onClick={onClose}
-              className="p-2 rounded-full bg-white/80 dark:bg-[#16100D]/80 hover:bg-[#8C5528] dark:hover:bg-[#E28C38] text-[#2A1810] dark:text-white hover:text-white border border-white/40 dark:border-white/20 transition-colors shadow-sm backdrop-blur-md"
+              className="p-2 rounded-full bg-white/80 dark:bg-[#141414]/90 hover:bg-[#8C5528] dark:hover:bg-[#E28C38] text-[#2A1810] dark:text-white hover:text-white border border-white/40 dark:border-white/20 transition-colors shadow-sm backdrop-blur-md"
               aria-label="Close modal (Esc)"
               title="Close (Esc)"
             >
@@ -164,7 +164,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 sm:p-6 bg-[#FAF7F2] dark:bg-[#100B09] border-t border-[#EADFD5] dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="p-4 sm:p-6 bg-[#FAF7F2] dark:bg-[#0E0E0E] border-t border-[#EADFD5] dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-xs text-[#7C685B] dark:text-neutral-400">
             <span>Starting at </span>
             <span className="font-serif font-bold text-[#8C5528] dark:text-[#E28C38] text-base">

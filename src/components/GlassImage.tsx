@@ -102,7 +102,7 @@ export const GlassImage: React.FC<GlassImageProps> = ({
 
       {/* Fallback Screen if image fails */}
       {hasError ? (
-        <div className="w-full h-full min-h-[160px] flex flex-col items-center justify-center bg-[#FAF7F2] dark:bg-[#16100D] text-[#A0683B] dark:text-[#B36D33] p-4 text-center border border-[#DFD0C0] dark:border-white/10">
+        <div className="w-full h-full min-h-[160px] flex flex-col items-center justify-center bg-[#FAF7F2] dark:bg-[#0E0E0E] text-[#A0683B] dark:text-[#B36D33] p-4 text-center border border-[#DFD0C0] dark:border-white/10">
           <ImageOff className="w-8 h-8 mb-2 opacity-60" />
           <span className="text-xs font-semibold">{alt || 'Luxury Voyage'}</span>
           <span className="text-[10px] opacity-70 mt-1">Image preview unavailable</span>

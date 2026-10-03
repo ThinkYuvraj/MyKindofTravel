@@ -48,11 +48,11 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
       onClick={closeWishlist}
     >
       <div
-        className="w-full max-w-md h-full bg-[#FAF7F2] dark:bg-[#16100D] border-l border-[#E8DFD5] dark:border-white/10 shadow-2xl flex flex-col text-[#24130A] dark:text-white"
+        className="w-full max-w-md h-full bg-[#FAF7F2] dark:bg-[#0A0A0A] border-l border-[#E8DFD5] dark:border-white/10 shadow-2xl flex flex-col text-[#24130A] dark:text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div className="p-5 sm:p-6 border-b border-[#E8DFD5] dark:border-white/10 flex items-center justify-between bg-white dark:bg-[#1C1410]">
+        <div className="p-5 sm:p-6 border-b border-[#E8DFD5] dark:border-white/10 flex items-center justify-between bg-white dark:bg-[#0E0E0E]">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-[#E37500]/10 text-[#E37500] flex items-center justify-center">
               <Heart className="w-5 h-5 fill-current" />
@@ -112,7 +112,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                     {savedDestinations.map((dest) => (
                       <div
                         key={dest.id}
-                        className="flex items-center gap-3 p-2.5 rounded-2xl bg-white dark:bg-[#201712] border border-[#E8DFD5] dark:border-white/10 shadow-xs group"
+                        className="flex items-center gap-3 p-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 shadow-xs group"
                       >
                         <img
                           src={dest.image}
@@ -153,7 +153,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                     {savedPackages.map((pkg) => (
                       <div
                         key={pkg.id}
-                        className="flex items-center gap-3 p-2.5 rounded-2xl bg-white dark:bg-[#201712] border border-[#E8DFD5] dark:border-white/10 shadow-xs group"
+                        className="flex items-center gap-3 p-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 shadow-xs group"
                       >
                         <img
                           src={pkg.image}
@@ -189,7 +189,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
 
         {/* Footer Actions */}
         {totalSavedCount > 0 && (
-          <div className="p-5 sm:p-6 border-t border-[#E8DFD5] dark:border-white/10 bg-white dark:bg-[#1C1410] space-y-3">
+          <div className="p-5 sm:p-6 border-t border-[#E8DFD5] dark:border-white/10 bg-white dark:bg-[#0E0E0E] space-y-3">
             <button
               onClick={handleShareToWhatsApp}
               className="w-full py-3.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-[#E37500]/25 transition-all active:scale-95"
