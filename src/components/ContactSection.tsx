@@ -341,14 +341,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
         </div>
       </div>
-                    No spam. We respect your privacy and will never share your personal contact information.
-                  </p>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
