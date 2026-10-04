@@ -20,10 +20,10 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="bg-[#110C08] dark:bg-[#070707] text-[#EADFD5] border-t border-[#362217]/80 dark:border-white/10 pt-10 pb-6 sm:pb-8 transition-colors">
+    <footer className="bg-neutral-950 dark:bg-black text-neutral-300 dark:text-neutral-400 border-t border-neutral-800 dark:border-white/10 pt-10 pb-6 sm:pb-8 transition-colors">
       <div className="section-container">
         {/* Compact Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 pb-7 border-b border-[#362217]/70 dark:border-white/10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 pb-7 border-b border-neutral-800 dark:border-white/10">
           {/* Brand Col */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-2 space-y-3 pr-0 lg:pr-6">
             <div className="flex items-center gap-2.5">
@@ -40,7 +40,7 @@ export const Footer: React.FC<FooterProps> = ({
               </div>
             </div>
 
-            <p className="text-[#BFAEA0] dark:text-[#9A8B80] text-xs leading-relaxed max-w-sm">
+            <p className="text-neutral-400 text-xs leading-relaxed max-w-sm">
               Bespoke luxury journeys designed for discerning Indian travellers. Handcrafted itineraries with white-glove care from departure to return.
             </p>
 
@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="flex flex-wrap items-center gap-2 pt-0.5 text-xs">
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1F150F] dark:bg-white/5 border border-[#3D251A] dark:border-white/10 text-[#D5C5B8] hover:text-[#E37500] hover:border-[#E37500]/40 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-200 hover:text-[#E37500] hover:border-[#E37500]/40 transition-colors"
                 title="Call us"
               >
                 <Phone className="w-3 h-3 text-[#E37500]" />
@@ -56,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({
               </a>
               <a
                 href={`mailto:${COMPANY_INFO.email}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1F150F] dark:bg-white/5 border border-[#3D251A] dark:border-white/10 text-[#D5C5B8] hover:text-[#E37500] hover:border-[#E37500]/40 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-200 hover:text-[#E37500] hover:border-[#E37500]/40 transition-colors"
                 title="Email us"
               >
                 <Mail className="w-3 h-3 text-[#E37500]" />
@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="font-serif font-bold text-white text-xs uppercase tracking-wider">
               Experiences
             </h4>
-            <ul className="space-y-1.5 text-xs text-[#BFAEA0] dark:text-[#9A8B80]">
+            <ul className="space-y-1.5 text-xs text-neutral-400">
               <li>
                 <button
                   onClick={() => onSelectTripType('Honeymoon')}
@@ -119,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="font-serif font-bold text-white text-xs uppercase tracking-wider">
               Destinations
             </h4>
-            <ul className="space-y-1.5 text-xs text-[#BFAEA0] dark:text-[#9A8B80]">
+            <ul className="space-y-1.5 text-xs text-neutral-400">
               <li>
                 <button
                   onClick={() => onSelectDestination('Bali, Indonesia')}
@@ -168,7 +168,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="font-serif font-bold text-white text-xs uppercase tracking-wider">
               Company
             </h4>
-            <ul className="space-y-1.5 text-xs text-[#BFAEA0] dark:text-[#9A8B80]">
+            <ul className="space-y-1.5 text-xs text-neutral-400">
               <li>
                 <button
                   onClick={() => onNavigate('how-it-works')}
@@ -214,12 +214,12 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Compact Bottom Bar */}
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#9E8C7F]">
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-neutral-400">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1">
             <span>© {COMPANY_INFO.currentYear} My Kind of Travel</span>
-            <span className="hidden sm:inline text-[#55382B]">•</span>
+            <span className="hidden sm:inline text-neutral-700">•</span>
             <span>Est. {COMPANY_INFO.establishedYear}</span>
-            <span className="hidden sm:inline text-[#55382B]">•</span>
+            <span className="hidden sm:inline text-neutral-700">•</span>
             <a
               href="/admin/login"
               className="hover:text-[#E37500] transition-colors underline decoration-dotted"
@@ -230,7 +230,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#1F150F] dark:bg-white/5 text-[#D5C5B8] hover:text-white transition-colors border border-[#3D251A] dark:border-white/10 text-xs shrink-0 active:scale-95"
+            className="flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white transition-colors border border-white/10 text-xs shrink-0 active:scale-95"
             title="Scroll to top"
           >
             <span>Top</span>

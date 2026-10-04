@@ -101,25 +101,25 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
     <div className="p-6 space-y-10">
       {/* 1. Admin Credentials Card */}
       <div className="space-y-6">
-        <div className="pb-4 border-b border-[#3D2315]">
-          <div className="flex items-center gap-2 text-[#C87428] font-bold text-xs uppercase tracking-widest mb-1">
+        <div className="pb-4 border-b border-[#262626]">
+          <div className="flex items-center gap-2 text-[#E37500] font-bold text-xs uppercase tracking-widest mb-1">
             <KeyRound className="w-4 h-4" />
             <span>Security & Access Control</span>
           </div>
           <h3 className="text-xl font-serif font-bold text-white">CMS Admin Credentials</h3>
-          <p className="text-sm text-[#EADFD5]/70 mt-1">
+          <p className="text-sm text-[#A3A3A3]/70 mt-1">
             Safely change the administrator login email and password stored on the backend.
           </p>
         </div>
 
         {/* Current Info Banner */}
-        <div className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-[#EADFD5]">
+        <div className="p-4 rounded-xl bg-[#121212] border border-[#262626] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-[#A3A3A3]">
             <Shield className="w-4 h-4 text-[#E37500]" />
             <span>Active Admin Login: <strong className="text-white font-mono">{currentEmail}</strong></span>
           </div>
           {lastUpdated && (
-            <span className="text-[#EADFD5]/50">
+            <span className="text-[#A3A3A3]/50">
               Last modified: {new Date(lastUpdated).toLocaleDateString()}
             </span>
           )}
@@ -134,7 +134,7 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
         )}
 
         {credsError && (
-          <div className="p-4 rounded-xl bg-[#24130A] border border-[#E37500]/30 text-[#FAF7F2] text-xs flex items-center gap-2">
+          <div className="p-4 rounded-xl bg-[#121212] border border-[#E37500]/30 text-[#FFFFFF] text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0 text-[#E37500]" />
             <span>{credsError}</span>
           </div>
@@ -143,7 +143,7 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
         {/* Form */}
         <form onSubmit={handleUpdateCredentials} className="space-y-4 max-w-2xl">
           <div>
-            <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+            <label className="block text-xs uppercase tracking-wider font-bold text-[#A3A3A3] mb-1.5">
               Admin Login Email
             </label>
             <div className="relative">
@@ -154,14 +154,14 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
                 placeholder="marketing2glue@gmail.com"
-                className="w-full pl-10 pr-4 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                className="w-full pl-10 pr-4 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#A3A3A3] mb-1.5">
                 New Password (Optional)
               </label>
               <div className="relative">
@@ -171,13 +171,13 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Leave blank to keep unchanged"
-                  className="w-full pl-10 pr-4 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                  className="w-full pl-10 pr-4 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#A3A3A3] mb-1.5">
                 Confirm New Password
               </label>
               <div className="relative">
@@ -187,25 +187,25 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter new password"
-                  className="w-full pl-10 pr-4 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                  className="w-full pl-10 pr-4 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
                 />
               </div>
             </div>
           </div>
 
           <div className="pt-2">
-            <label className="block text-xs uppercase tracking-wider font-bold text-[#E28C38] mb-1.5">
+            <label className="block text-xs uppercase tracking-wider font-bold text-[#C66500] mb-1.5">
               Current Password (Required for verification)
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-[#E28C38] absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-[#C66500] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 required
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter current password (default: Admin@8369)"
-                className="w-full pl-10 pr-4 py-2 bg-[#1A0E08] border border-[#C87428]/60 text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                className="w-full pl-10 pr-4 py-2 bg-[#121212] border border-[#E37500]/60 text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
               />
             </div>
           </div>
@@ -214,7 +214,7 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
             <button
               type="submit"
               disabled={savingCreds}
-              className="px-6 py-2.5 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#C87428]/25 transition-all disabled:opacity-50"
+              className="px-6 py-2.5 rounded-xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#E37500]/25 transition-all disabled:opacity-50"
             >
               {savingCreds ? 'Updating Security...' : 'Update Admin Credentials'}
             </button>
@@ -223,87 +223,87 @@ export const CredentialsManager: React.FC<CredentialsManagerProps> = ({
       </div>
 
       {/* 2. Company Information Card */}
-      <div className="space-y-6 pt-6 border-t border-[#3D2315]">
-        <div className="pb-4 border-b border-[#3D2315]">
-          <div className="flex items-center gap-2 text-[#C87428] font-bold text-xs uppercase tracking-widest mb-1">
+      <div className="space-y-6 pt-6 border-t border-[#262626]">
+        <div className="pb-4 border-b border-[#262626]">
+          <div className="flex items-center gap-2 text-[#E37500] font-bold text-xs uppercase tracking-widest mb-1">
             <Building className="w-4 h-4" />
             <span>Brand & Agency Metadata</span>
           </div>
           <h3 className="text-xl font-serif font-bold text-white">Company & Concierge Contacts</h3>
-          <p className="text-sm text-[#EADFD5]/70 mt-1">
+          <p className="text-sm text-[#A3A3A3]/70 mt-1">
             Details rendered across the website footer, contact form headers, and WhatsApp triggers.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl">
           <div>
-            <label className="block text-xs font-bold text-[#EADFD5] mb-1">Agency Name</label>
+            <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Agency Name</label>
             <input
               type="text"
               value={companyInfo?.name || ''}
               onChange={(e) => handleCompanyChange('name', e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+              className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#EADFD5] mb-1">Tagline</label>
+            <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Tagline</label>
             <input
               type="text"
               value={companyInfo?.tagline || ''}
               onChange={(e) => handleCompanyChange('tagline', e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+              className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#EADFD5] mb-1">Display Phone Number</label>
+            <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Display Phone Number</label>
             <input
               type="text"
               value={companyInfo?.phone || ''}
               onChange={(e) => handleCompanyChange('phone', e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+              className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#EADFD5] mb-1">WhatsApp Raw Number (No spaces)</label>
+            <label className="block text-xs font-bold text-[#A3A3A3] mb-1">WhatsApp Raw Number (No spaces)</label>
             <input
               type="text"
               value={companyInfo?.phoneRaw || ''}
               onChange={(e) => handleCompanyChange('phoneRaw', e.target.value)}
               placeholder="+919876543210"
-              className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+              className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#EADFD5] mb-1">Concierge Email</label>
+            <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Concierge Email</label>
             <input
               type="email"
               value={companyInfo?.email || ''}
               onChange={(e) => handleCompanyChange('email', e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+              className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#EADFD5] mb-1">Years of Crafting Journeys</label>
+            <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Years of Crafting Journeys</label>
             <input
               type="text"
               value={companyInfo?.yearsCrafting || ''}
               onChange={(e) => handleCompanyChange('yearsCrafting', e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+              className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
             />
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-xs font-bold text-[#EADFD5] mb-1">Philosophy Statement</label>
+            <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Philosophy Statement</label>
             <textarea
               rows={3}
               value={companyInfo?.philosophy || ''}
               onChange={(e) => handleCompanyChange('philosophy', e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+              className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
             />
           </div>
         </div>

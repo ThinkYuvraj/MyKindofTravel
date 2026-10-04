@@ -83,7 +83,7 @@ export default function ExperiencesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-300">
       {/* Navbar */}
       <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
@@ -93,14 +93,14 @@ export default function ExperiencesPage() {
           {/* Header */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-3xl space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Bespoke Travel Pillars</span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white">
+              <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 Every Kind of <span className="italic font-serif text-[#E37500] font-normal">Extraordinary</span>
               </h1>
-              <p className="text-sm sm:text-base text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
                 Whether you seek intimate honeymoon romance, multi-generational family ease, executive team retreats, or adrenaline in the Swiss Alps, explore our curated holiday pillars below.
               </p>
             </div>
@@ -109,7 +109,7 @@ export default function ExperiencesPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate('/places')}
-                className="px-5 py-2.5 rounded-full bg-white dark:bg-[#141414] hover:bg-neutral-100 dark:hover:bg-white/10 text-[#24130A] dark:text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all border border-[#E8DFD5] dark:border-white/10 shadow-xs"
+                className="px-5 py-2.5 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all border border-neutral-200 dark:border-white/10 shadow-xs"
               >
                 <Compass className="w-4 h-4 text-[#E37500]" />
                 <span>Explore Curated Places</span>
@@ -118,16 +118,16 @@ export default function ExperiencesPage() {
           </div>
 
           {/* Search & Filter Controls */}
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-white dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 shadow-xs">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200 dark:border-white/10 shadow-xs">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7667]" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search experiences (e.g., honeymoon, villa, rail, corporate)..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm text-[#24130A] dark:text-white placeholder-[#8C7667] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#E37500]"
               />
             </div>
 
@@ -177,12 +177,12 @@ export default function ExperiencesPage() {
             {filteredExperiences.map((exp) => (
               <div
                 key={exp.number}
-                className="rounded-3xl overflow-hidden bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300 relative"
+                className="rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300 relative"
               >
                 <div>
                   {/* Image with Pillar Number */}
                   {exp.image && (
-                    <div className="relative w-full h-52 overflow-hidden border-b border-[#E8DFD5] dark:border-white/10">
+                    <div className="relative w-full h-52 overflow-hidden border-b border-neutral-200 dark:border-white/10">
                       <img
                         src={exp.image}
                         alt={exp.title}
@@ -197,20 +197,20 @@ export default function ExperiencesPage() {
 
                   {/* Body */}
                   <div className="p-6 sm:p-7 space-y-4">
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#24130A] dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
                       {exp.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
                       {exp.description}
                     </p>
 
                     {/* Highlights */}
-                    <div className="pt-3 border-t border-[#E8DFD5] dark:border-white/10 space-y-2">
+                    <div className="pt-3 border-t border-neutral-200 dark:border-white/10 space-y-2">
                       <span className="text-[11px] font-bold uppercase tracking-wider text-[#E37500] block">
                         Signature Highlights:
                       </span>
                       {exp.highlights.map((h, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-[#24130A] dark:text-[#E8DDD2]">
+                        <div key={i} className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300">
                           <div className="w-4 h-4 rounded-full bg-[#E37500]/10 flex items-center justify-center shrink-0">
                             <Check className="w-2.5 h-2.5 text-[#E37500] stroke-[3]" />
                           </div>
@@ -225,7 +225,7 @@ export default function ExperiencesPage() {
                 <div className="p-6 sm:p-7 pt-0">
                   <button
                     onClick={() => handleStartPlanning(exp.typeKey)}
-                    className="w-full py-3 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-[1.02] active:scale-95"
+                    className="w-full py-3 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-[1.02] active:scale-95"
                   >
                     <span>{exp.ctaText}</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -236,12 +236,12 @@ export default function ExperiencesPage() {
           </div>
 
           {/* Bottom Banner */}
-          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#24130A] via-[#351D12] to-[#1C1009] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div className="p-8 sm:p-12 rounded-3xl bg-neutral-900 dark:bg-[#0A0A0A] border border-neutral-800 dark:border-white/15 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
             <div className="space-y-2 max-w-xl text-center md:text-left">
               <h3 className="font-serif text-2xl sm:text-3xl font-bold">
                 Have a completely custom travel concept in mind?
               </h3>
-              <p className="text-xs sm:text-sm text-[#D1C2B8] leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
                 Our private concierge crafts unique itineraries blending multiple experiences, private aviation, and luxury villas.
               </p>
             </div>

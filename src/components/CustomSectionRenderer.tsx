@@ -30,31 +30,23 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
     switch (section.theme) {
       case 'dark':
         return {
-          bg: 'bg-[#140E0A] text-[#FAF7F2] border-y border-[#362217]',
-          card: 'bg-[#1E140F]/90 border-[#3D251A] text-white hover:border-[#C87428]/50',
-          badge: 'bg-white/10 text-[#E28C38] border-white/15',
+          bg: 'bg-black text-white border-y border-white/10',
+          card: 'bg-neutral-900/90 border-white/10 text-white hover:border-[#E37500]/60',
+          badge: 'bg-white/10 text-[#E37500] border-white/15',
           heading: 'text-white',
-          subtext: 'text-[#D1C2B8]',
-          accent: 'text-[#E28C38]',
+          subtext: 'text-neutral-300',
+          accent: 'text-[#E37500]',
         };
       case 'caramel':
-        return {
-          bg: 'bg-gradient-to-b from-[#2B170E] via-[#351D12] to-[#2B170E] text-[#FAF7F2] border-y border-[#522D1B]',
-          card: 'bg-[#23120A]/80 border-[#5E341F] text-white hover:border-[#E28C38]/60',
-          badge: 'bg-[#C87428]/25 text-[#FFB677] border-[#C87428]/40',
-          heading: 'text-white',
-          subtext: 'text-[#F3DFD2]',
-          accent: 'text-[#FFB677]',
-        };
       case 'light':
       default:
         return {
-          bg: 'bg-transparent text-[#24130A] dark:text-white border-y border-[#EADFD5] dark:border-white/10',
-          card: 'bg-white/80 dark:bg-[#0E0E0E]/90 border-white/80 dark:border-white/10 text-[#24130A] dark:text-white hover:border-[#8C5528]/50 dark:hover:border-[#E28C38]/50',
-          badge: 'bg-white/80 dark:bg-white/10 text-[#8C5528] dark:text-[#E28C38] border-[#DFD0C0]/80 dark:border-white/10',
-          heading: 'text-[#24130A] dark:text-white',
-          subtext: 'text-[#594336] dark:text-[#D1C2B8]',
-          accent: 'text-[#8C5528] dark:text-[#E28C38]',
+          bg: 'bg-transparent text-neutral-900 dark:text-white border-y border-neutral-200 dark:border-white/10',
+          card: 'bg-white/90 dark:bg-[#0E0E0E]/90 border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60',
+          badge: 'bg-neutral-100 dark:bg-white/10 text-[#E37500] border-neutral-200 dark:border-white/10',
+          heading: 'text-neutral-900 dark:text-white',
+          subtext: 'text-neutral-600 dark:text-neutral-300',
+          accent: 'text-[#E37500]',
         };
     }
   };
@@ -110,7 +102,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
               return (
                 <div
                   key={item.id}
-                  className={`group rounded-3xl overflow-hidden backdrop-blur-xl border transition-all duration-300 shadow-[0_8px_30px_rgba(42,24,16,0.06)] hover:-translate-y-1 flex flex-col justify-between ${theme.card}`}
+                  className={`group rounded-3xl overflow-hidden backdrop-blur-xl border transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1 flex flex-col justify-between ${theme.card}`}
                 >
                   {item.image && (
                     <div className="relative w-full h-44 overflow-hidden border-b border-current/10">
@@ -132,11 +124,11 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
                     <div className="space-y-3">
                       {!item.image && (
                         <div className="flex items-center justify-between">
-                          <div className="w-12 h-12 rounded-2xl bg-white/70 dark:bg-white/10 flex items-center justify-center border border-current/20 text-[#8C5528] dark:text-[#E28C38] group-hover:scale-110 transition-transform">
+                          <div className="w-12 h-12 rounded-2xl bg-neutral-100 dark:bg-white/10 flex items-center justify-center border border-neutral-200 dark:border-white/10 text-[#E37500] group-hover:scale-110 transition-transform">
                             <IconComponent className="w-6 h-6" />
                           </div>
                           {item.badge && (
-                            <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#8C5528]/10 dark:bg-[#C87428]/20 text-[#8C5528] dark:text-[#E28C38]">
+                            <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#E37500]/10 text-[#E37500] border border-[#E37500]/20">
                               {item.badge}
                             </span>
                           )}
@@ -145,7 +137,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
 
                       <h3 className="font-serif text-xl font-bold">{item.title}</h3>
                       {item.subtitle && (
-                        <p className="text-xs font-semibold text-[#8C5528] dark:text-[#E28C38]">
+                        <p className="text-xs font-semibold text-[#E37500]">
                           {item.subtitle}
                         </p>
                       )}
@@ -155,7 +147,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
                     </div>
 
                     {item.linkText && (
-                      <div className="pt-4 border-t border-current/10">
+                      <div className="pt-4 border-t border-neutral-200 dark:border-white/10">
                         <button
                           onClick={onCtaClick}
                           className={`text-xs font-bold flex items-center gap-1.5 transition-colors group-hover:underline ${theme.accent}`}
@@ -174,7 +166,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
 
         {/* Layout: Banner CTA */}
         {section.layout === 'banner-cta' && (
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-[#1F120A] text-white">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 dark:border-white/20 bg-neutral-900 text-white">
             {section.items[0]?.image && (
               <div className="absolute inset-0 z-0">
                 <GlassImage
@@ -188,7 +180,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
 
             <div className="relative z-10 p-8 sm:p-12 lg:p-16 max-w-2xl space-y-6">
               {section.items[0]?.badge && (
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#C87428] text-white shadow-md">
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#E37500] text-white shadow-md">
                   {section.items[0].badge}
                 </span>
               )}
@@ -204,7 +196,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
               <div className="pt-2">
                 <button
                   onClick={onCtaClick}
-                  className="px-8 py-3.5 rounded-full bg-[#C87428] hover:bg-[#E28C38] text-white text-xs sm:text-sm font-bold uppercase tracking-widest transition-all shadow-xl hover:scale-105 active:scale-95 flex items-center gap-2"
+                  className="px-8 py-3.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs sm:text-sm font-bold uppercase tracking-widest transition-all shadow-xl hover:scale-105 active:scale-95 flex items-center gap-2 border border-white/20"
                 >
                   <span>{section.items[0]?.linkText || 'Enquire About Privileges'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -239,7 +231,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm leading-relaxed border-t border-current/10 opacity-90 animate-in fade-in duration-200">
+                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm leading-relaxed border-t border-neutral-200 dark:border-white/10 opacity-90 animate-in fade-in duration-200">
                       <p className={theme.subtext}>{item.description}</p>
                     </div>
                   )}
@@ -276,7 +268,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
             </div>
             <div className="lg:col-span-6">
               {section.items[0]?.image ? (
-                <div className="rounded-3xl overflow-hidden shadow-2xl border border-current/20 h-80 sm:h-96">
+                <div className="rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 dark:border-white/20 h-80 sm:h-96">
                   <GlassImage
                     src={section.items[0].image}
                     alt={section.title}
@@ -288,7 +280,7 @@ export const CustomSectionRenderer: React.FC<CustomSectionRendererProps> = ({
                   <p className="font-serif italic text-lg sm:text-xl">
                     "Every journey with My Kind of Travel is treated as an intimate masterpiece. We protect your privacy, elevate your stays, and handle every detail with discreet perfection."
                   </p>
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#8C5528] dark:text-[#E28C38]">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#E37500]">
                     — Founder & Private Travel Curator
                   </p>
                 </div>

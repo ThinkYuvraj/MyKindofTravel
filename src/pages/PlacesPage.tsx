@@ -492,7 +492,7 @@ export default function PlacesPage() {
   const spotlightPlace = CURATED_PLACES_DATA[0]; // Soneva Jani
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-300">
       {/* Navbar */}
       <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
@@ -502,10 +502,10 @@ export default function PlacesPage() {
         {/* HERO SECTION */}
         {/* ============================================================ */}
         <section className="section-container">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-6 border-b border-[#E8DFD5] dark:border-white/10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-6 border-b border-neutral-200 dark:border-white/10">
             <div className="max-w-3xl space-y-5">
               {/* Breadcrumb / Top Badge */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
                 <Crown className="w-3.5 h-3.5 text-[#E37500]" />
                 <span>The Global Places Portfolio</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E37500]/40" />
@@ -514,19 +514,19 @@ export default function PlacesPage() {
                 </span>
               </div>
 
-              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#24130A] dark:text-white leading-[1.12]">
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-white leading-[1.12]">
                 Curated Places & <br className="hidden sm:inline" />
                 <span className="italic font-serif text-[#E37500] font-normal">
                   Private Sanctuaries
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed max-w-2xl font-normal">
+              <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl font-normal">
                 A hand-selected global directory of overwater lagoons, cliffside infinity villas, panoramic glacier rail cars, and secluded royal estates. Every property is vetted personally by our founders to guarantee genuine luxury, absolute privacy, and effortless execution.
               </p>
 
               {/* Trust & Prestige Badges */}
-              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-semibold text-[#8C7667] dark:text-[#A7978A]">
+              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-semibold text-neutral-400">
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-[#E37500]" />
                   <span>100% Founder Vetted</span>
@@ -553,7 +553,7 @@ export default function PlacesPage() {
               </button>
               <button
                 onClick={() => navigate('/destinations')}
-                className="px-5 py-3 rounded-full bg-white dark:bg-[#141414] hover:bg-neutral-100 dark:hover:bg-white/10 text-[#24130A] dark:text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-[#E8DFD5] dark:border-white/10 shadow-xs"
+                className="px-5 py-3 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-neutral-200 dark:border-white/10 shadow-xs"
               >
                 <Compass className="w-4 h-4 text-[#E37500]" />
                 <span>View Full Itineraries</span>
@@ -657,10 +657,10 @@ export default function PlacesPage() {
               <span className="text-xs uppercase tracking-widest text-[#E37500] font-bold">
                 Signature Collection
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#24130A] dark:text-white">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 Azure Lagoons & Overwater Havens
               </h2>
-              <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC]">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                 Private overwater bungalows, yacht moorings, and cliffside Mediterranean retreats with direct sea immersion.
               </p>
             </div>
@@ -669,14 +669,14 @@ export default function PlacesPage() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => scrollCarousel(overwaterCarouselRef, -380)}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/20 text-[#24130A] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                 aria-label="Previous overwater place"
               >
                 <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
               </button>
               <button
                 onClick={() => scrollCarousel(overwaterCarouselRef, 380)}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/20 text-[#24130A] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                 aria-label="Next overwater place"
               >
                 <ChevronRight className="w-5 h-5 stroke-[2.5]" />
@@ -697,7 +697,7 @@ export default function PlacesPage() {
                 <div
                   key={place.id}
                   onClick={() => setActiveLightboxIndex(idx >= 0 ? idx : 0)}
-                  className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] flex flex-col relative shrink-0 w-[85vw] sm:w-[360px] snap-start"
+                  className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-xs flex flex-col relative shrink-0 w-[85vw] sm:w-[360px] snap-start"
                 >
                   <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
                     <GlassImage
@@ -732,15 +732,15 @@ export default function PlacesPage() {
                           <span className="truncate">{place.location}</span>
                         </span>
                       </div>
-                      <h3 className="font-serif text-lg font-bold text-[#24130A] dark:text-white group-hover:text-[#E37500] transition-colors line-clamp-1">
+                      <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors line-clamp-1">
                         {place.title}
                       </h3>
-                      <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
                         {place.caption}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-[#E8DFD5] dark:border-white/10 flex items-center justify-between">
+                    <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between">
                       <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400">
                         {place.idealStay}
                       </span>
@@ -770,10 +770,10 @@ export default function PlacesPage() {
               <span className="text-xs uppercase tracking-widest text-[#E37500] font-bold">
                 High Altitude Sanctuaries
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#24130A] dark:text-white">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 Alpine Peaks & Fairytale Mountain Havens
               </h2>
-              <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC]">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                 Glacier chalets, panoramic 1st-class glass trains, and majestic Swiss & Austrian mountain sanctuaries.
               </p>
             </div>
@@ -782,14 +782,14 @@ export default function PlacesPage() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => scrollCarousel(alpineCarouselRef, -380)}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/20 text-[#24130A] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                 aria-label="Previous alpine place"
               >
                 <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
               </button>
               <button
                 onClick={() => scrollCarousel(alpineCarouselRef, 380)}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/20 text-[#24130A] dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
                 aria-label="Next alpine place"
               >
                 <ChevronRight className="w-5 h-5 stroke-[2.5]" />
@@ -810,7 +810,7 @@ export default function PlacesPage() {
                 <div
                   key={place.id}
                   onClick={() => setActiveLightboxIndex(idx >= 0 ? idx : 0)}
-                  className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] flex flex-col relative shrink-0 w-[85vw] sm:w-[360px] snap-start"
+                  className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-xs flex flex-col relative shrink-0 w-[85vw] sm:w-[360px] snap-start"
                 >
                   <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
                     <GlassImage
@@ -845,15 +845,15 @@ export default function PlacesPage() {
                           <span className="truncate">{place.location}</span>
                         </span>
                       </div>
-                      <h3 className="font-serif text-lg font-bold text-[#24130A] dark:text-white group-hover:text-[#E37500] transition-colors line-clamp-1">
+                      <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors line-clamp-1">
                         {place.title}
                       </h3>
-                      <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
                         {place.caption}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-[#E8DFD5] dark:border-white/10 flex items-center justify-between">
+                    <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between">
                       <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400">
                         {place.idealStay}
                       </span>
@@ -883,32 +883,32 @@ export default function PlacesPage() {
               <span className="text-xs uppercase tracking-widest text-[#E37500] font-bold">
                 Interactive Catalog
               </span>
-              <h2 className="font-serif text-2xl sm:text-4xl font-bold tracking-tight text-[#24130A] dark:text-white">
+              <h2 className="font-serif text-2xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 Explore All Curated Places
               </h2>
             </div>
-            <span className="text-xs sm:text-sm font-semibold text-[#8C7667] dark:text-[#A7978A]">
+            <span className="text-xs sm:text-sm font-semibold text-neutral-400">
               Showing {filteredPlaces.length} of {CURATED_PLACES_DATA.length} Sanctuaries
             </span>
           </div>
 
           {/* Search & Filter Controls Container */}
-          <div className="space-y-4 p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 shadow-xs">
+          <div className="space-y-4 p-5 sm:p-6 rounded-3xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200 dark:border-white/10 shadow-xs">
             {/* Top row: Search input + Sort By */}
             <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
               <div className="relative flex-1">
-                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7667]" />
+                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search places by name, country, feature (e.g. Maldives, Zermatt, slide, private pool)..."
-                  className="w-full pl-10 pr-9 py-2.5 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm text-[#24130A] dark:text-white placeholder-[#8C7667] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                  className="w-full pl-10 pr-9 py-2.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C7667] hover:text-[#24130A] dark:hover:text-white"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -917,11 +917,11 @@ export default function PlacesPage() {
 
               {/* Sort By Dropdown */}
               <div className="flex items-center gap-2">
-                <span className="text-xs text-[#8C7667] whitespace-nowrap font-medium">Sort by:</span>
+                <span className="text-xs text-neutral-400 whitespace-nowrap font-medium">Sort by:</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
-                  className="px-3.5 py-2 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                  className="px-3.5 py-2 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 text-xs text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
                 >
                   <option value="curator">Curator’s Choice</option>
                   <option value="name">Name (A–Z)</option>
@@ -931,10 +931,10 @@ export default function PlacesPage() {
             </div>
 
             {/* Filter Pills: Categories & Themes */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-3 border-t border-[#E8DFD5] dark:border-white/10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-3 border-t border-neutral-200 dark:border-white/10">
               {/* Category Pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#8C7667] mr-1">Type:</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 mr-1">Type:</span>
                 {CATEGORIES.map((cat) => {
                   const isActive = selectedCategory === cat;
                   return (
@@ -944,7 +944,7 @@ export default function PlacesPage() {
                       className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
                         isActive
                           ? 'bg-[#E37500] text-white shadow-xs'
-                          : 'text-[#6F5B4E] dark:text-[#A7978A] hover:bg-black/5 dark:hover:bg-white/5'
+                          : 'text-neutral-600 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/5'
                       }`}
                     >
                       {cat}
@@ -955,7 +955,7 @@ export default function PlacesPage() {
 
               {/* Region Pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#8C7667] mr-1">Region:</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 mr-1">Region:</span>
                 {REGIONS.map((region) => {
                   const isActive = selectedRegion === region;
                   return (
@@ -965,7 +965,7 @@ export default function PlacesPage() {
                       className={`px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                         isActive
                           ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-xs'
-                          : 'text-[#8C7667] dark:text-[#999999] hover:text-[#24130A] dark:hover:text-white'
+                          : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                       }`}
                     >
                       {region}
@@ -976,8 +976,8 @@ export default function PlacesPage() {
             </div>
 
             {/* Theme Tags */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2 border-t border-[#E8DFD5] dark:border-white/10">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#8C7667] mr-1">Collection:</span>
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2 border-t border-neutral-200 dark:border-white/10">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 mr-1">Collection:</span>
               {THEMES.map((theme) => {
                 const isActive = selectedTheme === theme.id;
                 return (
@@ -987,7 +987,7 @@ export default function PlacesPage() {
                     className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                       isActive
                         ? 'bg-[#E37500]/15 text-[#E37500] border border-[#E37500]/40 font-bold'
-                        : 'text-[#6F5B4E] dark:text-[#A7978A] hover:bg-black/5 dark:hover:bg-white/5'
+                        : 'text-neutral-600 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/5'
                     }`}
                   >
                     {theme.label}
@@ -1009,7 +1009,7 @@ export default function PlacesPage() {
                   <div
                     key={place.id}
                     onClick={() => setActiveLightboxIndex(idx)}
-                    className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] flex flex-col relative"
+                    className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-xs flex flex-col relative"
                   >
                     {/* Image Container */}
                     <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
@@ -1057,7 +1057,7 @@ export default function PlacesPage() {
                     {/* Content */}
                     <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between text-xs text-[#8C7667] dark:text-[#A7978A]">
+                        <div className="flex items-center justify-between text-xs text-neutral-400">
                           <span className="flex items-center gap-1 font-semibold text-[#E37500]">
                             <MapPin className="w-3.5 h-3.5 shrink-0" />
                             <span className="truncate">{place.location}</span>
@@ -1065,11 +1065,11 @@ export default function PlacesPage() {
                           <span className="text-[11px] text-neutral-400 font-medium">{place.region}</span>
                         </div>
 
-                        <h3 className="font-serif text-lg sm:text-xl font-bold text-[#24130A] dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
+                        <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
                           {place.title}
                         </h3>
 
-                        <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] line-clamp-2 leading-relaxed">
+                        <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
                           {place.caption}
                         </p>
                       </div>
@@ -1079,7 +1079,7 @@ export default function PlacesPage() {
                         {place.highlights.slice(0, 3).map((h, i) => (
                           <span
                             key={i}
-                            className="px-2.5 py-0.5 rounded-md bg-[#FAF7F2] dark:bg-white/5 border border-[#E8DFD5] dark:border-white/10 text-[10px] font-medium text-[#6F5B4E] dark:text-[#A7978A]"
+                            className="px-2.5 py-0.5 rounded-md bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-[10px] font-medium text-neutral-600 dark:text-neutral-300"
                           >
                             {h}
                           </span>
@@ -1087,12 +1087,12 @@ export default function PlacesPage() {
                       </div>
 
                       {/* Bottom action row */}
-                      <div className="pt-3 border-t border-[#E8DFD5] dark:border-white/10 flex items-center justify-between gap-2">
+                      <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between gap-2">
                         <div className="space-y-0.5">
                           <span className="text-[10px] text-neutral-400 uppercase font-bold tracking-wider">
                             Best Season
                           </span>
-                          <p className="text-xs font-medium text-[#24130A] dark:text-white truncate max-w-[130px]">
+                          <p className="text-xs font-medium text-neutral-900 dark:text-white truncate max-w-[130px]">
                             {place.bestSeason.split('(')[0]}
                           </p>
                         </div>
@@ -1103,7 +1103,7 @@ export default function PlacesPage() {
                               e.stopPropagation();
                               setActiveLightboxIndex(idx);
                             }}
-                            className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#6F5B4E] dark:text-[#C5B7AC] hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 transition-colors"
+                            className="px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 transition-colors"
                           >
                             <span>Inspect</span>
                             <ArrowUpRight className="w-3.5 h-3.5 text-[#E37500]" />
@@ -1126,12 +1126,12 @@ export default function PlacesPage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white dark:bg-[#0E0E0E] rounded-3xl border border-[#E8DFD5] dark:border-white/10 p-8 space-y-4">
-              <Compass className="w-12 h-12 text-[#8C7667] mx-auto mb-2 opacity-50" />
-              <h3 className="font-serif text-xl font-bold text-[#24130A] dark:text-white">
+            <div className="text-center py-20 bg-neutral-50 dark:bg-neutral-900/60 rounded-3xl border border-neutral-200 dark:border-white/10 p-8 space-y-4">
+              <Compass className="w-12 h-12 text-neutral-400 mx-auto mb-2 opacity-50" />
+              <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white">
                 No matching sanctuaries found
               </h3>
-              <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] max-w-md mx-auto">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 max-w-md mx-auto">
                 We couldn’t find places matching your current combination of filters. Try clearing your search keyword or switching category tabs.
               </p>
               <button
@@ -1153,62 +1153,62 @@ export default function PlacesPage() {
         {/* THE CONCIERGE PROMISE STRIP */}
         {/* ============================================================ */}
         <section className="section-container">
-          <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+          <div className="p-8 sm:p-12 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs">
             <div className="max-w-2xl mb-8 space-y-2">
               <div className="inline-flex items-center gap-2 text-[#E37500] text-xs font-bold uppercase tracking-widest">
                 <Award className="w-4 h-4 text-[#E37500]" />
                 <span>The My Kind of Travel Standard</span>
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#24130A] dark:text-white">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 Why Reserve Sanctuaries Through Our Concierge
               </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] dark:bg-white/10 text-[#E37500] flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/10 flex items-center justify-center font-bold">
                   01
                 </div>
-                <h4 className="font-serif text-base font-bold text-[#24130A] dark:text-white">
+                <h4 className="font-serif text-base font-bold text-neutral-900 dark:text-white">
                   Founder Vetted
                 </h4>
-                <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+                <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                   Every estate, resort, and rail passage is tested personally. Zero generic aggregator listings.
                 </p>
               </div>
 
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] dark:bg-white/10 text-[#E37500] flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/10 flex items-center justify-center font-bold">
                   02
                 </div>
-                <h4 className="font-serif text-base font-bold text-[#24130A] dark:text-white">
+                <h4 className="font-serif text-base font-bold text-neutral-900 dark:text-white">
                   VIP Upgrades & Inclusions
                 </h4>
-                <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+                <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                   Complimentary room upgrades, daily gourmet breakfasts, spa credits, and champagne upon arrival.
                 </p>
               </div>
 
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] dark:bg-white/10 text-[#E37500] flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/10 flex items-center justify-center font-bold">
                   03
                 </div>
-                <h4 className="font-serif text-base font-bold text-[#24130A] dark:text-white">
+                <h4 className="font-serif text-base font-bold text-neutral-900 dark:text-white">
                   Private Air & Charters
                 </h4>
-                <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+                <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                   Direct seaplane bookings, vintage yacht charters, and helicopter transfers coordinated end-to-end.
                 </p>
               </div>
 
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] dark:bg-white/10 text-[#E37500] flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/10 flex items-center justify-center font-bold">
                   04
                 </div>
-                <h4 className="font-serif text-base font-bold text-[#24130A] dark:text-white">
+                <h4 className="font-serif text-base font-bold text-neutral-900 dark:text-white">
                   24/7 Dedicated Butler
                 </h4>
-                <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+                <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                   Instant WhatsApp responses and on-the-ground support from departure until your safe return.
                 </p>
               </div>
@@ -1220,7 +1220,7 @@ export default function PlacesPage() {
         {/* CUSTOM UNLISTED RETREAT CALLOUT BANNER */}
         {/* ============================================================ */}
         <section className="section-container">
-          <div className="rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-[#24130A] via-[#1a0e07] to-black text-white relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="rounded-3xl p-8 sm:p-12 bg-neutral-900 dark:bg-[#0A0A0A] border border-neutral-800 dark:border-white/15 text-white relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="max-w-2xl space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest border border-white/10">
                 <Sparkles className="w-3.5 h-3.5" />
@@ -1229,7 +1229,7 @@ export default function PlacesPage() {
               <h3 className="font-serif text-2xl sm:text-4xl font-bold tracking-tight">
                 Seeking an Unlisted Private Island or Remote Alpine Estate?
               </h3>
-              <p className="text-sm text-neutral-300 leading-relaxed font-normal">
+              <p className="text-sm text-neutral-400 leading-relaxed font-normal">
                 Beyond our public portfolio, our founders maintain direct relationships with private island owners, historic châteaux in France, and secluded safari lodges throughout Africa.
               </p>
             </div>
@@ -1324,13 +1324,13 @@ export default function PlacesPage() {
                     {activePhoto.title}
                   </h3>
 
-                  <p className="text-sm text-neutral-600 dark:text-[#C5B7AC] leading-relaxed">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
                     {activePhoto.caption}
                   </p>
                 </div>
 
                 {/* Plan Trip CTA Box */}
-                <div className="p-5 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 shrink-0 lg:w-72 space-y-3">
+                <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 shrink-0 lg:w-72 space-y-3">
                   <span className="text-[11px] uppercase tracking-wider font-bold text-neutral-500 dark:text-neutral-400">
                     Concierge Pricing
                   </span>

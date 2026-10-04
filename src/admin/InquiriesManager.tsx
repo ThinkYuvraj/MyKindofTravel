@@ -120,21 +120,21 @@ export const InquiriesManager: React.FC = () => {
   return (
     <div className="p-6 space-y-6">
       {/* Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#3D2315]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#262626]">
         <div>
-          <div className="flex items-center gap-2 text-[#C87428] font-bold text-xs uppercase tracking-widest mb-1">
+          <div className="flex items-center gap-2 text-[#E37500] font-bold text-xs uppercase tracking-widest mb-1">
             <Inbox className="w-4 h-4" />
             <span>Traveller Concierge CRM</span>
           </div>
           <h3 className="text-xl font-serif font-bold text-white">Inquiries & Custom Itinerary Leads</h3>
-          <p className="text-sm text-[#EADFD5]/70 mt-1">
+          <p className="text-sm text-[#A3A3A3]/70 mt-1">
             Direct enquiries submitted from the homepage booking concierge. Connect with clients in 1-click.
           </p>
         </div>
 
         <button
           onClick={fetchLeads}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-xs font-bold transition-all self-start sm:self-auto"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#181818] hover:bg-[#262626] text-[#A3A3A3] text-xs font-bold transition-all self-start sm:self-auto"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           <span>Refresh Leads</span>
@@ -151,8 +151,8 @@ export const InquiriesManager: React.FC = () => {
               onClick={() => setStatusFilter(st)}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
                 statusFilter === st
-                  ? 'bg-[#C87428] text-white shadow-md'
-                  : 'bg-[#1A0E08] text-[#EADFD5]/70 hover:text-white border border-[#3D2315]'
+                  ? 'bg-[#E37500] text-white shadow-md'
+                  : 'bg-[#121212] text-[#A3A3A3]/70 hover:text-white border border-[#262626]'
               }`}
             >
               {st === 'all' ? `All (${leads.length})` : st}
@@ -168,21 +168,21 @@ export const InquiriesManager: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by name, email, place..."
-            className="w-full pl-9 pr-4 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-xs outline-none focus:border-[#C87428]"
+            className="w-full pl-9 pr-4 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-xs outline-none focus:border-[#E37500]"
           />
         </div>
       </div>
 
       {/* Leads List / Table */}
       {loading && leads.length === 0 ? (
-        <div className="p-12 text-center text-sm text-[#EADFD5]/60 bg-[#1A0E08] rounded-xl border border-[#3D2315]">
+        <div className="p-12 text-center text-sm text-[#A3A3A3]/60 bg-[#121212] rounded-xl border border-[#262626]">
           Loading client leads...
         </div>
       ) : filteredLeads.length === 0 ? (
-        <div className="p-12 text-center space-y-3 bg-[#1A0E08] rounded-xl border border-[#3D2315]">
-          <AlertCircle className="w-8 h-8 text-[#C87428] mx-auto opacity-60" />
+        <div className="p-12 text-center space-y-3 bg-[#121212] rounded-xl border border-[#262626]">
+          <AlertCircle className="w-8 h-8 text-[#E37500] mx-auto opacity-60" />
           <p className="text-sm font-bold text-white">No inquiries found</p>
-          <p className="text-xs text-[#EADFD5]/60">
+          <p className="text-xs text-[#A3A3A3]/60">
             Enquiries submitted via the website contact form will appear here in real time.
           </p>
         </div>
@@ -199,57 +199,57 @@ export const InquiriesManager: React.FC = () => {
             return (
               <div
                 key={lead.id}
-                className="p-5 rounded-2xl bg-[#1A0E08] border border-[#3D2315] hover:border-[#C87428]/40 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm"
+                className="p-5 rounded-2xl bg-[#121212] border border-[#262626] hover:border-[#E37500]/40 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm"
               >
                 {/* Client Info */}
                 <div className="space-y-2 flex-1">
                   <div className="flex items-center gap-3 flex-wrap">
                     <h4 className="text-base font-serif font-bold text-white flex items-center gap-2">
-                      <User className="w-4 h-4 text-[#C87428]" />
+                      <User className="w-4 h-4 text-[#E37500]" />
                       <span>{lead.firstName} {lead.lastName}</span>
                     </h4>
                     {getStatusBadge(lead.status)}
-                    <span className="text-xs font-mono text-[#EADFD5]/50">
+                    <span className="text-xs font-mono text-[#A3A3A3]/50">
                       Ref: #{lead.refId || lead.id.slice(-6)}
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-[#EADFD5]/80">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-[#A3A3A3]/80">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#E28C38]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#C66500]" />
                       <span className="font-semibold text-white">{lead.destination || 'Flexible Destination'}</span>
                       {lead.tripType && <span>• {lead.tripType}</span>}
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-[#EADFD5]/60">
+                    <div className="flex items-center gap-1.5 text-[#A3A3A3]/60">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>{new Date(lead.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                     </div>
 
                     <div className="flex items-center gap-1.5">
                       <Phone className="w-3.5 h-3.5 text-neutral-400" />
-                      <a href={`tel:${lead.phone}`} className="hover:text-[#E28C38] transition-colors">{lead.phone}</a>
+                      <a href={`tel:${lead.phone}`} className="hover:text-[#C66500] transition-colors">{lead.phone}</a>
                     </div>
 
                     <div className="flex items-center gap-1.5">
                       <Mail className="w-3.5 h-3.5 text-neutral-400" />
-                      <a href={`mailto:${lead.email}`} className="hover:text-[#E28C38] transition-colors">{lead.email}</a>
+                      <a href={`mailto:${lead.email}`} className="hover:text-[#C66500] transition-colors">{lead.email}</a>
                     </div>
                   </div>
 
                   {lead.message && (
-                    <p className="text-xs text-[#EADFD5]/70 italic bg-[#201109] p-2.5 rounded-lg border border-[#3D2315] mt-2">
+                    <p className="text-xs text-[#A3A3A3]/70 italic bg-[#0A0A0A] p-2.5 rounded-lg border border-[#262626] mt-2">
                       "{lead.message}"
                     </p>
                   )}
                 </div>
 
                 {/* Status Switcher & Contact Actions */}
-                <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[#3D2315]">
+                <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[#262626]">
                   <select
                     value={lead.status}
                     onChange={(e) => handleUpdateStatus(lead.id, e.target.value as any)}
-                    className="px-3 py-2 bg-[#2A1810] border border-[#3D2315] text-xs font-bold text-white rounded-xl outline-none focus:border-[#C87428]"
+                    className="px-3 py-2 bg-[#181818] border border-[#262626] text-xs font-bold text-white rounded-xl outline-none focus:border-[#E37500]"
                   >
                     <option value="new">Status: New</option>
                     <option value="contacted">Status: Contacted</option>
@@ -272,7 +272,7 @@ export const InquiriesManager: React.FC = () => {
                   {/* Direct Email Action */}
                   <a
                     href={`mailto:${lead.email}?subject=Personalized%20Journey%20Plan%20-%20My%20Kind%20of%20Travel`}
-                    className="px-3 py-2 rounded-xl bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] border border-[#3D2315] text-xs font-bold flex items-center gap-1.5 transition-all"
+                    className="px-3 py-2 rounded-xl bg-[#181818] hover:bg-[#262626] text-[#A3A3A3] border border-[#262626] text-xs font-bold flex items-center gap-1.5 transition-all"
                     title="Send Email"
                   >
                     <Mail className="w-3.5 h-3.5" />
@@ -282,7 +282,7 @@ export const InquiriesManager: React.FC = () => {
                   {/* Delete Lead */}
                   <button
                     onClick={() => handleDeleteLead(lead.id)}
-                    className="p-2 rounded-xl bg-[#2A1810]/40 hover:bg-[#E37500]/20 text-[#8C7667] hover:text-[#E37500] border border-[#3D2315] transition-all"
+                    className="p-2 rounded-xl bg-[#181818]/40 hover:bg-[#E37500]/20 text-[#A3A3A3] hover:text-[#E37500] border border-[#262626] transition-all"
                     title="Delete Inquiry"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

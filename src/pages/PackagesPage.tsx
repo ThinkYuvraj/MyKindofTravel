@@ -74,7 +74,7 @@ export default function PackagesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-300">
       <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
@@ -82,28 +82,28 @@ export default function PackagesPage() {
           
           {/* Header */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
               <Ticket className="w-3.5 h-3.5" />
               <span>Proven Luxury Itineraries</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
               Curated <span className="italic font-serif text-[#E37500] font-normal">Travel Packages</span>
             </h1>
-            <p className="text-sm sm:text-base text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
               Every package is an insider blueprint crafted with private transfers, boutique 5-star suites, and handpicked local moments. Fully flexible to your dates and preferences.
             </p>
           </div>
 
           {/* Search & Filter Controls */}
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-white dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 shadow-xs">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200 dark:border-white/10 shadow-xs">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7667]" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search packages (e.g. Swiss Glacier, Maldives Lagoon, Paris Chic)..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm text-[#24130A] dark:text-white placeholder-[#8C7667] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#E37500]"
               />
             </div>
 
@@ -157,7 +157,7 @@ export default function PackagesPage() {
                 return (
                   <div
                     key={pkg.id}
-                    className="group rounded-3xl overflow-hidden bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
                   >
                     {/* Image Header */}
                     <div>
@@ -168,7 +168,7 @@ export default function PackagesPage() {
                           containerClassName="w-full h-full"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0706]/90 via-[#0A0706]/20 to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
                         {/* Top Badges */}
                         <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-end gap-2 z-10">
@@ -191,7 +191,7 @@ export default function PackagesPage() {
                         </div>
 
                         {/* Bottom Tag */}
-                        <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-xs text-[#FAF7F2] font-medium z-10">
+                        <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-xs text-white font-medium z-10">
                           <Plane className="w-3.5 h-3.5 text-[#E37500] -rotate-45" />
                           <span>{pkg.destination}</span>
                         </div>
@@ -203,17 +203,17 @@ export default function PackagesPage() {
                           <Clock className="w-3.5 h-3.5" />
                           <span>{pkg.duration}</span>
                         </div>
-                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#24130A] dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
+                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
                           {pkg.title}
                         </h3>
-                        <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] font-normal leading-relaxed line-clamp-2">
+                        <p className="text-xs text-neutral-600 dark:text-neutral-300 font-normal leading-relaxed line-clamp-2">
                           {pkg.subtitle}
                         </p>
 
                         {/* Features Bullet List */}
-                        <div className="space-y-2 pt-3 border-t border-[#E8DFD5] dark:border-white/10">
+                        <div className="space-y-2 pt-3 border-t border-neutral-200 dark:border-white/10">
                           {pkg.features.slice(0, 3).map((feat, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-[#594336] dark:text-[#C5B7AC]">
+                            <div key={idx} className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300">
                               <div className="w-4 h-4 rounded-full bg-[#E37500]/15 dark:bg-[#E37500]/25 flex items-center justify-center shrink-0">
                                 <Check className="w-2.5 h-2.5 text-[#E37500] stroke-[3]" />
                               </div>
@@ -224,8 +224,8 @@ export default function PackagesPage() {
 
                         {/* Pricing */}
                         <div className="pt-2">
-                          <span className="text-[11px] text-[#8C7667] dark:text-[#A7978A] block font-medium">Starting from</span>
-                          <span className="text-xl sm:text-2xl font-bold font-serif text-[#24130A] dark:text-white tracking-tight">
+                          <span className="text-[11px] text-neutral-400 dark:text-neutral-400 block font-medium">Starting from</span>
+                          <span className="text-xl sm:text-2xl font-bold font-serif text-neutral-900 dark:text-white tracking-tight">
                             {pkg.startingPrice}
                           </span>
                         </div>
@@ -233,10 +233,10 @@ export default function PackagesPage() {
                     </div>
 
                     {/* Actions */}
-                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-[#E8DFD5] dark:border-white/10 flex items-center gap-3">
+                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
                       <button
                         onClick={() => setSelectedPackage(pkg)}
-                        className="flex-1 py-2.5 rounded-full bg-white dark:bg-[#141414] hover:bg-[#FAF7F2] text-[#24130A] dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-[#E8DFD5] dark:border-white/20 shadow-xs"
+                        className="flex-1 py-2.5 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-neutral-200 dark:border-white/20 shadow-xs"
                       >
                         <Eye className="w-3.5 h-3.5 text-[#E37500]" />
                         <span>Itinerary</span>
@@ -255,10 +255,10 @@ export default function PackagesPage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white dark:bg-[#0E0E0E] rounded-3xl border border-[#E8DFD5] dark:border-white/10 p-8">
-              <Compass className="w-10 h-10 text-[#8C7667] mx-auto mb-3" />
-              <h3 className="font-serif text-lg font-bold">No packages match your search</h3>
-              <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] mt-1 mb-4">
+            <div className="text-center py-20 bg-neutral-50 dark:bg-neutral-900/60 rounded-3xl border border-neutral-200 dark:border-white/10 p-8">
+              <Compass className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
+              <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white">No packages match your search</h3>
+              <p className="text-xs text-neutral-600 dark:text-neutral-300 mt-1 mb-4">
                 Try resetting your filters or search keywords.
               </p>
               <button

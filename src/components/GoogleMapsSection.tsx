@@ -265,7 +265,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                     </div>
 
                     <div>
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 dark:text-[#C5B7AC] block mb-1">
+                      <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 block mb-1">
                         Destination
                       </label>
                       <input
@@ -303,17 +303,17 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#E37500]" />
                           <span>Traffic-Aware Route</span>
                         </span>
-                        <span className="text-[10px] text-neutral-500 dark:text-[#A7978A]">Google Routes API</span>
+                        <span className="text-[10px] text-neutral-500 dark:text-neutral-400">Google Routes API</span>
                       </div>
                       <div className="grid grid-cols-2 gap-2 pt-1 text-xs">
-                        <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-[#2E221B]">
-                          <span className="text-[10px] text-neutral-500 dark:text-[#A7978A] block">Duration</span>
+                        <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800">
+                          <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Duration</span>
                           <span className="font-serif text-base font-bold text-[#E37500]">
                             {formatMins(routeData.duration)}
                           </span>
                         </div>
-                        <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-[#2E221B]">
-                          <span className="text-[10px] text-neutral-500 dark:text-[#A7978A] block">Distance</span>
+                        <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800">
+                          <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block">Distance</span>
                           <span className="font-serif text-base font-bold text-neutral-900 dark:text-white">
                             {(routeData.distanceMeters / 1000).toFixed(1)} km
                           </span>
@@ -324,7 +324,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
 
                   {/* Preset quick routes */}
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-500 dark:text-[#A7978A] block mb-1.5">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-500 dark:text-neutral-400 block mb-1.5">
                       Popular European Luxury Corridors
                     </span>
                     <div className="flex flex-wrap gap-1.5">
@@ -352,7 +352,7 @@ export const GoogleMapsSection: React.FC<GoogleMapsSectionProps> = ({ onOpenAgen
               ) : (
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 dark:text-[#C5B7AC] block">
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 block">
                       Search Luxury Establishments
                     </label>
                     <div className="flex gap-2">

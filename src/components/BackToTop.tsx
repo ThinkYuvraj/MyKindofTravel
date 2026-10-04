@@ -112,7 +112,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
           }, inactivityDelayMs);
         }}
         aria-label="Back to top"
-        className="group relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 dark:bg-[#1C120C]/90 text-[#E37500] hover:text-white dark:hover:text-white hover:bg-[#E37500] dark:hover:bg-[#E37500] backdrop-blur-xl border border-[#DFD0C0] dark:border-white/15 shadow-[0_8px_25px_rgba(42,24,16,0.18)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5)] transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E37500]"
+        className="group relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 dark:bg-neutral-900/90 text-[#E37500] hover:text-white dark:hover:text-white hover:bg-[#E37500] dark:hover:bg-[#E37500] backdrop-blur-xl border border-neutral-200 dark:border-white/15 shadow-lg shadow-black/10 dark:shadow-black/50 transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E37500]"
       >
         {/* Subtle circular SVG progress meter */}
         <svg
@@ -123,7 +123,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
             cx="24"
             cy="24"
             r="21"
-            className="stroke-[#EADFD5]/50 dark:stroke-white/10 fill-none"
+            className="stroke-neutral-200/80 dark:stroke-white/10 fill-none"
             strokeWidth="2.5"
           />
           <circle
@@ -142,7 +142,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
         <ArrowUp className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5 relative z-10 stroke-[2.5]" />
 
         {/* Tooltip on hover */}
-        <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-[#2A1810] text-[#FAF7F4] text-[11px] font-bold tracking-wider uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-md border border-white/10 hidden sm:block">
+        <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-[11px] font-bold tracking-wider uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-md border border-white/10 hidden sm:block">
           Back to Top
         </span>
       </button>

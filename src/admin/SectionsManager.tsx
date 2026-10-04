@@ -602,16 +602,16 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
   return (
     <div className="p-6 sm:p-8 space-y-8">
       {/* Top Banner & Title */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#3D2315]">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#262626]">
         <div>
-          <div className="flex items-center gap-2 text-[#C87428] font-bold text-xs uppercase tracking-widest mb-1.5">
+          <div className="flex items-center gap-2 text-[#E37500] font-bold text-xs uppercase tracking-widest mb-1.5">
             <Layers className="w-4 h-4" />
             <span>Modular Page Builder</span>
           </div>
           <h3 className="text-2xl font-serif font-bold text-white tracking-tight">
             Homepage Sections Manager
           </h3>
-          <p className="text-sm text-[#EADFD5]/70 mt-1.5 max-w-2xl">
+          <p className="text-sm text-[#A3A3A3]/70 mt-1.5 max-w-2xl">
             Fully control every section on your live homepage. Reorder sections, toggle visibility,
             customize section headings, badges, and subtitles, or create dynamic custom layouts.
           </p>
@@ -620,7 +620,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={handleStartCreateCustom}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#C87428]/25 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#E37500]/25 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Create Custom Section</span>
@@ -629,21 +629,21 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-3 bg-[#1A0E08] border border-[#3D2315] rounded-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-3 bg-[#121212] border border-[#262626] rounded-xl">
         {/* Search */}
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#EADFD5]/40" />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#A3A3A3]/40" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search sections by name or keyword..."
-            className="w-full pl-9 pr-3.5 py-2 bg-[#2A1810] border border-[#3D2315] rounded-lg text-xs text-white placeholder-[#EADFD5]/40 outline-none focus:border-[#C87428]"
+            className="w-full pl-9 pr-3.5 py-2 bg-[#181818] border border-[#262626] rounded-lg text-xs text-white placeholder-[#A3A3A3]/40 outline-none focus:border-[#E37500]"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-[#EADFD5]/50 hover:text-white"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-[#A3A3A3]/50 hover:text-white"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -663,8 +663,8 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
               onClick={() => setFilterType(tab.id as any)}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
                 filterType === tab.id
-                  ? 'bg-[#C87428] text-white shadow-xs'
-                  : 'bg-[#2A1810] text-[#EADFD5]/70 hover:text-white hover:bg-[#3D2315]'
+                  ? 'bg-[#E37500] text-white shadow-xs'
+                  : 'bg-[#181818] text-[#A3A3A3]/70 hover:text-white hover:bg-[#262626]'
               }`}
             >
               {tab.label}
@@ -676,8 +676,8 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
       {/* Sections List */}
       <div className="space-y-3">
         {filteredOrder.length === 0 ? (
-          <div className="p-8 text-center bg-[#1A0E08]/60 border border-[#3D2315] rounded-xl text-[#EADFD5]/60">
-            <SlidersHorizontal className="w-8 h-8 text-[#C87428] mx-auto mb-2 opacity-50" />
+          <div className="p-8 text-center bg-[#121212]/60 border border-[#262626] rounded-xl text-[#A3A3A3]/60">
+            <SlidersHorizontal className="w-8 h-8 text-[#E37500] mx-auto mb-2 opacity-50" />
             <p className="text-sm font-medium">No sections found matching your query.</p>
           </div>
         ) : (
@@ -706,8 +706,8 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 key={key}
                 className={`p-4 rounded-xl border transition-all ${
                   isVisible
-                    ? 'bg-[#1A0E08]/90 border-[#3D2315] hover:border-[#C87428]/40 shadow-xs'
-                    : 'bg-[#140B06]/50 border-white/5 opacity-60'
+                    ? 'bg-[#121212]/90 border-[#262626] hover:border-[#E37500]/40 shadow-xs'
+                    : 'bg-[#121212]/50 border-white/5 opacity-60'
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -715,14 +715,14 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
                     {/* Position index badge */}
                     <div className="flex flex-col items-center justify-center shrink-0">
-                      <span className="w-8 h-8 rounded-lg bg-[#2A1810] text-[#C87428] border border-[#3D2315] text-xs font-mono font-bold flex items-center justify-center shadow-inner">
+                      <span className="w-8 h-8 rounded-lg bg-[#181818] text-[#E37500] border border-[#262626] text-xs font-mono font-bold flex items-center justify-center shadow-inner">
                         {actualIndex + 1}
                       </span>
                     </div>
 
                     {/* Section Thumbnail Preview */}
                     {previewImg ? (
-                      <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 border border-[#3D2315] shadow-xs group/thumb">
+                      <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 border border-[#262626] shadow-xs group/thumb">
                         <img
                           src={previewImg}
                           alt="Section photo preview"
@@ -734,7 +734,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         </span>
                       </div>
                     ) : (
-                      <div className="w-11 h-11 rounded-xl bg-[#2A1810] border border-[#3D2315]/80 text-[#EADFD5]/30 flex items-center justify-center shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-[#181818] border border-[#262626]/80 text-[#A3A3A3]/30 flex items-center justify-center shrink-0">
                         <ImageIcon className="w-4 h-4" />
                       </div>
                     )}
@@ -747,7 +747,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         </span>
 
                         {displayBadge && (
-                          <span className="px-2 py-0.5 rounded-full bg-[#C87428]/15 text-[#E28C38] border border-[#C87428]/30 text-[10px] uppercase tracking-wider font-bold">
+                          <span className="px-2 py-0.5 rounded-full bg-[#E37500]/15 text-[#C66500] border border-[#E37500]/30 text-[10px] uppercase tracking-wider font-bold">
                             {displayBadge}
                           </span>
                         )}
@@ -757,7 +757,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                             Custom Section
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 rounded-full bg-white/5 text-[#EADFD5]/60 border border-white/10 text-[10px] uppercase tracking-wider font-medium">
+                          <span className="px-2 py-0.5 rounded-full bg-white/5 text-[#A3A3A3]/60 border border-white/10 text-[10px] uppercase tracking-wider font-medium">
                             Built-in
                           </span>
                         )}
@@ -768,14 +768,14 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                             Live on Site
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#EADFD5]/40">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#EADFD5]/30" />
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#A3A3A3]/40">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#A3A3A3]/30" />
                             Hidden
                           </span>
                         )}
                       </div>
 
-                      <p className="text-xs text-[#EADFD5]/60 truncate mt-1">
+                      <p className="text-xs text-[#A3A3A3]/60 truncate mt-1">
                         {displayDesc}
                       </p>
                     </div>
@@ -788,7 +788,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       onClick={() => moveUp(actualIndex)}
                       disabled={actualIndex === 0}
                       title="Move section up"
-                      className="p-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] disabled:opacity-20 disabled:pointer-events-none text-[#EADFD5] transition-colors border border-transparent hover:border-[#3D2315]"
+                      className="p-2 rounded-lg bg-[#181818] hover:bg-[#262626] disabled:opacity-20 disabled:pointer-events-none text-[#A3A3A3] transition-colors border border-transparent hover:border-[#262626]"
                     >
                       <ArrowUp className="w-4 h-4" />
                     </button>
@@ -798,7 +798,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       onClick={() => moveDown(actualIndex)}
                       disabled={actualIndex === sectionOrder.length - 1}
                       title="Move section down"
-                      className="p-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] disabled:opacity-20 disabled:pointer-events-none text-[#EADFD5] transition-colors border border-transparent hover:border-[#3D2315]"
+                      className="p-2 rounded-lg bg-[#181818] hover:bg-[#262626] disabled:opacity-20 disabled:pointer-events-none text-[#A3A3A3] transition-colors border border-transparent hover:border-[#262626]"
                     >
                       <ArrowDown className="w-4 h-4" />
                     </button>
@@ -809,7 +809,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       title={isVisible ? 'Hide this section from live homepage' : 'Show this section on live homepage'}
                       className={`p-2 rounded-lg transition-colors border ${
                         isVisible
-                          ? 'bg-[#C87428]/20 border-[#C87428]/40 text-[#E28C38] hover:bg-[#C87428]/30'
+                          ? 'bg-[#E37500]/20 border-[#E37500]/40 text-[#C66500] hover:bg-[#E37500]/30'
                           : 'bg-white/5 border-white/10 text-neutral-500 hover:text-neutral-300'
                       }`}
                     >
@@ -827,9 +827,9 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         }
                       }}
                       title="Change, upload, or preview imagery for this section"
-                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#FAF7F4] hover:text-[#E28C38] border border-[#3D2315] hover:border-[#C87428]/50 text-xs font-bold transition-all shadow-xs"
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#181818] hover:bg-[#262626] text-[#FFFFFF] hover:text-[#C66500] border border-[#262626] hover:border-[#E37500]/50 text-xs font-bold transition-all shadow-xs"
                     >
-                      <Camera className="w-3.5 h-3.5 text-[#C87428]" />
+                      <Camera className="w-3.5 h-3.5 text-[#E37500]" />
                       <span className="hidden sm:inline">Change Image</span>
                       <span className="sm:hidden">Photo</span>
                     </button>
@@ -845,7 +845,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         }
                       }}
                       title="Update section content, titles & details"
-                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#C87428]/20 hover:bg-[#C87428]/35 text-[#E28C38] border border-[#C87428]/50 text-xs font-bold transition-all shadow-xs"
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#E37500]/20 hover:bg-[#E37500]/35 text-[#C66500] border border-[#E37500]/50 text-xs font-bold transition-all shadow-xs"
                     >
                       <Edit3 className="w-3.5 h-3.5" />
                       <span>Edit Content</span>
@@ -856,7 +856,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       <button
                         onClick={() => handleDeleteCustomSection(key)}
                         title="Delete custom section"
-                        className="p-2 rounded-lg bg-[#24130A] hover:bg-[#E37500]/20 text-[#8C7667] hover:text-[#E37500] border border-[#3D2315] transition-colors"
+                        className="p-2 rounded-lg bg-[#121212] hover:bg-[#E37500]/20 text-[#A3A3A3] hover:text-[#E37500] border border-[#262626] transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -872,18 +872,18 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
       {/* ── MODAL 1: Built-in Section Content & Sub-editor ──────────────── */}
       {editingBuiltInKey && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-          <div className="w-full max-w-3xl bg-[#201109] border border-[#3D2315] rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-3xl bg-[#0A0A0A] border border-[#262626] rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-[#3D2315]">
+            <div className="flex items-center justify-between pb-4 border-b border-[#262626]">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#C87428]/20 text-[#E28C38] border border-[#C87428]/40 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-[#E37500]/20 text-[#C66500] border border-[#E37500]/40 flex items-center justify-center">
                   <Edit3 className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="text-lg font-serif font-bold text-white">
                     Update Section: {BUILT_IN_SECTIONS[editingBuiltInKey]?.label || editingBuiltInKey}
                   </h3>
-                  <p className="text-xs text-[#EADFD5]/60">
+                  <p className="text-xs text-[#A3A3A3]/60">
                     Customize titles, badges, subtitles, and internal content.
                   </p>
                 </div>
@@ -894,15 +894,15 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   type="button"
                   onClick={() => handleResetBuiltInToDefault(editingBuiltInKey)}
                   title="Reset to original default texts"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-xs text-[#EADFD5]/70 hover:text-white border border-[#3D2315] transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#181818] hover:bg-[#262626] text-xs text-[#A3A3A3]/70 hover:text-white border border-[#262626] transition-colors"
                 >
-                  <RotateCcw className="w-3.5 h-3.5 text-[#C87428]" />
+                  <RotateCcw className="w-3.5 h-3.5 text-[#E37500]" />
                   <span>Reset Default</span>
                 </button>
 
                 <button
                   onClick={() => setEditingBuiltInKey(null)}
-                  className="p-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5]"
+                  className="p-1.5 rounded-lg bg-[#181818] hover:bg-[#262626] text-[#A3A3A3]"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -910,14 +910,14 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             </div>
 
             {/* Modal Tab Switcher */}
-            <div className="flex items-center gap-2 border-b border-[#3D2315] pb-3">
+            <div className="flex items-center gap-2 border-b border-[#262626] pb-3">
               <button
                 type="button"
                 onClick={() => setModalTab('content')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                   modalTab === 'content'
-                    ? 'bg-[#C87428] text-white shadow-md shadow-[#C87428]/20'
-                    : 'bg-[#2A1810] text-[#EADFD5]/70 hover:text-white border border-[#3D2315]'
+                    ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/20'
+                    : 'bg-[#181818] text-[#A3A3A3]/70 hover:text-white border border-[#262626]'
                 }`}
               >
                 <Edit3 className="w-3.5 h-3.5" />
@@ -929,8 +929,8 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 onClick={() => setModalTab('images')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all relative ${
                   modalTab === 'images'
-                    ? 'bg-[#C87428] text-white shadow-md shadow-[#C87428]/20'
-                    : 'bg-[#2A1810] text-[#EADFD5]/70 hover:text-white border border-[#3D2315]'
+                    ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/20'
+                    : 'bg-[#181818] text-[#A3A3A3]/70 hover:text-white border border-[#262626]'
                 }`}
               >
                 <Camera className="w-3.5 h-3.5" />
@@ -946,8 +946,8 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
               <div className="space-y-6">
                 {/* Quick jump to dedicated manager if available */}
             {BUILT_IN_SECTIONS[editingBuiltInKey]?.dedicatedTab && onNavigateTab && (
-              <div className="p-3.5 rounded-xl bg-[#C87428]/10 border border-[#C87428]/30 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2.5 text-xs text-[#E28C38]">
+              <div className="p-3.5 rounded-xl bg-[#E37500]/10 border border-[#E37500]/30 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2.5 text-xs text-[#C66500]">
                   <Compass className="w-4 h-4 shrink-0" />
                   <span>
                     Need to add or modify individual items (images, cards, prices)?
@@ -960,7 +960,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                     setEditingBuiltInKey(null);
                     if (targetTab) onNavigateTab(targetTab);
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold shrink-0 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold shrink-0 transition-colors"
                 >
                   <span>{BUILT_IN_SECTIONS[editingBuiltInKey]?.tabLabel || 'Open Dedicated Tab'}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -971,7 +971,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             {/* General Header Inputs */}
             <div className="space-y-4">
               <div>
-                <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+                <label className="block text-xs uppercase tracking-wider font-bold text-[#A3A3A3] mb-1.5">
                   Section Badge / Tagline Eyebrow
                 </label>
                 <input
@@ -979,15 +979,15 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   value={builtInForm.badge || ''}
                   onChange={(e) => setBuiltInForm({ ...builtInForm, badge: e.target.value })}
                   placeholder="e.g. Handpicked Guides & Journeys"
-                  className="w-full px-3.5 py-2.5 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428] transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500] transition-colors"
                 />
-                <p className="text-[11px] text-[#EADFD5]/50 mt-1">
+                <p className="text-[11px] text-[#A3A3A3]/50 mt-1">
                   Small pill tag displayed directly above the section headline.
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+                <label className="block text-xs uppercase tracking-wider font-bold text-[#A3A3A3] mb-1.5">
                   Main Section Headline / Title
                 </label>
                 <input
@@ -995,12 +995,12 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   value={builtInForm.title || ''}
                   onChange={(e) => setBuiltInForm({ ...builtInForm, title: e.target.value })}
                   placeholder="e.g. Featured Destinations"
-                  className="w-full px-3.5 py-2.5 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm font-semibold outline-none focus:border-[#C87428] transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm font-semibold outline-none focus:border-[#E37500] transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-1.5">
+                <label className="block text-xs uppercase tracking-wider font-bold text-[#A3A3A3] mb-1.5">
                   Section Subtitle / Narrative Description
                 </label>
                 <textarea
@@ -1008,18 +1008,18 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   value={builtInForm.subtitle || ''}
                   onChange={(e) => setBuiltInForm({ ...builtInForm, subtitle: e.target.value })}
                   placeholder="Introductory text providing context for discerning travellers"
-                  className="w-full px-3.5 py-2.5 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428] transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500] transition-colors"
                 />
               </div>
             </div>
 
             {/* Special Sub-Editor: How It Works Steps */}
             {editingBuiltInKey === 'howItWorks' && (
-              <div className="space-y-4 pt-4 border-t border-[#3D2315]">
+              <div className="space-y-4 pt-4 border-t border-[#262626]">
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="text-sm font-bold text-white">Interactive Planning Steps ({localSteps.length})</h4>
-                    <p className="text-xs text-[#EADFD5]/60">Customize the step titles and descriptions.</p>
+                    <p className="text-xs text-[#A3A3A3]/60">Customize the step titles and descriptions.</p>
                   </div>
                   <button
                     type="button"
@@ -1035,7 +1035,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         },
                       ]);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3D2315] hover:bg-[#4A2D1B] text-xs font-bold text-white transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#262626] hover:bg-[#333333] text-xs font-bold text-white transition-colors"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Add Step</span>
@@ -1046,10 +1046,10 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   {localSteps.map((s, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3 relative"
+                      className="p-4 rounded-xl bg-[#121212] border border-[#262626] space-y-3 relative"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono font-bold text-[#C87428]">
+                        <span className="text-xs font-mono font-bold text-[#E37500]">
                           Step #{idx + 1}
                         </span>
                         {localSteps.length > 1 && (
@@ -1066,7 +1066,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                          <label className="block text-[10px] uppercase font-bold text-[#A3A3A3]/70 mb-1">
                             Step Badge
                           </label>
                           <input
@@ -1077,11 +1077,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                               updated[idx] = { ...updated[idx], badge: e.target.value };
                               setLocalSteps(updated);
                             }}
-                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                            className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                          <label className="block text-[10px] uppercase font-bold text-[#A3A3A3]/70 mb-1">
                             Step Title
                           </label>
                           <input
@@ -1092,11 +1092,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                               updated[idx] = { ...updated[idx], title: e.target.value };
                               setLocalSteps(updated);
                             }}
-                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                            className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                           />
                         </div>
                         <div className="sm:col-span-2">
-                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                          <label className="block text-[10px] uppercase font-bold text-[#A3A3A3]/70 mb-1">
                             Step Description
                           </label>
                           <textarea
@@ -1107,7 +1107,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                               updated[idx] = { ...updated[idx], description: e.target.value };
                               setLocalSteps(updated);
                             }}
-                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                            className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                           />
                         </div>
                       </div>
@@ -1119,11 +1119,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
 
             {/* Special Sub-Editor: Why Us Pillars */}
             {editingBuiltInKey === 'whyUs' && (
-              <div className="space-y-4 pt-4 border-t border-[#3D2315]">
+              <div className="space-y-4 pt-4 border-t border-[#262626]">
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="text-sm font-bold text-white">Service Pillars & Trust Guarantees ({localPillars.length})</h4>
-                    <p className="text-xs text-[#EADFD5]/60">Customize your key client promises and stats.</p>
+                    <p className="text-xs text-[#A3A3A3]/60">Customize your key client promises and stats.</p>
                   </div>
                   <button
                     type="button"
@@ -1137,7 +1137,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         },
                       ]);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3D2315] hover:bg-[#4A2D1B] text-xs font-bold text-white transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#262626] hover:bg-[#333333] text-xs font-bold text-white transition-colors"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Add Pillar</span>
@@ -1148,10 +1148,10 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                   {localPillars.map((p, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3 relative"
+                      className="p-4 rounded-xl bg-[#121212] border border-[#262626] space-y-3 relative"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono font-bold text-[#C87428]">
+                        <span className="text-xs font-mono font-bold text-[#E37500]">
                           Pillar #{idx + 1}
                         </span>
                         {localPillars.length > 1 && (
@@ -1168,7 +1168,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                          <label className="block text-[10px] uppercase font-bold text-[#A3A3A3]/70 mb-1">
                             Pillar Title
                           </label>
                           <input
@@ -1179,11 +1179,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                               updated[idx] = { ...updated[idx], title: e.target.value };
                               setLocalPillars(updated);
                             }}
-                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                            className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                          <label className="block text-[10px] uppercase font-bold text-[#A3A3A3]/70 mb-1">
                             Stat Badge (e.g. 100% Bespoke, &lt;5 Min Response)
                           </label>
                           <input
@@ -1194,11 +1194,11 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                               updated[idx] = { ...updated[idx], stat: e.target.value };
                               setLocalPillars(updated);
                             }}
-                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                            className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                           />
                         </div>
                         <div className="sm:col-span-2">
-                          <label className="block text-[10px] uppercase font-bold text-[#EADFD5]/70 mb-1">
+                          <label className="block text-[10px] uppercase font-bold text-[#A3A3A3]/70 mb-1">
                             Pillar Description
                           </label>
                           <textarea
@@ -1209,7 +1209,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                               updated[idx] = { ...updated[idx], description: e.target.value };
                               setLocalPillars(updated);
                             }}
-                            className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                            className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                           />
                         </div>
                       </div>
@@ -1224,10 +1224,10 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             {/* TAB 2: Images & Photography */}
             {modalTab === 'images' && (
               <div className="space-y-6">
-                <div className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-2">
+                <div className="p-4 rounded-xl bg-[#121212] border border-[#262626] space-y-2">
                   <div className="flex items-center justify-between">
                     <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                      <Camera className="w-4 h-4 text-[#C87428]" />
+                      <Camera className="w-4 h-4 text-[#E37500]" />
                       <span>
                         {SECTION_IMAGE_CONFIG[editingBuiltInKey]?.title || 'Section Visual & Photography'}
                       </span>
@@ -1238,7 +1238,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-[#EADFD5]/60">
+                  <p className="text-xs text-[#A3A3A3]/60">
                     {SECTION_IMAGE_CONFIG[editingBuiltInKey]?.description ||
                       'Customize the imagery, photography, or backdrop banner for this section.'}
                   </p>
@@ -1265,13 +1265,13 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
 
                 {/* Special Experiences 6 Themes Sub-editor */}
                 {editingBuiltInKey === 'experiences' && localExperiencePillars.length > 0 && (
-                  <div className="space-y-4 pt-6 border-t border-[#3D2315]">
+                  <div className="space-y-4 pt-6 border-t border-[#262626]">
                     <div>
                       <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-[#C87428]" />
+                        <Sparkles className="w-4 h-4 text-[#E37500]" />
                         <span>Individual Experience Theme Photography (6 Themes)</span>
                       </h4>
-                      <p className="text-xs text-[#EADFD5]/60 mt-0.5">
+                      <p className="text-xs text-[#A3A3A3]/60 mt-0.5">
                         Change the photograph for each of the 6 core experience cards on the homepage.
                       </p>
                     </div>
@@ -1279,13 +1279,13 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       {localExperiencePillars.map((pillar, pIdx) => (
                         <div
                           key={pillar.number || pIdx}
-                          className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3"
+                          className="p-4 rounded-xl bg-[#121212] border border-[#262626] space-y-3"
                         >
                           <div className="flex items-center justify-between">
                             <span className="text-xs font-bold text-white font-serif">
                               {pillar.number}. {pillar.title}
                             </span>
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#C87428] px-2 py-0.5 rounded-full bg-[#C87428]/10 border border-[#C87428]/20">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#E37500] px-2 py-0.5 rounded-full bg-[#E37500]/10 border border-[#E37500]/20">
                               {pillar.typeKey}
                             </span>
                           </div>
@@ -1309,10 +1309,10 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
 
                 {/* Direct link to dedicated manager if available */}
                 {BUILT_IN_SECTIONS[editingBuiltInKey]?.dedicatedTab && onNavigateTab && (
-                  <div className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="p-4 rounded-xl bg-[#121212] border border-[#262626] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
                       <h5 className="text-xs font-bold text-white">Need to manage individual item photos?</h5>
-                      <p className="text-[11px] text-[#EADFD5]/60">
+                      <p className="text-[11px] text-[#A3A3A3]/60">
                         Open the dedicated manager to configure every single destination card, package itinerary, or gallery photo.
                       </p>
                     </div>
@@ -1323,7 +1323,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         setEditingBuiltInKey(null);
                         if (targetTab) onNavigateTab(targetTab);
                       }}
-                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold shrink-0 transition-colors"
+                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold shrink-0 transition-colors"
                     >
                       <span>{BUILT_IN_SECTIONS[editingBuiltInKey]?.tabLabel || 'Open Dedicated Tab'}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -1334,18 +1334,18 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             )}
 
             {/* Modal Bottom Controls */}
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#3D2315]">
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#262626]">
               <button
                 type="button"
                 onClick={() => setEditingBuiltInKey(null)}
-                className="px-5 py-2.5 rounded-xl bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-xs font-bold uppercase tracking-wider transition-colors"
+                className="px-5 py-2.5 rounded-xl bg-[#181818] hover:bg-[#262626] text-[#A3A3A3] text-xs font-bold uppercase tracking-wider transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSaveBuiltInEditor}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#C87428]/25 transition-all"
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#E37500]/25 transition-all"
               >
                 <Check className="w-4 h-4 stroke-[2.5]" />
                 <span>Save Section Content</span>
@@ -1358,20 +1358,20 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
       {/* ── MODAL 2: Custom Section Editor ──────────────────────────────── */}
       {editingCustomSection && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-          <div className="w-full max-w-3xl bg-[#201109] border border-[#3D2315] rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-4 border-b border-[#3D2315]">
+          <div className="w-full max-w-3xl bg-[#0A0A0A] border border-[#262626] rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-4 border-b border-[#262626]">
               <div className="flex items-center gap-2.5">
-                <Sparkles className="w-5 h-5 text-[#C87428]" />
+                <Sparkles className="w-5 h-5 text-[#E37500]" />
                 <div>
                   <h3 className="text-lg font-serif font-bold text-white">
                     {isCreatingCustom ? 'Create New Custom Section' : 'Edit Custom Section'}
                   </h3>
-                  <p className="text-xs text-[#EADFD5]/60">Design a bespoke layout with custom media and cards.</p>
+                  <p className="text-xs text-[#A3A3A3]/60">Design a bespoke layout with custom media and cards.</p>
                 </div>
               </div>
               <button
                 onClick={() => setEditingCustomSection(null)}
-                className="p-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5]"
+                className="p-1.5 rounded-lg bg-[#181818] hover:bg-[#262626] text-[#A3A3A3]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1379,7 +1379,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
 
             {/* Layout Archetype */}
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#EADFD5] mb-2">
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#A3A3A3] mb-2">
                 Section Layout Style
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -1403,14 +1403,14 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       }
                       className={`p-3 rounded-xl border text-left flex flex-col justify-between transition-all ${
                         isSelected
-                          ? 'bg-[#C87428]/20 border-[#C87428] text-white shadow-md'
-                          : 'bg-[#1A0E08] border-[#3D2315] text-[#EADFD5]/70 hover:border-[#C87428]/40'
+                          ? 'bg-[#E37500]/20 border-[#E37500] text-white shadow-md'
+                          : 'bg-[#121212] border-[#262626] text-[#A3A3A3]/70 hover:border-[#E37500]/40'
                       }`}
                     >
-                      <Icon className={`w-5 h-5 mb-2 ${isSelected ? 'text-[#E28C38]' : 'text-neutral-400'}`} />
+                      <Icon className={`w-5 h-5 mb-2 ${isSelected ? 'text-[#C66500]' : 'text-neutral-400'}`} />
                       <div>
                         <div className="text-xs font-bold text-white">{type.name}</div>
-                        <div className="text-[10px] text-[#EADFD5]/60 mt-0.5">{type.desc}</div>
+                        <div className="text-[10px] text-[#A3A3A3]/60 mt-0.5">{type.desc}</div>
                       </div>
                     </button>
                   );
@@ -1421,7 +1421,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             {/* Section Metadata Inputs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#EADFD5] mb-1">Section Badge / Eyebrow</label>
+                <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Section Badge / Eyebrow</label>
                 <input
                   type="text"
                   value={editingCustomSection.badgeText || ''}
@@ -1429,12 +1429,12 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                     setEditingCustomSection({ ...editingCustomSection, badgeText: e.target.value })
                   }
                   placeholder="e.g. Limited Edition"
-                  className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                  className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#EADFD5] mb-1">Color Atmosphere</label>
+                <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Color Atmosphere</label>
                 <select
                   value={editingCustomSection.theme}
                   onChange={(e) =>
@@ -1443,7 +1443,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                       theme: e.target.value as any,
                     })
                   }
-                  className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                  className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
                 >
                   <option value="light">Crisp Light (Warm Cream & Linen)</option>
                   <option value="dark">Luxury Dark (Onyx Velvet)</option>
@@ -1452,7 +1452,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-[#EADFD5] mb-1">Section Heading Title</label>
+                <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Section Heading Title</label>
                 <input
                   type="text"
                   value={editingCustomSection.title}
@@ -1460,12 +1460,12 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                     setEditingCustomSection({ ...editingCustomSection, title: e.target.value })
                   }
                   placeholder="e.g. Private Island Retreats"
-                  className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                  className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-[#EADFD5] mb-1">Subtitle / Context</label>
+                <label className="block text-xs font-bold text-[#A3A3A3] mb-1">Subtitle / Context</label>
                 <textarea
                   rows={2}
                   value={editingCustomSection.subtitle}
@@ -1473,13 +1473,13 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                     setEditingCustomSection({ ...editingCustomSection, subtitle: e.target.value })
                   }
                   placeholder="Brief introductory description for the section"
-                  className="w-full px-3.5 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                  className="w-full px-3.5 py-2 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
                 />
               </div>
             </div>
 
             {/* Section Background Media */}
-            <div className="pt-2 border-t border-[#3D2315]">
+            <div className="pt-2 border-t border-[#262626]">
               <ImageUploadField
                 label="Section Background Photography (Optional Full-Width Backdrop)"
                 value={editingCustomSection.backgroundImage || ''}
@@ -1493,15 +1493,15 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             </div>
 
             {/* Section Items Manager */}
-            <div className="space-y-3 pt-2 border-t border-[#3D2315]">
+            <div className="space-y-3 pt-2 border-t border-[#262626]">
               <div className="flex items-center justify-between">
-                <label className="text-xs uppercase tracking-wider font-bold text-[#EADFD5]">
+                <label className="text-xs uppercase tracking-wider font-bold text-[#A3A3A3]">
                   Content Items ({editingCustomSection.items.length})
                 </label>
                 <button
                   type="button"
                   onClick={handleAddItemToEditing}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3D2315] hover:bg-[#4A2D1B] text-xs font-bold text-white transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#262626] hover:bg-[#333333] text-xs font-bold text-white transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Item</span>
@@ -1512,10 +1512,10 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                 {editingCustomSection.items.map((item, idx) => (
                   <div
                     key={item.id || idx}
-                    className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] space-y-3 relative"
+                    className="p-4 rounded-xl bg-[#121212] border border-[#262626] space-y-3 relative"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-[#C87428]">Item #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-[#E37500]">Item #{idx + 1}</span>
                       <button
                         type="button"
                         onClick={() => handleRemoveEditingItem(idx)}
@@ -1531,19 +1531,19 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         placeholder="Item Title / Question"
                         value={item.title}
                         onChange={(e) => handleUpdateEditingItem(idx, 'title', e.target.value)}
-                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                        className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                       />
                       <input
                         placeholder="Subtitle or Location (optional)"
                         value={item.subtitle || ''}
                         onChange={(e) => handleUpdateEditingItem(idx, 'subtitle', e.target.value)}
-                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                        className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                       />
                       <input
                         placeholder="Badge (e.g. Popular, Included)"
                         value={item.badge || ''}
                         onChange={(e) => handleUpdateEditingItem(idx, 'badge', e.target.value)}
-                        className="w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                        className="w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                       />
                       <div className="sm:col-span-2">
                         <ImageUploadField
@@ -1560,7 +1560,7 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
                         placeholder="Description or Answer text"
                         value={item.description}
                         onChange={(e) => handleUpdateEditingItem(idx, 'description', e.target.value)}
-                        className="sm:col-span-2 w-full px-3 py-1.5 bg-[#201109] border border-[#3D2315] rounded-lg text-xs text-white outline-none focus:border-[#C87428]"
+                        className="sm:col-span-2 w-full px-3 py-1.5 bg-[#0A0A0A] border border-[#262626] rounded-lg text-xs text-white outline-none focus:border-[#E37500]"
                       />
                     </div>
                   </div>
@@ -1569,18 +1569,18 @@ export const SectionsManager: React.FC<SectionsManagerProps> = ({
             </div>
 
             {/* Modal Bottom Controls */}
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#3D2315]">
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#262626]">
               <button
                 type="button"
                 onClick={() => setEditingCustomSection(null)}
-                className="px-5 py-2 rounded-xl bg-[#2A1810] hover:bg-[#3D2315] text-[#EADFD5] text-xs font-bold uppercase tracking-wider transition-colors"
+                className="px-5 py-2 rounded-xl bg-[#181818] hover:bg-[#262626] text-[#A3A3A3] text-xs font-bold uppercase tracking-wider transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSaveCustomSection}
-                className="flex items-center gap-2 px-6 py-2 rounded-xl bg-[#C87428] hover:bg-[#E28C38] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#C87428]/25 transition-all"
+                className="flex items-center gap-2 px-6 py-2 rounded-xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-[#E37500]/25 transition-all"
               >
                 <Check className="w-4 h-4 stroke-[2.5]" />
                 <span>{isCreatingCustom ? 'Add to Homepage' : 'Apply Changes'}</span>

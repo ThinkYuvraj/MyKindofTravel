@@ -25,7 +25,7 @@ export default function App() {
     <BrowserRouter>
       <WishlistProvider>
         {quotaExceeded && (
-          <div className="fixed bottom-4 right-4 max-w-md bg-[#0E0E0E]/95 backdrop-blur-md text-[#F8F4EE] border border-[#E37500]/40 px-4 py-3 rounded-2xl text-xs z-50 shadow-2xl flex items-center justify-between gap-3">
+          <div className="fixed bottom-4 right-4 max-w-md bg-[#0E0E0E]/95 backdrop-blur-md text-white border border-[#E37500]/40 px-4 py-3 rounded-2xl text-xs z-50 shadow-2xl flex items-center justify-between gap-3">
             <span>
               Google Maps Platform quota reached. Visit{' '}
               <a
@@ -46,7 +46,7 @@ export default function App() {
             </button>
           </div>
         )}
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#FAF7F2] text-[#24130A] font-serif text-lg">Loading My Kind of Travel...</div>}>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-white dark:bg-black text-neutral-900 dark:text-white font-serif text-lg">Loading My Kind of Travel...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/destinations" element={<DestinationsPage />} />

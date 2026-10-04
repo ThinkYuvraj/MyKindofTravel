@@ -48,20 +48,20 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#3D2315]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#262626]">
         <div>
-          <div className="flex items-center gap-2 text-[#C87428] font-bold text-xs uppercase tracking-widest mb-1">
+          <div className="flex items-center gap-2 text-[#E37500] font-bold text-xs uppercase tracking-widest mb-1">
             <Camera className="w-4 h-4" />
             <span>Visual Storytelling</span>
           </div>
           <h3 className="text-xl font-serif font-bold text-white">Wanderlust Visual Gallery</h3>
-          <p className="text-sm text-[#EADFD5]/70 mt-1">
+          <p className="text-sm text-[#A3A3A3]/70 mt-1">
             Upload and curate high-resolution visual stories, categorized under Stays, Journeys, Moments, and Gourmet.
           </p>
         </div>
         <button
           onClick={handleAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-[#C87428] hover:bg-[#E28C38] text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all self-start sm:self-auto shadow-md shadow-[#C87428]/25"
+          className="flex items-center gap-2 px-4 py-2 bg-[#E37500] hover:bg-[#C66500] text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all self-start sm:self-auto shadow-md shadow-[#E37500]/25"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Add Photo</span>
@@ -70,15 +70,15 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
 
       {/* Category Filter Pills */}
       <div className="flex flex-wrap items-center gap-2 pb-2">
-        <span className="text-xs text-[#EADFD5]/60 mr-1 font-semibold">Filter:</span>
+        <span className="text-xs text-[#A3A3A3]/60 mr-1 font-semibold">Filter:</span>
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveFilter(cat)}
             className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
               activeFilter === cat
-                ? 'bg-[#C87428] text-white'
-                : 'bg-[#1A0E08] hover:bg-[#2A1810] text-[#EADFD5]/70 hover:text-white border border-[#3D2315]'
+                ? 'bg-[#E37500] text-white'
+                : 'bg-[#121212] hover:bg-[#181818] text-[#A3A3A3]/70 hover:text-white border border-[#262626]'
             }`}
           >
             {cat} {cat === 'All' ? `(${gallery.length})` : `(${gallery.filter((g) => g.category === cat).length})`}
@@ -91,18 +91,18 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className="border border-[#3D2315] rounded-xl p-4 sm:p-5 bg-[#1A0E08]/70 space-y-4 transition-all"
+            className="border border-[#262626] rounded-xl p-4 sm:p-5 bg-[#121212]/70 space-y-4 transition-all"
           >
             {editingId === item.id ? (
               /* Expanded Editor */
               <div className="space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-[#3D2315]">
-                  <span className="text-xs font-bold text-[#C87428] uppercase tracking-wider flex items-center gap-1.5">
+                <div className="flex items-center justify-between pb-3 border-b border-[#262626]">
+                  <span className="text-xs font-bold text-[#E37500] uppercase tracking-wider flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5" /> Editing Photo: {item.title}
                   </span>
                   <button
                     onClick={() => setEditingId(null)}
-                    className="px-3 py-1 bg-[#C87428] hover:bg-[#E28C38] text-white rounded-lg text-xs font-bold transition-colors"
+                    className="px-3 py-1 bg-[#E37500] hover:bg-[#C66500] text-white rounded-lg text-xs font-bold transition-colors"
                   >
                     Done Editing
                   </button>
@@ -120,13 +120,13 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                     />
 
                     <div>
-                      <label className="text-xs font-bold text-[#EADFD5] block mb-1">
+                      <label className="text-xs font-bold text-[#A3A3A3] block mb-1">
                         Grid Card Layout Aspect
                       </label>
                       <select
                         value={item.aspect || 'wide'}
                         onChange={(e) => handleUpdate(item.id, 'aspect', e.target.value)}
-                        className="w-full px-3 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-lg text-xs outline-none focus:border-[#C87428]"
+                        className="w-full px-3 py-2 bg-[#121212] border border-[#262626] text-white rounded-lg text-xs outline-none focus:border-[#E37500]"
                       >
                         <option value="wide">Wide Landscape (2x1)</option>
                         <option value="tall">Tall Portrait (1x2)</option>
@@ -139,7 +139,7 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                   <div className="md:col-span-7 space-y-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="text-xs font-bold text-[#EADFD5] block mb-1">
+                        <label className="text-xs font-bold text-[#A3A3A3] block mb-1">
                           Photo Title / Subject
                         </label>
                         <input
@@ -147,11 +147,11 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                           value={item.title}
                           onChange={(e) => handleUpdate(item.id, 'title', e.target.value)}
                           placeholder="e.g. Overwater Lagoon Haven"
-                          className="w-full px-3 py-2 bg-[#1A0E08] border border-[#3D2315] rounded-lg text-sm text-white outline-none focus:border-[#C87428]"
+                          className="w-full px-3 py-2 bg-[#121212] border border-[#262626] rounded-lg text-sm text-white outline-none focus:border-[#E37500]"
                         />
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-[#EADFD5] block mb-1">
+                        <label className="text-xs font-bold text-[#A3A3A3] block mb-1">
                           Location / Country
                         </label>
                         <input
@@ -159,19 +159,19 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                           value={item.location}
                           onChange={(e) => handleUpdate(item.id, 'location', e.target.value)}
                           placeholder="e.g. Baa Atoll, Maldives"
-                          className="w-full px-3 py-2 bg-[#1A0E08] border border-[#3D2315] rounded-lg text-sm text-white outline-none focus:border-[#C87428]"
+                          className="w-full px-3 py-2 bg-[#121212] border border-[#262626] rounded-lg text-sm text-white outline-none focus:border-[#E37500]"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="text-xs font-bold text-[#EADFD5] block mb-1">
+                      <label className="text-xs font-bold text-[#A3A3A3] block mb-1">
                         Gallery Category Tab
                       </label>
                       <select
                         value={item.category}
                         onChange={(e) => handleUpdate(item.id, 'category', e.target.value)}
-                        className="w-full px-3 py-2 bg-[#1A0E08] border border-[#3D2315] text-white rounded-lg text-xs outline-none focus:border-[#C87428]"
+                        className="w-full px-3 py-2 bg-[#121212] border border-[#262626] text-white rounded-lg text-xs outline-none focus:border-[#E37500]"
                       >
                         <option value="Stays">Stays (Villas, Chalets & Resorts)</option>
                         <option value="Journeys">Journeys (Flights, Trains & Cruises)</option>
@@ -181,7 +181,7 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                     </div>
 
                     <div>
-                      <label className="text-xs font-bold text-[#EADFD5] block mb-1">
+                      <label className="text-xs font-bold text-[#A3A3A3] block mb-1">
                         Caption / Story Note
                       </label>
                       <textarea
@@ -189,7 +189,7 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                         value={item.caption}
                         onChange={(e) => handleUpdate(item.id, 'caption', e.target.value)}
                         placeholder="e.g. Direct reef immersion with private water slide and glass observatory floor."
-                        className="w-full px-3 py-2 bg-[#1A0E08] border border-[#3D2315] rounded-lg text-sm text-white outline-none focus:border-[#C87428]"
+                        className="w-full px-3 py-2 bg-[#121212] border border-[#262626] rounded-lg text-sm text-white outline-none focus:border-[#E37500]"
                       />
                     </div>
 
@@ -205,7 +205,7 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                       <button
                         type="button"
                         onClick={() => setEditingId(null)}
-                        className="px-4 py-1.5 bg-[#C87428] hover:bg-[#E28C38] text-white rounded-lg text-xs font-bold"
+                        className="px-4 py-1.5 bg-[#E37500] hover:bg-[#C66500] text-white rounded-lg text-xs font-bold"
                       >
                         Save Photo Details
                       </button>
@@ -217,7 +217,7 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
               /* Collapsed Summary Row */
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4 min-w-0">
-                  <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#2A1810] border border-white/10 shrink-0 relative">
+                  <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#181818] border border-white/10 shrink-0 relative">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -231,15 +231,15 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                   <div className="min-w-0 space-y-0.5">
                     <div className="flex items-center gap-2">
                       <h4 className="font-bold text-white text-sm truncate">{item.title}</h4>
-                      <span className="px-2 py-0.5 rounded-md bg-[#C87428]/20 text-[#E28C38] text-[10px] font-bold uppercase tracking-wider border border-[#C87428]/30">
+                      <span className="px-2 py-0.5 rounded-md bg-[#E37500]/20 text-[#C66500] text-[10px] font-bold uppercase tracking-wider border border-[#E37500]/30">
                         {item.category}
                       </span>
                     </div>
-                    <p className="text-xs text-[#EADFD5]/70 flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-[#C87428] shrink-0" />
+                    <p className="text-xs text-[#A3A3A3]/70 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-[#E37500] shrink-0" />
                       <span className="truncate">{item.location}</span>
                     </p>
-                    <p className="text-xs text-[#EADFD5]/50 truncate italic">
+                    <p className="text-xs text-[#A3A3A3]/50 truncate italic">
                       "{item.caption}"
                     </p>
                   </div>
@@ -248,7 +248,7 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
                 <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={() => setEditingId(item.id)}
-                    className="p-2 bg-[#2A1810] hover:bg-[#3D2315] text-[#E28C38] rounded-lg transition-colors flex items-center gap-1.5 text-xs font-bold"
+                    className="p-2 bg-[#181818] hover:bg-[#262626] text-[#C66500] rounded-lg transition-colors flex items-center gap-1.5 text-xs font-bold"
                     title="Edit Photo Details"
                   >
                     <Edit2 className="w-3.5 h-3.5" />
@@ -268,8 +268,8 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
         ))}
 
         {filteredItems.length === 0 && (
-          <div className="p-8 text-center bg-[#1A0E08]/40 border border-dashed border-[#3D2315] rounded-xl text-neutral-400">
-            <Camera className="w-8 h-8 mx-auto text-[#C87428]/60 mb-2" />
+          <div className="p-8 text-center bg-[#121212]/40 border border-dashed border-[#262626] rounded-xl text-neutral-400">
+            <Camera className="w-8 h-8 mx-auto text-[#E37500]/60 mb-2" />
             <p className="text-sm font-semibold text-white">No gallery items in this category</p>
             <p className="text-xs text-neutral-400 mt-1">
               Click "Add Photo" above to add pictures to this category.

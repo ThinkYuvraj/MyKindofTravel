@@ -314,7 +314,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Refined Plan Trip CTA */}
             <button
               onClick={onPlanTripClick}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] active:scale-95 text-white font-semibold text-[11px] uppercase tracking-wider transition-all shadow-xs shrink-0"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] active:scale-95 text-white font-semibold text-[11px] uppercase tracking-wider transition-all shadow-xs shrink-0"
             >
               <span>Plan Trip</span>
               <ArrowRight className="w-3 h-3 stroke-[2.5]" />

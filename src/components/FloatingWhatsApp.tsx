@@ -16,7 +16,7 @@ export const FloatingWhatsApp: React.FC = () => {
         <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
           Chat on WhatsApp
         </span>
-        <span className="absolute -top-1 -right-1 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-[#E37500] rounded-full border-2 border-[#FAF7F2] animate-pulse" />
+        <span className="absolute -top-1 -right-1 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-[#E37500] rounded-full border-2 border-white dark:border-black animate-pulse" />
       </a>
     </div>
   );

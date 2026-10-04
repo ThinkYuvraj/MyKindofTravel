@@ -233,7 +233,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
               <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
               <button
                 onClick={() => navigate('/destinations')}
-                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
                 title="View complete destinations list"
               >
                 <span>View All</span>
@@ -341,7 +341,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
 
                     <button
                       onClick={() => onEnquireDestination(dest.name)}
-                      className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+                      className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
                     >
                       Enquire
                     </button>
@@ -365,7 +365,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
           </div>
           <button
             onClick={() => navigate('/destinations')}
-            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
           >
             <span>Explore All Destinations</span>
             <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />

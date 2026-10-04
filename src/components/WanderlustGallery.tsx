@@ -151,7 +151,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate('/places')}
-              className="px-5 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+              className="px-5 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
               title="Explore all places and photo moments"
             >
               <Compass className="w-4 h-4" />
@@ -231,7 +231,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
               <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
               <button
                 onClick={() => navigate('/places')}
-                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
                 title="Explore all places"
               >
                 <span>View All</span>
@@ -298,7 +298,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
 
               {/* Clean Uncluttered Typography Footer */}
               <div className="p-5 flex flex-col justify-between flex-1 space-y-2">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-[#A7978A]">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-neutral-400">
                   <span className="flex items-center gap-1 font-semibold text-[#E37500]">
                     <MapPin className="w-3.5 h-3.5 shrink-0" />
                     <span className="truncate">{item.location}</span>
@@ -314,7 +314,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                 </h3>
 
                 {item.caption && (
-                  <p className="text-xs text-neutral-600 dark:text-[#C5B7AC] line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
                     {item.caption}
                   </p>
                 )}
@@ -344,7 +344,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
           </div>
           <button
             onClick={() => navigate('/places')}
-            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
           >
             <span>See All Places & Views</span>
             <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -399,7 +399,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
             {/* Details Footer */}
             <div className="p-4 sm:p-6 bg-white dark:bg-[#0A0A0A] border-t border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-[#A7978A] mb-1">
+                <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 mb-1">
                   <span className="font-semibold text-[#E37500] flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5" />
                     {activePhoto.location}
@@ -411,7 +411,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                   {activePhoto.title}
                 </h3>
                 {activePhoto.caption && (
-                  <p className="text-xs text-neutral-600 dark:text-[#C5B7AC] mt-1 max-w-xl">
+                  <p className="text-xs text-neutral-600 dark:text-neutral-300 mt-1 max-w-xl">
                     {activePhoto.caption}
                   </p>
                 )}

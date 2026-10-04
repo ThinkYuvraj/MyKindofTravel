@@ -117,7 +117,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   </svg>
                 </div>
                 <div className="min-w-0">
-                  <span className="block text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-500 dark:text-[#A7978A] font-bold">
+                  <span className="block text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
                     WhatsApp
                   </span>
                   <span className="font-sans text-xs sm:text-base font-semibold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors truncate block">
@@ -136,7 +136,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div className="min-w-0">
-                  <span className="block text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-500 dark:text-[#A7978A] font-bold">
+                  <span className="block text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
                     Email
                   </span>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors truncate block">

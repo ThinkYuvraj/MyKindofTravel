@@ -80,7 +80,7 @@ export default function DestinationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-300">
       {/* Floating Navbar */}
       <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
@@ -89,29 +89,29 @@ export default function DestinationsPage() {
           
           {/* Header */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
               <Compass className="w-3.5 h-3.5" />
               <span>Worldwide Luxury Blueprints</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
               Handcrafted <span className="italic font-serif text-[#E37500] font-normal">Destinations</span>
             </h1>
-            <p className="text-sm sm:text-base text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
               Explore our portfolio of private chalets, overwater lagoons, clifftop villas, and iconic scenic routes. Every destination is fully customizable around your schedule and travel rhythm.
             </p>
           </div>
 
           {/* Search & Filter Controls */}
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-white dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 shadow-xs">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-3xl bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7667]" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by city, country, or vibe (e.g. Bali, Alps, romantic)..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm text-[#24130A] dark:text-white placeholder-[#8C7667] focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-neutral-50 dark:bg-[#141414] border border-neutral-200 dark:border-white/10 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#E37500]"
               />
             </div>
 
@@ -166,7 +166,7 @@ export default function DestinationsPage() {
                 return (
                   <div
                     key={dest.id}
-                    className="group rounded-3xl overflow-hidden bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col relative"
+                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col relative"
                   >
                     {/* Image */}
                     <div className="relative h-64 overflow-hidden w-full">
@@ -176,7 +176,7 @@ export default function DestinationsPage() {
                         containerClassName="w-full h-full"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0706]/90 via-[#0A0706]/25 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
 
                       {/* Top Badges */}
                       <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between gap-2 z-10">
@@ -209,10 +209,10 @@ export default function DestinationsPage() {
 
                       {/* Bottom Overlay Title */}
                       <div className="absolute bottom-3.5 left-4 right-4 z-10">
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-[#E3BA91] drop-shadow-sm block mb-0.5">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-[#E37500] drop-shadow-sm block mb-0.5">
                           {dest.tag || dest.region}
                         </span>
-                        <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#F3D7BD] transition-colors leading-tight">
+                        <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#E37500] transition-colors leading-tight">
                           {dest.name}
                         </h3>
                       </div>
@@ -220,17 +220,17 @@ export default function DestinationsPage() {
 
                     {/* Card Body */}
                     <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-                      <p className="text-[#594336] dark:text-[#C5B7AC] text-xs sm:text-sm leading-relaxed line-clamp-2">
+                      <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
                         {dest.description}
                       </p>
 
                       {/* Inclusions */}
-                      <div className="space-y-1.5 pt-3 border-t border-[#E8DFD5] dark:border-white/10">
-                        <div className="flex items-center gap-1.5 text-xs font-bold text-[#24130A] dark:text-[#E8DDD2]">
+                      <div className="space-y-1.5 pt-3 border-t border-neutral-200 dark:border-white/10">
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900 dark:text-white">
                           <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
                           <span>Signature Inclusions:</span>
                         </div>
-                        <ul className="space-y-1 text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
+                        <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-400">
                           {(dest.highlights || []).slice(0, 2).map((hl, i) => (
                             <li key={i} className="flex items-center gap-2">
                               <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] shrink-0" />
@@ -241,10 +241,10 @@ export default function DestinationsPage() {
                       </div>
 
                       {/* Bottom Actions */}
-                      <div className="pt-3.5 flex items-center justify-between gap-3 border-t border-[#E8DFD5] dark:border-white/10">
+                      <div className="pt-3.5 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-white/10">
                         <button
                           onClick={() => setSelectedDestination(dest)}
-                          className="text-xs font-semibold text-[#6F5B4E] dark:text-[#C5B7AC] hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors"
+                          className="text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors"
                         >
                           <span>View Itinerary</span>
                           <ArrowUpRight className="w-3.5 h-3.5 shrink-0 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-[#E37500]" />
@@ -252,7 +252,7 @@ export default function DestinationsPage() {
 
                         <button
                           onClick={() => handleEnquire(dest.name)}
-                          className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+                          className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
                         >
                           Enquire
                         </button>
@@ -263,10 +263,10 @@ export default function DestinationsPage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white dark:bg-[#0E0E0E] rounded-3xl border border-[#E8DFD5] dark:border-white/10 p-8">
-              <Compass className="w-10 h-10 text-[#8C7667] mx-auto mb-3" />
-              <h3 className="font-serif text-lg font-bold">No destinations found</h3>
-              <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] mt-1 mb-4">
+            <div className="text-center py-20 bg-neutral-50 dark:bg-[#0E0E0E] rounded-3xl border border-neutral-200 dark:border-white/10 p-8">
+              <Compass className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
+              <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white">No destinations found</h3>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1 mb-4">
                 Try searching for a different country, or reset your filters.
               </p>
               <button
@@ -274,7 +274,7 @@ export default function DestinationsPage() {
                   setSearchQuery('');
                   setSelectedRegion('All');
                 }}
-                className="px-5 py-2 rounded-full bg-[#E37500] text-white text-xs font-bold uppercase tracking-wider"
+                className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all"
               >
                 Reset Filters
               </button>

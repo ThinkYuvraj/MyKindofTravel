@@ -153,7 +153,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         <span className="text-sm font-semibold block group-hover:text-[#E37500] transition-colors">
                           {item.label}
                         </span>
-                        <span className="text-[11px] text-neutral-500 dark:text-[#A8988C] block">
+                        <span className="text-[11px] text-neutral-500 dark:text-neutral-400 block">
                           {item.desc}
                         </span>
                       </div>

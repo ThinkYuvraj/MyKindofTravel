@@ -112,7 +112,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
             {/* Link to All Experiences Page */}
             <button
               onClick={() => navigate('/experiences')}
-              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
               title="View all bespoke experiences"
             >
               <span>View All</span>

@@ -305,11 +305,11 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
     <div className="space-y-2">
       {label && (
         <div className="flex items-center justify-between">
-          <label className="text-xs font-bold text-[#EADFD5] uppercase tracking-wider block">
+          <label className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider block">
             {label}
           </label>
           {value && (
-            <span className="text-[10px] text-[#C87428] font-semibold flex items-center gap-1">
+            <span className="text-[10px] text-[#E37500] font-semibold flex items-center gap-1">
               <Check className="w-3 h-3" /> Image Active
             </span>
           )}
@@ -319,7 +319,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
       {/* Main Preview Card / Quick Trigger */}
       <div className="relative group">
         {value ? (
-          <div className="relative rounded-xl overflow-hidden border border-[#3D2315] bg-[#1A0E08]">
+          <div className="relative rounded-xl overflow-hidden border border-[#262626] bg-[#121212]">
             <div className={`w-full ${aspectClasses} bg-black relative overflow-hidden`}>
               <img
                 src={value}
@@ -368,7 +368,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsOpen(true)}
-                    className="px-3 py-1.5 bg-[#C87428] hover:bg-[#E28C38] text-white rounded-lg text-xs font-bold transition-all shadow-md flex items-center gap-1.5 shrink-0"
+                    className="px-3 py-1.5 bg-[#E37500] hover:bg-[#C66500] text-white rounded-lg text-xs font-bold transition-all shadow-md flex items-center gap-1.5 shrink-0"
                   >
                     <RefreshCw className="w-3 h-3" />
                     <span>Change Image</span>
@@ -382,15 +382,15 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className={`w-full ${aspectClasses} rounded-xl border-2 border-dashed border-[#3D2315] hover:border-[#C87428] bg-[#1A0E08]/60 hover:bg-[#1A0E08] transition-all flex flex-col items-center justify-center p-4 text-center group/empty`}
+            className={`w-full ${aspectClasses} rounded-xl border-2 border-dashed border-[#262626] hover:border-[#E37500] bg-[#121212]/60 hover:bg-[#121212] transition-all flex flex-col items-center justify-center p-4 text-center group/empty`}
           >
-            <div className="w-10 h-10 rounded-full bg-[#2A1810] group-hover/empty:bg-[#C87428] flex items-center justify-center text-[#C87428] group-hover/empty:text-white transition-colors mb-2 shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-[#181818] group-hover/empty:bg-[#E37500] flex items-center justify-center text-[#E37500] group-hover/empty:text-white transition-colors mb-2 shadow-sm">
               <Upload className="w-5 h-5" />
             </div>
-            <p className="text-xs font-bold text-white group-hover/empty:text-[#E28C38] transition-colors">
+            <p className="text-xs font-bold text-white group-hover/empty:text-[#C66500] transition-colors">
               Add or Upload Image
             </p>
-            <p className="text-[11px] text-[#EADFD5]/60 mt-0.5">
+            <p className="text-[11px] text-[#A3A3A3]/60 mt-0.5">
               Upload from device, select curated travel presets, or paste URL
             </p>
           </button>
@@ -398,42 +398,42 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
       </div>
 
       {helperText && (
-        <p className="text-[11px] text-[#EADFD5]/60 mt-1">{helperText}</p>
+        <p className="text-[11px] text-[#A3A3A3]/60 mt-1">{helperText}</p>
       )}
 
       {/* Expanded Modal / Drawer for Image Selection */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-[#24130A] border border-[#3D2315] rounded-2xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl text-[#FAF7F4]">
+          <div className="bg-[#121212] border border-[#262626] rounded-2xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl text-[#FFFFFF]">
             {/* Header */}
-            <div className="px-6 py-4 border-b border-[#3D2315] flex items-center justify-between bg-[#1A0E08]">
+            <div className="px-6 py-4 border-b border-[#262626] flex items-center justify-between bg-[#121212]">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#C87428]/20 flex items-center justify-center text-[#C87428]">
+                <div className="w-8 h-8 rounded-lg bg-[#E37500]/20 flex items-center justify-center text-[#E37500]">
                   <ImageIcon className="w-4 h-4" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white font-serif">Image Manager & Uploader</h4>
-                  <p className="text-[11px] text-[#EADFD5]/60">Select or upload high-resolution media</p>
+                  <p className="text-[11px] text-[#A3A3A3]/60">Select or upload high-resolution media</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg bg-[#2A1810] hover:bg-[#3D2315] text-neutral-400 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg bg-[#181818] hover:bg-[#262626] text-neutral-400 hover:text-white transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex border-b border-[#3D2315] bg-[#1E0F07] px-6 gap-2 pt-2">
+            <div className="flex border-b border-[#262626] bg-[#121212] px-6 gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setActiveTab('upload')}
                 className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-t-xl transition-colors border-b-2 ${
                   activeTab === 'upload'
-                    ? 'border-[#C87428] text-[#C87428] bg-[#24130A]'
-                    : 'border-transparent text-[#EADFD5]/70 hover:text-white'
+                    ? 'border-[#E37500] text-[#E37500] bg-[#121212]'
+                    : 'border-transparent text-[#A3A3A3]/70 hover:text-white'
                 }`}
               >
                 <Upload className="w-3.5 h-3.5" />
@@ -444,8 +444,8 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                 onClick={() => setActiveTab('presets')}
                 className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-t-xl transition-colors border-b-2 ${
                   activeTab === 'presets'
-                    ? 'border-[#C87428] text-[#C87428] bg-[#24130A]'
-                    : 'border-transparent text-[#EADFD5]/70 hover:text-white'
+                    ? 'border-[#E37500] text-[#E37500] bg-[#121212]'
+                    : 'border-transparent text-[#A3A3A3]/70 hover:text-white'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -456,8 +456,8 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                 onClick={() => setActiveTab('url')}
                 className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-t-xl transition-colors border-b-2 ${
                   activeTab === 'url'
-                    ? 'border-[#C87428] text-[#C87428] bg-[#24130A]'
-                    : 'border-transparent text-[#EADFD5]/70 hover:text-white'
+                    ? 'border-[#E37500] text-[#E37500] bg-[#121212]'
+                    : 'border-transparent text-[#A3A3A3]/70 hover:text-white'
                 }`}
               >
                 <LinkIcon className="w-3.5 h-3.5" />
@@ -477,8 +477,8 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                     onClick={() => fileInputRef.current?.click()}
                     className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-3 ${
                       isDragging
-                        ? 'border-[#C87428] bg-[#C87428]/10'
-                        : 'border-[#3D2315] hover:border-[#C87428]/60 bg-[#1A0E08]'
+                        ? 'border-[#E37500] bg-[#E37500]/10'
+                        : 'border-[#262626] hover:border-[#E37500]/60 bg-[#121212]'
                     }`}
                   >
                     <input
@@ -488,9 +488,9 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                       onChange={handleFileChange}
                       className="hidden"
                     />
-                    <div className="w-14 h-14 rounded-2xl bg-[#2A1810] flex items-center justify-center text-[#C87428] shadow-md group-hover:scale-105 transition-transform">
+                    <div className="w-14 h-14 rounded-2xl bg-[#181818] flex items-center justify-center text-[#E37500] shadow-md group-hover:scale-105 transition-transform">
                       {processing ? (
-                        <RefreshCw className="w-6 h-6 animate-spin text-[#C87428]" />
+                        <RefreshCw className="w-6 h-6 animate-spin text-[#E37500]" />
                       ) : (
                         <Upload className="w-6 h-6" />
                       )}
@@ -499,7 +499,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                       <p className="text-sm font-bold text-white">
                         {processing ? 'Processing & Optimizing Image...' : 'Click to Browse or Drag & Drop'}
                       </p>
-                      <p className="text-xs text-[#EADFD5]/60 mt-1">
+                      <p className="text-xs text-[#A3A3A3]/60 mt-1">
                         Supports PNG, JPG, JPEG, WebP (Automatically optimized for web delivery)
                       </p>
                     </div>
@@ -511,8 +511,8 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                     </div>
                   )}
 
-                  <div className="p-4 rounded-xl bg-[#1A0E08] border border-[#3D2315] text-xs text-[#EADFD5]/70 space-y-1">
-                    <p className="font-semibold text-[#C87428] flex items-center gap-1.5">
+                  <div className="p-4 rounded-xl bg-[#121212] border border-[#262626] text-xs text-[#A3A3A3]/70 space-y-1">
+                    <p className="font-semibold text-[#E37500] flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5" /> High Quality Auto-Optimization
                     </p>
                     <p>
@@ -534,8 +534,8 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                         onClick={() => setSelectedPresetCategory(cat)}
                         className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                           selectedPresetCategory === cat
-                            ? 'bg-[#C87428] text-white shadow-sm'
-                            : 'bg-[#1A0E08] hover:bg-[#2A1810] text-[#EADFD5]/80 hover:text-white border border-[#3D2315]'
+                            ? 'bg-[#E37500] text-white shadow-sm'
+                            : 'bg-[#121212] hover:bg-[#181818] text-[#A3A3A3]/80 hover:text-white border border-[#262626]'
                         }`}
                       >
                         {cat}
@@ -549,7 +549,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                       <div
                         key={preset.id}
                         onClick={() => handleSelectPreset(preset.url)}
-                        className="group relative rounded-xl overflow-hidden border border-[#3D2315] hover:border-[#C87428] cursor-pointer bg-[#1A0E08] transition-all"
+                        className="group relative rounded-xl overflow-hidden border border-[#262626] hover:border-[#E37500] cursor-pointer bg-[#121212] transition-all"
                       >
                         <div className="aspect-[4/3] w-full overflow-hidden bg-black">
                           <img
@@ -559,14 +559,14 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                             loading="lazy"
                           />
                         </div>
-                        <div className="p-2 bg-[#1A0E08]">
+                        <div className="p-2 bg-[#121212]">
                           <p className="text-xs font-bold text-white truncate">{preset.title}</p>
-                          <span className="text-[10px] text-[#C87428] font-semibold block truncate">
+                          <span className="text-[10px] text-[#E37500] font-semibold block truncate">
                             {preset.category}
                           </span>
                         </div>
                         {value === preset.url && (
-                          <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#C87428] text-white flex items-center justify-center shadow-md">
+                          <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#E37500] text-white flex items-center justify-center shadow-md">
                             <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         )}
@@ -580,7 +580,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
               {activeTab === 'url' && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-[#EADFD5] uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-bold text-[#A3A3A3] uppercase tracking-wider mb-2">
                       External Image URL
                     </label>
                     <div className="flex gap-2">
@@ -591,14 +591,14 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                           value={urlInput}
                           onChange={(e) => setUrlInput(e.target.value)}
                           placeholder={placeholder}
-                          className="w-full pl-10 pr-4 py-2.5 bg-[#1A0E08] border border-[#3D2315] text-white rounded-xl text-sm outline-none focus:border-[#C87428]"
+                          className="w-full pl-10 pr-4 py-2.5 bg-[#121212] border border-[#262626] text-white rounded-xl text-sm outline-none focus:border-[#E37500]"
                         />
                       </div>
                       <button
                         type="button"
                         onClick={handleApplyUrl}
                         disabled={!urlInput.trim()}
-                        className="px-5 py-2.5 bg-[#C87428] hover:bg-[#E28C38] text-white rounded-xl text-xs font-bold uppercase tracking-wider disabled:opacity-40 transition-all shrink-0"
+                        className="px-5 py-2.5 bg-[#E37500] hover:bg-[#C66500] text-white rounded-xl text-xs font-bold uppercase tracking-wider disabled:opacity-40 transition-all shrink-0"
                       >
                         Apply URL
                       </button>
@@ -606,9 +606,9 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                   </div>
 
                   {urlInput.trim() && (
-                    <div className="p-3 bg-[#1A0E08] border border-[#3D2315] rounded-xl space-y-2">
+                    <div className="p-3 bg-[#121212] border border-[#262626] rounded-xl space-y-2">
                       <span className="text-xs font-bold text-white block">Preview URL:</span>
-                      <div className="aspect-video w-full rounded-lg overflow-hidden bg-black/40 border border-[#3D2315]">
+                      <div className="aspect-video w-full rounded-lg overflow-hidden bg-black/40 border border-[#262626]">
                         <img
                           src={urlInput.trim()}
                           alt="URL preview"
@@ -622,7 +622,7 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
                     </div>
                   )}
 
-                  <div className="p-3.5 bg-[#1A0E08] border border-[#3D2315] rounded-xl text-xs text-[#EADFD5]/70 space-y-1">
+                  <div className="p-3.5 bg-[#121212] border border-[#262626] rounded-xl text-xs text-[#A3A3A3]/70 space-y-1">
                     <p className="font-semibold text-white">Recommended Sources:</p>
                     <p>
                       You can paste direct image links from Unsplash, Pexels, Cloudinary, AWS S3, or any custom image hosting provider.
@@ -633,14 +633,14 @@ export const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-3 border-t border-[#3D2315] bg-[#1A0E08] flex items-center justify-between">
-              <span className="text-xs text-[#EADFD5]/60">
+            <div className="px-6 py-3 border-t border-[#262626] bg-[#121212] flex items-center justify-between">
+              <span className="text-xs text-[#A3A3A3]/60">
                 {value ? 'An image is currently assigned' : 'No image assigned yet'}
               </span>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-1.5 bg-[#2A1810] hover:bg-[#3D2315] text-white rounded-lg text-xs font-bold transition-colors"
+                className="px-4 py-1.5 bg-[#181818] hover:bg-[#262626] text-white rounded-lg text-xs font-bold transition-colors"
               >
                 Close
               </button>

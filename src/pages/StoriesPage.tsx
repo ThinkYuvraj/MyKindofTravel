@@ -15,7 +15,7 @@ export default function StoriesPage() {
   const [enquiryTripType, setEnquiryTripType] = useState('');
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-300">
       <Navbar onPlanTrip={() => setIsEnquiryOpen(true)} />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
@@ -23,14 +23,14 @@ export default function StoriesPage() {
           
           {/* Header */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
               <Heart className="w-3.5 h-3.5 text-[#E37500]" />
               <span>Real Experiences · India's Discerning Travelers</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
               Client Stories & <span className="italic font-serif text-[#E37500] font-normal">Memories</span>
             </h1>
-            <p className="text-sm sm:text-base text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
               Read uncensored feedback from our clients across Mumbai, Delhi, Bengaluru, and beyond who trusted My Kind of Travel for honeymoons, anniversaries, multi-generational family milestones, and private escapes.
             </p>
           </div>
@@ -40,7 +40,7 @@ export default function StoriesPage() {
             {TESTIMONIALS.map((review) => (
               <div
                 key={review.id}
-                className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between space-y-6 relative group hover:-translate-y-1 transition-all duration-300"
+                className="p-7 sm:p-8 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-6 relative group hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="space-y-4">
                   {/* Stars & Location */}
@@ -50,26 +50,26 @@ export default function StoriesPage() {
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <span className="text-[11px] font-semibold text-[#8C7667] dark:text-[#A7978A] flex items-center gap-1">
+                    <span className="text-[11px] font-semibold text-neutral-400 flex items-center gap-1">
                       <MapPin className="w-3.5 h-3.5 text-[#E37500]" />
                       <span>{review.tripInfo}</span>
                     </span>
                   </div>
 
                   {/* Quote */}
-                  <blockquote className="font-serif text-base sm:text-lg leading-relaxed text-[#24130A] dark:text-white italic">
+                  <blockquote className="font-serif text-base sm:text-lg leading-relaxed text-neutral-900 dark:text-white italic">
                     "{review.quote}"
                   </blockquote>
                 </div>
 
                 {/* Author Info */}
-                <div className="pt-4 border-t border-[#E8DFD5] dark:border-white/10 flex items-center justify-between">
+                <div className="pt-4 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     {review.avatar ? (
                       <img
                         src={review.avatar}
                         alt={review.author}
-                        className="w-11 h-11 rounded-full object-cover border border-[#E8DFD5] dark:border-white/20"
+                        className="w-11 h-11 rounded-full object-cover border border-neutral-200 dark:border-white/20"
                       />
                     ) : (
                       <div className="w-11 h-11 rounded-full bg-[#E37500] text-white flex items-center justify-center font-bold text-sm">
@@ -77,10 +77,10 @@ export default function StoriesPage() {
                       </div>
                     )}
                     <div>
-                      <h4 className="font-serif font-bold text-sm text-[#24130A] dark:text-white">
+                      <h4 className="font-serif font-bold text-sm text-neutral-900 dark:text-white">
                         {review.author}
                       </h4>
-                      <span className="text-xs text-[#6F5B4E] dark:text-[#A7978A]">
+                      <span className="text-xs text-neutral-500 dark:text-neutral-400">
                         {review.year}
                       </span>
                     </div>
@@ -95,12 +95,12 @@ export default function StoriesPage() {
           </div>
 
           {/* Bottom Banner */}
-          <div className="p-8 sm:p-12 rounded-3xl sm:rounded-4xl bg-gradient-to-br from-[#24130A] via-[#351D12] to-[#1C1009] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div className="p-8 sm:p-12 rounded-3xl sm:rounded-4xl bg-neutral-900 dark:bg-[#0A0A0A] border border-neutral-800 dark:border-white/15 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
             <div className="space-y-2 max-w-xl text-center md:text-left">
               <h3 className="font-serif text-2xl sm:text-3xl font-bold">
                 Ready to create your own unforgettable story?
               </h3>
-              <p className="text-xs sm:text-sm text-[#D1C2B8] leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
                 Connect directly with your private concierge to build an itinerary tailored to your rhythm and milestones.
               </p>
             </div>
