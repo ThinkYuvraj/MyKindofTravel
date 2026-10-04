@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DESTINATIONS } from '../data/travelData';
 import { DestinationItem } from '../types';
-import { ArrowUpRight, Compass, Sparkles, Clock, ChevronLeft, ChevronRight, LayoutGrid, Sliders } from 'lucide-react';
+import { ArrowUpRight, Compass, Sparkles, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
 interface DestinationsSectionProps {
