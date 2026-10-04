@@ -10,6 +10,12 @@ import {
   Phone,
   ShieldCheck,
   Send,
+  User,
+  Mail,
+  Users,
+  Clock,
+  ArrowRight,
+  Lock,
 } from 'lucide-react';
 import { COMPANY_INFO, DESTINATIONS, EXPERIENCE_PILLARS } from '../data/travelData';
 
@@ -21,6 +27,25 @@ export interface EnquiryModalProps {
   initialPackageName?: string;
   companyInfo?: typeof COMPANY_INFO;
 }
+
+const POPULAR_DESTINATION_PILLS = [
+  'Maldives',
+  'Switzerland',
+  'Bali',
+  'Paris',
+  'Santorini',
+  'Amalfi Coast',
+];
+
+const POPULAR_TRIP_TYPES = [
+  { label: 'Honeymoon 💍', value: 'Honeymoon Special' },
+  { label: 'Couples Escape 🥂', value: 'Couples & Romance' },
+  { label: 'Family Luxury 👨‍👩‍👧', value: 'Family Holiday' },
+  { label: 'Celebration 🎉', value: 'Milestone Celebration' },
+  { label: 'Alpine Retreat 🏔️', value: 'Alpine Luxury' },
+];
+
+const GUEST_OPTIONS = ['2 Guests (Couples)', '3–5 Guests (Family)', '6+ Guests (Group)'];
 
 export const EnquiryModal: React.FC<EnquiryModalProps> = ({
   isOpen,
@@ -38,6 +63,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
   const [phone, setPhone] = useState('');
   const [destination, setDestination] = useState('');
   const [tripType, setTripType] = useState('');
+  const [guests, setGuests] = useState('2 Guests (Couples)');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -98,11 +124,12 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
           lastName,
           email,
           phone,
+          guests,
           destination: destination || initialDestination || 'Custom Destination',
           tripType: tripType || initialTripType || 'Bespoke Holiday',
           message: initialPackageName
-            ? `[Package: ${initialPackageName}] ${message}`
-            : message,
+            ? `[Package: ${initialPackageName}] [Guests: ${guests}] ${message}`
+            : `[Guests: ${guests}] ${message}`,
         }),
       });
     } catch (err) {
@@ -114,11 +141,11 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
   };
 
   const whatsappUrl = `https://wa.me/${info.phoneRaw || COMPANY_INFO.phoneRaw}?text=${encodeURIComponent(
-    `Hi My Kind of Travel Team, I'm ${firstName || 'a traveller'} (Ref: ${refId || 'New Query'}) interested in planning a ${
+    `Hi My Kind of Travel Concierge, I'm ${firstName || 'a traveller'} (Ref: ${refId || 'New Enquiry'}). I'm planning a ${
       tripType || 'bespoke trip'
-    } to ${destination || 'an unforgettable destination'}${
+    } for ${guests} to ${destination || 'an unforgettable destination'}${
       initialPackageName ? ` (${initialPackageName})` : ''
-    }. Details: ${message || 'Looking for personalised recommendations.'}`
+    }. Details: ${message || 'Looking for custom luxury recommendations.'}`
   )}`;
 
   // Ensure any custom destination passed in is selectable in the dropdown
@@ -139,6 +166,11 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
       ...(initialTripType && !EXPERIENCE_PILLARS.some((p) => p.typeKey === initialTripType)
         ? [initialTripType]
         : []),
+      'Honeymoon Special',
+      'Couples & Romance',
+      'Family Holiday',
+      'Milestone Celebration',
+      'Alpine Luxury',
       'Luxury Europe Tour',
       'Other Custom Escape',
     ])
@@ -146,7 +178,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 overflow-y-auto bg-black/70 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 overflow-y-auto bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -154,47 +186,47 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
     >
       {/* Popup Enquiry Card */}
       <div
-        className="relative w-full max-w-xl my-auto rounded-3xl bg-[#FAF7F2] dark:bg-[#0A0A0A] text-[#2A1810] dark:text-white border border-[#E5DCD2] dark:border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.55)] overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col"
+        className="relative w-full max-w-xl my-auto rounded-3xl bg-[#FCFAF6] dark:bg-[#0E0E0E] text-[#24130A] dark:text-white border border-[#E8DFD5] dark:border-white/10 shadow-[0_25px_80px_rgba(36,19,10,0.45)] dark:shadow-[0_25px_80px_rgba(0,0,0,0.8)] overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Accent Strip */}
-        <div className="h-1.5 w-full bg-gradient-to-r from-[#E37500] via-[#FF9829] to-[#E37500] shrink-0" />
+        <div className="h-1.5 w-full bg-gradient-to-r from-[#E37500] via-[#FF9A24] to-[#E37500] shrink-0" />
 
         {/* Modal Header */}
-        <div className="px-5 sm:px-7 pt-5 pb-4 border-b border-[#EADFD5] dark:border-white/10 flex items-start justify-between gap-4 shrink-0 bg-white/60 dark:bg-white/[0.02]">
+        <div className="px-6 sm:px-8 pt-6 pb-5 border-b border-[#E8DFD5] dark:border-white/10 flex items-start justify-between gap-4 shrink-0 bg-white/70 dark:bg-[#141414]/70 backdrop-blur-md">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] text-[11px] font-bold uppercase tracking-widest border border-[#E37500]/30">
-              <Sparkles className="w-3 h-3" />
-              <span>Bespoke Travel Enquiry</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] text-[10px] font-bold uppercase tracking-widest border border-[#E37500]/30">
+              <Sparkles className="w-3 h-3 text-[#E37500]" />
+              <span>Bespoke Travel Concierge</span>
             </div>
             <h2
               id="enquiry-modal-title"
               className="font-serif text-2xl sm:text-3xl font-bold text-[#24130A] dark:text-white leading-tight"
             >
-              Let's Design Your <span className="italic font-normal text-[#E37500]">Dream Trip</span>
+              Let's Design Your <span className="italic font-serif text-[#E37500] font-normal">Dream Trip</span>
             </h2>
-            <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC]">
-              Share your preferences below — our travel specialists will craft a custom itinerary within 24 hours.
+            <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] font-normal">
+              Share your preferences below — our travel specialists will craft a tailored itinerary within 24 hours.
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-white dark:bg-white/10 hover:bg-[#E37500] hover:text-white text-[#594336] dark:text-white border border-[#DFD0C0] dark:border-white/15 transition-colors shrink-0 shadow-xs"
+            className="p-2.5 rounded-full bg-white dark:bg-white/10 hover:bg-[#E37500] hover:text-white text-[#6F5B4E] dark:text-white border border-[#E8DFD5] dark:border-white/15 transition-all shrink-0 shadow-xs hover:scale-105 active:scale-95"
             aria-label="Close enquiry popup"
           >
-            <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Scrollable Body */}
-        <div className="p-5 sm:p-7 overflow-y-auto space-y-5">
-          {/* Active Query Context Pill if triggered from a specific card */}
+        <div className="p-6 sm:p-8 overflow-y-auto space-y-6 no-scrollbar">
+          {/* Active Context Banner if opened with specific place/package */}
           {(initialPackageName || initialDestination || initialTripType) && !submitted && (
             <div className="p-3.5 rounded-2xl bg-[#E37500]/10 dark:bg-[#E37500]/15 border border-[#E37500]/30 flex flex-wrap items-center gap-2 text-xs">
               <span className="font-bold uppercase tracking-wider text-[#E37500] flex items-center gap-1">
                 <Compass className="w-3.5 h-3.5" />
-                Selected Query:
+                Active Selection:
               </span>
               {initialPackageName && (
                 <span className="px-2.5 py-0.5 rounded-full bg-white dark:bg-[#141414] text-[#24130A] dark:text-white font-semibold border border-[#E37500]/30">
@@ -217,21 +249,39 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
           )}
 
           {submitted ? (
-            <div className="py-6 text-center space-y-5 animate-in zoom-in-95 duration-200">
-              <div className="w-16 h-16 rounded-2xl bg-[#E37500]/15 text-[#E37500] border border-[#E37500]/30 flex items-center justify-center mx-auto shadow-md">
+            /* ============================================================ */
+            /* SUCCESS STATE */
+            /* ============================================================ */
+            <div className="py-8 text-center space-y-6 animate-in zoom-in-95 duration-200">
+              <div className="w-16 h-16 rounded-3xl bg-[#E37500]/15 text-[#E37500] border border-[#E37500]/30 flex items-center justify-center mx-auto shadow-md">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#2A1810] dark:text-white">
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#24130A] dark:text-white">
                   Enquiry Received!
                 </h3>
-                <p className="text-[#E37500] font-bold text-sm font-mono">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#E37500]/10 border border-[#E37500]/30 text-[#E37500] font-mono font-bold text-xs uppercase tracking-wider">
                   Reference #{refId}
+                </div>
+                <p className="text-[#6F5B4E] dark:text-[#C5B7AC] text-xs sm:text-sm max-w-md mx-auto leading-relaxed pt-1">
+                  Thank you, <strong className="text-[#24130A] dark:text-white">{firstName || 'traveller'}</strong>. Your dedicated luxury travel specialist has been assigned and will prepare a bespoke itinerary tailored for your dates and guest preferences.
                 </p>
-                <p className="text-[#594336] dark:text-[#D1C2B8] text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
-                  Thank you, <strong className="text-[#24130A] dark:text-white">{firstName || 'traveller'}</strong>. A dedicated luxury travel specialist from My Kind of Travel has been assigned to your query and will connect with you shortly.
-                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 max-w-sm mx-auto text-left space-y-1.5 text-xs">
+                <div className="flex items-center justify-between text-[#8C7667] dark:text-[#A7978A]">
+                  <span>Destination</span>
+                  <span className="font-semibold text-[#24130A] dark:text-white">{destination || 'Bespoke'}</span>
+                </div>
+                <div className="flex items-center justify-between text-[#8C7667] dark:text-[#A7978A]">
+                  <span>Trip Style</span>
+                  <span className="font-semibold text-[#24130A] dark:text-white">{tripType || 'Luxury'}</span>
+                </div>
+                <div className="flex items-center justify-between text-[#8C7667] dark:text-[#A7978A]">
+                  <span>Expected Response</span>
+                  <span className="font-semibold text-[#E37500]">Within 24 Hours</span>
+                </div>
               </div>
 
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -239,7 +289,7 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg shadow-[#E37500]/30"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg shadow-[#E37500]/25 hover:scale-105 active:scale-95"
                 >
                   <MessageCircle className="w-4 h-4 fill-white" />
                   <span>Instant WhatsApp Concierge</span>
@@ -247,19 +297,23 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
 
                 <button
                   onClick={onClose}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white dark:bg-white/10 hover:bg-[#F4ECE4] dark:hover:bg-white/20 text-[#2A1810] dark:text-white text-xs font-bold border border-[#DFD0C0] dark:border-white/15 transition-colors"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white dark:bg-white/10 hover:bg-neutral-100 dark:hover:bg-white/20 text-[#24130A] dark:text-white text-xs font-bold uppercase tracking-wider border border-[#E8DFD5] dark:border-white/15 transition-colors"
                 >
-                  Done
+                  Close
                 </button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {/* First Name */}
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
-                    First Name *
+            /* ============================================================ */
+            /* INTERACTIVE FORM */
+            /* ============================================================ */
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Row 1: Name Inputs */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                    <User className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>First Name <span className="text-[#E37500]">*</span></span>
                   </label>
                   <input
                     type="text"
@@ -267,14 +321,14 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="Rahul"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white placeholder-[#A8988B] text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all shadow-xs"
                   />
                 </div>
 
-                {/* Last Name */}
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
-                    Last Name *
+                <div className="space-y-1.5">
+                  <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                    <User className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>Last Name <span className="text-[#E37500]">*</span></span>
                   </label>
                   <input
                     type="text"
@@ -282,16 +336,17 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="Sharma"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white placeholder-[#A8988B] text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all shadow-xs"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {/* Email */}
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
-                    Email Address *
+              {/* Row 2: Contact Info */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                    <Mail className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>Email Address <span className="text-[#E37500]">*</span></span>
                   </label>
                   <input
                     type="email"
@@ -299,14 +354,14 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="rahul@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white placeholder-[#A8988B] text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all shadow-xs"
                   />
                 </div>
 
-                {/* Phone / WhatsApp */}
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
-                    WhatsApp / Phone *
+                <div className="space-y-1.5">
+                  <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                    <Phone className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>WhatsApp / Phone <span className="text-[#E37500]">*</span></span>
                   </label>
                   <input
                     type="tel"
@@ -314,22 +369,29 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     placeholder="+91 98000 00000"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white placeholder-[#A8988B] text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all shadow-xs"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {/* Destination */}
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
-                    Destination *
+              {/* Row 3: Destination Selection & Quick Tap Pills */}
+              <div className="space-y-2 pt-1">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                    <MapPin className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>Destination <span className="text-[#E37500]">*</span></span>
                   </label>
+                  <span className="text-[11px] text-[#8C7667] dark:text-[#A7978A]">
+                    Pick or tap a favourite below
+                  </span>
+                </div>
+
+                <div className="relative">
                   <select
                     required
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
                   >
                     <option value="">Select destination</option>
                     {destinationOptions.map((destName) => (
@@ -340,16 +402,40 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                   </select>
                 </div>
 
-                {/* Trip Type */}
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
-                    Trip Type *
+                {/* Quick Tap Destination Pills */}
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
+                  {POPULAR_DESTINATION_PILLS.map((d) => {
+                    const isSelected = destination.toLowerCase().includes(d.toLowerCase());
+                    return (
+                      <button
+                        type="button"
+                        key={d}
+                        onClick={() => setDestination(d)}
+                        className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all ${
+                          isSelected
+                            ? 'bg-[#E37500] text-white shadow-xs scale-105'
+                            : 'bg-white dark:bg-white/5 border border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#A7978A] hover:border-[#E37500]/50'
+                        }`}
+                      >
+                        {d}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Row 4: Trip Type & Guest Count */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                <div className="space-y-1.5">
+                  <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                    <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>Trip Type <span className="text-[#E37500]">*</span></span>
                   </label>
                   <select
                     required
                     value={tripType}
                     onChange={(e) => setTripType(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] cursor-pointer"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
                   >
                     <option value="">Select trip type</option>
                     {tripTypeOptions.map((t) => {
@@ -362,44 +448,88 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     })}
                   </select>
                 </div>
+
+                <div className="space-y-1.5">
+                  <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                    <Users className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>Number of Guests</span>
+                  </label>
+                  <select
+                    value={guests}
+                    onChange={(e) => setGuests(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
+                  >
+                    {GUEST_OPTIONS.map((g) => (
+                      <option key={g} value={g}>
+                        {g}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              {/* Message */}
-              <div className="space-y-1">
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#594336] dark:text-neutral-300">
-                  Tell Us About Your Dream Trip
+              {/* Quick Trip Type Chips */}
+              <div className="flex flex-wrap gap-1.5">
+                {POPULAR_TRIP_TYPES.map((t) => {
+                  const isSelected = tripType === t.value;
+                  return (
+                    <button
+                      type="button"
+                      key={t.value}
+                      onClick={() => setTripType(t.value)}
+                      className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all ${
+                        isSelected
+                          ? 'bg-[#E37500] text-white shadow-xs scale-105'
+                          : 'bg-white dark:bg-white/5 border border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#A7978A] hover:border-[#E37500]/50'
+                      }`}
+                    >
+                      {t.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Row 5: Tell Us About Your Dream Trip */}
+              <div className="space-y-1.5 pt-1">
+                <label className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#6F5B4E] dark:text-neutral-300">
+                  <span className="flex items-center gap-1.5">
+                    <Compass className="w-3.5 h-3.5 text-[#E37500]" />
+                    <span>Tell Us About Your Dream Trip</span>
+                  </span>
+                  <span className="text-[11px] font-normal text-[#8C7667] lowercase">optional</span>
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="Preferred travel dates, number of guests, hotel tier, special occasions..."
+                  placeholder="Preferred travel dates, special occasions, private pool villa preferences, flight requests..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#141414] border border-[#DFD0C0] dark:border-white/15 text-[#2A1810] dark:text-white placeholder-[#A8988B] dark:placeholder-neutral-500 text-sm focus:outline-none focus:border-[#E37500] focus:ring-1 focus:ring-[#E37500] resize-none"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/15 text-[#24130A] dark:text-white placeholder-[#A8988B] text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all resize-none shadow-xs"
                 />
               </div>
 
-              {/* Submit CTA */}
+              {/* Main Submit Button */}
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3.5 rounded-full bg-[#E37500] hover:bg-[#C66500] disabled:opacity-60 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-[#E37500]/30 flex items-center justify-center gap-2 active:scale-98 border border-white/20"
+                className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#E37500] via-[#F28200] to-[#E37500] hover:from-[#C66500] hover:to-[#C66500] disabled:opacity-60 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-[#E37500]/25 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-98 border border-white/20"
               >
                 <Send className="w-4 h-4" />
-                <span>{submitting ? 'Sending Enquiry...' : 'Send My Enquiry'}</span>
+                <span>{submitting ? 'Crafting Your Enquiry...' : 'Send My Enquiry'}</span>
               </button>
 
-              {/* Footer Trust Bar */}
-              <div className="pt-1 flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#7C685B] dark:text-neutral-400">
-                <span className="flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#E37500]" />
-                  100% Private & Zero Obligation
+              {/* Footer Trust & Instant WhatsApp Line */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#6F5B4E] dark:text-[#A7978A] border-t border-[#E8DFD5] dark:border-white/10 pt-3">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#E37500]" />
+                  <span>100% Private · Zero Obligation</span>
                 </span>
+
                 <a
                   href={`tel:${info.phone}`}
-                  className="font-semibold text-[#E37500] hover:underline flex items-center gap-1"
+                  className="font-semibold text-[#E37500] hover:underline flex items-center gap-1.5"
                 >
-                  <Phone className="w-3 h-3" />
-                  <span>Direct Line: {info.phone}</span>
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Direct Founder Line: {info.phone}</span>
                 </a>
               </div>
             </form>
