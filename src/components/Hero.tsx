@@ -158,18 +158,18 @@ export const Hero: React.FC<HeroProps> = ({
           </span>
         </div>
 
-        {/* Action Buttons: Glassmorphic Frosted Styling */}
+        {/* Action Buttons: Crystal Glassmorphic Transparent Styling */}
         <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-[270px] sm:max-w-none mx-auto">
           <button
             onClick={onExploreDestinations}
-            className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-9 md:px-11 py-3.5 sm:py-4 bg-[#E37500]/80 hover:bg-[#E37500]/95 backdrop-blur-md border border-white/35 text-white font-extrabold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_8px_32px_rgba(227,117,0,0.45)] hover:shadow-[0_12px_40px_rgba(227,117,0,0.65)] hover:scale-[1.03] active:scale-95 text-center rounded-full drop-shadow-md cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-9 md:px-11 py-3.5 sm:py-4 bg-[#E37500]/20 hover:bg-[#E37500]/40 backdrop-blur-xl border border-[#E37500]/80 hover:border-white text-white font-extrabold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_4px_25px_rgba(227,117,0,0.25)] hover:shadow-[0_8px_35px_rgba(227,117,0,0.45)] hover:scale-[1.03] active:scale-95 text-center rounded-full cursor-pointer"
           >
             {primaryButtonText}
           </button>
 
           <button
             onClick={onPlanTrip}
-            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 md:px-10 py-3.5 sm:py-4 bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/40 text-white hover:text-white font-bold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.18em] uppercase transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.35)] hover:shadow-[0_12px_40px_rgba(255,255,255,0.25)] hover:scale-[1.03] active:scale-95 rounded-full text-center drop-shadow-md cursor-pointer"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-7 sm:px-9 md:px-10 py-3.5 sm:py-4 bg-white/5 hover:bg-white/15 backdrop-blur-xl border border-white/40 hover:border-white/80 text-white hover:text-white font-bold text-xs sm:text-sm tracking-[0.16em] sm:tracking-[0.18em] uppercase transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_35px_rgba(255,255,255,0.2)] hover:scale-[1.03] active:scale-95 rounded-full text-center cursor-pointer"
           >
             <span>{secondaryButtonText}</span>
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
