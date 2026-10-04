@@ -43,7 +43,7 @@ async function searchPlaces(textQuery: string, maxResultCount = 8) {
     throw new Error(`Places API error (${response.status}): ${errorText}`);
   }
 
-  const data = await response.json();
+  const data: any = await response.json();
   return data.places || [];
 }
 
@@ -95,7 +95,7 @@ async function computeRoute(
     throw new Error(`Routes API error (${response.status}): ${errorText}`);
   }
 
-  const data = await response.json();
+  const data: any = await response.json();
   return data.routes?.[0] || null;
 }
 
