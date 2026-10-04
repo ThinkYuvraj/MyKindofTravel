@@ -232,18 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* LIVE MAPS AGENT */}
-            {onOpenMapsAgent && (
-              <button
-                onClick={() => onOpenMapsAgent()}
-                className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors flex items-center gap-1.5"
-                title="Google Maps Route & Places Concierge"
-              >
-                <Compass className="w-3.5 h-3.5 text-[#E37500]" />
-                <span>Live Map</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] animate-pulse" />
-              </button>
-            )}
+
 
             {/* PLACES */}
             <button
@@ -432,21 +421,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Experiences
               </button>
 
-              {onOpenMapsAgent && (
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenMapsAgent();
-                  }}
-                  className="text-left text-[#E37500] font-semibold py-2 px-3 rounded-xl bg-[#E37500]/10 flex items-center justify-between"
-                >
-                  <span className="flex items-center gap-2">
-                    <Compass className="w-3.5 h-3.5" />
-                    <span>Live Maps Concierge</span>
-                  </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] animate-pulse" />
-                </button>
-              )}
+
 
               <button
                 onClick={() => {
