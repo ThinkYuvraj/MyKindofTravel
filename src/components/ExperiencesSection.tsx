@@ -135,28 +135,12 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                     alt={exp.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                  <div className="absolute top-3 left-3 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-black/60 backdrop-blur-md text-white font-serif font-bold text-xs border border-white/20">
-                    {exp.number}
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 </div>
-              )}
-
-              {/* Background Ambient Number Accent if no image */}
-              {!exp.image && (
-                <span className="absolute -top-4 -right-2 font-serif text-8xl font-bold text-neutral-200 dark:text-white/5 select-none pointer-events-none group-hover:text-[#E37500]/15 transition-colors">
-                  {exp.number}
-                </span>
               )}
 
               <div className="p-6 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 relative z-10">
                 <div className="space-y-3.5">
-                  {!exp.image && (
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white dark:bg-white/10 text-[#E37500] font-serif font-bold text-sm border border-neutral-200 dark:border-white/10 shadow-xs">
-                      {exp.number}
-                    </div>
-                  )}
-
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors">
                     {exp.title}
                   </h3>
