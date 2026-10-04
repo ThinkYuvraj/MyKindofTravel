@@ -121,11 +121,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#E37500]/10 text-[#E37500] border border-[#E37500]/25 flex items-center justify-center group-hover:bg-[#E37500] group-hover:text-white transition-all shadow-xs shrink-0">
                 <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-300 group-hover:rotate-45" />
               </div>
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-serif text-sm sm:text-base font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-none">
+              <div className="flex items-baseline gap-1.5 min-w-0">
+                <span className="font-serif text-sm sm:text-base font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-none truncate max-w-[150px] xs:max-w-none">
                   My Kind of Travel
                 </span>
-                <span className="hidden md:inline text-[9px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-medium">
+                <span className="hidden md:inline text-[9px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-medium shrink-0">
                   · Bespoke
                 </span>
               </div>

@@ -141,8 +141,8 @@ export const Hero: React.FC<HeroProps> = ({
 
       {/* Hero Centered Content Acquiring Full Main Frame */}
       <div className="relative z-10 w-full max-w-6xl 2xl:max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 text-center flex flex-col items-center justify-center pt-16 sm:pt-20 pb-16 sm:pb-20">
-        {/* Main Display Headline - Increased Size */}
-        <h1 className="font-sans font-extrabold uppercase text-white tracking-[0.04em] sm:tracking-[0.06em] md:tracking-[0.08em] text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.75rem] leading-[1.08] sm:leading-[1.06] drop-shadow-[0_4px_22px_rgba(0,0,0,0.9)] max-w-2xl sm:max-w-4xl lg:max-w-5xl mx-auto">
+        {/* Main Display Headline - Responsive Size */}
+        <h1 className="font-sans font-extrabold uppercase text-white tracking-[0.03em] sm:tracking-[0.06em] md:tracking-[0.08em] text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.75rem] leading-[1.1] sm:leading-[1.06] drop-shadow-[0_4px_22px_rgba(0,0,0,0.9)] max-w-2xl sm:max-w-4xl lg:max-w-5xl mx-auto">
           {title}
         </h1>
 

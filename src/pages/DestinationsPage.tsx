@@ -116,7 +116,7 @@ export default function DestinationsPage() {
             </div>
 
             {/* Region Pills in continuous capsule */}
-            <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md overflow-x-auto no-scrollbar shrink-0">
+            <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md overflow-x-auto no-scrollbar shrink-0 max-w-full">
               {filtersWithCounts.map((f) => {
                 const isActive = selectedRegion === f.label;
                 return (
