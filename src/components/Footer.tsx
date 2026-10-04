@@ -1,6 +1,6 @@
 import React from 'react';
 import { Compass, Phone, Mail, ArrowUp } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { COMPANY_INFO } from '../data/travelData';
 
 interface FooterProps {
@@ -16,6 +16,19 @@ export const Footer: React.FC<FooterProps> = ({
   onSelectDestination,
   onSelectTripType,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -29,15 +42,15 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="col-span-2 sm:col-span-3 lg:col-span-2 space-y-3 pr-0 lg:pr-6">
             <Link
               to="/"
-              onClick={scrollToTop}
-              className="flex items-center gap-2.5 group cursor-pointer inline-flex"
+              onClick={handleLogoClick}
+              className="flex items-center gap-2.5 group cursor-pointer inline-flex touch-manipulation select-none active:opacity-85"
               aria-label="My Kind of Travel Home"
             >
-              <div className="w-8 h-8 rounded-lg bg-[#E37500] text-white flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+              <div className="w-8 h-8 rounded-full bg-[#E37500] text-white flex items-center justify-center shadow-xs shrink-0 group-hover:scale-105 transition-transform">
                 <Compass className="w-4 h-4 stroke-[2.2] group-hover:rotate-45 transition-transform duration-300" />
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white group-hover:text-[#E37500] transition-colors">
+                <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-[#E37500] group-hover:text-[#C66500] transition-colors">
                   My Kind of Travel
                 </span>
                 <span className="hidden sm:inline-block text-[10px] uppercase tracking-wider text-[#E37500] font-semibold">

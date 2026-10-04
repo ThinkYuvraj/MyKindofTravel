@@ -47,12 +47,31 @@ async function startServer() {
     const frontendDistPath = path.join(process.cwd(), 'frontend', 'dist');
     const staticPath = fsExists(publicDistPath) ? publicDistPath : frontendDistPath;
 
+    // Cache immutable hashed asset chunks
+    app.use(
+      '/assets',
+      express.static(path.join(staticPath, 'assets'), {
+        maxAge: '1y',
+        immutable: true,
+      })
+    );
+
     app.use(express.static(staticPath));
     app.use(express.static(path.join(process.cwd(), 'public')));
+
+    // Critical: Never return index.html for missing static assets or chunk scripts!
+    // Returning index.html causes "Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of text/html"
+    app.use('/assets', (req, res) => {
+      res.status(404).type('text/plain').send('Asset chunk not found');
+    });
 
     app.get('*all', (req, res) => {
       const indexPath = path.join(staticPath, 'index.html');
       if (fsExists(indexPath)) {
+        // Prevent browser caching of index.html so dynamic chunk hashes are always fresh
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
         res.sendFile(indexPath);
       } else {
         res.send('Server running in Production mode. Build frontend via npm run build.');

@@ -4,6 +4,7 @@ import { GALLERY_ITEMS } from '../data/travelData';
 import { GalleryItem } from '../types';
 import { Camera, MapPin, X, ChevronLeft, ChevronRight, ArrowUpRight, Compass, Sparkles } from 'lucide-react';
 import { GlassImage } from './GlassImage';
+import { CarouselControlPill } from './CarouselControlPill';
 
 interface WanderlustGalleryProps {
   items?: GalleryItem[];
@@ -146,19 +147,6 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
               {customSubtitle || 'Real travel snapshots captured across our private chalets, cliffside villas, overwater bungalows, and bespoke European journeys.'}
             </p>
           </div>
-
-          {/* Action to View All Places Page */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigate('/places')}
-              className="px-2.5 py-1 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs hover:scale-102 active:scale-98 shrink-0 cursor-pointer"
-              title="Explore all places and photo moments"
-            >
-              <Compass className="w-3 h-3" />
-              <span>Explore All Places</span>
-              <ArrowUpRight className="w-3 h-3 stroke-[2.5]" />
-            </button>
-          </div>
         </div>
 
         {/* ── Responsive Control Bar: categories horizontally scrollable + carets pinned & visible ── */}
@@ -206,47 +194,26 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
           </div>
 
           {/* Caret Navigation & View All link - moved under the category section */}
-          <div className="flex items-center justify-between sm:justify-end w-full gap-2">
-            <div className="flex flex-row items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
-                aria-label="Previous place"
-                title="Previous"
-              >
-                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
-                aria-label="Next place"
-                title="Next"
-              >
-                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
-              </button>
-
-              {/* Link to Places Page */}
-              <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
-              <button
-                onClick={() => navigate('/places')}
-                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0 cursor-pointer"
-                title="Explore all places"
-              >
-                <span>View All</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+          <div className="flex items-center justify-center w-full">
+            <CarouselControlPill
+              onPrev={scrollLeft}
+              onNext={scrollRight}
+              canPrev={canScrollLeft}
+              canNext={canScrollRight}
+              prevLabel="Previous place"
+              nextLabel="Next place"
+              viewAllLink="/places"
+              viewAllText="VIEW ALL"
+            />
           </div>
         </div>
 
-        {/* Carousel of Places with floating side carets */}
+        {/* Carousel of Places with floating side carets on tablet/desktop */}
         <div className="relative group/carousel">
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Previous place"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -254,7 +221,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
           <button
             onClick={scrollRight}
             disabled={!canScrollRight}
-            className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Next place"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -262,23 +229,23 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
 
           <div
             ref={carouselRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar items-stretch"
           >
           {filteredItems.map((item, idx) => (
             <div
               key={item.id || idx}
               onClick={() => setActiveLightboxIndex(idx)}
-              className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_24px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col relative shrink-0 w-[80vw] sm:w-[340px] lg:w-[360px] snap-start"
+              className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_24px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col justify-between relative shrink-0 w-[80vw] max-w-[340px] sm:w-[340px] lg:w-[360px] h-[450px] sm:h-[460px] snap-start"
             >
               {/* Image Frame with Clean Aspect Ratio */}
-              <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
+              <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111] shrink-0">
                 <GlassImage
                   src={item.image}
                   alt={item.title}
                   containerClassName="w-full h-full"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4 pointer-events-none">
                   <span className="text-white text-xs font-semibold flex items-center gap-1.5 drop-shadow-md">
                     <ArrowUpRight className="w-4 h-4 text-[#E37500]" />
                     <span>View Photo</span>
@@ -297,27 +264,31 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
               </div>
 
               {/* Clean Uncluttered Typography Footer */}
-              <div className="p-5 flex flex-col justify-between flex-1 space-y-2">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-neutral-400">
-                  <span className="flex items-center gap-1 font-semibold text-[#E37500]">
-                    <MapPin className="w-3.5 h-3.5 shrink-0" />
-                    <span className="truncate">{item.location}</span>
-                  </span>
-                  <span className="flex items-center gap-1 text-neutral-400">
-                    <Sparkles className="w-3 h-3 text-[#E37500]" />
-                    <span>Curated</span>
-                  </span>
+              <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 space-y-2">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-neutral-400">
+                    <span className="flex items-center gap-1 font-semibold text-[#E37500]">
+                      <MapPin className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">{item.location}</span>
+                    </span>
+                    <span className="flex items-center gap-1 text-neutral-400">
+                      <Sparkles className="w-3 h-3 text-[#E37500]" />
+                      <span>Curated</span>
+                    </span>
+                  </div>
+
+                  <div className="h-14 flex items-center">
+                    <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug line-clamp-2">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  <div className="h-10 flex items-start">
+                    <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
+                      {item.caption || 'Handpicked scenic moments curated by our local travel designers.'}
+                    </p>
+                  </div>
                 </div>
-
-                <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
-                  {item.title}
-                </h3>
-
-                {item.caption && (
-                  <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
-                    {item.caption}
-                  </p>
-                )}
 
                 <div className="pt-2 border-t border-neutral-100 dark:border-white/10 flex items-center justify-between text-xs">
                   <span className="text-[#E37500] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">

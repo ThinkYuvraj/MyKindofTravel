@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 import { VIP_PRIVILEGES, VipPrivilege } from '../data/travelData';
+import { CarouselControlPill } from './CarouselControlPill';
 
 interface VipPrivilegesSectionProps {
   customBadge?: string;
@@ -103,36 +104,24 @@ export const VipPrivilegesSection: React.FC<VipPrivilegesSectionProps> = ({
 
           {/* Caret Navigation Controls in sleek capsule pill */}
           <div className="flex items-center justify-end self-start sm:self-end">
-            <div className="flex items-center gap-1.5 p-1 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Previous perk"
-                title="Previous"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Next perk"
-                title="Next"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-              </button>
-            </div>
+            <CarouselControlPill
+              onPrev={scrollLeft}
+              onNext={scrollRight}
+              canPrev={canScrollLeft}
+              canNext={canScrollRight}
+              prevLabel="Previous perk"
+              nextLabel="Next perk"
+            />
           </div>
         </div>
 
-        {/* ── Caret Carousel with Side Floating Carets ── */}
+        {/* ── Caret Carousel with Side Floating Carets on tablet/desktop ── */}
         <div className="relative group/carousel">
           {/* Floating Left Side Caret */}
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Previous perk"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -142,7 +131,7 @@ export const VipPrivilegesSection: React.FC<VipPrivilegesSectionProps> = ({
           <button
             onClick={scrollRight}
             disabled={!canScrollRight}
-            className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Next perk"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -151,7 +140,7 @@ export const VipPrivilegesSection: React.FC<VipPrivilegesSectionProps> = ({
           {/* Carousel Track */}
           <div
             ref={carouselRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar items-stretch"
           >
             {privileges.map((perk) => {
               const IconComponent = (perk.iconName && ICON_MAP[perk.iconName]) || Sparkles;
@@ -159,17 +148,17 @@ export const VipPrivilegesSection: React.FC<VipPrivilegesSectionProps> = ({
               return (
                 <div
                   key={perk.id}
-                  className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[85vw] sm:w-[350px] lg:w-[380px] snap-start"
+                  className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[85vw] max-w-[350px] sm:w-[350px] lg:w-[380px] h-[450px] sm:h-[460px] snap-start"
                 >
                   {/* Top Image & Badge */}
-                  <div className="relative w-full h-48 overflow-hidden bg-neutral-100 dark:bg-[#111111]">
+                  <div className="relative w-full h-48 overflow-hidden bg-neutral-100 dark:bg-[#111111] shrink-0">
                     <GlassImage
                       src={perk.image}
                       alt={perk.title}
                       containerClassName="w-full h-full"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                     
                     {/* Badge at top right */}
                     <div className="absolute top-3.5 right-3.5">
@@ -187,19 +176,23 @@ export const VipPrivilegesSection: React.FC<VipPrivilegesSectionProps> = ({
                   </div>
 
                   {/* Body Content */}
-                  <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-3">
-                    <div className="space-y-2.5">
-                      <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors">
-                        {perk.title}
-                      </h3>
+                  <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                    <div className="space-y-2">
+                      <div className="h-14 flex items-center">
+                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight line-clamp-2">
+                          {perk.title}
+                        </h3>
+                      </div>
 
-                      {perk.highlight && (
-                        <p className="text-xs font-semibold text-[#E37500] tracking-wide">
-                          {perk.highlight}
-                        </p>
-                      )}
+                      <div className="h-5 flex items-center">
+                        {perk.highlight ? (
+                          <p className="text-xs font-semibold text-[#E37500] tracking-wide truncate">
+                            {perk.highlight}
+                          </p>
+                        ) : null}
+                      </div>
 
-                      <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed font-normal pt-1">
+                      <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed font-normal line-clamp-3">
                         {perk.description}
                       </p>
                     </div>

@@ -44,12 +44,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   const handleLogoClick = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setActiveDropdown(null);
+    setSearchOpen(false);
     if (location.pathname !== '/') {
       navigate('/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      if (e) e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       const hero = document.getElementById('hero');
       if (hero) hero.scrollIntoView({ behavior: 'smooth' });
     }
@@ -115,17 +118,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Link
               to="/"
               onClick={handleLogoClick}
-              className="flex items-center gap-2 group focus:outline-none cursor-pointer"
+              className="flex items-center gap-2 group focus:outline-none cursor-pointer py-1.5 px-1 -my-1.5 touch-manipulation select-none active:opacity-85"
               aria-label="My Kind of Travel Home"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#E37500]/10 text-[#E37500] border border-[#E37500]/25 flex items-center justify-center group-hover:bg-[#E37500] group-hover:text-white transition-all shadow-xs shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#E37500] text-white flex items-center justify-center group-hover:scale-105 transition-all shadow-xs shrink-0">
                 <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-300 group-hover:rotate-45" />
               </div>
               <div className="flex items-baseline gap-1.5 min-w-0">
-                <span className="font-serif text-sm sm:text-base font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-none truncate max-w-[150px] xs:max-w-none">
+                <span className="font-serif text-sm sm:text-base font-bold tracking-tight text-[#E37500] group-hover:text-[#C66500] transition-colors leading-none truncate max-w-[130px] xs:max-w-[160px] sm:max-w-none">
                   My Kind of Travel
                 </span>
-                <span className="hidden md:inline text-[9px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-medium shrink-0">
+                <span className="hidden md:inline text-[9px] uppercase tracking-widest text-[#E37500]/70 dark:text-[#E37500]/80 font-semibold shrink-0">
                   · Bespoke
                 </span>
               </div>
@@ -141,7 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button
-                onClick={() => onNavigate('destinations')}
+                onClick={() => handleNavClick('destinations')}
                 className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors flex items-center gap-1 group"
               >
                 <span>Destinations</span>
@@ -168,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <button
                         onClick={() => {
                           setActiveDropdown(null);
-                          onNavigate('destinations');
+                          handleNavClick('destinations');
                         }}
                         className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs font-semibold text-[#E37500] hover:bg-[#E37500]/15 transition-colors border-t border-neutral-200 dark:border-white/10 mt-1 flex items-center justify-between"
                       >
@@ -183,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* PACKAGES */}
             <button
-              onClick={() => onNavigate('packages')}
+              onClick={() => handleNavClick('packages')}
               className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors"
             >
               Packages
@@ -196,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button
-                onClick={() => onNavigate('experiences')}
+                onClick={() => handleNavClick('experiences')}
                 className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors flex items-center gap-1 group"
               >
                 <span>Experiences</span>
@@ -222,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           key={i}
                           onClick={() => {
                             setActiveDropdown(null);
-                            onNavigate('experiences');
+                            handleNavClick('experiences');
                           }}
                           className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs text-neutral-900 dark:text-white hover:bg-[#E37500]/10 hover:text-[#E37500] transition-colors"
                         >
@@ -257,7 +260,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* MOMENTS */}
             <button
-              onClick={() => onNavigate('gallery')}
+              onClick={() => handleNavClick('gallery')}
               className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors"
             >
               Moments
@@ -265,7 +268,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* CONTACT */}
             <button
-              onClick={() => onNavigate('contact')}
+              onClick={() => handleNavClick('contact')}
               className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors"
             >
               Contact
@@ -277,7 +280,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Search Trigger */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer touch-manipulation active:scale-90"
               title="Search destinations"
               aria-label="Search"
             >
@@ -287,7 +290,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Wishlist */}
             <button
               onClick={openWishlist}
-              className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer touch-manipulation active:scale-90"
               title="Saved Journeys"
               aria-label="Wishlist"
             >
@@ -302,7 +305,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer touch-manipulation active:scale-90"
               title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
               aria-label="Toggle theme"
             >
@@ -315,8 +318,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Refined Plan Trip CTA */}
             <button
-              onClick={onPlanTripClick}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] active:scale-95 text-white font-semibold text-[11px] uppercase tracking-wider transition-all shadow-xs shrink-0"
+              onClick={handlePlanClick}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] active:scale-95 text-white font-semibold text-[11px] uppercase tracking-wider transition-all shadow-xs shrink-0 cursor-pointer touch-manipulation"
             >
               <span>Plan Trip</span>
               <ArrowRight className="w-3 h-3 stroke-[2.5]" />
@@ -325,7 +328,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-8 h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors ml-0.5"
+              className="lg:hidden w-8 h-8 rounded-full flex items-center justify-center text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all ml-0.5 cursor-pointer touch-manipulation active:scale-90"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -390,78 +393,58 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         )}
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile & Tablet Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 w-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 rounded-2xl p-4 shadow-xl backdrop-blur-2xl space-y-3 animate-in fade-in duration-150">
-            <div className="flex flex-col space-y-1 text-xs font-semibold">
+          <div className="lg:hidden mt-2 w-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 rounded-2xl p-4 sm:p-5 shadow-xl backdrop-blur-2xl space-y-3 animate-in fade-in duration-150">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs font-semibold">
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('hero');
-                }}
-                className="text-left text-[#E37500] py-2 px-3 rounded-xl hover:bg-[#E37500]/10"
+                onClick={() => handleNavClick('hero')}
+                className="text-left text-[#E37500] py-2 px-3 rounded-xl hover:bg-[#E37500]/10 cursor-pointer"
               >
                 Home
               </button>
 
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('destinations');
-                }}
-                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                onClick={() => handleNavClick('destinations')}
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer"
               >
                 Destinations
               </button>
 
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('packages');
-                }}
-                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                onClick={() => handleNavClick('packages')}
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer"
               >
                 Packages
               </button>
 
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('experiences');
-                }}
-                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                onClick={() => handleNavClick('experiences')}
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer"
               >
                 Experiences
               </button>
-
-
 
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   navigate('/places');
                 }}
-                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer"
               >
                 Places & Views
               </button>
 
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('gallery');
-                }}
-                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                onClick={() => handleNavClick('gallery')}
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer"
               >
                 Moments
               </button>
 
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('contact');
-                }}
-                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+                onClick={() => handleNavClick('contact')}
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer sm:col-span-2"
               >
                 Contact
               </button>
@@ -474,7 +457,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     setMobileMenuOpen(false);
                     onOpenSidebar();
                   }}
-                  className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white text-xs font-semibold flex-1 text-center"
+                  className="px-3.5 py-2 rounded-xl bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white text-xs font-semibold flex-1 text-center cursor-pointer"
                 >
                   Menu Drawer
                 </button>
@@ -482,9 +465,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onPlanTripClick();
+                  handlePlanClick();
                 }}
-                className="px-4 py-2 rounded-xl bg-[#E37500] text-white text-xs font-semibold flex-1 text-center shadow-xs"
+                className="px-4 py-2 rounded-xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-semibold flex-1 text-center shadow-xs cursor-pointer active:scale-95 transition-all"
               >
                 Plan Trip
               </button>

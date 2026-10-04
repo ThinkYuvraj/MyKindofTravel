@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Compass,
   Phone,
@@ -36,6 +36,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { isDark, toggleTheme } = useTheme();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onClose();
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const navItems = [
     { label: 'Destinations', id: 'destinations', icon: MapPin, desc: 'Bali, Swiss, Paris & more' },
     { label: 'Popular Packages', id: 'packages', icon: Calendar, desc: 'Ready to personalise' },
@@ -48,7 +62,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   const handleNavClick = (id: string) => {
-    onNavigate(id);
+    if (location.pathname !== '/') {
+      navigate(`/#${id}`);
+    } else if (onNavigate) {
+      onNavigate(id);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
     onClose();
   };
 
@@ -80,21 +101,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="flex items-center justify-between">
             <Link
               to="/"
-              onClick={() => {
-                onClose();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="flex items-center gap-3 group cursor-pointer"
+              onClick={handleLogoClick}
+              className="flex items-center gap-3 group cursor-pointer touch-manipulation select-none active:opacity-85"
               aria-label="My Kind of Travel Home"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#E37500] text-white flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md shadow-[#E37500]/20 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-[#E37500] text-white flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md shadow-[#E37500]/20 group-hover:scale-105 transition-transform shrink-0">
                 <Compass className="w-5 h-5 stroke-[2.2] group-hover:rotate-45 transition-transform duration-300" />
               </div>
               <div>
-                <span className="font-serif text-lg font-bold text-neutral-900 dark:text-white block leading-tight group-hover:text-[#E37500] transition-colors">
+                <span className="font-serif text-lg font-bold text-[#E37500] block leading-tight group-hover:text-[#C66500] transition-colors">
                   My Kind of Travel
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#E37500] font-bold block">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#E37500]/80 font-bold block">
                   Bespoke Luxury Journeys
                 </span>
               </div>

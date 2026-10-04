@@ -647,10 +647,10 @@ export default function PlanTripPage() {
           {/* Left: Dynamic Pricing & Budget Status */}
           <div className="space-y-0.5">
             <div className="flex items-baseline gap-1.5">
-              <span className="font-serif text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              <span className="font-sans text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight tabular-nums price-tag">
                 ₹{calculatedPrice.toLocaleString('en-IN')}
               </span>
-              <span className="text-xs sm:text-sm text-neutral-500 font-normal">
+              <span className="text-xs sm:text-sm text-neutral-500 font-sans font-medium">
                 / person
               </span>
             </div>

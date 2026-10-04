@@ -173,22 +173,22 @@ export default function ExperiencesPage() {
           </div>
 
           {/* Experiences Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8 items-stretch">
             {filteredExperiences.map((exp) => (
               <div
                 key={exp.number}
-                className="rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300 relative"
+                className="rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300 relative h-[540px]"
               >
-                <div>
+                <div className="flex flex-col flex-1">
                   {/* Image with Pillar Number */}
                   {exp.image && (
-                    <div className="relative w-full h-52 overflow-hidden border-b border-neutral-200 dark:border-white/10">
+                    <div className="relative w-full h-52 overflow-hidden border-b border-neutral-200 dark:border-white/10 shrink-0">
                       <img
                         src={exp.image}
                         alt={exp.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
                       <div className="absolute top-3.5 left-3.5 inline-flex items-center justify-center w-9 h-9 rounded-xl bg-black/60 backdrop-blur-md text-white font-serif font-bold text-xs border border-white/20">
                         {exp.number}
                       </div>
@@ -196,22 +196,28 @@ export default function ExperiencesPage() {
                   )}
 
                   {/* Body */}
-                  <div className="p-6 sm:p-7 space-y-4">
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
-                      {exp.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                      {exp.description}
-                    </p>
+                  <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-3">
+                    <div className="space-y-2">
+                      <div className="h-14 flex items-center">
+                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight line-clamp-2">
+                          {exp.title}
+                        </h3>
+                      </div>
+                      <div className="h-10 flex items-start">
+                        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed line-clamp-2">
+                          {exp.description}
+                        </p>
+                      </div>
+                    </div>
 
                     {/* Highlights */}
-                    <div className="pt-3 border-t border-neutral-200 dark:border-white/10 space-y-2">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#E37500] block">
+                    <div className="h-24 pt-2.5 border-t border-neutral-200 dark:border-white/10 flex flex-col justify-center space-y-1.5">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#E37500] block">
                         Signature Highlights:
                       </span>
-                      {exp.highlights.map((h, i) => (
+                      {exp.highlights.slice(0, 3).map((h, i) => (
                         <div key={i} className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300">
-                          <div className="w-4 h-4 rounded-full bg-[#E37500]/10 flex items-center justify-center shrink-0">
+                          <div className="w-3.5 h-3.5 rounded-full bg-[#E37500]/10 flex items-center justify-center shrink-0">
                             <Check className="w-2.5 h-2.5 text-[#E37500] stroke-[3]" />
                           </div>
                           <span className="truncate">{h}</span>
@@ -222,10 +228,10 @@ export default function ExperiencesPage() {
                 </div>
 
                 {/* Bottom CTA Button */}
-                <div className="p-6 sm:p-7 pt-0">
+                <div className="p-5 sm:p-6 pt-0 shrink-0">
                   <button
                     onClick={() => handleStartPlanning(exp.typeKey)}
-                    className="w-full py-3 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-[1.02] active:scale-95"
+                    className="w-full py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-[1.02] active:scale-95 cursor-pointer"
                   >
                     <span>{exp.ctaText}</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5]" />

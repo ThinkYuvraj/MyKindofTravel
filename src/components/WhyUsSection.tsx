@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { COMPANY_INFO } from '../data/travelData';
 import { UserCheck, ShieldCheck, PhoneCall, Sparkles, Award, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CarouselControlPill } from './CarouselControlPill';
 
 interface WhyUsSectionProps {
   companyInfo?: typeof COMPANY_INFO;
@@ -139,53 +140,43 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({
               <span className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
                 Pillars of Excellence
               </span>
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={scrollLeft}
-                  disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Previous pillar"
-                  title="Previous"
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Next pillar"
-                  title="Next"
-                >
-                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
-              </div>
+              <CarouselControlPill
+                onPrev={scrollLeft}
+                onNext={scrollRight}
+                canPrev={canScrollLeft}
+                canNext={canScrollRight}
+                prevLabel="Previous pillar"
+                nextLabel="Next pillar"
+              />
             </div>
 
             <div
               ref={carouselRef}
-              className="flex gap-5 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar"
+              className="flex gap-5 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar items-stretch"
             >
               {activePillars.map((item, idx) => {
                 const IconComp = item.icon;
                 return (
                   <div
                     key={idx}
-                    className="p-7 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 space-y-4 group shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 shrink-0 w-[82vw] sm:w-[320px] snap-start"
+                    className="p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 space-y-3 group shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 shrink-0 w-[82vw] max-w-[320px] sm:w-[320px] h-[260px] flex flex-col justify-between snap-start"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-white/10 text-[#E37500] flex items-center justify-center border border-neutral-200 dark:border-white/10 group-hover:scale-110 transition-transform">
-                        <IconComp className="w-6 h-6" />
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-white/10 text-[#E37500] flex items-center justify-center border border-neutral-200 dark:border-white/10 group-hover:scale-110 transition-transform">
+                          <IconComp className="w-6 h-6" />
+                        </div>
+                        {item.stat && (
+                          <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/15 shadow-xs">
+                            {item.stat}
+                          </span>
+                        )}
                       </div>
-                      {item.stat && (
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/15 shadow-xs">
-                          {item.stat}
-                        </span>
-                      )}
+                      <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors mt-3 line-clamp-1">
+                        {item.title}
+                      </h3>
                     </div>
-                    <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-normal">
+                    <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed font-normal line-clamp-3">
                       {item.description}
                     </p>
                   </div>

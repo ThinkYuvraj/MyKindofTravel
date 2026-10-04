@@ -4,6 +4,7 @@ import { DESTINATIONS } from '../data/travelData';
 import { DestinationItem } from '../types';
 import { ArrowUpRight, Compass, Sparkles, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
+import { CarouselControlPill } from './CarouselControlPill';
 
 interface DestinationsSectionProps {
   data?: DestinationItem[];
@@ -163,10 +164,10 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
           </p>
         </div>
 
-        {/* ── Control Bar Below Heading ───────────────────────── */}
-        <div className="flex flex-col gap-3 mb-8 w-full">
+        {/* ── Category Filters and Caret Navigation ───────────────────────── */}
+        <div className="flex flex-col items-center gap-3.5 mb-8 w-full">
           {/* Continuous category capsule pill container */}
-          <div className="w-full overflow-x-auto no-scrollbar pb-1">
+          <div className="w-full flex justify-center overflow-x-auto no-scrollbar pb-1">
             <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
               {filtersWithCounts.map((f) => {
                 const isActive = selectedRegion === f.label;
@@ -207,48 +208,27 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             </div>
           </div>
 
-          {/* Caret Navigation & View All link - moved under the category section */}
-          <div className="flex items-center justify-between sm:justify-end w-full gap-2">
-            <div className="flex items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
-                aria-label="Previous destination"
-                title="Previous"
-              >
-                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
-                aria-label="Next destination"
-                title="Next"
-              >
-                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
-              </button>
-
-              {/* Link to All Destinations Page */}
-              <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
-              <button
-                onClick={() => navigate('/destinations')}
-                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0 cursor-pointer"
-                title="View complete destinations list"
-              >
-                <span>View All</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+          {/* Caret Navigation & View All link - directly under the category section */}
+          <div className="flex items-center justify-center w-full">
+            <CarouselControlPill
+              onPrev={scrollLeft}
+              onNext={scrollRight}
+              canPrev={canScrollLeft}
+              canNext={canScrollRight}
+              prevLabel="Previous destination"
+              nextLabel="Next destination"
+              viewAllLink="/destinations"
+              viewAllText="VIEW ALL"
+            />
           </div>
         </div>
 
-        {/* Pure Caret Carousel of Destinations with side floating carets */}
+        {/* Pure Caret Carousel of Destinations with side floating carets on tablet/desktop */}
         <div className="relative group/carousel">
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Previous destination"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -256,7 +236,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
           <button
             onClick={scrollRight}
             disabled={!canScrollRight}
-            className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Next destination"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -264,7 +244,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
 
           <div
             ref={carouselRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar items-stretch"
           >
           {filteredData.map((dest) => {
             const meta = DESTINATION_META[dest.id] || { code: 'Direct', flightTime: 'Curated Flight Route' };
@@ -272,77 +252,83 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             return (
               <div
                 key={dest.id}
-                className="group rounded-3xl overflow-hidden backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative shrink-0 w-[80vw] sm:w-[340px] lg:w-[360px] snap-start"
+                className="group rounded-3xl overflow-hidden backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative shrink-0 w-[85vw] max-w-[340px] sm:w-[340px] lg:w-[350px] h-[520px] snap-start"
               >
-                {/* Image */}
-                <div className="relative h-48 sm:h-52 overflow-hidden w-full bg-neutral-100 dark:bg-[#111111]">
-                  <GlassImage
-                    src={dest.image}
-                    alt={dest.name}
-                    containerClassName="w-full h-full"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                <div className="flex flex-col flex-1">
+                  {/* Image */}
+                  <div className="relative h-48 sm:h-50 overflow-hidden w-full shrink-0 bg-neutral-100 dark:bg-[#111111]">
+                    <GlassImage
+                      src={dest.image}
+                      alt={dest.name}
+                      containerClassName="w-full h-full"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* Card Body: Heading on top, pills directly below heading */}
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                    <div className="space-y-2">
+                      {/* Destination Heading */}
+                      <div className="h-14 flex items-center">
+                        <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight line-clamp-2">
+                          {dest.name}
+                        </h3>
+                      </div>
+
+                      {/* Pills below heading inside card */}
+                      <div className="h-7 flex items-center gap-2 flex-wrap">
+                        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-white text-[11px] font-medium">
+                          <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                          <span>{meta.flightTime}</span>
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
+                          {dest.priceNote.replace('Starting from ', 'From ')}
+                        </span>
+                      </div>
+
+                      {/* Description */}
+                      <div className="h-10 flex items-start">
+                        <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
+                          {dest.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Highlights List */}
+                    <div className="h-16 space-y-1.5 pt-2.5 border-t border-neutral-200 dark:border-white/10 flex flex-col justify-center">
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900 dark:text-white">
+                        <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
+                        <span>Signature Inclusions:</span>
+                      </div>
+                      <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-300">
+                        {(dest.highlights || []).slice(0, 2).map((hl, i) => (
+                          <li key={i} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] shrink-0" />
+                            <span className="truncate">{hl}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Card Body: Heading on top, pills directly below heading */}
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3.5">
-                  <div className="space-y-2.5">
-                    {/* Destination Heading */}
-                    <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
-                      {dest.name}
-                    </h3>
+                {/* Bottom Actions */}
+                <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-white/10 shrink-0">
+                  <button
+                    onClick={() => onSelectDestination(dest)}
+                    className="text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors cursor-pointer"
+                  >
+                    <span>View Itinerary</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 shrink-0 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-[#E37500]" />
+                  </button>
 
-                    {/* Pills below heading inside card */}
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-white text-[11px] font-medium">
-                        <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
-                        <span>{meta.flightTime}</span>
-                      </span>
-                      <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
-                        {dest.priceNote.replace('Starting from ', 'From ')}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2 pt-1">
-                      {dest.description}
-                    </p>
-                  </div>
-
-                  {/* Highlights List */}
-                  <div className="space-y-1.5 pt-3 border-t border-neutral-200 dark:border-white/10">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900 dark:text-white">
-                      <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
-                      <span>Signature Inclusions:</span>
-                    </div>
-                    <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-300">
-                      {(dest.highlights || []).slice(0, 2).map((hl, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] shrink-0" />
-                          <span className="truncate">{hl}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Bottom Actions */}
-                  <div className="pt-3.5 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-white/10">
-                    <button
-                      onClick={() => onSelectDestination(dest)}
-                      className="text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors"
-                    >
-                      <span>View Itinerary</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 shrink-0 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-[#E37500]" />
-                    </button>
-
-                    <button
-                      onClick={() => onEnquireDestination(dest.name)}
-                      className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
-                    >
-                      Enquire
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => onEnquireDestination(dest.name)}
+                    className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
+                  >
+                    Enquire
+                  </button>
                 </div>
               </div>
             );

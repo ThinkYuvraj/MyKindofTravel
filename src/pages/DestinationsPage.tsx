@@ -158,7 +158,7 @@ export default function DestinationsPage() {
 
           {/* Destinations Grid */}
           {filteredDestinations.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
               {filteredDestinations.map((dest) => {
                 const meta = DESTINATION_META[dest.id] || { code: 'Direct', flightTime: 'Curated Route' };
                 const isSaved = isDestinationSaved(dest.id);
@@ -166,94 +166,100 @@ export default function DestinationsPage() {
                 return (
                   <div
                     key={dest.id}
-                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative"
+                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-[520px] relative"
                   >
-                    {/* Clean Image Container without text/badge overlays */}
-                    <div className="relative h-60 sm:h-64 overflow-hidden w-full bg-neutral-100 dark:bg-[#111111]">
-                      <GlassImage
-                        src={dest.image}
-                        alt={dest.name}
-                        containerClassName="w-full h-full"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+                    <div className="flex flex-col flex-1">
+                      {/* Clean Image Container without text/badge overlays */}
+                      <div className="relative h-48 sm:h-50 overflow-hidden w-full shrink-0 bg-neutral-100 dark:bg-[#111111]">
+                        <GlassImage
+                          src={dest.image}
+                          alt={dest.name}
+                          containerClassName="w-full h-full"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+                      </div>
+
+                      {/* Card Body with all metadata */}
+                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                        <div className="space-y-2">
+                          {/* Title and Wishlist Header */}
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="h-14 flex items-center flex-1">
+                              <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight line-clamp-2">
+                                {dest.name}
+                              </h3>
+                            </div>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleDestinationWishlist(dest.id);
+                              }}
+                              className={`p-2 rounded-full border transition-all shrink-0 cursor-pointer ${
+                                isSaved
+                                  ? 'bg-[#E37500] border-[#E37500] text-white shadow-xs'
+                                  : 'bg-neutral-100 dark:bg-white/10 border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
+                              }`}
+                              title={isSaved ? 'Remove from shortlist' : 'Save to shortlist'}
+                              aria-label={isSaved ? 'Remove from shortlist' : 'Save to shortlist'}
+                            >
+                              <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
+                            </button>
+                          </div>
+
+                          {/* Badges Bar: Flight Time & Starting Price */}
+                          <div className="h-7 flex items-center gap-2 flex-wrap">
+                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-neutral-200 text-[11px] font-medium font-sans">
+                              <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                              <span>{meta.flightTime}</span>
+                            </span>
+                            <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold font-sans shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
+                              {dest.priceNote.replace('Starting from ', 'From ')}
+                            </span>
+                          </div>
+
+                          {/* Description */}
+                          <div className="h-10 flex items-start">
+                            <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
+                              {dest.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Inclusions */}
+                        <div className="h-16 space-y-1.5 pt-2.5 border-t border-neutral-200 dark:border-white/10 flex flex-col justify-center">
+                          <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900 dark:text-white">
+                            <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
+                            <span>Signature Inclusions:</span>
+                          </div>
+                          <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-400">
+                            {(dest.highlights || []).slice(0, 2).map((hl, i) => (
+                              <li key={i} className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] shrink-0" />
+                                <span className="truncate">{hl}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Card Body with all metadata */}
-                    <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-                      <div className="space-y-3">
-                        {/* Title and Wishlist Header */}
-                        <div className="flex items-start justify-between gap-3">
-                          <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
-                            {dest.name}
-                          </h3>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleDestinationWishlist(dest.id);
-                            }}
-                            className={`p-2 rounded-full border transition-all shrink-0 cursor-pointer ${
-                              isSaved
-                                ? 'bg-[#E37500] border-[#E37500] text-white shadow-xs'
-                                : 'bg-neutral-100 dark:bg-white/10 border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                            }`}
-                            title={isSaved ? 'Remove from shortlist' : 'Save to shortlist'}
-                            aria-label={isSaved ? 'Remove from shortlist' : 'Save to shortlist'}
-                          >
-                            <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
-                          </button>
-                        </div>
+                    {/* Bottom Actions */}
+                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-white/10 shrink-0">
+                      <button
+                        onClick={() => setSelectedDestination(dest)}
+                        className="text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors cursor-pointer"
+                      >
+                        <span>View Itinerary</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 shrink-0 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-[#E37500]" />
+                      </button>
 
-                        {/* Badges Bar: Flight Time & Starting Price */}
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-neutral-200 text-[11px] font-medium font-sans">
-                            <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
-                            <span>{meta.flightTime}</span>
-                          </span>
-                          <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold font-sans shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
-                            {dest.priceNote.replace('Starting from ', 'From ')}
-                          </span>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
-                          {dest.description}
-                        </p>
-                      </div>
-
-                      {/* Inclusions */}
-                      <div className="space-y-1.5 pt-3 border-t border-neutral-200 dark:border-white/10">
-                        <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900 dark:text-white">
-                          <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
-                          <span>Signature Inclusions:</span>
-                        </div>
-                        <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-400">
-                          {(dest.highlights || []).slice(0, 2).map((hl, i) => (
-                            <li key={i} className="flex items-center gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] shrink-0" />
-                              <span className="truncate">{hl}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Bottom Actions */}
-                      <div className="pt-3.5 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-white/10">
-                        <button
-                          onClick={() => setSelectedDestination(dest)}
-                          className="text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 group/btn transition-colors"
-                        >
-                          <span>View Itinerary</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 shrink-0 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-[#E37500]" />
-                        </button>
-
-                        <button
-                          onClick={() => handleEnquire(dest.name)}
-                          className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
-                        >
-                          Enquire
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => handleEnquire(dest.name)}
+                        className="px-5 py-2 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
+                      >
+                        Enquire
+                      </button>
                     </div>
                   </div>
                 );

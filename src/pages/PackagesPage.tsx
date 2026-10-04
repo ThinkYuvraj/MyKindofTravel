@@ -150,18 +150,18 @@ export default function PackagesPage() {
 
           {/* Packages Grid */}
           {filteredPackages.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
               {filteredPackages.map((pkg) => {
                 const isSaved = isPackageSaved(pkg.id);
 
                 return (
                   <div
                     key={pkg.id}
-                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-[560px]"
                   >
                     {/* Image Header */}
-                    <div>
-                      <div className="relative h-60 overflow-hidden w-full">
+                    <div className="flex flex-col flex-1">
+                      <div className="relative h-52 overflow-hidden w-full shrink-0 bg-neutral-100 dark:bg-[#111111]">
                         <GlassImage
                           src={pkg.image}
                           alt={pkg.title}
@@ -178,7 +178,7 @@ export default function PackagesPage() {
                                 e.stopPropagation();
                                 togglePackageWishlist(pkg.id);
                               }}
-                              className={`p-1.5 rounded-full backdrop-blur-md border border-white/20 transition-all ${
+                              className={`p-1.5 rounded-full backdrop-blur-md border border-white/20 transition-all cursor-pointer ${
                                 isSaved
                                   ? 'bg-[#E37500] text-white'
                                   : 'bg-black/50 text-white hover:bg-black/75'
@@ -198,20 +198,26 @@ export default function PackagesPage() {
                       </div>
 
                       {/* Content */}
-                      <div className="p-5 sm:p-6 space-y-3.5">
-                        <div className="flex items-center gap-1 text-xs text-[#E37500] font-semibold">
-                          <Clock className="w-3.5 h-3.5" />
-                          <span>{pkg.duration}</span>
+                      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                        <div className="space-y-1.5">
+                          <div className="h-5 flex items-center gap-1 text-xs text-[#E37500] font-semibold">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span>{pkg.duration}</span>
+                          </div>
+                          <div className="h-14 flex items-start">
+                            <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight line-clamp-2">
+                              {pkg.title}
+                            </h3>
+                          </div>
+                          <div className="h-9 flex items-start">
+                            <p className="text-xs text-neutral-600 dark:text-neutral-300 font-normal leading-relaxed line-clamp-2">
+                              {pkg.subtitle}
+                            </p>
+                          </div>
                         </div>
-                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
-                          {pkg.title}
-                        </h3>
-                        <p className="text-xs text-neutral-600 dark:text-neutral-300 font-normal leading-relaxed line-clamp-2">
-                          {pkg.subtitle}
-                        </p>
 
                         {/* Features Bullet List */}
-                        <div className="space-y-2 pt-3 border-t border-neutral-200 dark:border-white/10">
+                        <div className="h-20 space-y-1.5 pt-2.5 border-t border-neutral-200 dark:border-white/10 flex flex-col justify-center">
                           {pkg.features.slice(0, 3).map((feat, idx) => (
                             <div key={idx} className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300">
                               <div className="w-4 h-4 rounded-full bg-[#E37500]/15 dark:bg-[#E37500]/25 flex items-center justify-center shrink-0">
@@ -224,19 +230,19 @@ export default function PackagesPage() {
 
                         {/* Pricing */}
                         <div className="pt-2">
-                          <span className="text-[11px] text-neutral-400 dark:text-neutral-400 block font-medium font-sans">Starting from</span>
-                          <span className="text-xl sm:text-2xl font-bold font-sans text-neutral-900 dark:text-white tracking-normal">
-                            {pkg.startingPrice}
+                          <span className="text-[10px] text-neutral-400 dark:text-neutral-400 block font-medium font-sans uppercase tracking-wider">Starting from</span>
+                          <span className="text-xl sm:text-2xl font-bold font-sans text-neutral-900 dark:text-white tracking-normal tabular-nums price-tag">
+                            {pkg.startingPrice.replace('Starting from ', '')}
                           </span>
                         </div>
                       </div>
                     </div>
 
                     {/* Actions */}
-                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
+                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3 shrink-0">
                       <button
                         onClick={() => setSelectedPackage(pkg)}
-                        className="flex-1 py-2.5 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-neutral-200 dark:border-white/20 shadow-xs"
+                        className="flex-1 py-2.5 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-neutral-200 dark:border-white/20 shadow-xs cursor-pointer"
                       >
                         <Eye className="w-3.5 h-3.5 text-[#E37500]" />
                         <span>Itinerary</span>
@@ -244,7 +250,7 @@ export default function PackagesPage() {
 
                       <button
                         onClick={() => handleEnquire(pkg)}
-                        className="flex-1 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#E37500]/25 active:scale-95 border border-white/20"
+                        className="flex-1 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#E37500]/25 active:scale-95 border border-white/20 cursor-pointer"
                       >
                         <span>Enquire</span>
                         <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />

@@ -127,7 +127,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                             {dest.priceNote}
                           </span>
                           <span className="text-[10px] text-neutral-500 dark:text-neutral-400 truncate block">
-                            {dest.tag}
+                            {dest.region}
                           </span>
                         </div>
                         <button

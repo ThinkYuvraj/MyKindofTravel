@@ -36,13 +36,13 @@ export default function StoriesPage() {
           </div>
 
           {/* Stories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8 items-stretch">
             {TESTIMONIALS.map((review) => (
               <div
                 key={review.id}
-                className="p-7 sm:p-8 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-6 relative group hover:-translate-y-1 transition-all duration-300"
+                className="p-6 sm:p-8 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-4 relative group hover:-translate-y-1 transition-all duration-300 h-[290px] sm:h-[310px]"
               >
-                <div className="space-y-4">
+                <div className="space-y-3 flex-1 flex flex-col">
                   {/* Stars & Location */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1 text-[#E37500]">
@@ -56,10 +56,12 @@ export default function StoriesPage() {
                     </span>
                   </div>
 
-                  {/* Quote */}
-                  <blockquote className="font-serif text-base sm:text-lg leading-relaxed text-neutral-900 dark:text-white italic">
-                    "{review.quote}"
-                  </blockquote>
+                  {/* Quote with uniform clamp */}
+                  <div className="h-28 flex items-start overflow-hidden">
+                    <blockquote className="font-serif text-sm sm:text-base leading-relaxed text-neutral-900 dark:text-white italic line-clamp-4">
+                      "{review.quote}"
+                    </blockquote>
+                  </div>
                 </div>
 
                 {/* Author Info */}

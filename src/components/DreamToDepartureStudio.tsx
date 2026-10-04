@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Compass,
   Sparkles,
@@ -11,8 +11,6 @@ import {
   MessageCircle,
   Sliders,
   MapPin,
-  ChevronLeft,
-  ChevronRight,
 } from 'lucide-react';
 import { COMPANY_INFO } from '../data/travelData';
 
@@ -103,9 +101,7 @@ const CURATED_BLUEPRINTS: CuratedBlueprint[] = [
   }
 ];
 
-export const DreamToDepartureStudio: React.FC<{
-  onOpenLiveMaps?: (prompt?: string) => void;
-}> = ({ onOpenLiveMaps }) => {
+export const DreamToDepartureStudio: React.FC = () => {
   // Step state: 1: Curated, 2: Personalize, 3: Confirm, 4: Depart
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
@@ -120,26 +116,6 @@ export const DreamToDepartureStudio: React.FC<{
     'Private Sunset Yacht Charter'
   ]);
   const [confirmedRef, setConfirmedRef] = useState<string>('');
-
-  // Auto-swipe Carousel state for Step 1
-  const [carouselIndex, setCarouselIndex] = useState<number>(0);
-  const [isCarouselPaused, setIsCarouselPaused] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (isCarouselPaused || currentStep !== 1) return;
-    const timer = setInterval(() => {
-      setCarouselIndex((prev) => (prev + 1) % CURATED_BLUEPRINTS.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [isCarouselPaused, currentStep]);
-
-  const handleNextBlueprint = () => {
-    setCarouselIndex((prev) => (prev + 1) % CURATED_BLUEPRINTS.length);
-  };
-
-  const handlePrevBlueprint = () => {
-    setCarouselIndex((prev) => (prev - 1 + CURATED_BLUEPRINTS.length) % CURATED_BLUEPRINTS.length);
-  };
 
   const toggleAddon = (addon: string) => {
     setSelectedAddons((prev) =>
@@ -239,133 +215,91 @@ Please share availability and current bespoke perks for this curated itinerary.`
                     Select Your Starting Journey
                   </h3>
                 </div>
-
-                {/* Auto-Swipe Caret Controls & Slide Indicators */}
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5">
-                    {CURATED_BLUEPRINTS.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setCarouselIndex(idx)}
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                          carouselIndex === idx
-                            ? 'w-6 bg-[#E37500]'
-                            : 'w-2 bg-neutral-200 dark:bg-white/20 hover:bg-[#E37500]/50'
-                        }`}
-                        aria-label={`Go to slide ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={handlePrevBlueprint}
-                      className="p-2 rounded-full bg-neutral-100 dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
-                      aria-label="Previous Blueprint"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={handleNextBlueprint}
-                      className="p-2 rounded-full bg-neutral-100 dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all shadow-xs active:scale-95"
-                      aria-label="Next Blueprint"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/10 text-xs font-semibold text-neutral-600 dark:text-neutral-300">
+                  <span>4 Master Blueprints Available</span>
                 </div>
               </div>
 
-              {/* Auto-Swiping Blueprint Carousel Slider */}
-              <div
-                onMouseEnter={() => setIsCarouselPaused(true)}
-                onMouseLeave={() => setIsCarouselPaused(false)}
-                className="relative overflow-hidden rounded-3xl"
-              >
-                <div
-                  className="flex transition-transform duration-500 ease-out"
-                  style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
-                >
-                  {CURATED_BLUEPRINTS.map((bp) => {
-                    const isSelected = selectedBlueprint.id === bp.id;
-                    return (
-                      <div
-                        key={bp.id}
-                        className="w-full shrink-0 px-1"
-                      >
-                        <div
-                          onClick={() => {
-                            setSelectedBlueprint(bp);
-                            setVibe(bp.defaultVibe);
-                          }}
-                          className={`relative rounded-3xl overflow-hidden border cursor-pointer transition-all duration-300 group flex flex-col md:flex-row bg-neutral-50 dark:bg-[#0E0E0E] min-h-[280px] ${
-                            isSelected
-                              ? 'border-[#E37500] ring-2 ring-[#E37500]/30 shadow-[0_12px_32px_rgba(227,117,0,0.18)]'
-                              : 'border-neutral-200 dark:border-white/10 hover:border-[#E37500]/50 shadow-xs'
-                          }`}
-                        >
-                          {/* Image Frame */}
-                          <div className="w-full md:w-1/2 h-52 sm:h-60 md:h-auto relative overflow-hidden shrink-0">
-                            <img
-                              src={bp.image}
-                              alt={bp.name}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-                            <div className="absolute top-3.5 left-3.5 bg-white/90 dark:bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-neutral-900 dark:text-white uppercase tracking-wider">
-                              {bp.region} · {bp.duration}
-                            </div>
-                            {isSelected && (
-                              <div className="absolute top-3.5 right-3.5 bg-[#E37500] text-white p-1.5 rounded-full shadow-md flex items-center gap-1.5 px-3 text-xs font-bold">
-                                <CheckCircle2 className="w-4 h-4" />
-                                <span>Selected</span>
-                              </div>
-                            )}
-                            <div className="absolute bottom-3.5 left-3.5 right-3.5 md:hidden">
-                              <h4 className="font-serif text-lg font-bold text-white leading-snug">
-                                {bp.name}
-                              </h4>
-                            </div>
+              {/* Responsive Grid for All Devices (MacBook Air, iPad, iPhone, Android, Kali, Windows) */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                {CURATED_BLUEPRINTS.map((bp) => {
+                  const isSelected = selectedBlueprint.id === bp.id;
+                  return (
+                    <div
+                      key={bp.id}
+                      onClick={() => {
+                        setSelectedBlueprint(bp);
+                        setVibe(bp.defaultVibe);
+                      }}
+                      className={`relative rounded-3xl overflow-hidden border cursor-pointer transition-all duration-300 group flex flex-col sm:flex-row bg-neutral-50 dark:bg-[#0E0E0E] ${
+                        isSelected
+                          ? 'border-[#E37500] ring-2 ring-[#E37500]/30 shadow-[0_12px_32px_rgba(227,117,0,0.18)]'
+                          : 'border-neutral-200 dark:border-white/10 hover:border-[#E37500]/50 shadow-xs'
+                      }`}
+                    >
+                      {/* Image Frame */}
+                      <div className="w-full sm:w-2/5 h-44 sm:h-auto relative overflow-hidden shrink-0">
+                        <img
+                          src={bp.image}
+                          alt={bp.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                        <div className="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-neutral-900 dark:text-white uppercase tracking-wider">
+                          {bp.region} · {bp.duration}
+                        </div>
+                        {isSelected && (
+                          <div className="absolute top-3 right-3 bg-[#E37500] text-white py-1 px-2.5 rounded-full shadow-md flex items-center gap-1 text-[11px] font-bold">
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span>Selected</span>
                           </div>
-
-                          {/* Content Details */}
-                          <div className="p-5 sm:p-6 md:w-1/2 flex flex-col justify-between space-y-4">
-                            <div className="space-y-2.5">
-                              <span className="text-[10px] font-bold uppercase tracking-widest text-[#E37500]">
-                                {bp.defaultVibe}
-                              </span>
-                              <h4 className="hidden md:block font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white leading-tight">
-                                {bp.name}
-                              </h4>
-                              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                                {bp.highlight}
-                              </p>
-                            </div>
-
-                            <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-                              <span className="flex items-center gap-1.5 font-medium">
-                                <MapPin className="w-4 h-4 text-[#E37500]" />
-                                <span className="truncate max-w-[200px] sm:max-w-[240px]">{bp.routeSummary}</span>
-                              </span>
-                              <span className="font-bold text-[#E37500] shrink-0">
-                                {isSelected ? 'Selected' : 'Select Blueprint'}
-                              </span>
-                            </div>
-                          </div>
+                        )}
+                        <div className="absolute bottom-2.5 left-3 right-3 sm:hidden">
+                          <h4 className="font-serif text-base font-bold text-white leading-snug line-clamp-1">
+                            {bp.name}
+                          </h4>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
+
+                      {/* Content Details */}
+                      <div className="p-4 sm:p-5 sm:w-3/5 flex flex-col justify-between space-y-3">
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-[#E37500]">
+                            {bp.defaultVibe}
+                          </span>
+                          <h4 className="hidden sm:block font-serif text-lg font-bold text-neutral-900 dark:text-white leading-snug">
+                            {bp.name}
+                          </h4>
+                          <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed line-clamp-2">
+                            {bp.highlight}
+                          </p>
+                        </div>
+
+                        <div className="pt-2.5 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+                          <span className="flex items-center gap-1 font-medium truncate pr-2">
+                            <MapPin className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                            <span className="truncate max-w-[150px]">{bp.routeSummary}</span>
+                          </span>
+                          <span className={`shrink-0 font-bold px-2.5 py-0.5 rounded-full text-[11px] ${
+                            isSelected ? 'bg-[#E37500]/10 text-[#E37500]' : 'text-neutral-500 dark:text-neutral-400'
+                          }`}>
+                            {isSelected ? 'Selected' : 'Select'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Next Step Action */}
-              <div className="pt-4 flex items-center justify-between">
+              {/* Next Step Action with Pill Shaped Button */}
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <span className="text-xs text-neutral-600 dark:text-neutral-300">
                   Ready to personalize: <strong>{selectedBlueprint.name}</strong>
                 </span>
                 <button
                   onClick={() => setCurrentStep(2)}
-                  className="px-6 py-3 rounded-2xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-[0_6px_20px_rgba(227,117,0,0.25)] active:scale-95 transition-all"
+                  className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_6px_20px_rgba(227,117,0,0.25)] active:scale-95 transition-all"
                 >
                   <span>Personalize This Journey</span>
                   <ArrowRight className="w-4 h-4" />
@@ -727,29 +661,15 @@ Please share availability and current bespoke perks for this curated itinerary.`
                   href={whatsappBookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-2xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-[0_6px_20px_rgba(227,117,0,0.25)] transition-all"
+                  className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-[0_6px_20px_rgba(227,117,0,0.25)] transition-all active:scale-95"
                 >
                   <MessageCircle className="w-4 h-4 fill-white" />
                   <span>Chat with Dedicated Concierge</span>
                 </a>
 
-                {onOpenLiveMaps && (
-                  <button
-                    onClick={() =>
-                      onOpenLiveMaps(
-                        `Inspect route and places for curated journey: ${selectedBlueprint.name} with route ${selectedBlueprint.routeSummary}.`
-                      )
-                    }
-                    className="px-6 py-3 rounded-2xl bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-[0_6px_20px_rgba(227,117,0,0.25)] transition-all"
-                  >
-                    <Compass className="w-4 h-4" />
-                    <span>View on Live Google Map</span>
-                  </button>
-                )}
-
                 <button
                   onClick={() => setCurrentStep(1)}
-                  className="px-5 py-3 rounded-2xl border border-neutral-200 dark:border-white/10 text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-black/5"
+                  className="px-5 py-2.5 rounded-full border border-neutral-200 dark:border-white/10 text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10 transition-all active:scale-95"
                 >
                   Personalize Another Trip
                 </button>

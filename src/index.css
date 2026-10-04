@@ -2,6 +2,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
 @layer base {
   html {
     color-scheme: light;
@@ -19,7 +24,7 @@
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: #111827;
     background-color: #FFFFFF;
     overflow-x: hidden;
@@ -36,6 +41,15 @@
 
   h1, h2, h3, .font-serif {
     font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* Easy-to-read, crisp typography for prices, figures, and numerical metrics across all devices */
+  .price-tag,
+  .tabular-nums,
+  [data-price] {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+    font-variant-numeric: tabular-nums lining-nums;
   }
 }
 
@@ -181,6 +195,10 @@ html.theme-transitioning *::after {
 
 @media (min-width: 640px) {   /* sm */
   .section-container { padding-inline: 1.5rem; }
+}
+
+@media (min-width: 768px) {   /* md - tablet */
+  .section-container { padding-inline: 2rem; }
 }
 
 @media (min-width: 1024px) {  /* lg */

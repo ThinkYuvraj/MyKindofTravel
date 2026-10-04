@@ -52,9 +52,9 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
       }}
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/65 dark:bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
     >
-      <div className="relative w-full max-w-3xl max-h-[92vh] bg-white dark:bg-[#0A0A0A] border border-neutral-200 dark:border-white/15 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.3)] flex flex-col text-neutral-900 dark:text-white transition-colors">
+      <div className="relative w-full max-w-3xl max-h-[90vh] bg-white dark:bg-[#0A0A0A] border border-neutral-200 dark:border-white/15 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.3)] flex flex-col text-neutral-900 dark:text-white transition-colors">
         {/* Modal Header with Glassmorphic Skeleton Image */}
-        <div className="relative h-60 sm:h-72 shrink-0 overflow-hidden w-full">
+        <div className="relative h-48 sm:h-64 md:h-72 shrink-0 overflow-hidden w-full">
           <GlassImage
             src={pkg.image}
             alt={pkg.title}
@@ -109,7 +109,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
                 <MapPin className="w-3.5 h-3.5 text-[#E37500]" />
                 {pkg.destination}
               </span>
-              <span className="font-serif font-bold text-[#E37500] text-sm">
+              <span className="font-sans font-bold text-[#E37500] text-sm tabular-nums price-tag">
                 {pkg.startingPrice}
               </span>
             </div>
@@ -164,7 +164,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
         <div className="p-4 sm:p-6 bg-white dark:bg-[#0E0E0E] border-t border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-xs text-neutral-500 dark:text-neutral-400">
             <span>Starting at </span>
-            <span className="font-serif font-bold text-[#E37500] text-base">
+            <span className="font-sans font-bold text-[#E37500] text-base tabular-nums price-tag">
               {pkg.startingPrice}
             </span>
           </div>

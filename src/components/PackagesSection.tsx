@@ -4,6 +4,7 @@ import { POPULAR_PACKAGES } from '../data/travelData';
 import { TravelPackage } from '../types';
 import { Check, ArrowRight, Eye, Clock, Plane, Ticket, PackageOpen, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
+import { CarouselControlPill } from './CarouselControlPill';
 
 interface PackagesSectionProps {
   data?: TravelPackage[];
@@ -132,9 +133,10 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
         </div>
 
         {/* ── Control Bar Below Heading ───────────────────────── */}
-        <div className="flex flex-col gap-3 mb-8 w-full">
+        {/* ── Category Filters and Caret Navigation ───────────────────────── */}
+        <div className="flex flex-col items-center gap-3.5 mb-8 w-full">
           {/* Filter pills - scrollable horizontally on mobile */}
-          <div className="w-full overflow-x-auto no-scrollbar pb-1">
+          <div className="w-full flex justify-center overflow-x-auto no-scrollbar pb-1">
             <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
               {filtersWithCounts.map((f) => {
                 const isActive = activeFilter === f.label;
@@ -175,40 +177,18 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             </div>
           </div>
 
-          {/* Caret Navigation & View All link - moved under the category section */}
-          <div className="flex items-center justify-between sm:justify-end w-full gap-2">
-            <div className="flex items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md">
-              {/* Prev / Next caret arrows */}
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
-                aria-label="Previous package"
-                title="Previous"
-              >
-                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
-                aria-label="Next package"
-                title="Next"
-              >
-                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
-              </button>
-
-              {/* Link to All Packages Page */}
-              <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
-              <button
-                onClick={() => navigate('/packages')}
-                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0 cursor-pointer"
-                title="View all itineraries & packages"
-              >
-                <span>View All</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+          {/* Caret Navigation & View All link - directly under the category section */}
+          <div className="flex items-center justify-center w-full">
+            <CarouselControlPill
+              onPrev={scrollLeft}
+              onNext={scrollRight}
+              canPrev={canScrollLeft}
+              canNext={canScrollRight}
+              prevLabel="Previous package"
+              nextLabel="Next package"
+              viewAllLink="/packages"
+              viewAllText="VIEW ALL"
+            />
           </div>
         </div>
 
@@ -218,7 +198,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             <button
               onClick={scrollLeft}
               disabled={!canScrollLeft}
-              className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+              className="hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
               aria-label="Previous package"
             >
               <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -226,7 +206,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             <button
               onClick={scrollRight}
               disabled={!canScrollRight}
-              className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+              className="hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
               aria-label="Next package"
             >
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -234,18 +214,18 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
             <div
               ref={carouselRef}
-              className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+              className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar items-stretch"
             >
             {filteredPackages.map((pkg) => {
               const { amount, suffix } = parsePrice(pkg.startingPrice);
               return (
                 <div
                   key={pkg.id}
-                  className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[80vw] sm:w-[340px] lg:w-[360px] snap-start"
+                  className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[85vw] max-w-[340px] sm:w-[340px] lg:w-[350px] h-[550px] snap-start"
                 >
-                  <div>
+                  <div className="flex flex-col flex-1">
                     {/* Image & Badges */}
-                    <div className="relative h-48 sm:h-52 overflow-hidden w-full">
+                    <div className="relative h-48 sm:h-50 overflow-hidden w-full shrink-0 bg-neutral-100 dark:bg-[#111111]">
                       <GlassImage
                         src={pkg.image}
                         alt={pkg.title}
@@ -261,23 +241,26 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     </div>
 
                     {/* Content */}
-                    <div className="p-4 sm:p-5 space-y-3 sm:space-y-3.5">
-                      <div>
-                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
-                          {pkg.title}
-                        </h3>
-                        <div className="flex items-center gap-1 text-xs text-[#E37500] font-semibold mt-1.5">
+                    <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                      <div className="space-y-1.5">
+                        <div className="h-13 flex items-start">
+                          <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight line-clamp-2">
+                            {pkg.title}
+                          </h3>
+                        </div>
+                        <div className="h-5 flex items-center gap-1 text-xs text-[#E37500] font-semibold">
                           <Clock className="w-3.5 h-3.5" />
                           <span>{pkg.duration}</span>
                         </div>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-normal line-clamp-2">
-                          {pkg.subtitle}
-                        </p>
+                        <div className="h-9 flex items-start">
+                          <p className="text-xs text-neutral-500 dark:text-neutral-400 font-normal line-clamp-2 leading-relaxed">
+                            {pkg.subtitle}
+                          </p>
+                        </div>
                       </div>
 
-
                       {/* Features Bullet List */}
-                      <div className="space-y-2 pt-3 border-t border-neutral-200 dark:border-white/10">
+                      <div className="h-20 space-y-1.5 pt-2.5 border-t border-neutral-200 dark:border-white/10 flex flex-col justify-center">
                         {pkg.features.slice(0, 3).map((feat, idx) => (
                           <div key={idx} className="flex items-center gap-2 text-xs text-neutral-800 dark:text-neutral-200">
                             <div className="w-4 h-4 rounded-full bg-[#E37500]/15 dark:bg-[#E37500]/25 flex items-center justify-center shrink-0">
@@ -290,9 +273,9 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
                       {/* Pricing Tag */}
                       <div className="pt-2">
-                        <span className="text-[11px] text-neutral-500 dark:text-neutral-400 block font-medium">Starting from</span>
+                        <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block font-medium uppercase tracking-wider">Starting from</span>
                         <div className="flex items-baseline gap-1">
-                          <span className="text-xl sm:text-2xl font-bold font-sans text-neutral-900 dark:text-white tracking-normal">
+                          <span className="text-xl sm:text-2xl font-bold font-sans text-neutral-900 dark:text-white tracking-normal tabular-nums price-tag">
                             {amount}
                           </span>
                           <span className="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
@@ -304,10 +287,10 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                   </div>
 
                   {/* ── CTA Buttons with #E37500 ───────────────────────────── */}
-                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3 shrink-0">
                     <button
                       onClick={() => onViewPackageDetails(pkg)}
-                      className="flex-1 py-2.5 rounded-full bg-neutral-100 dark:bg-[#141414] hover:bg-neutral-200/70 dark:hover:bg-white/10 text-neutral-900 dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-neutral-200 dark:border-white/15 shadow-xs"
+                      className="flex-1 py-2.5 rounded-full bg-neutral-100 dark:bg-[#141414] hover:bg-neutral-200/70 dark:hover:bg-white/10 text-neutral-900 dark:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-neutral-200 dark:border-white/15 shadow-xs cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-[#E37500]" />
                       <span>Itinerary</span>
@@ -315,7 +298,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
                     <button
                       onClick={() => onEnquirePackage(pkg)}
-                      className="flex-1 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#E37500]/25 active:scale-95 border border-white/20"
+                      className="flex-1 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#E37500]/25 active:scale-95 border border-white/20 cursor-pointer"
                     >
                       <span>Enquire</span>
                       <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />

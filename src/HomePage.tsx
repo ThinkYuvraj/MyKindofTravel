@@ -18,7 +18,7 @@ import { EnquiryModal } from './components/EnquiryModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BackToTop } from './components/BackToTop';
 import { CustomSectionRenderer } from './components/CustomSectionRenderer';
-import { GoogleMapsAgentModal } from './components/GoogleMapsAgentModal';
+import { DreamToDepartureStudio } from './components/DreamToDepartureStudio';
 import { VipPrivilegesSection } from './components/VipPrivilegesSection';
 import { DESTINATIONS, POPULAR_PACKAGES, MARQUEE_ITEMS, TESTIMONIALS, EXPERIENCE_PILLARS, COMPANY_INFO, GALLERY_ITEMS } from './data/travelData';
 import { DestinationItem, TravelPackage, CMSData } from './types';
@@ -29,6 +29,7 @@ const DEFAULT_ORDER = [
   'howItWorks',
   'destinations',
   'experiences',
+  'dreamToDeparture',
   'vipPrivileges',
   'packages',
   'gallery',
@@ -230,6 +231,13 @@ useEffect(() => {
           />
         );
 
+      case 'dreamToDeparture':
+        return (
+          <DreamToDepartureStudio
+            key="dreamToDeparture"
+          />
+        );
+
       case 'vipPrivileges':
         return (
           <VipPrivilegesSection
@@ -407,13 +415,6 @@ useEffect(() => {
         initialTripType={enquiryTripType}
         initialPackageName={enquiryPackageName}
         companyInfo={cmsData.companyInfo}
-      />
-
-      {/* Google Maps Real-Time Intelligence Agent Modal */}
-      <GoogleMapsAgentModal
-        isOpen={isMapsAgentOpen}
-        onClose={() => setIsMapsAgentOpen(false)}
-        initialPrompt={mapsAgentPrompt}
       />
 
       {/* Floating 1-Click WhatsApp Concierge */}

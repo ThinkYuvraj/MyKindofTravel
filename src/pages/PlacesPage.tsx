@@ -1001,7 +1001,7 @@ export default function PlacesPage() {
           {/* PLACES CATALOG CARDS */}
           {/* ============================================================ */}
           {filteredPlaces.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch">
               {filteredPlaces.map((place, idx) => {
                 const isSaved = isDestinationSaved(place.id);
 
@@ -1009,10 +1009,10 @@ export default function PlacesPage() {
                   <div
                     key={place.id}
                     onClick={() => setActiveLightboxIndex(idx)}
-                    className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-xs flex flex-col relative"
+                    className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-xs flex flex-col justify-between relative h-[520px]"
                   >
                     {/* Image Container */}
-                    <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
+                    <div className="w-full h-52 shrink-0 overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
                       <GlassImage
                         src={place.image}
                         alt={place.title}
@@ -1055,8 +1055,8 @@ export default function PlacesPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                      <div className="space-y-2">
+                    <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                      <div className="space-y-1.5">
                         <div className="flex items-center justify-between text-xs text-neutral-400">
                           <span className="flex items-center gap-1 font-semibold text-[#E37500]">
                             <MapPin className="w-3.5 h-3.5 shrink-0" />
@@ -1065,17 +1065,21 @@ export default function PlacesPage() {
                           <span className="text-[11px] text-neutral-400 font-medium">{place.region}</span>
                         </div>
 
-                        <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
-                          {place.title}
-                        </h3>
+                        <div className="h-14 flex items-center">
+                          <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug line-clamp-2">
+                            {place.title}
+                          </h3>
+                        </div>
 
-                        <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
-                          {place.caption}
-                        </p>
+                        <div className="h-10 flex items-start">
+                          <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
+                            {place.caption}
+                          </p>
+                        </div>
                       </div>
 
                       {/* Highlights Tag Cloud */}
-                      <div className="flex flex-wrap gap-1.5 pt-1">
+                      <div className="flex flex-wrap gap-1.5 pt-1 h-12 overflow-hidden content-start">
                         {place.highlights.slice(0, 3).map((h, i) => (
                           <span
                             key={i}
@@ -1087,7 +1091,7 @@ export default function PlacesPage() {
                       </div>
 
                       {/* Bottom action row */}
-                      <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between gap-2">
+                      <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between gap-2 shrink-0">
                         <div className="space-y-0.5">
                           <span className="text-[10px] text-neutral-400 uppercase font-bold tracking-wider">
                             Best Season
@@ -1103,7 +1107,7 @@ export default function PlacesPage() {
                               e.stopPropagation();
                               setActiveLightboxIndex(idx);
                             }}
-                            className="px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 transition-colors"
+                            className="px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-[#E37500] dark:hover:text-[#E37500] flex items-center gap-1 transition-colors cursor-pointer"
                           >
                             <span>Inspect</span>
                             <ArrowUpRight className="w-3.5 h-3.5 text-[#E37500]" />
@@ -1114,7 +1118,7 @@ export default function PlacesPage() {
                               e.stopPropagation();
                               handlePlanForPlace(place.location, place.title);
                             }}
-                            className="px-4 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-xs hover:scale-105 active:scale-95"
+                            className="px-4 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-xs hover:scale-105 active:scale-95 cursor-pointer"
                           >
                             Plan
                           </button>
@@ -1334,7 +1338,7 @@ export default function PlacesPage() {
                   <span className="text-[11px] uppercase tracking-wider font-bold text-neutral-500 dark:text-neutral-400">
                     Concierge Pricing
                   </span>
-                  <div className="font-serif text-lg font-bold text-[#E37500]">
+                  <div className="font-sans text-lg font-bold text-[#E37500] tabular-nums price-tag">
                     {activePhoto.startingPriceNote}
                   </div>
                   <button

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { EXPERIENCE_PILLARS } from '../data/travelData';
 import { ExperiencePillar } from '../types';
 import { ArrowRight, Sparkles, Check, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { CarouselControlPill } from './CarouselControlPill';
 
 interface ExperiencesSectionProps {
   pillars?: ExperiencePillar[];
@@ -85,48 +86,27 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
             </p>
           </div>
 
-          {/* Caret Controls & Link to All Experiences */}
-          <div className="flex items-center justify-between sm:justify-end w-full lg:w-auto gap-2">
-            {/* Caret Navigation Buttons */}
-            <div className="flex items-center gap-1.5 p-1 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Previous experience"
-                title="Previous"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Next experience"
-                title="Next"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-              </button>
-            </div>
-
-            {/* Link to All Experiences Page */}
-            <button
-              onClick={() => navigate('/experiences')}
-              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
-              title="View all bespoke experiences"
-            >
-              <span>View All</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
+          {/* Caret Controls & Link to All Experiences in unified pill */}
+          <div className="flex items-center justify-start sm:justify-end w-full lg:w-auto">
+            <CarouselControlPill
+              onPrev={scrollLeft}
+              onNext={scrollRight}
+              canPrev={canScrollLeft}
+              canNext={canScrollRight}
+              prevLabel="Previous experience"
+              nextLabel="Next experience"
+              viewAllLink="/experiences"
+              viewAllText="VIEW ALL"
+            />
           </div>
         </div>
 
-        {/* Pure Caret Carousel of Experiences with Floating Side Carets */}
+        {/* Pure Caret Carousel of Experiences with Floating Side Carets on tablet/desktop */}
         <div className="relative group/carousel">
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Previous experience"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -134,7 +114,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
           <button
             onClick={scrollRight}
             disabled={!canScrollRight}
-            className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Next experience"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -142,37 +122,41 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
 
           <div
             ref={carouselRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar items-stretch"
           >
           {activePillars.map((exp) => (
             <div
               key={exp.number}
-              className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 overflow-hidden flex flex-col justify-between group transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start"
+              className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 overflow-hidden flex flex-col justify-between group transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[85vw] max-w-[350px] sm:w-[350px] md:w-[360px] lg:w-[380px] h-[510px] sm:h-[520px] snap-start"
             >
               {/* Pillar Image Header */}
               {exp.image && (
-                <div className="relative w-full h-44 overflow-hidden border-b border-neutral-200 dark:border-white/10">
+                <div className="relative w-full h-44 overflow-hidden border-b border-neutral-200 dark:border-white/10 shrink-0">
                   <img
                     src={exp.image}
                     alt={exp.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                 </div>
               )}
 
-              <div className="p-6 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 relative z-10">
-                <div className="space-y-3.5">
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors">
-                    {exp.title}
-                  </h3>
+              <div className="p-5 sm:p-6 md:p-7 flex-1 flex flex-col justify-between relative z-10">
+                <div className="space-y-2.5">
+                  <div className="h-14 flex items-center">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight line-clamp-2">
+                      {exp.title}
+                    </h3>
+                  </div>
 
-                  <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-normal">
-                    {exp.description}
-                  </p>
+                  <div className="h-16 flex items-start">
+                    <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed font-normal line-clamp-3">
+                      {exp.description}
+                    </p>
+                  </div>
 
                   {/* Micro Highlights */}
-                  <div className="pt-2 space-y-1.5 border-t border-neutral-200 dark:border-white/10">
+                  <div className="h-16 flex flex-col justify-center pt-2 space-y-1.5 border-t border-neutral-200 dark:border-white/10">
                     {exp.highlights.slice(0, 2).map((item, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-200">
                         <Check className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
@@ -183,10 +167,10 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                 </div>
 
                 {/* Action Link with #E37500 */}
-                <div className="pt-4 relative z-10">
+                <div className="pt-3 border-t border-neutral-100 dark:border-white/5 relative z-10">
                   <button
                     onClick={() => onPlanTripType(exp.typeKey)}
-                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#E37500] hover:text-[#C66500] transition-colors group/link"
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#E37500] hover:text-[#C66500] transition-colors group/link cursor-pointer"
                   >
                     <span>{exp.ctaText}</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover/link:translate-x-1 transition-transform" />

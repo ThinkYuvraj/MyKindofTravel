@@ -3,6 +3,7 @@ import { TESTIMONIALS } from '../data/travelData';
 import { TestimonialItem } from '../types';
 import { Star, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
+import { CarouselControlPill } from './CarouselControlPill';
 
 interface TestimonialsSectionProps {
   testimonials?: TestimonialItem[];
@@ -82,28 +83,18 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
             </p>
           </div>
 
-          {/* Caret Controls */}
-          <div className="flex items-center justify-between sm:justify-end w-full lg:w-auto gap-2">
-            <div className="flex items-center gap-1.5 p-1 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Previous story"
-                title="Previous"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Next story"
-                title="Next"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-              </button>
-            </div>
+          {/* Caret Controls & Link to All Stories in unified pill */}
+          <div className="flex items-center justify-start sm:justify-end w-full lg:w-auto">
+            <CarouselControlPill
+              onPrev={scrollLeft}
+              onNext={scrollRight}
+              canPrev={canScrollLeft}
+              canNext={canScrollRight}
+              prevLabel="Previous story"
+              nextLabel="Next story"
+              viewAllLink="/stories"
+              viewAllText="VIEW ALL"
+            />
           </div>
         </div>
 
@@ -112,7 +103,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Previous story"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -120,7 +111,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           <button
             onClick={scrollRight}
             disabled={!canScrollRight}
-            className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            className="hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90 cursor-pointer"
             aria-label="Next story"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
@@ -128,14 +119,14 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 
           <div
             ref={carouselRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar items-stretch"
           >
             {activeReviews.map((review) => (
               <div
                 key={review.id}
-                className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group shrink-0 w-[90vw] sm:w-[480px] lg:w-[540px] snap-start"
+                className="p-6 sm:p-7 md:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group shrink-0 w-[90vw] sm:w-[460px] md:w-[480px] lg:w-[520px] h-[310px] sm:h-[320px] snap-start"
               >
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {/* 5 Stars in vibrant #E37500 */}
                   <div className="flex items-center gap-1 text-[#E37500]">
                     {[...Array(review.rating)].map((_, i) => (
@@ -143,14 +134,16 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                     ))}
                   </div>
 
-                  {/* Quote */}
-                  <p className="text-neutral-700 dark:text-neutral-200 text-sm sm:text-base leading-relaxed font-normal italic">
-                    "{review.quote}"
-                  </p>
+                  {/* Quote with fixed height and clamp */}
+                  <div className="h-28 flex items-start overflow-hidden">
+                    <p className="text-neutral-700 dark:text-neutral-200 text-xs sm:text-sm md:text-base leading-relaxed font-normal italic line-clamp-4">
+                      "{review.quote}"
+                    </p>
+                  </div>
                 </div>
 
                 {/* Author & Avatar */}
-                <div className="pt-4 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
+                <div className="pt-3 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
                   {review.avatar ? (
                     <GlassImage
                       src={review.avatar}
@@ -164,7 +157,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                     </div>
                   )}
                   <div>
-                    <h4 className="font-serif font-bold text-neutral-900 dark:text-white text-base">
+                    <h4 className="font-serif font-bold text-neutral-900 dark:text-white text-sm sm:text-base">
                       {review.author}
                     </h4>
                     <p className="text-xs text-[#E37500] font-semibold">
