@@ -228,8 +228,6 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-
-
                       <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-xs text-white font-medium z-10">
                         <Plane className="w-3.5 h-3.5 text-[#E37500] -rotate-45" />
                         <span>{pkg.destination}</span>

@@ -18,7 +18,6 @@ import { EnquiryModal } from './components/EnquiryModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BackToTop } from './components/BackToTop';
 import { CustomSectionRenderer } from './components/CustomSectionRenderer';
-import { GoogleMapsSection } from './components/GoogleMapsSection';
 import { GoogleMapsAgentModal } from './components/GoogleMapsAgentModal';
 import { DESTINATIONS, POPULAR_PACKAGES, MARQUEE_ITEMS, TESTIMONIALS, EXPERIENCE_PILLARS, COMPANY_INFO, GALLERY_ITEMS } from './data/travelData';
 import { DestinationItem, TravelPackage, CMSData } from './types';
@@ -30,7 +29,6 @@ const DEFAULT_ORDER = [
   'destinations',
   'experiences',
   'packages',
-  'mapsRadar',
   'gallery',
   'testimonials',
   'whyUs',
@@ -215,14 +213,6 @@ useEffect(() => {
           />
         );
 
-      case 'mapsRadar':
-        return (
-          <GoogleMapsSection
-            key="mapsRadar"
-            onOpenAgentModal={handleOpenMapsAgent}
-          />
-        );
-
       case 'marquee':
         return <MarqueeTicker key="marquee" items={cmsData.marquee} />;
 
@@ -316,11 +306,11 @@ useEffect(() => {
     }
   };
 
-  // Combine built-in sectionOrder with any custom sections not yet in sectionOrder (excluding removed vip-perks)
+  // Combine built-in sectionOrder with any custom sections not yet in sectionOrder (excluding removed vip-perks and mapsRadar)
   const allSectionKeys = [
-    ...(cmsData.sectionOrder || DEFAULT_ORDER).filter((k) => k !== 'vip-perks'),
+    ...(cmsData.sectionOrder || DEFAULT_ORDER).filter((k) => k !== 'vip-perks' && k !== 'mapsRadar'),
     ...(cmsData.customSections || [])
-      .filter((s) => s.id !== 'vip-perks')
+      .filter((s) => s.id !== 'vip-perks' && s.id !== 'mapsRadar')
       .map((s) => s.id)
       .filter((id) => !(cmsData.sectionOrder || []).includes(id)),
   ];

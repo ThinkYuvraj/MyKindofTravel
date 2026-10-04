@@ -73,7 +73,6 @@ export default function AdminDashboard() {
     'destinations',
     'experiences',
     'packages',
-    'mapsRadar',
     'gallery',
     'testimonials',
     'whyUs',

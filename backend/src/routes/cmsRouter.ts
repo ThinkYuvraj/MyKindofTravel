@@ -23,7 +23,6 @@ const DEFAULT_SECTION_ORDER = [
   'destinations',
   'experiences',
   'packages',
-  'mapsRadar',
   'gallery',
   'testimonials',
   'whyUs',
