@@ -184,14 +184,9 @@ export default function DestinationsPage() {
                       <div className="space-y-3">
                         {/* Title and Wishlist Header */}
                         <div className="flex items-start justify-between gap-3">
-                          <div>
-                            <span className="text-[10px] uppercase font-bold tracking-wider text-[#E37500] block mb-1">
-                              {dest.tag || dest.region}
-                            </span>
-                            <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
-                              {dest.name}
-                            </h3>
-                          </div>
+                          <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
+                            {dest.name}
+                          </h3>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();

@@ -295,9 +295,6 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
 
                     {/* Pills below heading inside card */}
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2.5 py-1 rounded-full bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] border border-[#E37500]/25 text-[11px] font-bold uppercase tracking-wider">
-                        {dest.tag || dest.region}
-                      </span>
                       <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-white text-[11px] font-medium">
                         <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
                         <span>{meta.flightTime}</span>
