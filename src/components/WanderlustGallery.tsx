@@ -126,7 +126,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
 
       <div className="section-container relative z-10">
         
-        {/* Section Header */}
+        {/* Section Header & Right-Hand Pill Controls */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
           <div className="max-w-2xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
@@ -147,54 +147,9 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
               {customSubtitle || 'Real travel snapshots captured across our private chalets, cliffside villas, overwater bungalows, and bespoke European journeys.'}
             </p>
           </div>
-        </div>
 
-        {/* ── Responsive Control Bar: categories horizontally scrollable + carets pinned & visible ── */}
-        <div className="flex flex-col gap-3 mb-8 w-full">
-          {/* Continuous category capsule pill container */}
-          <div className="w-full overflow-x-auto no-scrollbar py-1">
-            <div className="flex flex-row items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0 w-max">
-              {filtersWithCounts.map((f) => {
-                const isActive = activeCategory === f.label;
-                return (
-                  <button
-                    key={f.label}
-                    onClick={() => setActiveCategory(f.label)}
-                    disabled={f.count === 0}
-                    aria-pressed={isActive}
-                    className={`
-                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
-                      transition-all duration-200 whitespace-nowrap shrink-0
-                      disabled:opacity-35 disabled:cursor-not-allowed
-                      ${isActive
-                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
-                        : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                      }
-                    `}
-                  >
-                    <span>{f.label}</span>
-                    {f.label !== 'All' && (
-                      <span
-                        className={`
-                          inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
-                          transition-colors duration-200
-                          ${isActive
-                            ? 'bg-white/20 text-white'
-                            : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
-                          }
-                        `}
-                      >
-                        {f.count}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Caret Navigation & View All link - moved under the category section */}
-          <div className="flex items-center justify-center w-full">
+          {/* Caret Navigation & View All link - right hand side of heading */}
+          <div className="flex items-center justify-start sm:justify-end w-full lg:w-auto">
             <CarouselControlPill
               onPrev={scrollLeft}
               onNext={scrollRight}
@@ -205,6 +160,48 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
               viewAllLink="/places"
               viewAllText="VIEW ALL"
             />
+          </div>
+        </div>
+
+        {/* ── Category Filters: horizontally scrollable ─────────────────── */}
+        <div className="w-full overflow-x-auto no-scrollbar py-1 mb-8">
+          <div className="flex flex-row items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0 w-max">
+            {filtersWithCounts.map((f) => {
+              const isActive = activeCategory === f.label;
+              return (
+                <button
+                  key={f.label}
+                  onClick={() => setActiveCategory(f.label)}
+                  disabled={f.count === 0}
+                  aria-pressed={isActive}
+                  className={`
+                    relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                    transition-all duration-200 whitespace-nowrap shrink-0
+                    disabled:opacity-35 disabled:cursor-not-allowed
+                    ${isActive
+                      ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                    }
+                  `}
+                >
+                  <span>{f.label}</span>
+                  {f.label !== 'All' && (
+                    <span
+                      className={`
+                        inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                        transition-colors duration-200
+                        ${isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                        }
+                      `}
+                    >
+                      {f.count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 

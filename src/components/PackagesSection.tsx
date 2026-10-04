@@ -107,78 +107,34 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
       <div className="section-container relative z-10">
 
-        {/* ── Section Heading ────────────────────────────────────────────── */}
-        <div className="max-w-3xl space-y-4 mb-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
-            <Ticket className="w-3.5 h-3.5 text-[#E37500]" />
-            <span>{customBadge || 'Popular packages'}</span>
-          </div>
-
-          {customTitle ? (
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
-              {customTitle}
-            </h2>
-          ) : (
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
-              Curated journeys{' '}
-              <span className="italic font-serif text-[#E37500] font-normal">
-                ready to personalise
-              </span>
-            </h2>
-          )}
-
-          <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed font-normal">
-            {customSubtitle || 'Proven itineraries designed for discerning travelers. Every package can be modified, upgraded, and reshuffled to match your exact dates and preferences.'}
-          </p>
-        </div>
-
-        {/* ── Control Bar Below Heading ───────────────────────── */}
-        {/* ── Category Filters and Caret Navigation ───────────────────────── */}
-        <div className="flex flex-col items-center gap-3.5 mb-8 w-full">
-          {/* Filter pills - scrollable horizontally on mobile */}
-          <div className="w-full flex justify-center overflow-x-auto no-scrollbar pb-1">
-            <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
-              {filtersWithCounts.map((f) => {
-                const isActive = activeFilter === f.label;
-                return (
-                  <button
-                    key={f.label}
-                    onClick={() => setActiveFilter(f.label)}
-                    disabled={f.count === 0}
-                    aria-pressed={isActive}
-                    className={`
-                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
-                      transition-all duration-200 whitespace-nowrap shrink-0
-                      disabled:opacity-35 disabled:cursor-not-allowed
-                      ${isActive
-                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
-                        : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                      }
-                    `}
-                  >
-                    <span>{f.label}</span>
-                    {f.label !== 'All' && (
-                      <span
-                        className={`
-                          inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
-                          transition-colors duration-200
-                          ${isActive
-                            ? 'bg-white/20 text-white'
-                            : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
-                          }
-                        `}
-                      >
-                        {f.count}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
+        {/* ── Section Heading & Right-Hand Pill Controls ────────────────── */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+          <div className="max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
+              <Ticket className="w-3.5 h-3.5 text-[#E37500]" />
+              <span>{customBadge || 'Popular packages'}</span>
             </div>
+
+            {customTitle ? (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                {customTitle}
+              </h2>
+            ) : (
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                Curated journeys{' '}
+                <span className="italic font-serif text-[#E37500] font-normal">
+                  ready to personalise
+                </span>
+              </h2>
+            )}
+
+            <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed font-normal">
+              {customSubtitle || 'Proven itineraries designed for discerning travelers. Every package can be modified, upgraded, and reshuffled to match your exact dates and preferences.'}
+            </p>
           </div>
 
-          {/* Caret Navigation & View All link - directly under the category section */}
-          <div className="flex items-center justify-center w-full">
+          {/* Caret Navigation & View All link - right hand side of heading */}
+          <div className="flex items-center justify-start sm:justify-end w-full lg:w-auto">
             <CarouselControlPill
               onPrev={scrollLeft}
               onNext={scrollRight}
@@ -189,6 +145,48 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
               viewAllLink="/packages"
               viewAllText="VIEW ALL"
             />
+          </div>
+        </div>
+
+        {/* ── Category Filters ────────────────────────────────────────────── */}
+        <div className="w-full flex justify-center sm:justify-start overflow-x-auto no-scrollbar pb-1 mb-8">
+          <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
+            {filtersWithCounts.map((f) => {
+              const isActive = activeFilter === f.label;
+              return (
+                <button
+                  key={f.label}
+                  onClick={() => setActiveFilter(f.label)}
+                  disabled={f.count === 0}
+                  aria-pressed={isActive}
+                  className={`
+                    relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                    transition-all duration-200 whitespace-nowrap shrink-0
+                    disabled:opacity-35 disabled:cursor-not-allowed
+                    ${isActive
+                      ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                    }
+                  `}
+                >
+                  <span>{f.label}</span>
+                  {f.label !== 'All' && (
+                    <span
+                      className={`
+                        inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                        transition-colors duration-200
+                        ${isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                        }
+                      `}
+                    >
+                      {f.count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
