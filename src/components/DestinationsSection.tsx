@@ -154,7 +154,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             </h2>
           ) : (
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
-              Featured <span className="italic font-serif text-[#E37500] font-normal">Destinations</span>
+              Our Picked <span className="italic font-serif text-[#E37500] font-normal">Locations</span>
             </h2>
           )}
 

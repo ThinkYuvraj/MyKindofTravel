@@ -87,10 +87,10 @@ const BUILT_IN_SECTIONS: Record<string, BuiltInSectionConfig> = {
     tabLabel: 'Edit Hero & Banner Media',
   },
   destinations: {
-    label: 'Featured Destinations',
+    label: 'Our Picked Locations',
     desc: 'Handpicked destination cards with flight corridors, pricing & guides',
     defaultBadge: 'Handpicked Guides & Journeys',
-    defaultTitle: 'Featured Destinations',
+    defaultTitle: 'Our Picked Locations',
     defaultSubtitle: 'Explore world-renowned wonders, secret terraced hills, private island villas, and bucket-list cultural expeditions.',
     dedicatedTab: 'destinations',
     tabLabel: 'Manage All Destinations',
