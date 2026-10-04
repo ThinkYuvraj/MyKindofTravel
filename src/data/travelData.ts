@@ -600,3 +600,70 @@ export const COMPANY_INFO = {
   promise: 'If it\'s not right, we make it right. Every time, no questions asked.',
   philosophy: 'At My Kind of Travel, we believe every journey should be as unique as the person taking it. We don\'t hand you a brochure — we sit with you, understand your dreams, and build something that\'s entirely, perfectly yours.',
 };
+
+export interface VipPrivilege {
+  id: string;
+  title: string;
+  badge: string;
+  description: string;
+  highlight: string;
+  image: string;
+  iconName: string;
+}
+
+export const VIP_PRIVILEGES: VipPrivilege[] = [
+  {
+    id: 'perk-fast-track',
+    title: 'Priority Airport Fast-Track',
+    badge: 'Airside VIP',
+    description: 'Bypass queues worldwide with private tarmac chauffeuring, dedicated VIP customs clearance, and premiere lounge access before every flight.',
+    highlight: 'Tarmac Chauffeur & Customs Bypass',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1000&q=80',
+    iconName: 'Plane',
+  },
+  {
+    id: 'perk-suite-upgrades',
+    title: 'Guaranteed Suite Upgrades',
+    badge: 'Bespoke Stays',
+    description: 'Preferred partner status across Aman, Belmond, Four Seasons, and Ritz-Carlton reserves with complimentary room upgrades, early check-in, and late check-out.',
+    highlight: 'Aman & Four Seasons Preferred Partner',
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=80',
+    iconName: 'Sparkles',
+  },
+  {
+    id: 'perk-yacht-heli',
+    title: 'Private Yacht & Heli Charters',
+    badge: 'Private Fleet',
+    description: 'Immediate on-demand access to private catamarans in Santorini, Riva speedboats along the Amalfi Coast, and scenic alpine helicopters in Zermatt.',
+    highlight: 'Direct Catamaran & Heli Booking',
+    image: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d17?auto=format&fit=crop&w=1000&q=80',
+    iconName: 'Compass',
+  },
+  {
+    id: 'perk-concierge',
+    title: '24/7 Dedicated Travel Director',
+    badge: 'White Glove',
+    description: 'Direct 1-on-1 WhatsApp connection to your personal travel specialist for real-time adjustments, last-minute table reservations, and on-ground logistics.',
+    highlight: 'Direct WhatsApp Line with Director',
+    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80',
+    iconName: 'HeartHandshake',
+  },
+  {
+    id: 'perk-cultural',
+    title: 'After-Hours Landmark Access',
+    badge: 'Behind The Velvet Rope',
+    description: 'Exclusive private palace openings, skip-the-line museum admissions with art historians, and private access to UNESCO heritage monuments.',
+    highlight: 'Private Palace & Museum Openings',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80',
+    iconName: 'ShieldCheck',
+  },
+  {
+    id: 'perk-dining',
+    title: 'Michelin & Chef’s Table Access',
+    badge: 'Gourmet Curations',
+    description: 'Pre-reserved chef’s tables at award-winning Michelin spots, private wine cellar tastings, and bespoke Indian vegetarian and Jain culinary curations.',
+    highlight: 'Reserved Tables & Cellar Tastings',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80',
+    iconName: 'Crown',
+  },
+];

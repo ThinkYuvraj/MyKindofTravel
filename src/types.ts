@@ -82,6 +82,7 @@ export type BuiltInSectionKey =
   | 'about'
   | 'radar'
   | 'experiences'
+  | 'vipPrivileges'
   | 'howItWorks'
   | 'packages'
   | 'gallery'

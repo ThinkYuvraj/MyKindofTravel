@@ -19,6 +19,7 @@ import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BackToTop } from './components/BackToTop';
 import { CustomSectionRenderer } from './components/CustomSectionRenderer';
 import { GoogleMapsAgentModal } from './components/GoogleMapsAgentModal';
+import { VipPrivilegesSection } from './components/VipPrivilegesSection';
 import { DESTINATIONS, POPULAR_PACKAGES, MARQUEE_ITEMS, TESTIMONIALS, EXPERIENCE_PILLARS, COMPANY_INFO, GALLERY_ITEMS } from './data/travelData';
 import { DestinationItem, TravelPackage, CMSData } from './types';
 
@@ -28,6 +29,7 @@ const DEFAULT_ORDER = [
   'howItWorks',
   'destinations',
   'experiences',
+  'vipPrivileges',
   'packages',
   'gallery',
   'testimonials',
@@ -228,6 +230,16 @@ useEffect(() => {
           />
         );
 
+      case 'vipPrivileges':
+        return (
+          <VipPrivilegesSection
+            key="vipPrivileges"
+            customBadge={cmsData.sectionHeaders?.vipPrivileges?.badge}
+            customTitle={cmsData.sectionHeaders?.vipPrivileges?.title}
+            customSubtitle={cmsData.sectionHeaders?.vipPrivileges?.subtitle}
+          />
+        );
+
       case 'howItWorks':
         return (
           <HowItWorksSection
@@ -306,13 +318,30 @@ useEffect(() => {
     }
   };
 
-  // Combine built-in sectionOrder with any custom sections not yet in sectionOrder (excluding removed vip-perks and mapsRadar)
+  // Combine built-in sectionOrder with any custom sections not yet in sectionOrder
+  const configuredOrder = cmsData.sectionOrder && cmsData.sectionOrder.length > 0 
+    ? [...cmsData.sectionOrder] 
+    : DEFAULT_ORDER;
+
+  const normalizedOrder = configuredOrder.includes('vipPrivileges')
+    ? configuredOrder
+    : (() => {
+        const copy = [...configuredOrder];
+        const expIdx = copy.indexOf('experiences');
+        if (expIdx !== -1) {
+          copy.splice(expIdx + 1, 0, 'vipPrivileges');
+        } else {
+          copy.push('vipPrivileges');
+        }
+        return copy;
+      })();
+
   const allSectionKeys = [
-    ...(cmsData.sectionOrder || DEFAULT_ORDER).filter((k) => k !== 'vip-perks' && k !== 'mapsRadar'),
+    ...normalizedOrder.filter((k) => k !== 'vip-perks' && k !== 'mapsRadar'),
     ...(cmsData.customSections || [])
       .filter((s) => s.id !== 'vip-perks' && s.id !== 'mapsRadar')
       .map((s) => s.id)
-      .filter((id) => !(cmsData.sectionOrder || []).includes(id)),
+      .filter((id) => !normalizedOrder.includes(id)),
   ];
 
   return (
