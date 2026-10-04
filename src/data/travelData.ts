@@ -636,7 +636,7 @@ export const VIP_PRIVILEGES: VipPrivilege[] = [
     badge: 'Private Fleet',
     description: 'Immediate on-demand access to private catamarans in Santorini, Riva speedboats along the Amalfi Coast, and scenic alpine helicopters in Zermatt.',
     highlight: 'Direct Catamaran & Heli Booking',
-    image: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d17?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1000&q=80',
     iconName: 'Compass',
   },
   {
