@@ -102,36 +102,35 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
       <div className="section-container relative z-10">
 
-        {/* ── Header & Filter Tabs + Caret Carousel Controls ──────────────── */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
-          <div className="max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
-              <Ticket className="w-3.5 h-3.5 text-[#E37500]" />
-              <span>{customBadge || 'Popular packages'}</span>
-            </div>
-
-            {customTitle ? (
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                {customTitle}
-              </h2>
-            ) : (
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                Curated journeys{' '}
-                <span className="italic font-serif text-[#E37500] font-normal">
-                  ready to personalise
-                </span>
-              </h2>
-            )}
-
-            <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed font-normal">
-              {customSubtitle || 'Proven itineraries designed for discerning travelers. Every package can be modified, upgraded, and reshuffled to match your exact dates and preferences.'}
-            </p>
+        {/* ── Section Heading ────────────────────────────────────────────── */}
+        <div className="max-w-3xl space-y-4 mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
+            <Ticket className="w-3.5 h-3.5 text-[#E37500]" />
+            <span>{customBadge || 'Popular packages'}</span>
           </div>
 
-          {/* ── Single unified control bar ───────────────────────────────── */}
-          <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md flex-wrap">
+          {customTitle ? (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              {customTitle}
+            </h2>
+          ) : (
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Curated journeys{' '}
+              <span className="italic font-serif text-[#E37500] font-normal">
+                ready to personalise
+              </span>
+            </h2>
+          )}
 
-            {/* Filter pills */}
+          <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base leading-relaxed font-normal">
+            {customSubtitle || 'Proven itineraries designed for discerning travelers. Every package can be modified, upgraded, and reshuffled to match your exact dates and preferences.'}
+          </p>
+        </div>
+
+        {/* ── Control Bar Below Heading in Flex Row ───────────────────────── */}
+        <div className="flex flex-row items-center justify-between gap-4 mb-8 w-full overflow-x-auto no-scrollbar pb-1">
+          {/* Filter pills in smooth horizontal flex-row */}
+          <div className="flex flex-row items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
             {filtersWithCounts.map((f) => {
               const isActive = activeFilter === f.label;
               return (
@@ -142,7 +141,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                   aria-pressed={isActive}
                   className={`
                     relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
-                    transition-all duration-200 whitespace-nowrap
+                    transition-all duration-200 whitespace-nowrap shrink-0
                     disabled:opacity-35 disabled:cursor-not-allowed
                     ${isActive
                       ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
@@ -168,9 +167,11 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                 </button>
               );
             })}
+          </div>
 
+          {/* Caret Navigation & View All link in clean flex-row */}
+          <div className="flex flex-row items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
             {/* Prev / Next caret arrows */}
-            <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
             <button
               onClick={scrollLeft}
               disabled={!canScrollLeft}
@@ -194,7 +195,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
             <button
               onClick={() => navigate('/packages')}
-              className="px-3 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
               title="View all itineraries & packages"
             >
               <span>View All</span>
