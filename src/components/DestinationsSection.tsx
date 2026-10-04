@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DESTINATIONS } from '../data/travelData';
 import { DestinationItem } from '../types';
 import { ArrowUpRight, Compass, Sparkles, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
@@ -23,6 +24,48 @@ const DESTINATION_META: Record<string, { code: string; flightTime: string }> = {
   'kyoto': { code: 'HND', flightTime: '8h 20m · Direct' },
   'cappadocia': { code: 'NAV', flightTime: '8h 15m · 1-Stop' },
   'prague': { code: 'PRG', flightTime: '9h 50m · 1-Stop' },
+};
+
+const matchesRegion = (dest: DestinationItem, region: string) => {
+  if (region === 'All') return true;
+  const regLower = (dest.region || '').toLowerCase();
+  const idLower = (dest.id || '').toLowerCase();
+  const nameLower = (dest.name || '').toLowerCase();
+
+  if (region === 'Europe') {
+    return (
+      regLower.includes('europe') ||
+      ['paris', 'switzerland', 'amalfi', 'santorini', 'prague', 'cappadocia'].includes(idLower)
+    );
+  }
+  if (region === 'Southeast Asia') {
+    return (
+      regLower.includes('indonesia') ||
+      regLower.includes('south-east') ||
+      regLower.includes('southeast') ||
+      ['bali'].includes(idLower)
+    );
+  }
+  if (region === 'Islands & Beaches') {
+    return (
+      ['bali', 'maldives', 'santorini', 'amalfi'].includes(idLower) ||
+      regLower.includes('ocean') ||
+      regLower.includes('sea') ||
+      nameLower.includes('maldives') ||
+      nameLower.includes('bali') ||
+      nameLower.includes('santorini')
+    );
+  }
+  if (region === 'East Asia') {
+    return (
+      regLower.includes('east asia') ||
+      ['kyoto'].includes(idLower) ||
+      nameLower.includes('japan') ||
+      nameLower.includes('kyoto') ||
+      nameLower.includes('tokyo')
+    );
+  }
+  return true;
 };
 
 const REGION_FILTERS = [
@@ -77,47 +120,16 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
     carouselRef.current.scrollBy({ left: 380, behavior: 'smooth' });
   };
 
-  const filteredData = data.filter((dest) => {
-    if (selectedRegion === 'All') return true;
-    const regLower = (dest.region || '').toLowerCase();
-    const idLower = (dest.id || '').toLowerCase();
-    const nameLower = (dest.name || '').toLowerCase();
+  const filtersWithCounts = useMemo(() => {
+    return REGION_FILTERS.map((region) => {
+      const count = data.filter((dest) => matchesRegion(dest, region)).length;
+      return { label: region, count };
+    });
+  }, [data]);
 
-    if (selectedRegion === 'Europe') {
-      return (
-        regLower.includes('europe') ||
-        ['paris', 'switzerland', 'amalfi', 'santorini', 'prague', 'cappadocia'].includes(idLower)
-      );
-    }
-    if (selectedRegion === 'Southeast Asia') {
-      return (
-        regLower.includes('indonesia') ||
-        regLower.includes('south-east') ||
-        regLower.includes('southeast') ||
-        ['bali'].includes(idLower)
-      );
-    }
-    if (selectedRegion === 'Islands & Beaches') {
-      return (
-        ['bali', 'maldives', 'santorini', 'amalfi'].includes(idLower) ||
-        regLower.includes('ocean') ||
-        regLower.includes('sea') ||
-        nameLower.includes('maldives') ||
-        nameLower.includes('bali') ||
-        nameLower.includes('santorini')
-      );
-    }
-    if (selectedRegion === 'East Asia') {
-      return (
-        regLower.includes('east asia') ||
-        ['kyoto'].includes(idLower) ||
-        nameLower.includes('japan') ||
-        nameLower.includes('kyoto') ||
-        nameLower.includes('tokyo')
-      );
-    }
-    return true;
-  });
+  const filteredData = useMemo(() => {
+    return data.filter((dest) => matchesRegion(dest, selectedRegion));
+  }, [data, selectedRegion]);
 
   return (
     <section id="destinations" className="py-12 sm:py-16 lg:py-24 bg-transparent text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-white/10 relative transition-colors duration-300">
@@ -147,56 +159,74 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
           </p>
         </div>
 
-        {/* Filter Row + Caret Carousel Controls */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-          {/* Region Filter Buttons */}
-          <div className="flex items-center justify-center flex-wrap gap-2">
-            {REGION_FILTERS.map((region) => {
-              const isActive = selectedRegion === region;
+        {/* ── Control Bar Below Heading in Flex Row ───────────────────────── */}
+        <div className="flex flex-row items-center justify-between gap-4 mb-8 w-full overflow-x-auto no-scrollbar pb-1">
+          {/* Continuous category capsule pill container */}
+          <div className="flex flex-row items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
+            {filtersWithCounts.map((f) => {
+              const isActive = selectedRegion === f.label;
               return (
                 <button
-                  key={region}
-                  onClick={() => setSelectedRegion(region)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 backdrop-blur-md shadow-xs ${
-                    isActive
-                      ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/30 scale-105 border border-transparent'
-                      : 'bg-white dark:bg-[#0E0E0E] text-neutral-700 dark:text-[#E0E0E0] hover:bg-[#E37500]/10 border border-neutral-200 dark:border-white/10'
-                  }`}
+                  key={f.label}
+                  onClick={() => setSelectedRegion(f.label)}
+                  disabled={f.count === 0}
+                  aria-pressed={isActive}
+                  className={`
+                    relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                    transition-all duration-200 whitespace-nowrap shrink-0
+                    disabled:opacity-35 disabled:cursor-not-allowed
+                    ${isActive
+                      ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                    }
+                  `}
                 >
-                  {region}
+                  <span>{f.label}</span>
+                  {f.label !== 'All' && (
+                    <span
+                      className={`
+                        inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                        transition-colors duration-200
+                        ${isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                        }
+                      `}
+                    >
+                      {f.count}
+                    </span>
+                  )}
                 </button>
               );
             })}
           </div>
 
-          {/* Caret Controls & Link to All Destinations */}
-          <div className="flex items-center gap-2">
-            {/* Caret Navigation Buttons */}
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Previous destination"
-                title="Previous"
-              >
-                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                aria-label="Next destination"
-                title="Next"
-              >
-                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-              </button>
-            </div>
+          {/* Caret Navigation & View All link in clean flex-row */}
+          <div className="flex flex-row items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
+            <button
+              onClick={scrollLeft}
+              disabled={!canScrollLeft}
+              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+              aria-label="Previous destination"
+              title="Previous"
+            >
+              <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            </button>
+            <button
+              onClick={scrollRight}
+              disabled={!canScrollRight}
+              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+              aria-label="Next destination"
+              title="Next"
+            >
+              <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+            </button>
 
             {/* Link to All Destinations Page */}
+            <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
             <button
               onClick={() => navigate('/destinations')}
-              className="ml-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
               title="View complete destinations list"
             >
               <span>View All</span>

@@ -15,6 +15,26 @@ import { useNavigate } from 'react-router-dom';
 
 const CATEGORIES = ['All', 'Honeymoon', 'Alpine Luxury', 'Scenic Rail', 'Cultural & Heritage', 'Tropical & Beach'];
 
+const checkPackageCategory = (pkg: TravelPackage, category: string) => {
+  if (category === 'All') return true;
+  if (category === 'Honeymoon') {
+    return pkg.tag?.toLowerCase().includes('honeymoon') || pkg.title.toLowerCase().includes('honeymoon') || pkg.destination.includes('Santorini') || pkg.destination.includes('Maldives');
+  }
+  if (category === 'Alpine Luxury') {
+    return pkg.destination.includes('Switzerland') || (pkg.tag && pkg.tag.toLowerCase().includes('alpine'));
+  }
+  if (category === 'Scenic Rail') {
+    return pkg.title.toLowerCase().includes('rail') || pkg.features.some(f => f.toLowerCase().includes('train') || f.toLowerCase().includes('rail'));
+  }
+  if (category === 'Cultural & Heritage') {
+    return pkg.destination.includes('Paris') || pkg.destination.includes('Prague') || pkg.destination.includes('Kyoto');
+  }
+  if (category === 'Tropical & Beach') {
+    return pkg.destination.includes('Bali') || pkg.destination.includes('Maldives');
+  }
+  return true;
+};
+
 export default function PackagesPage() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,6 +46,13 @@ export default function PackagesPage() {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const { togglePackageWishlist, isPackageSaved } = useWishlist();
 
+  const filtersWithCounts = useMemo(() => {
+    return CATEGORIES.map((cat) => {
+      const count = POPULAR_PACKAGES.filter((pkg) => checkPackageCategory(pkg, cat)).length;
+      return { label: cat, count };
+    });
+  }, []);
+
   const filteredPackages = useMemo(() => {
     return POPULAR_PACKAGES.filter((pkg) => {
       const matchesSearch =
@@ -34,19 +61,7 @@ export default function PackagesPage() {
         pkg.subtitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (pkg.tag && pkg.tag.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      let matchesCategory = true;
-      if (selectedCategory === 'Honeymoon') {
-        matchesCategory = pkg.tag.toLowerCase().includes('honeymoon') || pkg.title.toLowerCase().includes('honeymoon') || pkg.destination.includes('Santorini') || pkg.destination.includes('Maldives');
-      } else if (selectedCategory === 'Alpine Luxury') {
-        matchesCategory = pkg.destination.includes('Switzerland') || pkg.tag.toLowerCase().includes('alpine');
-      } else if (selectedCategory === 'Scenic Rail') {
-        matchesCategory = pkg.title.toLowerCase().includes('rail') || pkg.features.some(f => f.toLowerCase().includes('train') || f.toLowerCase().includes('rail'));
-      } else if (selectedCategory === 'Cultural & Heritage') {
-        matchesCategory = pkg.destination.includes('Paris') || pkg.destination.includes('Prague') || pkg.destination.includes('Kyoto');
-      } else if (selectedCategory === 'Tropical & Beach') {
-        matchesCategory = pkg.destination.includes('Bali') || pkg.destination.includes('Maldives');
-      }
-
+      const matchesCategory = checkPackageCategory(pkg, selectedCategory);
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, selectedCategory]);
@@ -92,20 +107,41 @@ export default function PackagesPage() {
               />
             </div>
 
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-              {CATEGORIES.map((cat) => {
-                const isActive = selectedCategory === cat;
+            {/* Category Pills in continuous capsule */}
+            <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md overflow-x-auto no-scrollbar shrink-0">
+              {filtersWithCounts.map((f) => {
+                const isActive = selectedCategory === f.label;
                 return (
                   <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3.5 py-2 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      isActive
-                        ? 'bg-[#E37500] text-white shadow-xs'
-                        : 'text-[#6F5B4E] dark:text-[#A7978A] hover:bg-black/5 dark:hover:bg-white/5'
-                    }`}
+                    key={f.label}
+                    onClick={() => setSelectedCategory(f.label)}
+                    disabled={f.count === 0}
+                    aria-pressed={isActive}
+                    className={`
+                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                      transition-all duration-200 whitespace-nowrap shrink-0
+                      disabled:opacity-35 disabled:cursor-not-allowed
+                      ${isActive
+                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                        : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                      }
+                    `}
                   >
-                    {cat}
+                    <span>{f.label}</span>
+                    {f.label !== 'All' && (
+                      <span
+                        className={`
+                          inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                          transition-colors duration-200
+                          ${isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                          }
+                        `}
+                      >
+                        {f.count}
+                      </span>
+                    )}
                   </button>
                 );
               })}

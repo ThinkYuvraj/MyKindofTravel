@@ -43,6 +43,21 @@ export default function ExperiencesPage() {
 
   const types = ['All', 'Honeymoon', 'Luxury Europe', 'Corporate', 'Family', 'Wellness', 'Rail', 'Gourmet'];
 
+  const filtersWithCounts = useMemo(() => {
+    return types.map((type) => {
+      let count = 0;
+      if (type === 'All') {
+        count = EXTENDED_EXPERIENCES.length;
+      } else {
+        count = EXTENDED_EXPERIENCES.filter((exp) => {
+          const text = (exp.title + ' ' + exp.typeKey).toLowerCase();
+          return text.includes(type.toLowerCase());
+        }).length;
+      }
+      return { label: type, count };
+    });
+  }, []);
+
   const filteredExperiences = useMemo(() => {
     return EXTENDED_EXPERIENCES.filter((exp) => {
       const q = searchQuery.toLowerCase().trim();
@@ -116,21 +131,41 @@ export default function ExperiencesPage() {
               />
             </div>
 
-            {/* Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-              {types.map((type) => {
-                const isActive = selectedType === type;
+            {/* Filter Pills in continuous capsule */}
+            <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md overflow-x-auto no-scrollbar shrink-0">
+              {filtersWithCounts.map((f) => {
+                const isActive = selectedType === f.label;
                 return (
                   <button
-                    key={type}
-                    onClick={() => setSelectedType(type)}
-                    className={`px-4 py-2 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      isActive
-                        ? 'bg-[#E37500] text-white shadow-xs'
-                        : 'text-[#6F5B4E] dark:text-[#A7978A] hover:bg-black/5 dark:hover:bg-white/5'
-                    }`}
+                    key={f.label}
+                    onClick={() => setSelectedType(f.label)}
+                    disabled={f.count === 0}
+                    aria-pressed={isActive}
+                    className={`
+                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                      transition-all duration-200 whitespace-nowrap shrink-0
+                      disabled:opacity-35 disabled:cursor-not-allowed
+                      ${isActive
+                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                        : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                      }
+                    `}
                   >
-                    {type}
+                    <span>{f.label}</span>
+                    {f.label !== 'All' && (
+                      <span
+                        className={`
+                          inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                          transition-colors duration-200
+                          ${isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                          }
+                        `}
+                      >
+                        {f.count}
+                      </span>
+                    )}
                   </button>
                 );
               })}

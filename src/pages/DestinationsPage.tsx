@@ -27,6 +27,23 @@ const DESTINATION_META: Record<string, { code: string; flightTime: string }> = {
 
 const REGIONS = ['All', 'Europe', 'Southeast Asia', 'Islands & Beaches', 'East Asia'];
 
+const checkItemRegion = (item: DestinationItem, region: string) => {
+  if (region === 'All') return true;
+  if (region === 'Europe') {
+    return ['France', 'Switzerland', 'Greece', 'Italy', 'Czech Republic'].includes(item.country);
+  }
+  if (region === 'Southeast Asia') {
+    return item.country === 'Indonesia';
+  }
+  if (region === 'Islands & Beaches') {
+    return ['Maldives', 'Indonesia', 'Greece'].includes(item.country);
+  }
+  if (region === 'East Asia') {
+    return ['Japan'].includes(item.country);
+  }
+  return true;
+};
+
 export default function DestinationsPage() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,6 +54,13 @@ export default function DestinationsPage() {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const { toggleDestinationWishlist, isDestinationSaved } = useWishlist();
 
+  const filtersWithCounts = useMemo(() => {
+    return REGIONS.map((region) => {
+      const count = DESTINATIONS.filter((item) => checkItemRegion(item, region)).length;
+      return { label: region, count };
+    });
+  }, []);
+
   const filteredDestinations = useMemo(() => {
     return DESTINATIONS.filter((item) => {
       const matchesSearch =
@@ -45,17 +69,7 @@ export default function DestinationsPage() {
         item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (item.tag && item.tag.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      let matchesRegion = true;
-      if (selectedRegion === 'Europe') {
-        matchesRegion = ['France', 'Switzerland', 'Greece', 'Italy', 'Czech Republic'].includes(item.country);
-      } else if (selectedRegion === 'Southeast Asia') {
-        matchesRegion = item.country === 'Indonesia';
-      } else if (selectedRegion === 'Islands & Beaches') {
-        matchesRegion = ['Maldives', 'Indonesia', 'Greece'].includes(item.country);
-      } else if (selectedRegion === 'East Asia') {
-        matchesRegion = ['Japan'].includes(item.country);
-      }
-
+      const matchesRegion = checkItemRegion(item, selectedRegion);
       return matchesSearch && matchesRegion;
     });
   }, [searchQuery, selectedRegion]);
@@ -101,21 +115,41 @@ export default function DestinationsPage() {
               />
             </div>
 
-            {/* Region Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-              {REGIONS.map((region) => {
-                const isActive = selectedRegion === region;
+            {/* Region Pills in continuous capsule */}
+            <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md overflow-x-auto no-scrollbar shrink-0">
+              {filtersWithCounts.map((f) => {
+                const isActive = selectedRegion === f.label;
                 return (
                   <button
-                    key={region}
-                    onClick={() => setSelectedRegion(region)}
-                    className={`px-3.5 py-2 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      isActive
-                        ? 'bg-[#E37500] text-white shadow-xs'
-                        : 'text-[#6F5B4E] dark:text-[#A7978A] hover:bg-black/5 dark:hover:bg-white/5'
-                    }`}
+                    key={f.label}
+                    onClick={() => setSelectedRegion(f.label)}
+                    disabled={f.count === 0}
+                    aria-pressed={isActive}
+                    className={`
+                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                      transition-all duration-200 whitespace-nowrap shrink-0
+                      disabled:opacity-35 disabled:cursor-not-allowed
+                      ${isActive
+                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                        : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                      }
+                    `}
                   >
-                    {region}
+                    <span>{f.label}</span>
+                    {f.label !== 'All' && (
+                      <span
+                        className={`
+                          inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                          transition-colors duration-200
+                          ${isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                          }
+                        `}
+                      >
+                        {f.count}
+                      </span>
+                    )}
                   </button>
                 );
               })}
