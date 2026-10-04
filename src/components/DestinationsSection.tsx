@@ -219,44 +219,43 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                 key={dest.id}
                 className="group rounded-3xl overflow-hidden backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start"
               >
-                {/* Image with Tag & Price Badge */}
-                <div className="relative h-64 overflow-hidden w-full">
+                {/* Image */}
+                <div className="relative h-56 sm:h-60 overflow-hidden w-full bg-neutral-100 dark:bg-[#111111]">
                   <GlassImage
                     src={dest.image}
                     alt={dest.name}
                     containerClassName="w-full h-full"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
-
-
-
-                  {/* Bottom Overlay Title with Region Tag */}
-                  <div className="absolute bottom-3.5 left-4 right-4 z-10">
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#E37500] drop-shadow-sm block mb-0.5">
-                      {dest.tag || dest.region}
-                    </span>
-                    <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#E37500] transition-colors leading-tight">
-                      {dest.name}
-                    </h3>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                {/* Card Body: Soft-surface typography */}
+                {/* Card Body: Heading on top, pills directly below heading */}
                 <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
-                    {dest.description}
-                  </p>
+                  <div className="space-y-2.5">
+                    {/* Destination Heading */}
+                    <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
+                      {dest.name}
+                    </h3>
 
-                  {/* Flight Time & Price Info */}
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-white text-[11px] font-medium">
-                      <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
-                      <span>{meta.flightTime}</span>
-                    </span>
-                    <span className="px-3 py-1.5 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
-                      {dest.priceNote.replace('Starting from ', 'From ')}
-                    </span>
+                    {/* Pills below heading inside card */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="px-2.5 py-1 rounded-full bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] border border-[#E37500]/25 text-[11px] font-bold uppercase tracking-wider">
+                        {dest.tag || dest.region}
+                      </span>
+                      <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-white text-[11px] font-medium">
+                        <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                        <span>{meta.flightTime}</span>
+                      </span>
+                      <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
+                        {dest.priceNote.replace('Starting from ', 'From ')}
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2 pt-1">
+                      {dest.description}
+                    </p>
                   </div>
 
                   {/* Highlights List */}
