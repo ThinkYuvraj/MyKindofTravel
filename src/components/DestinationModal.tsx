@@ -167,7 +167,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
         <div className="p-4 sm:p-6 bg-neutral-50 dark:bg-[#0E0E0E] border-t border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div>
             <span className="text-[10px] sm:text-[11px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block font-bold">Estimated Investment</span>
-            <span className="font-serif font-bold text-[#E37500] text-sm sm:text-base">
+            <span className="font-sans font-bold text-[#E37500] text-sm sm:text-base">
               {destination.priceNote}
             </span>
           </div>
