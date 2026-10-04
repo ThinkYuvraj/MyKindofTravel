@@ -135,11 +135,7 @@ export default function PackagesPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0706]/90 via-[#0A0706]/20 to-transparent pointer-events-none" />
 
                         {/* Top Badges */}
-                        <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between gap-2 z-10">
-                          <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider border border-white/20 shadow-xs">
-                            {pkg.tag}
-                          </span>
-
+                        <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-end gap-2 z-10">
                           <div className="flex items-center gap-2">
                             <button
                               onClick={(e) => {
@@ -155,12 +151,6 @@ export default function PackagesPage() {
                             >
                               <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
                             </button>
-
-                            {pkg.badge && (
-                              <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[10px] font-extrabold uppercase tracking-wider border border-white/20 shadow-sm">
-                                {pkg.badge}
-                              </span>
-                            )}
                           </div>
                         </div>
 
@@ -278,6 +268,7 @@ export default function PackagesPage() {
         onNavigate={(path) => {
           if (path === 'contact') setIsEnquiryOpen(true);
           else if (path === 'destinations') navigate('/destinations');
+          else if (path === 'places') navigate('/places');
           else if (path === 'stories') navigate('/stories');
           else navigate(`/#${path}`);
         }}

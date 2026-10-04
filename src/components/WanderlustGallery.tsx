@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GALLERY_ITEMS } from '../data/travelData';
 import { GalleryItem } from '../types';
-import { Camera, MapPin, X, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { Camera, MapPin, X, ChevronLeft, ChevronRight, ArrowUpRight, Compass, Sparkles } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
 interface WanderlustGalleryProps {
@@ -19,8 +20,14 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
   customSubtitle,
   onPlanTripForLocation,
 }) => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
+
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const categories = ['All', 'Stays', 'Journeys', 'Moments', 'Gourmet'];
   const sourceItems = items && items.length > 0 ? items : GALLERY_ITEMS;
@@ -31,6 +38,36 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
       : sourceItems.filter((item) => item.category === activeCategory);
 
   const activePhoto = activeLightboxIndex !== null ? filteredItems[activeLightboxIndex] : null;
+
+  const checkScroll = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = carouselRef.current;
+    if (el) {
+      el.addEventListener('scroll', checkScroll, { passive: true });
+      window.addEventListener('resize', checkScroll);
+      return () => {
+        el.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, [activeCategory, viewMode, filteredItems.length]);
+
+  const scrollLeft = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: -380, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: 380, behavior: 'smooth' });
+  };
 
   const handleNext = () => {
     if (activeLightboxIndex !== null) {
@@ -69,60 +106,140 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
   }, [activeLightboxIndex, filteredItems.length]);
 
   return (
-    <section id="gallery" className="py-20 sm:py-24 bg-white dark:bg-black relative overflow-hidden transition-colors duration-300">
+    <section id="gallery" className="py-12 sm:py-16 lg:py-24 bg-transparent text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-white/10 relative transition-colors duration-300">
+      {/* Subtle ambient lighting */}
+      <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-neutral-100/50 dark:bg-[#E37500]/5 rounded-full blur-3xl pointer-events-none" />
+
       <div className="section-container relative z-10">
         
-        {/* Section Header: Clean & Uncluttered */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest mb-3 shadow-xs">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
+          <div className="max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
               <Camera className="w-3.5 h-3.5" />
               <span>{customBadge || 'Moments & Memories'}</span>
             </div>
             {customTitle ? (
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
                 {customTitle}
               </h2>
             ) : (
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-tight">
                 Curated by Us, <br className="hidden sm:inline" />
                 <span className="text-[#E37500] italic font-normal">Experienced by You</span>
               </h2>
             )}
+            <p className="max-w-xl text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal">
+              {customSubtitle || 'Real travel snapshots captured across our private chalets, cliffside villas, overwater bungalows, and bespoke European journeys.'}
+            </p>
           </div>
 
-          <p className="max-w-md text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
-            {customSubtitle || 'Real travel snapshots captured across our private chalets, cliffside villas, overwater bungalows, and bespoke European journeys.'}
-          </p>
+          {/* Action to View All Places Page */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate('/places')}
+              className="px-5 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+              title="Explore all places and photo moments"
+            >
+              <Compass className="w-4 h-4" />
+              <span>Explore All Places</span>
+              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+            </button>
+          </div>
         </div>
 
-        {/* Minimalist Tactile Category Tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-neutral-100 dark:bg-[#111111] rounded-2xl w-fit mb-8 overflow-x-auto no-scrollbar shadow-xs">
-          {categories.map((cat) => {
-            const isActive = activeCategory === cat;
-            return (
+        {/* Unified Control Row: Category Tabs + Caret Carousel Controls */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-8">
+          {/* Category Tabs */}
+          <div className="flex items-center gap-1.5 p-1 bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/10 rounded-full overflow-x-auto no-scrollbar shadow-xs">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
+                    isActive
+                      ? 'bg-[#E37500] text-white shadow-xs'
+                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Carousel Caret Controls & Layout Switcher */}
+          <div className="flex items-center gap-2 self-end sm:self-center">
+            {/* View Mode Switcher */}
+            <div className="flex items-center bg-white dark:bg-white/10 p-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-xs">
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
-                  isActive
-                    ? 'bg-white dark:bg-[#222222] text-neutral-900 dark:text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                onClick={() => setViewMode('carousel')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  viewMode === 'carousel'
+                    ? 'bg-[#E37500] text-white shadow-xs'
+                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
                 }`}
+                title="Caret Carousel View"
               >
-                {cat}
+                Carousel
               </button>
-            );
-          })}
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  viewMode === 'grid'
+                    ? 'bg-[#E37500] text-white shadow-xs'
+                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
+                }`}
+                title="Grid View"
+              >
+                Grid
+              </button>
+            </div>
+
+            {/* Caret Navigation Buttons */}
+            {viewMode === 'carousel' && (
+              <div className="flex items-center gap-1.5 ml-1">
+                <button
+                  onClick={scrollLeft}
+                  disabled={!canScrollLeft}
+                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  aria-label="Previous place"
+                  title="Previous place"
+                >
+                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                </button>
+                <button
+                  onClick={scrollRight}
+                  disabled={!canScrollRight}
+                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  aria-label="Next place"
+                  title="Next place"
+                >
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Harmonized, Clean Editorial Grid (No awkward chaotic bento spans) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        {/* Carousel or Grid of Places */}
+        <div
+          ref={carouselRef}
+          className={
+            viewMode === 'carousel'
+              ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
+              : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7'
+          }
+        >
           {filteredItems.map((item, idx) => (
             <div
               key={item.id || idx}
               onClick={() => setActiveLightboxIndex(idx)}
-              className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col"
+              className={`group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_24px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col relative ${
+                viewMode === 'carousel' ? 'shrink-0 w-[85vw] sm:w-[350px] lg:w-[380px] snap-start' : ''
+              }`}
             >
               {/* Image Frame with Clean Aspect Ratio */}
               <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">
@@ -132,25 +249,38 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                   containerClassName="w-full h-full"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
                   <span className="text-white text-xs font-semibold flex items-center gap-1.5 drop-shadow-md">
                     <ArrowUpRight className="w-4 h-4 text-[#E37500]" />
                     <span>View Photo</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] text-white font-medium border border-white/20">
+                    {item.category}
+                  </span>
+                </div>
+
+                {/* Always visible category badge */}
+                <div className="absolute top-3 right-3 z-10">
+                  <span className="px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider border border-white/20">
+                    {item.category}
                   </span>
                 </div>
               </div>
 
               {/* Clean Uncluttered Typography Footer */}
-              <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 space-y-1.5">
+              <div className="p-5 flex flex-col justify-between flex-1 space-y-2">
                 <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-[#A7978A]">
-                  <span className="flex items-center gap-1 font-medium text-[#E37500]">
-                    <MapPin className="w-3.5 h-3.5" />
-                    <span>{item.location}</span>
+                  <span className="flex items-center gap-1 font-semibold text-[#E37500]">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    <span className="truncate">{item.location}</span>
                   </span>
-                  <span>{item.category}</span>
+                  <span className="flex items-center gap-1 text-neutral-400">
+                    <Sparkles className="w-3 h-3 text-[#E37500]" />
+                    <span>Curated</span>
+                  </span>
                 </div>
 
-                <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
+                <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
                   {item.title}
                 </h3>
 
@@ -159,9 +289,36 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
                     {item.caption}
                   </p>
                 )}
+
+                <div className="pt-2 border-t border-neutral-100 dark:border-white/10 flex items-center justify-between text-xs">
+                  <span className="text-[#E37500] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                    <span>Explore details</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="text-[11px] text-neutral-400">Tap to inspect</span>
+                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom Banner Link to All Places */}
+        <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-1 text-center sm:text-left">
+            <h4 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">
+              Looking for more inspiration across 40+ destinations?
+            </h4>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Browse our complete catalog of private villas, alpine retreats, and coastal havens.
+            </p>
+          </div>
+          <button
+            onClick={() => navigate('/places')}
+            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+          >
+            <span>See All Places & Views</span>
+            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+          </button>
         </div>
       </div>
 

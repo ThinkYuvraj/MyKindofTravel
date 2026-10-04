@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { POPULAR_PACKAGES } from '../data/travelData';
 import { TravelPackage } from '../types';
-import { Check, ArrowRight, Eye, Clock, Plane, Ticket, PackageOpen, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, ArrowRight, Eye, Clock, Plane, Ticket, PackageOpen, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { GlassImage } from './GlassImage';
 
 interface PackagesSectionProps {
@@ -46,6 +47,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
   customTitle,
   customSubtitle,
 }) => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<string>('All');
   const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -127,98 +129,109 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             </p>
           </div>
 
-          {/* ── Filter Row & Caret Navigation ────────────────────────────── */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          {/* ── Single unified control bar ───────────────────────────────── */}
+          <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md flex-wrap">
+
             {/* Filter pills */}
-            <div className="flex flex-wrap gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md">
-              {filtersWithCounts.map((f) => {
-                const isActive = activeFilter === f.label;
-                return (
-                  <button
-                    key={f.label}
-                    onClick={() => setActiveFilter(f.label)}
-                    disabled={f.count === 0}
-                    aria-pressed={isActive}
-                    className={`
-                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
-                      transition-all duration-200 whitespace-nowrap
-                      disabled:opacity-35 disabled:cursor-not-allowed
-                      ${isActive
-                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
-                        : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                      }
-                    `}
-                  >
-                    <span>{f.label}</span>
-                    {f.label !== 'All' && (
-                      <span
-                        className={`
-                          inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
-                          transition-colors duration-200
-                          ${isActive
-                            ? 'bg-white/20 text-white'
-                            : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
-                          }
-                        `}
-                      >
-                        {f.count}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* View Mode & Carets */}
-            <div className="flex items-center gap-2">
-              <div className="flex items-center bg-white dark:bg-[#0E0E0E] p-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-xs">
+            {filtersWithCounts.map((f) => {
+              const isActive = activeFilter === f.label;
+              return (
                 <button
-                  onClick={() => setViewMode('carousel')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                    viewMode === 'carousel'
-                      ? 'bg-[#E37500] text-white shadow-xs'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-                  }`}
-                  title="Caret Carousel"
+                  key={f.label}
+                  onClick={() => setActiveFilter(f.label)}
+                  disabled={f.count === 0}
+                  aria-pressed={isActive}
+                  className={`
+                    relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                    transition-all duration-200 whitespace-nowrap
+                    disabled:opacity-35 disabled:cursor-not-allowed
+                    ${isActive
+                      ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                    }
+                  `}
                 >
-                  Carousel
+                  <span>{f.label}</span>
+                  {f.label !== 'All' && (
+                    <span
+                      className={`
+                        inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                        transition-colors duration-200
+                        ${isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                        }
+                      `}
+                    >
+                      {f.count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+
+            {/* Divider */}
+            <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
+
+            {/* Carousel / Grid toggle */}
+            <button
+              onClick={() => setViewMode('carousel')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
+                viewMode === 'carousel'
+                  ? 'bg-[#E37500] text-white shadow-xs'
+                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+              }`}
+              title="Carousel view"
+            >
+              Carousel
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
+                viewMode === 'grid'
+                  ? 'bg-[#E37500] text-white shadow-xs'
+                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+              }`}
+              title="Grid view"
+            >
+              Grid
+            </button>
+
+            {/* Prev / Next arrows */}
+            {viewMode === 'carousel' && (
+              <>
+                <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
+                <button
+                  onClick={scrollLeft}
+                  disabled={!canScrollLeft}
+                  className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+                  aria-label="Previous package"
+                  title="Previous"
+                >
+                  <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
                 </button>
                 <button
-                  onClick={() => setViewMode('grid')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                    viewMode === 'grid'
-                      ? 'bg-[#E37500] text-white shadow-xs'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-                  }`}
-                  title="Grid View"
+                  onClick={scrollRight}
+                  disabled={!canScrollRight}
+                  className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+                  aria-label="Next package"
+                  title="Next"
                 >
-                  Grid
+                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
                 </button>
-              </div>
+              </>
+            )}
 
-              {viewMode === 'carousel' && (
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={scrollLeft}
-                    disabled={!canScrollLeft}
-                    className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                    aria-label="Previous package"
-                    title="Previous"
-                  >
-                    <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                  </button>
-                  <button
-                    onClick={scrollRight}
-                    disabled={!canScrollRight}
-                    className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                    aria-label="Next package"
-                    title="Next"
-                  >
-                    <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* Link to All Packages Page */}
+            <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
+            <button
+              onClick={() => navigate('/packages')}
+              className="px-3 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+              title="View all itineraries & packages"
+            >
+              <span>View All</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
 
@@ -252,16 +265,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-                      <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-                        <span className="px-3 py-1 rounded-full bg-black/65 backdrop-blur-md text-white text-[11px] uppercase tracking-wider font-bold border border-white/20 shadow-xs">
-                          {pkg.tag}
-                        </span>
-                        {pkg.badge && (
-                          <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-sm border border-white/20">
-                            {pkg.badge}
-                          </span>
-                        )}
-                      </div>
+
 
                       <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-xs text-white font-medium z-10">
                         <Plane className="w-3.5 h-3.5 text-[#E37500] -rotate-45" />
@@ -272,17 +276,18 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     {/* Content */}
                     <div className="p-5 sm:p-6 space-y-3.5 sm:space-y-4">
                       <div>
-                        <div className="flex items-center gap-1 text-xs text-[#E37500] font-semibold mb-1">
-                          <Clock className="w-3.5 h-3.5" />
-                          <span>{pkg.duration}</span>
-                        </div>
                         <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-snug">
                           {pkg.title}
                         </h3>
+                        <div className="flex items-center gap-1 text-xs text-[#E37500] font-semibold mt-1.5">
+                          <Clock className="w-3.5 h-3.5" />
+                          <span>{pkg.duration}</span>
+                        </div>
                         <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-normal line-clamp-2">
                           {pkg.subtitle}
                         </p>
                       </div>
+
 
                       {/* Features Bullet List */}
                       <div className="space-y-2 pt-3 border-t border-neutral-200 dark:border-white/10">
@@ -347,10 +352,29 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
               onClick={() => setActiveFilter('All')}
               className="px-5 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E37500]/25 active:scale-95"
             >
-              View All Packages
+              Reset Filters
             </button>
           </div>
         )}
+
+        {/* Bottom Banner to Explore All Packages */}
+        <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-1 text-center sm:text-left">
+            <h4 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">
+              Want a fully customized multi-city itinerary?
+            </h4>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Browse all curated holiday packages with day-by-day highlights, inclusions, and bespoke personalization.
+            </p>
+          </div>
+          <button
+            onClick={() => navigate('/packages')}
+            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+          >
+            <span>Explore All Packages</span>
+            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+          </button>
+        </div>
       </div>
     </section>
   );

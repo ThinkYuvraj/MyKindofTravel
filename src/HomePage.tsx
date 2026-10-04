@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { MarqueeTicker } from './components/MarqueeTicker';
 import { Hero } from './components/Hero';
@@ -37,6 +38,7 @@ const DEFAULT_ORDER = [
 ];
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [selectedPackage, setSelectedPackage] = useState<TravelPackage | null>(null);
   const [selectedDestination, setSelectedDestination] = useState<DestinationItem | null>(null);
   const [enquiryDestination, setEnquiryDestination] = useState<string>('');
@@ -115,6 +117,14 @@ useEffect(() => {
   const scrollToSection = (sectionId: string) => {
     if (sectionId === 'contact') {
       setIsEnquiryModalOpen(true);
+      return;
+    }
+    if (sectionId === 'places') {
+      navigate('/places');
+      return;
+    }
+    if (sectionId === 'stories') {
+      navigate('/stories');
       return;
     }
     const el = document.getElementById(sectionId);

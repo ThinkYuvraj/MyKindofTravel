@@ -583,42 +583,65 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
 
             {/* 2. DEDICATED ROUTES TAB */}
             {activeTab === 'routes' && (
-              <div className="flex flex-col h-full min-h-0 p-4 space-y-4 overflow-y-auto">
-                <div className="space-y-3 bg-white dark:bg-[#141414] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
-                  <div>
-                    <label className="text-[11px] font-bold text-[#6F5B4E] dark:text-[#C5B7AC] uppercase tracking-wider block mb-1">
-                      Origin Address / Airport
+              <div className="flex flex-col h-full min-h-0 overflow-y-auto">
+                {/* Route Input Card */}
+                <div className="p-4 space-y-3 bg-white dark:bg-[#141414] border-b border-[#EAE1D7] dark:border-white/10 shrink-0">
+                  
+                  {/* Origin */}
+                  <div className="relative">
+                    <label className="text-[10px] font-bold text-[#8C7667] dark:text-[#A7978A] uppercase tracking-wider flex items-center gap-1.5 mb-1.5">
+                      <div className="w-5 h-5 rounded-full bg-[#E37500] text-white flex items-center justify-center text-[9px] font-extrabold shrink-0">A</div>
+                      From
                     </label>
                     <input
                       type="text"
                       value={routeOrigin}
                       onChange={(e) => setRouteOrigin(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleCalculateRoute()}
                       placeholder="e.g. Milan Malpensa Airport"
-                      className="w-full bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                      className="w-full bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-4 py-2.5 text-xs text-[#24130A] dark:text-white placeholder-[#B0A096] focus:outline-none focus:ring-2 focus:ring-[#E37500]/40 focus:border-[#E37500] transition-all"
                     />
                   </div>
 
-                  <div>
-                    <label className="text-[11px] font-bold text-[#6F5B4E] dark:text-[#C5B7AC] uppercase tracking-wider block mb-1">
-                      Destination Address / Hotel
+                  {/* Swap button */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-px bg-[#EAE1D7] dark:bg-white/10" />
+                    <button
+                      onClick={() => { const o = routeOrigin; setRouteOrigin(routeDestination); setRouteDestination(o); }}
+                      className="w-7 h-7 rounded-full bg-[#FAF7F2] dark:bg-[#222] border border-[#E5DCD2] dark:border-white/15 flex items-center justify-center text-[#E37500] hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all active:scale-90 shadow-xs"
+                      title="Swap origin and destination"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5" />
+                    </button>
+                    <div className="flex-1 h-px bg-[#EAE1D7] dark:bg-white/10" />
+                  </div>
+
+                  {/* Destination */}
+                  <div className="relative">
+                    <label className="text-[10px] font-bold text-[#8C7667] dark:text-[#A7978A] uppercase tracking-wider flex items-center gap-1.5 mb-1.5">
+                      <div className="w-5 h-5 rounded-full bg-[#24130A] dark:bg-white text-white dark:text-[#24130A] flex items-center justify-center text-[9px] font-extrabold shrink-0">B</div>
+                      To
                     </label>
                     <input
                       type="text"
                       value={routeDestination}
                       onChange={(e) => setRouteDestination(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleCalculateRoute()}
                       placeholder="e.g. Grand Hotel Tremezzo, Lake Como"
-                      className="w-full bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#24130A] dark:text-white focus:outline-none focus:ring-1 focus:ring-[#E37500]"
+                      className="w-full bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 rounded-xl px-4 py-2.5 text-xs text-[#24130A] dark:text-white placeholder-[#B0A096] focus:outline-none focus:ring-2 focus:ring-[#E37500]/40 focus:border-[#E37500] transition-all"
                     />
                   </div>
 
-                  <div className="flex items-center justify-between pt-1">
-                    <div className="flex items-center gap-1.5 p-1 bg-[#FAF7F2] dark:bg-[#181818] rounded-xl border border-[#E5DCD2] dark:border-white/10">
+                  {/* Travel mode + Calculate */}
+                  <div className="flex items-center gap-2 pt-1">
+                    {/* Mode toggle */}
+                    <div className="flex items-center gap-1 p-1 bg-[#FAF7F2] dark:bg-[#181818] rounded-xl border border-[#E5DCD2] dark:border-white/10 shrink-0">
                       <button
                         onClick={() => setTravelMode('DRIVE')}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                           travelMode === 'DRIVE'
                             ? 'bg-[#E37500] text-white shadow-xs'
-                            : 'text-[#6F5B4E] dark:text-[#BFAFA2]'
+                            : 'text-[#6F5B4E] dark:text-[#BFAFA2] hover:text-[#24130A] dark:hover:text-white'
                         }`}
                       >
                         <Car className="w-3.5 h-3.5" />
@@ -629,7 +652,7 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                           travelMode === 'WALK'
                             ? 'bg-[#E37500] text-white shadow-xs'
-                            : 'text-[#6F5B4E] dark:text-[#BFAFA2]'
+                            : 'text-[#6F5B4E] dark:text-[#BFAFA2] hover:text-[#24130A] dark:hover:text-white'
                         }`}
                       >
                         <Footprints className="w-3.5 h-3.5" />
@@ -637,15 +660,16 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                       </button>
                     </div>
 
+                    {/* Calculate Route — full width */}
                     <button
                       onClick={handleCalculateRoute}
-                      disabled={routeLoading}
-                      className="px-4 py-2 rounded-xl bg-[#E37500] hover:bg-[#C66500] disabled:opacity-40 text-white text-xs font-bold transition-all shadow-[0_4px_12px_rgba(227,117,0,0.2)] flex items-center gap-2"
+                      disabled={routeLoading || !routeOrigin.trim() || !routeDestination.trim()}
+                      className="flex-1 py-2.5 rounded-xl bg-[#E37500] hover:bg-[#C66500] disabled:opacity-40 text-white text-xs font-bold transition-all shadow-[0_4px_12px_rgba(227,117,0,0.25)] flex items-center justify-center gap-2 active:scale-95"
                     >
                       {routeLoading ? (
                         <>
                           <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                          <span>Routing...</span>
+                          <span>Calculating…</span>
                         </>
                       ) : (
                         <>
@@ -657,80 +681,83 @@ export const GoogleMapsAgentModal: React.FC<GoogleMapsAgentModalProps> = ({
                   </div>
                 </div>
 
-                {/* Route metrics & maneuvers */}
-                {activeRoute ? (
-                  <div className="space-y-3">
-                    <div className="bg-white dark:bg-[#141414] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.04)]">
-                      <div className="flex items-center justify-between border-b border-[#EAE1D7] dark:border-white/10 pb-2 mb-2">
-                        <span className="font-bold text-xs text-[#24130A] dark:text-white">
-                          Live Travel Summary
-                        </span>
-                        <span className="text-[10px] text-[#E37500] font-semibold flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" />
-                          Traffic-Aware
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="p-2.5 rounded-xl bg-[#FAF7F2] dark:bg-[#181818] border border-[#E8DFD5] dark:border-white/10">
-                          <span className="text-[10px] text-[#7E6A5D] dark:text-[#B5A599] block">
-                            Estimated Duration
-                          </span>
-                          <span className="font-serif text-lg font-bold text-[#E37500]">
-                            {formatDuration(activeRoute.duration)}
-                          </span>
+                {/* Route results */}
+                <div className="flex-1 p-4 space-y-3 overflow-y-auto">
+                  {activeRoute ? (
+                    <>
+                      {/* Summary strip */}
+                      <div className="rounded-2xl overflow-hidden border border-[#EAE1D7] dark:border-white/10 shadow-[0_4px_16px_rgba(42,24,16,0.06)]">
+                        <div className="bg-gradient-to-r from-[#E37500] to-[#C66500] p-4 flex items-center justify-between">
+                          <div className="text-white">
+                            <p className="text-[10px] font-bold uppercase tracking-wider opacity-75 mb-0.5">Estimated Time</p>
+                            <p className="font-serif text-2xl font-bold">{formatDuration(activeRoute.duration)}</p>
+                          </div>
+                          <div className="w-px h-10 bg-white/25" />
+                          <div className="text-white text-right">
+                            <p className="text-[10px] font-bold uppercase tracking-wider opacity-75 mb-0.5">Distance</p>
+                            <p className="font-serif text-2xl font-bold">{formatDistance(activeRoute.distanceMeters)}</p>
+                          </div>
+                          <div className="w-px h-10 bg-white/25" />
+                          <div className="flex flex-col items-center gap-1 text-white">
+                            <CheckCircle2 className="w-5 h-5 opacity-90" />
+                            <span className="text-[9px] font-bold uppercase tracking-wider opacity-75">Live Traffic</span>
+                          </div>
                         </div>
-                        <div className="p-2.5 rounded-xl bg-[#FAF7F2] dark:bg-[#181818] border border-[#E8DFD5] dark:border-white/10">
-                          <span className="text-[10px] text-[#7E6A5D] dark:text-[#B5A599] block">
-                            Total Distance
-                          </span>
-                          <span className="font-serif text-lg font-bold text-[#24130A] dark:text-white">
-                            {formatDistance(activeRoute.distanceMeters)}
-                          </span>
-                        </div>
+                        {activeRoute.description && (
+                          <div className="bg-white dark:bg-[#141414] px-4 py-2 text-[11px] text-[#6F5B4E] dark:text-[#C5B7AC] flex items-center gap-1.5">
+                            <Navigation className="w-3 h-3 text-[#E37500] shrink-0" />
+                            <span>Via <strong className="text-[#24130A] dark:text-white">{activeRoute.description}</strong></span>
+                          </div>
+                        )}
                       </div>
-                      {activeRoute.description && (
-                        <p className="mt-2 text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
-                          Via: <strong>{activeRoute.description}</strong>
-                        </p>
-                      )}
-                    </div>
 
-                    {/* Step-by-Step Directions */}
-                    {activeRoute.legs?.[0]?.steps && (
-                      <div className="bg-white dark:bg-[#141414] p-4 rounded-2xl border border-[#EAE1D7] dark:border-white/10">
-                        <span className="font-bold text-xs text-[#24130A] dark:text-white block mb-2">
-                          Turn-by-Turn Guidance ({activeRoute.legs[0].steps.length} steps)
-                        </span>
-                        <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
-                          {activeRoute.legs[0].steps.map((step, idx) => (
-                            <div
-                              key={idx}
-                              className="text-xs p-2 rounded-xl bg-[#FAF7F2] dark:bg-[#181818] border border-[#E8DFD5] dark:border-white/10 flex items-start gap-2.5"
-                            >
-                              <span className="w-5 h-5 rounded-full bg-[#E37500]/15 text-[#E37500] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
-                                {idx + 1}
-                              </span>
-                              <div className="flex-1">
-                                <p className="text-[#24130A] dark:text-white font-medium leading-snug">
-                                  {step.navigationInstruction?.instructions || 'Proceed along route'}
-                                </p>
-                                <span className="text-[10px] text-[#7E6A5D] dark:text-[#B5A599]">
-                                  {step.localizedValues?.distance?.text || ''} · {step.localizedValues?.staticDuration?.text || ''}
+                      {/* Step-by-Step Directions */}
+                      {activeRoute.legs?.[0]?.steps && (
+                        <div className="bg-white dark:bg-[#141414] rounded-2xl border border-[#EAE1D7] dark:border-white/10 overflow-hidden">
+                          <div className="px-4 py-3 border-b border-[#EAE1D7] dark:border-white/10 flex items-center justify-between">
+                            <span className="font-bold text-xs text-[#24130A] dark:text-white flex items-center gap-1.5">
+                              <Layers className="w-3.5 h-3.5 text-[#E37500]" />
+                              Turn-by-Turn
+                            </span>
+                            <span className="text-[10px] text-[#8C7667] dark:text-[#A7978A] font-semibold">{activeRoute.legs[0].steps.length} steps</span>
+                          </div>
+                          <div className="divide-y divide-[#F2EAE0] dark:divide-white/10 max-h-52 overflow-y-auto">
+                            {activeRoute.legs[0].steps.map((step, idx) => (
+                              <div key={idx} className="px-4 py-2.5 flex items-start gap-3 hover:bg-[#FAF7F2] dark:hover:bg-[#181818] transition-colors">
+                                <span className="w-5 h-5 rounded-full bg-[#E37500]/15 text-[#E37500] font-extrabold text-[9px] flex items-center justify-center shrink-0 mt-0.5">
+                                  {idx + 1}
                                 </span>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs text-[#24130A] dark:text-white font-medium leading-snug">
+                                    {step.navigationInstruction?.instructions || 'Continue on route'}
+                                  </p>
+                                  {(step.localizedValues?.distance?.text || step.localizedValues?.staticDuration?.text) && (
+                                    <p className="text-[10px] text-[#8C7667] dark:text-[#A7978A] mt-0.5">
+                                      {step.localizedValues?.distance?.text} · {step.localizedValues?.staticDuration?.text}
+                                    </p>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-10 gap-3 text-center">
+                      <div className="w-14 h-14 rounded-2xl bg-[#FAF7F2] dark:bg-[#181818] border border-[#E5DCD2] dark:border-white/10 flex items-center justify-center">
+                        <Navigation className="w-6 h-6 text-[#E37500]" />
                       </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="p-6 text-center text-xs text-[#7E6A5D] dark:text-[#B5A599] bg-white dark:bg-[#141414] rounded-2xl border border-dashed border-[#E5DCD2] dark:border-white/10">
-                    Enter your departure and destination points above to compute live routing with distance, duration, and maneuvers.
-                  </div>
-                )}
+                      <div>
+                        <p className="text-xs font-semibold text-[#24130A] dark:text-white">Ready to navigate</p>
+                        <p className="text-[11px] text-[#8C7667] dark:text-[#A7978A] mt-0.5 max-w-[200px]">Enter origin & destination above, then tap Calculate Route</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
+
 
             {/* 3. DEDICATED PLACES TAB */}
             {activeTab === 'places' && (

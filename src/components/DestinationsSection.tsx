@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DESTINATIONS } from '../data/travelData';
 import { DestinationItem } from '../types';
 import { ArrowUpRight, Compass, Sparkles, Clock, ChevronLeft, ChevronRight, LayoutGrid, Sliders } from 'lucide-react';
@@ -41,6 +42,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
   customTitle,
   customSubtitle,
 }) => {
+  const navigate = useNavigate();
   const [selectedRegion, setSelectedRegion] = useState('All');
   const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -220,6 +222,16 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                 </button>
               </div>
             )}
+
+            {/* Link to All Destinations Page */}
+            <button
+              onClick={() => navigate('/destinations')}
+              className="ml-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+              title="View complete destinations list"
+            >
+              <span>View All</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
 
@@ -252,17 +264,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
 
-                  {/* Top Badges: Clean, well-spaced & never truncated */}
-                  <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between gap-2 z-10">
-                    <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-medium border border-white/20 flex items-center gap-1.5 shadow-xs">
-                      <Clock className="w-3 h-3 text-[#E37500]" />
-                      <span>{meta.flightTime}</span>
-                    </span>
 
-                    <span className="px-3 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-md shadow-[#E37500]/30 border border-white/20 shrink-0 whitespace-nowrap">
-                      {dest.priceNote.replace('Starting from ', 'From ')}
-                    </span>
-                  </div>
 
                   {/* Bottom Overlay Title with Region Tag */}
                   <div className="absolute bottom-3.5 left-4 right-4 z-10">
@@ -280,6 +282,17 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                   <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
                     {dest.description}
                   </p>
+
+                  {/* Flight Time & Price Info */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-white text-[11px] font-medium">
+                      <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                      <span>{meta.flightTime}</span>
+                    </span>
+                    <span className="px-3 py-1.5 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
+                      {dest.priceNote.replace('Starting from ', 'From ')}
+                    </span>
+                  </div>
 
                   {/* Highlights List */}
                   <div className="space-y-1.5 pt-3 border-t border-neutral-200 dark:border-white/10">
@@ -318,6 +331,25 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
               </div>
             );
           })}
+        </div>
+
+        {/* Bottom Banner to Explore All Destinations */}
+        <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-1 text-center sm:text-left">
+            <h4 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">
+              Looking for a custom multi-country blueprint?
+            </h4>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Explore our full portfolio of worldwide destinations with flight times, pricing, and signature inclusions.
+            </p>
+          </div>
+          <button
+            onClick={() => navigate('/destinations')}
+            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+          >
+            <span>Explore All Destinations</span>
+            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+          </button>
         </div>
       </div>
     </section>

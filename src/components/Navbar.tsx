@@ -235,6 +235,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
 
+            {/* PLACES */}
+            <button
+              onClick={() => navigate('/places')}
+              className="px-2.5 py-1 rounded-lg hover:text-[#E37500] dark:hover:text-[#E37500] transition-colors"
+            >
+              Places
+            </button>
+
             {/* MOMENTS */}
             <button
               onClick={() => onNavigate('gallery')}
@@ -429,6 +437,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E37500] animate-pulse" />
                 </button>
               )}
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  navigate('/places');
+                }}
+                className="text-left text-neutral-900 dark:text-white py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
+              >
+                Places & Views
+              </button>
 
               <button
                 onClick={() => {

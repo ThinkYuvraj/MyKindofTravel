@@ -277,6 +277,7 @@ export default function DestinationsPage() {
         onNavigate={(path) => {
           if (path === 'contact') setIsEnquiryOpen(true);
           else if (path === 'packages') navigate('/packages');
+          else if (path === 'places') navigate('/places');
           else if (path === 'stories') navigate('/stories');
           else navigate(`/#${path}`);
         }}

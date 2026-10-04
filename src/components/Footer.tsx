@@ -167,9 +167,17 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onNavigate('destinations')}
-                  className="text-[#E37500] hover:underline font-semibold transition-colors"
+                  className="text-[#E37500] hover:underline font-semibold transition-colors block mb-1"
                 >
                   All destinations →
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('places')}
+                  className="text-[#E37500] hover:underline font-semibold transition-colors block"
+                >
+                  All curated places →
                 </button>
               </li>
             </ul>

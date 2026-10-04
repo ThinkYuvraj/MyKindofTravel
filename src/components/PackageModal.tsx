@@ -97,9 +97,6 @@ export const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose, onCust
 
           {/* Header Info */}
           <div className="absolute bottom-4 left-6 right-6 space-y-1 z-10">
-            <span className="px-2.5 py-1 rounded-md bg-[#E37500] text-white font-bold text-[10px] uppercase tracking-wider shadow-sm">
-              {pkg.tag}
-            </span>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">
               {pkg.title}
             </h2>
