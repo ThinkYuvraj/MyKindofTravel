@@ -43,47 +43,8 @@ const DEFAULT_SECTION_VISIBILITY: Record<string, boolean> = {
   contact: true,
 };
 
-const DEFAULT_CUSTOM_SECTIONS = [
-  {
-    id: 'vip-perks',
-    title: 'Signature VIP Privileges',
-    subtitle: 'Exclusive perks reserved for our private clients',
-    badgeText: 'Curated Privileges',
-    layout: 'grid-cards' as const,
-    theme: 'light' as const,
-    enabled: true,
-    items: [
-      {
-        id: 'perk-1',
-        title: 'Priority Airport Fast-Track',
-        description: 'Skip long queues worldwide with chauffeured airside tarmac transfers and priority customs clearance.',
-        badge: 'Airside VIP',
-        icon: 'Plane',
-      },
-      {
-        id: 'perk-2',
-        title: 'Guaranteed Suite Upgrades',
-        description: 'Preferred partner status across Four Seasons, Aman, Belmond, and Ritz-Carlton reserves with complimentary upgrades.',
-        badge: 'Bespoke Stays',
-        icon: 'Sparkles',
-      },
-      {
-        id: 'perk-3',
-        title: 'Private Yacht & Heli Charters',
-        description: 'Immediate on-demand access to private catamarans in Santorini, Riva speedboats in Amalfi, and scenic alpine helicopters in Zermatt.',
-        badge: 'Private Fleet',
-        icon: 'Compass',
-      },
-      {
-        id: 'perk-4',
-        title: '24/7 Dedicated Indian Concierge',
-        description: 'Direct WhatsApp line to your private travel specialist for real-time adjustments, dining reservations, and urgent assistance.',
-        badge: 'White Glove',
-        icon: 'HeartHandshake',
-      },
-    ],
-  },
-];
+const DEFAULT_CUSTOM_SECTIONS: any[] = [];
+
 
 export let cmsData: any = {
   heroTitle: 'EXPLORE. DREAM. DISCOVER.',
@@ -115,7 +76,7 @@ if (fs.existsSync(DATA_FILE)) {
     cmsData = {
       ...cmsData,
       ...parsed,
-      sectionOrder: (parsed.sectionOrder || DEFAULT_SECTION_ORDER).filter((k: string) => k !== 'about'),
+      sectionOrder: (parsed.sectionOrder || DEFAULT_SECTION_ORDER).filter((k: string) => k !== 'about' && k !== 'vip-perks'),
       sectionVisibility: { ...DEFAULT_SECTION_VISIBILITY, ...(parsed.sectionVisibility || {}) },
       destinations: parsed.destinations || DESTINATIONS,
       packages: parsed.packages || POPULAR_PACKAGES,
@@ -123,7 +84,7 @@ if (fs.existsSync(DATA_FILE)) {
       testimonials: parsed.testimonials || TESTIMONIALS,
       experiencePillars: parsed.experiencePillars || EXPERIENCE_PILLARS,
       gallery: parsed.gallery || GALLERY_ITEMS,
-      customSections: parsed.customSections || DEFAULT_CUSTOM_SECTIONS,
+      customSections: (parsed.customSections || DEFAULT_CUSTOM_SECTIONS).filter((s: any) => s.id !== 'vip-perks'),
       companyInfo: { ...COMPANY_INFO, ...(parsed.companyInfo || {}) },
       howItWorksSteps: parsed.howItWorksSteps || HOW_IT_WORKS_STEPS,
       whyUsPillars: parsed.whyUsPillars || WHY_US_PILLARS,

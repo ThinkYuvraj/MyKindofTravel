@@ -172,8 +172,9 @@ useEffect(() => {
       return null;
     }
 
-    // Check if key corresponds to a custom section
-    const customSec = cmsData.customSections?.find((s) => s.id === key);
+    // Check if key corresponds to a custom section (excluding removed vip-perks)
+    if (key === 'vip-perks') return null;
+    const customSec = cmsData.customSections?.find((s) => s.id === key && s.id !== 'vip-perks');
     if (customSec) {
       return (
         <CustomSectionRenderer
@@ -315,10 +316,11 @@ useEffect(() => {
     }
   };
 
-  // Combine built-in sectionOrder with any custom sections not yet in sectionOrder
+  // Combine built-in sectionOrder with any custom sections not yet in sectionOrder (excluding removed vip-perks)
   const allSectionKeys = [
-    ...(cmsData.sectionOrder || DEFAULT_ORDER),
+    ...(cmsData.sectionOrder || DEFAULT_ORDER).filter((k) => k !== 'vip-perks'),
     ...(cmsData.customSections || [])
+      .filter((s) => s.id !== 'vip-perks')
       .map((s) => s.id)
       .filter((id) => !(cmsData.sectionOrder || []).includes(id)),
   ];
