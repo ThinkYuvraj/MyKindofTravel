@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Compass,
   Phone,
@@ -77,19 +78,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Top Header with Brand & Close Button */}
         <div className="p-5 sm:p-6 border-b border-neutral-200 dark:border-white/10 bg-white dark:bg-[#0E0E0E] shrink-0">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#E37500] text-white flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md shadow-[#E37500]/20">
-                <Compass className="w-5 h-5 stroke-[2.2]" />
+            <Link
+              to="/"
+              onClick={() => {
+                onClose();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="flex items-center gap-3 group cursor-pointer"
+              aria-label="My Kind of Travel Home"
+            >
+              <div className="w-10 h-10 rounded-xl bg-[#E37500] text-white flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md shadow-[#E37500]/20 group-hover:scale-105 transition-transform">
+                <Compass className="w-5 h-5 stroke-[2.2] group-hover:rotate-45 transition-transform duration-300" />
               </div>
               <div>
-                <span className="font-serif text-lg font-bold text-neutral-900 dark:text-white block leading-tight">
+                <span className="font-serif text-lg font-bold text-neutral-900 dark:text-white block leading-tight group-hover:text-[#E37500] transition-colors">
                   My Kind of Travel
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-[#E37500] font-bold block">
                   Bespoke Luxury Journeys
                 </span>
               </div>
-            </div>
+            </Link>
 
             <button
               onClick={onClose}

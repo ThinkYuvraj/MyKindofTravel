@@ -373,11 +373,6 @@ Please share availability and current bespoke perks for this curated itinerary.`
               </div>
             </div>
           )}
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          )}
 
           {/* STEP 2: PERSONALIZE (Experience-first, Personalization-driven) */}
           {currentStep === 2 && (

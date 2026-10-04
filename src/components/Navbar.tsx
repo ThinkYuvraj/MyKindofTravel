@@ -3,7 +3,7 @@ import { Compass, Search, ChevronDown, Menu, X, ArrowRight, Sun, Moon, MapPin, H
 import { DESTINATIONS } from '../data/travelData';
 import { useTheme } from '../context/ThemeContext';
 import { useWishlist } from '../context/WishlistContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 interface NavbarProps {
   onPlanTripClick?: () => void;
@@ -43,11 +43,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const handleLogoClick = () => {
+  const handleLogoClick = (e?: React.MouseEvent) => {
+    setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (location.pathname !== '/') {
       navigate('/');
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (e) e.preventDefault();
+      const hero = document.getElementById('hero');
+      if (hero) hero.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -108,7 +112,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           {/* Left: Compass Monogram & Branding */}
           <div className="flex items-center shrink-0">
-            <button
+            <Link
+              to="/"
               onClick={handleLogoClick}
               className="flex items-center gap-2 group focus:outline-none cursor-pointer"
               aria-label="My Kind of Travel Home"
@@ -124,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   · Bespoke
                 </span>
               </div>
-            </button>
+            </Link>
           </div>
 
           {/* Center: Sleek Desktop Navigation */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Compass, Phone, Mail, ArrowUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { COMPANY_INFO } from '../data/travelData';
 
 interface FooterProps {
@@ -26,19 +27,24 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 pb-7 border-b border-neutral-800 dark:border-white/10">
           {/* Brand Col */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-2 space-y-3 pr-0 lg:pr-6">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#E37500] text-white flex items-center justify-center shadow-sm shrink-0">
-                <Compass className="w-4 h-4 stroke-[2.2]" />
+            <Link
+              to="/"
+              onClick={scrollToTop}
+              className="flex items-center gap-2.5 group cursor-pointer inline-flex"
+              aria-label="My Kind of Travel Home"
+            >
+              <div className="w-8 h-8 rounded-lg bg-[#E37500] text-white flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+                <Compass className="w-4 h-4 stroke-[2.2] group-hover:rotate-45 transition-transform duration-300" />
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white">
+                <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white group-hover:text-[#E37500] transition-colors">
                   My Kind of Travel
                 </span>
                 <span className="hidden sm:inline-block text-[10px] uppercase tracking-wider text-[#E37500] font-semibold">
                   • Bespoke Luxury
                 </span>
               </div>
-            </div>
+            </Link>
 
             <p className="text-neutral-400 text-xs leading-relaxed max-w-sm">
               Bespoke luxury journeys designed for discerning Indian travellers. Handcrafted itineraries with white-glove care from departure to return.
