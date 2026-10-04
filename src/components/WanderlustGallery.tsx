@@ -162,9 +162,9 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
         </div>
 
         {/* ── Responsive Control Bar: categories horizontally scrollable + carets pinned & visible ── */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 mb-8 w-full">
+        <div className="flex flex-col gap-3 mb-8 w-full">
           {/* Continuous category capsule pill container */}
-          <div className="w-full sm:w-auto overflow-x-auto no-scrollbar py-1">
+          <div className="w-full overflow-x-auto no-scrollbar py-1">
             <div className="flex flex-row items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0 w-max">
               {filtersWithCounts.map((f) => {
                 const isActive = activeCategory === f.label;
@@ -205,13 +205,13 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
             </div>
           </div>
 
-          {/* Caret Navigation & View All link - always visible on mobile and desktop */}
-          <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+          {/* Caret Navigation & View All link - moved under the category section */}
+          <div className="flex items-center justify-between sm:justify-end w-full gap-2">
             <div className="flex flex-row items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
               <button
                 onClick={scrollLeft}
                 disabled={!canScrollLeft}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
                 aria-label="Previous place"
                 title="Previous"
               >
@@ -220,7 +220,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
               <button
                 onClick={scrollRight}
                 disabled={!canScrollRight}
-                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
                 aria-label="Next place"
                 title="Next"
               >
@@ -231,7 +231,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
               <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
               <button
                 onClick={() => navigate('/places')}
-                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0 cursor-pointer"
                 title="Explore all places"
               >
                 <span>View All</span>
