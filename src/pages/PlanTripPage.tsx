@@ -1,580 +1,708 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { FloatingWhatsApp } from '../components/FloatingWhatsApp';
 import { BackToTop } from '../components/BackToTop';
+import { EnquiryModal } from '../components/EnquiryModal';
 import { WishlistModal } from '../components/WishlistModal';
-import { DESTINATIONS, COMPANY_INFO } from '../data/travelData';
-import { Compass, Check, ArrowRight, ArrowLeft, Sparkles, MessageCircle, ShieldCheck, Heart, Users, Calendar, MapPin, Award } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import {
+  Plane,
+  Compass,
+  Search,
+  Sparkles,
+  Check,
+  Plus,
+  Trash2,
+  Calendar,
+  Users,
+  Wallet,
+  Heart,
+  ArrowRight,
+  ShieldCheck,
+  MapPin,
+  Send,
+  Star,
+  ChevronDown,
+  Info,
+} from 'lucide-react';
+import { COMPANY_INFO } from '../data/travelData';
 
-const TRIP_TYPES = [
-  { id: 'couple', label: 'Romantic Couple', desc: 'Private intimacies & candlelit views' },
-  { id: 'honeymoon', label: 'Honeymoon Bliss', desc: 'Champagne, cave suites & private villas' },
-  { id: 'family', label: 'Family Vacation', desc: 'Interconnecting suites & gentle pacing' },
-  { id: 'corporate', label: 'Executive Retreat', desc: 'Luxury logistics & first-class transfers' },
-];
+interface StayLocation {
+  id: string;
+  name: string;
+  region: string;
+  nights: number;
+  hotelName: string;
+  hotelTier: string;
+  image: string;
+  tag: string;
+  pricePerNight: number;
+  highlights: string[];
+  isOptional?: boolean;
+  isActive?: boolean;
+}
 
-const HOTEL_TIERS = [
-  { id: 'boutique', label: 'Luxury Boutique & Historic Charms', desc: 'Small-scale, character-rich boutique estates' },
-  { id: '5star', label: 'Iconic 5-Star Heritage & Palaces', desc: 'World-renowned service, spas, and legendary suites' },
-  { id: 'villa', label: 'Private Cliffside / Lagoon Villa', desc: 'Total privacy, private plunge pools & personal butler' },
-  { id: 'chalet', label: 'Alpine Luxury Chalet', desc: 'Fireplaces, glacier panoramas & mountain retreats' },
-];
+interface DestinationPlan {
+  id: string;
+  name: string;
+  heroHeadline: string;
+  heroImage: string;
+  basePricePerPerson: number;
+  budgetLabel: string;
+  defaultWho: string;
+  defaultNights: number;
+  defaultBudget: string;
+  defaultVibe: string;
+  stays: StayLocation[];
+}
 
-const EXPERIENCES = [
-  'Private Yacht / Riva Boat Charter',
-  'Helicopter Glacier or Volcano Landing',
-  'Private After-Hours Museum / Castle Access',
-  'Michelin-Starred Cellar Wine Pairing Dinner',
-  'Mercedes S-Class Chauffeured Inter-City Transfers',
-  'Floating Champagne Breakfast',
-];
+const DESTINATION_PLANS: Record<string, DestinationPlan> = {
+  bali: {
+    id: 'bali',
+    name: 'Bali',
+    heroHeadline: 'Bali, planned your way',
+    heroImage: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=80',
+    basePricePerPerson: 80640,
+    budgetLabel: 'Within your Premium budget',
+    defaultWho: 'Couple · 2',
+    defaultNights: 6,
+    defaultBudget: 'Premium',
+    defaultVibe: 'Romance, Culture, Food',
+    stays: [
+      {
+        id: 'ubud',
+        name: 'Ubud',
+        region: 'Culture & Jungle',
+        nights: 3,
+        hotelName: 'Komaneka at Bisma Sanctuary',
+        hotelTier: 'Private Pool Jungle Villa',
+        image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
+        tag: 'Rainforest Bliss',
+        pricePerNight: 24000,
+        highlights: ['Floating Breakfast in Plunge Pool', 'Ayung River Valley View', 'Private Yoga Shala'],
+        isActive: true,
+      },
+      {
+        id: 'seminyak',
+        name: 'Seminyak',
+        region: 'Coastal Chic & Dining',
+        nights: 3,
+        hotelName: 'The Elysian Boutique Enclave',
+        hotelTier: 'Private Courtyard Pool Villa',
+        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+        tag: 'Sunset & Beach Clubs',
+        pricePerNight: 28000,
+        highlights: ['5 Mins to Beachfront Clubs', 'Private Frangipani Garden', 'Chauffeured Dinner Transfers'],
+        isActive: true,
+      },
+      {
+        id: 'uluwatu',
+        name: 'Uluwatu',
+        region: 'Cliffs & Ocean Temples',
+        nights: 2,
+        hotelName: 'Alila Villas Clifftop Reserve',
+        hotelTier: 'Ocean View Cliff Villa',
+        image: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80',
+        tag: 'Panoramic Cliffs',
+        pricePerNight: 36000,
+        highlights: ['Sunset Kecak Dance VIP Seats', 'Cliff-Edge Infinity Cabana', 'Private Butler Service'],
+        isOptional: true,
+        isActive: false,
+      },
+    ],
+  },
+  switzerland: {
+    id: 'switzerland',
+    name: 'Switzerland',
+    heroHeadline: 'Switzerland, planned your way',
+    heroImage: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=1600&q=80',
+    basePricePerPerson: 168000,
+    budgetLabel: 'Within your Signature Luxury budget',
+    defaultWho: 'Couple · 2',
+    defaultNights: 7,
+    defaultBudget: 'Signature Luxury',
+    defaultVibe: 'Glaciers, Scenic Rail, Alps',
+    stays: [
+      {
+        id: 'interlaken',
+        name: 'Interlaken',
+        region: 'Bernese Oberland',
+        nights: 4,
+        hotelName: 'Victoria-Jungfrau Grand Hotel & Spa',
+        hotelTier: '5-Star Alpine Palace',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+        tag: 'Glacier Gateway',
+        pricePerNight: 42000,
+        highlights: ['Jungfraujoch 1st-Class Pass', 'Private Lake Thun Cruise', 'Spa Nescens Access'],
+        isActive: true,
+      },
+      {
+        id: 'zermatt',
+        name: 'Zermatt',
+        region: 'Matterhorn Alpine Valley',
+        nights: 3,
+        hotelName: 'The Omnia Mountain Lodge',
+        hotelTier: 'Matterhorn View Chalet',
+        image: 'https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=800&q=80',
+        tag: 'Matterhorn Panoramas',
+        pricePerNight: 48000,
+        highlights: ['Glacier Express Excellence Class', 'Indoor-Outdoor Thermal Pool', 'Private Cedar Fireplace'],
+        isActive: true,
+      },
+      {
+        id: 'stmoritz',
+        name: 'St. Moritz',
+        region: 'Engadin Glamour',
+        nights: 2,
+        hotelName: 'Badrutt’s Palace Hotel',
+        hotelTier: 'Historic Luxury Grand Suite',
+        image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
+        tag: 'Aristocratic Glamour',
+        pricePerNight: 55000,
+        highlights: ['Rolls Royce Chauffeur', 'Private Lake Skating / Boating', 'Michelin Alpine Dining'],
+        isOptional: true,
+        isActive: false,
+      },
+    ],
+  },
+  amalfi: {
+    id: 'amalfi',
+    name: 'Amalfi Coast',
+    heroHeadline: 'Amalfi Coast, planned your way',
+    heroImage: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1600&q=80',
+    basePricePerPerson: 185000,
+    budgetLabel: 'Within your Mediterranean Chic budget',
+    defaultWho: 'Couple · 2',
+    defaultNights: 6,
+    defaultBudget: 'Premium',
+    defaultVibe: 'Riviera, Private Yacht, Wine',
+    stays: [
+      {
+        id: 'positano',
+        name: 'Positano',
+        region: 'Pastel Cliffside Bay',
+        nights: 3,
+        hotelName: 'Le Sirenuse Heritage Suites',
+        hotelTier: 'Clifftop Sea View Suite',
+        image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80',
+        tag: 'Iconic Pastel Bay',
+        pricePerNight: 52000,
+        highlights: ['Private Balcony Over Positano', 'Franco’s Bar VIP Reservation', 'Majolica Tile Jacuzzi'],
+        isActive: true,
+      },
+      {
+        id: 'capri',
+        name: 'Capri',
+        region: 'Island Aristocracy',
+        nights: 3,
+        hotelName: 'Capri Tiberio Palace',
+        hotelTier: 'Boutique Sea View Enclave',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+        tag: 'Faraglioni & Blue Grotto',
+        pricePerNight: 49000,
+        highlights: ['Private Riva Speedboat Charter', 'Anacapri Chairlift Excursion', 'Limoncello Tasting Masterclass'],
+        isActive: true,
+      },
+      {
+        id: 'ravello',
+        name: 'Ravello',
+        region: 'High Ridge Gardens',
+        nights: 2,
+        hotelName: 'Caruso, A Belmond Hotel',
+        hotelTier: 'Infinity Cliffside Palace',
+        image: 'https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=800&q=80',
+        tag: 'Classical Serenity',
+        pricePerNight: 58000,
+        highlights: ['World-Famous Cliffside Infinity Pool', 'Villa Cimbrone Garden Stroll', 'Private Terrace Chamber Concert'],
+        isOptional: true,
+        isActive: false,
+      },
+    ],
+  },
+};
 
 export default function PlanTripPage() {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
 
-  // Form State
-  const [selectedDestinations, setSelectedDestinations] = useState<string[]>(['amalfi']);
-  const [tripType, setTripType] = useState('couple');
-  const [duration, setDuration] = useState('7-10 Days');
-  const [travelMonth, setTravelMonth] = useState('Upcoming Summer');
-  const [travelersCount, setTravelersCount] = useState('2 Adults');
-  const [hotelTier, setHotelTier] = useState('5star');
-  const [selectedExperiences, setSelectedExperiences] = useState<string[]>([
-    'Private Yacht / Riva Boat Charter',
-    'Michelin-Starred Cellar Wine Pairing Dinner',
-  ]);
-  const [budgetTier, setBudgetTier] = useState('Signature Luxury (₹1.5L - ₹3L / person)');
-  const [fullName, setFullName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [notes, setNotes] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [referenceId, setReferenceId] = useState('');
+  // Current active destination
+  const [selectedDestId, setSelectedDestId] = useState<string>('bali');
+  const activePlan = DESTINATION_PLANS[selectedDestId] || DESTINATION_PLANS.bali;
 
-  const toggleDestination = (id: string) => {
-    setSelectedDestinations((prev) =>
-      prev.includes(id) ? (prev.length > 1 ? prev.filter((d) => d !== id) : prev) : [...prev, id]
-    );
-  };
+  // Search capsule preference parameters
+  const [who, setWho] = useState<string>(activePlan.defaultWho);
+  const [nights, setNights] = useState<number>(activePlan.defaultNights);
+  const [budget, setBudget] = useState<string>(activePlan.defaultBudget);
+  const [vibe, setVibe] = useState<string>(activePlan.defaultVibe);
 
-  const toggleExperience = (exp: string) => {
-    setSelectedExperiences((prev) =>
-      prev.includes(exp) ? prev.filter((e) => e !== exp) : [...prev, exp]
-    );
-  };
+  // Stays management (track which optional stays are toggled)
+  const [staysState, setStaysState] = useState<Record<string, boolean>>({
+    ubud: true,
+    seminyak: true,
+    uluwatu: false,
+    interlaken: true,
+    zermatt: true,
+    stmoritz: false,
+    positano: true,
+    capri: true,
+    ravello: false,
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const ref = `MKOT-${Math.floor(100000 + Math.random() * 900000)}`;
-    setReferenceId(ref);
+  // Modal Concierge state
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+  const [enquiryDestination, setEnquiryDestination] = useState('');
+  const [enquiryTripType, setEnquiryTripType] = useState('');
 
-    // Save lead to localStorage for Admin CMS leads table
-    try {
-      const existingLeads = JSON.parse(localStorage.getItem('mkot_leads') || '[]');
-      const newLead = {
-        id: ref,
-        name: fullName,
-        phone,
-        email,
-        destinations: selectedDestinations.join(', '),
-        tripType,
-        hotelTier,
-        budgetTier,
-        experiences: selectedExperiences.join(', '),
-        notes,
-        createdAt: new Date().toISOString(),
-        status: 'new',
-      };
-      localStorage.setItem('mkot_leads', JSON.stringify([newLead, ...existingLeads]));
-    } catch (err) {
-      console.error('Failed to store lead', err);
+  // Active stays calculation
+  const activeStays = useMemo(() => {
+    return activePlan.stays.filter((s) => (!s.isOptional ? true : staysState[s.id]));
+  }, [activePlan, staysState]);
+
+  const optionalStay = activePlan.stays.find((s) => s.isOptional);
+  const isOptionalActive = optionalStay ? staysState[optionalStay.id] : false;
+
+  // Dynamic price calculation
+  const calculatedPrice = useMemo(() => {
+    let base = activePlan.basePricePerPerson;
+    if (optionalStay && staysState[optionalStay.id]) {
+      base += Math.round(optionalStay.pricePerNight * 0.65);
     }
+    return base;
+  }, [activePlan, optionalStay, staysState]);
 
-    setIsSubmitted(true);
+  const totalNights = useMemo(() => {
+    return activeStays.reduce((acc, s) => acc + s.nights, 0);
+  }, [activeStays]);
+
+  // Toggle optional destination stay
+  const handleToggleOptionalStay = (id: string) => {
+    setStaysState((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
-  const handleSendWhatsApp = () => {
-    const text = `Hi My Kind of Travel Concierge!
-I have designed my bespoke journey (Ref: ${referenceId || 'MKOT-STUDIO'}):
+  // Switch destination and reset states
+  const handleSelectDestination = (destId: string) => {
+    setSelectedDestId(destId);
+    const newPlan = DESTINATION_PLANS[destId];
+    if (newPlan) {
+      setWho(newPlan.defaultWho);
+      setNights(newPlan.defaultNights);
+      setBudget(newPlan.defaultBudget);
+      setVibe(newPlan.defaultVibe);
+    }
+  };
 
-👤 Name: ${fullName || 'Traveler'}
-📞 Phone: ${phone || 'Provided in enquiry'}
-📍 Destinations: ${selectedDestinations.join(', ')}
-👥 Trip Type: ${tripType} (${travelersCount})
-⏱ Duration: ${duration} (${travelMonth})
-🏨 Stay Style: ${hotelTier}
-✨ Inclusions: ${selectedExperiences.join(', ')}
-💰 Budget Tier: ${budgetTier}
-📝 Notes: ${notes || 'None'}
-
-Please share availability and tailored recommendations for this journey.`;
-
-    const encoded = encodeURIComponent(text);
-    window.open(`https://wa.me/${COMPANY_INFO.phoneRaw}?text=${encoded}`, '_blank');
+  const handleOpenConcierge = () => {
+    const routeNames = activeStays.map((s) => `${s.name} (${s.nights}N)`).join(' + ');
+    setEnquiryDestination(`${activePlan.name} (${routeNames})`);
+    setEnquiryTripType(`${who} · ${totalNights} Nights · ${budget} Budget (${vibe})`);
+    setIsEnquiryOpen(true);
   };
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] dark:bg-black text-[#24130A] dark:text-white flex flex-col font-sans transition-colors duration-300">
-      <Navbar onPlanTrip={() => {}} />
+      {/* Navbar */}
+      <Navbar onPlanTrip={handleOpenConcierge} />
 
-      <main className="flex-1 pt-28 sm:pt-36 pb-20">
-        <div className="section-container max-w-4xl space-y-10">
+      <main className="flex-1 pt-24 sm:pt-28 pb-32">
+        <div className="section-container max-w-7xl space-y-12">
           
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111111] border border-[#E8DFD5] dark:border-white/10 text-[#E37500] text-xs font-bold uppercase tracking-widest shadow-xs">
-              <Compass className="w-3.5 h-3.5" />
-              <span>Bespoke Travel Atelier</span>
+          {/* Quick Destination Switcher Pills */}
+          <div className="flex items-center justify-between gap-3 overflow-x-auto no-scrollbar pt-2">
+            <div className="flex items-center gap-2">
+              <span className="text-xs uppercase tracking-wider font-bold text-[#8C7667] dark:text-[#A7978A] mr-1">
+                Destination:
+              </span>
+              {Object.values(DESTINATION_PLANS).map((p) => {
+                const isActive = p.id === selectedDestId;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => handleSelectDestination(p.id)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
+                      isActive
+                        ? 'bg-[#E37500] text-white shadow-xs scale-105'
+                        : 'bg-white dark:bg-[#141414] text-[#6F5B4E] dark:text-[#C5B7AC] hover:bg-neutral-100 dark:hover:bg-white/10 border border-[#E8DFD5] dark:border-white/10'
+                    }`}
+                  >
+                    {p.name}
+                  </button>
+                );
+              })}
             </div>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#24130A] dark:text-white">
-              Design Your <span className="italic font-serif text-[#E37500] font-normal">Dream Journey</span>
-            </h1>
-            <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
-              Answer 4 simple questions. We'll curate a private starting blueprint and connect you with your dedicated travel specialist.
-            </p>
+
+            <div className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-[#8C7667] dark:text-[#A7978A]">
+              <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
+              <span>Interactive Itinerary Atelier</span>
+            </div>
           </div>
 
-          {/* Stepper Bar */}
-          {!isSubmitted && (
-            <div className="flex items-center justify-between p-2 bg-white dark:bg-[#111111] rounded-2xl border border-[#E8DFD5] dark:border-white/10 shadow-xs text-xs">
-              {[
-                { s: 1, label: '01 Destination' },
-                { s: 2, label: '02 Party & Dates' },
-                { s: 3, label: '03 Stays & Vibe' },
-                { s: 4, label: '04 Concierge' },
-              ].map((item) => (
-                <div
-                  key={item.s}
-                  className={`flex-1 text-center py-2 px-2 rounded-xl font-bold transition-all ${
-                    step === item.s
-                      ? 'bg-[#E37500] text-white shadow-xs'
-                      : step > item.s
-                      ? 'text-[#E37500] dark:text-[#E37500] bg-[#E37500]/10'
-                      : 'text-[#8C7667] dark:text-[#A7978A]'
-                  }`}
-                >
-                  <span className="hidden sm:inline">{item.label}</span>
-                  <span className="sm:hidden">Step {item.s}</span>
-                </div>
-              ))}
+          {/* ============================================================ */}
+          {/* HERO BANNER WITH INTEGRATED FLOATING SEARCH CAPSULE */}
+          {/* ============================================================ */}
+          <div className="relative">
+            {/* Rounded Hero Banner */}
+            <div className="relative w-full h-[320px] sm:h-[400px] lg:h-[460px] rounded-3xl sm:rounded-[36px] overflow-hidden shadow-2xl bg-neutral-900 border border-black/10">
+              <img
+                src={activePlan.heroImage}
+                alt={activePlan.heroHeadline}
+                className="w-full h-full object-cover object-center scale-100 hover:scale-105 transition-transform duration-1000 ease-out"
+              />
+              {/* Subtle Gradient Overlays for perfect legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/20" />
+
+              {/* Bold Title at Bottom-Left inside Banner */}
+              <div className="absolute bottom-16 sm:bottom-20 left-6 sm:left-12 max-w-2xl text-white">
+                <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight drop-shadow-lg leading-tight">
+                  {activePlan.heroHeadline}
+                </h1>
+              </div>
             </div>
-          )}
 
-          {/* Form Wizard Container */}
-          <div className="bg-white dark:bg-[#0E0E0E] rounded-3xl sm:rounded-4xl p-6 sm:p-10 border border-[#E8DFD5] dark:border-white/10 shadow-[0_16px_50px_rgba(42,24,16,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.5)]">
-            
-            {!isSubmitted ? (
-              <div>
-                {/* STEP 1: DESTINATIONS */}
-                {step === 1 && (
-                  <div className="space-y-6 animate-in fade-in duration-300">
-                    <div>
-                      <h2 className="font-serif text-2xl font-bold">Where would you like to escape?</h2>
-                      <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] mt-1">
-                        Select one or more destinations to include in your bespoke itinerary.
-                      </p>
-                    </div>
+            {/* Floating Search Capsule Bar overlapping bottom of hero banner */}
+            <div className="relative -mt-10 sm:-mt-12 max-w-4xl mx-auto px-3 sm:px-6 z-20">
+              <div className="p-3 sm:p-4 rounded-3xl sm:rounded-full bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 shadow-[0_16px_50px_rgba(42,24,16,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 transition-all">
+                
+                {/* Field 1: Who */}
+                <div className="flex-1 px-4 py-1.5 border-b sm:border-b-0 sm:border-r border-[#E8DFD5] dark:border-white/10">
+                  <span className="block text-[10px] uppercase font-bold tracking-wider text-[#8C7667] dark:text-[#A7978A]">
+                    Who
+                  </span>
+                  <select
+                    value={who}
+                    onChange={(e) => setWho(e.target.value)}
+                    className="w-full bg-transparent text-xs sm:text-sm font-bold text-[#24130A] dark:text-white focus:outline-none cursor-pointer"
+                  >
+                    <option value="Couple · 2">Couple · 2</option>
+                    <option value="Solo Traveler · 1">Solo · 1</option>
+                    <option value="Family · 3-4">Family · 3-4</option>
+                    <option value="Group · 5+">Group · 5+</option>
+                  </select>
+                </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                      {DESTINATIONS.map((d) => {
-                        const isSelected = selectedDestinations.includes(d.id);
-                        return (
-                          <div
-                            key={d.id}
-                            onClick={() => toggleDestination(d.id)}
-                            className={`p-3 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between h-36 relative overflow-hidden group ${
-                              isSelected
-                                ? 'border-[#E37500] ring-2 ring-[#E37500]/30 shadow-md'
-                                : 'border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50'
-                            }`}
-                          >
-                            <img
-                              src={d.image}
-                              alt={d.name}
-                              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20" />
+                {/* Field 2: Nights */}
+                <div className="flex-1 px-4 py-1.5 border-b sm:border-b-0 sm:border-r border-[#E8DFD5] dark:border-white/10">
+                  <span className="block text-[10px] uppercase font-bold tracking-wider text-[#8C7667] dark:text-[#A7978A]">
+                    Nights
+                  </span>
+                  <select
+                    value={nights}
+                    onChange={(e) => setNights(Number(e.target.value))}
+                    className="w-full bg-transparent text-xs sm:text-sm font-bold text-[#24130A] dark:text-white focus:outline-none cursor-pointer"
+                  >
+                    <option value={4}>4 nights</option>
+                    <option value={6}>6 nights</option>
+                    <option value={8}>8 nights</option>
+                    <option value={10}>10 nights</option>
+                    <option value={14}>14 nights</option>
+                  </select>
+                </div>
 
-                            <div className="relative z-10 flex justify-end">
-                              <div
-                                className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
-                                  isSelected ? 'bg-[#E37500] text-white' : 'bg-black/40 text-white/50 border border-white/20'
-                                }`}
-                              >
-                                {isSelected ? <Check className="w-3.5 h-3.5" /> : null}
-                              </div>
-                            </div>
+                {/* Field 3: Budget */}
+                <div className="flex-1 px-4 py-1.5 border-b sm:border-b-0 sm:border-r border-[#E8DFD5] dark:border-white/10">
+                  <span className="block text-[10px] uppercase font-bold tracking-wider text-[#8C7667] dark:text-[#A7978A]">
+                    Budget
+                  </span>
+                  <select
+                    value={budget}
+                    onChange={(e) => setBudget(e.target.value)}
+                    className="w-full bg-transparent text-xs sm:text-sm font-bold text-[#24130A] dark:text-white focus:outline-none cursor-pointer"
+                  >
+                    <option value="Smart Luxury">Smart Luxury</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Ultra-Luxe Bespoke">Ultra-Luxe</option>
+                  </select>
+                </div>
 
-                            <div className="relative z-10 text-white space-y-0.5">
-                              <span className="text-[10px] text-[#E3BA91] uppercase tracking-wider block font-bold">
-                                {d.country}
-                              </span>
-                              <h3 className="font-serif text-sm sm:text-base font-bold leading-tight">
-                                {d.name.split(',')[0]}
-                              </h3>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
+                {/* Field 4: Vibe */}
+                <div className="flex-1 px-4 py-1.5">
+                  <span className="block text-[10px] uppercase font-bold tracking-wider text-[#8C7667] dark:text-[#A7978A]">
+                    Vibe
+                  </span>
+                  <select
+                    value={vibe}
+                    onChange={(e) => setVibe(e.target.value)}
+                    className="w-full bg-transparent text-xs sm:text-sm font-bold text-[#24130A] dark:text-white focus:outline-none cursor-pointer truncate"
+                  >
+                    <option value="Romance, Culture, Food">Romance, Culture, Food</option>
+                    <option value="Beaches & Sunset Lounging">Beaches & Sunset Lounging</option>
+                    <option value="Alpine & Glacial Grandeur">Alpine & Glacial Grandeur</option>
+                    <option value="Wellness & Quiet Hideaway">Wellness & Quiet Hideaway</option>
+                  </select>
+                </div>
 
-                    <div className="pt-4 flex justify-end">
-                      <button
-                        onClick={() => setStep(2)}
-                        className="px-7 py-3 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md shadow-[#E37500]/25 transition-all"
-                      >
-                        <span>Next: Travel Party</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
+                {/* Action Button: Plan my trip */}
+                <button
+                  onClick={handleOpenConcierge}
+                  className="px-6 py-3 rounded-full bg-[#B85D19] hover:bg-[#A35114] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all shrink-0 hover:scale-105 active:scale-95"
+                >
+                  <Search className="w-3.5 h-3.5" />
+                  <span>Plan my trip</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* ============================================================ */}
+          {/* "WHERE YOU'LL STAY" SECTION */}
+          {/* ============================================================ */}
+          <section className="space-y-6 pt-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#24130A] dark:text-white">
+                Where you'll stay
+              </h2>
+
+              <span className="text-xs text-[#8C7667] dark:text-[#A7978A] font-semibold">
+                Curated boutique & 5-star villas
+              </span>
+            </div>
+
+            {/* Route Path Flow Chain */}
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 text-xs font-semibold">
+              {/* Departure Airport */}
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#C5B7AC] shrink-0 shadow-xs">
+                <Plane className="w-3.5 h-3.5 text-[#E37500]" />
+                <span>Airport</span>
+              </div>
+
+              <span className="text-neutral-400">→</span>
+
+              {/* Active Stays along the path */}
+              {activeStays.map((stay, idx) => (
+                <React.Fragment key={stay.id}>
+                  <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-[#24130A] dark:text-white shrink-0 shadow-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#185ADB]" />
+                    <span className="font-bold">{stay.name}</span>
+                    <span className="text-neutral-400">·</span>
+                    <span className="text-neutral-600 dark:text-neutral-300">{stay.nights} nights</span>
+                  </div>
+                  <span className="text-neutral-400">→</span>
+                </React.Fragment>
+              ))}
+
+              {/* Return Airport */}
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#C5B7AC] shrink-0 shadow-xs">
+                <Plane className="w-3.5 h-3.5 text-[#E37500]" />
+                <span>Airport</span>
+              </div>
+            </div>
+
+            {/* Hotel / Stay Preview Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+              {/* Primary Active Stays */}
+              {activePlan.stays.filter((s) => !s.isOptional).map((stay) => (
+                <div
+                  key={stay.id}
+                  className="group rounded-3xl overflow-hidden bg-white dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 shadow-[0_8px_30px_rgba(42,24,16,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between transition-all hover:-translate-y-1 hover:border-[#E37500]/60"
+                >
+                  {/* Photo with aspect ratio */}
+                  <div className="w-full h-52 sm:h-56 relative overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+                    <img
+                      src={stay.image}
+                      alt={stay.hotelName}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider border border-white/20">
+                      {stay.name} · {stay.nights} Nights
                     </div>
                   </div>
-                )}
 
-                {/* STEP 2: TRIP TYPE & DATES */}
-                {step === 2 && (
-                  <div className="space-y-6 animate-in fade-in duration-300">
-                    <div>
-                      <h2 className="font-serif text-2xl font-bold">Who is traveling and when?</h2>
-                      <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] mt-1">
-                        We configure private pacing and bespoke activities based on your group dynamics.
+                  {/* Card Content */}
+                  <div className="p-5 space-y-3">
+                    <div className="space-y-1">
+                      <span className="text-[10px] text-[#E37500] font-bold uppercase tracking-wider">
+                        {stay.hotelTier}
+                      </span>
+                      <h3 className="font-serif text-lg font-bold text-[#24130A] dark:text-white leading-snug">
+                        {stay.hotelName}
+                      </h3>
+                      <p className="text-xs text-[#8C7667] dark:text-[#A7978A] flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-[#E37500]" />
+                        <span>{stay.region}</span>
                       </p>
                     </div>
 
-                    {/* Trip Type Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      {TRIP_TYPES.map((t) => (
-                        <div
-                          key={t.id}
-                          onClick={() => setTripType(t.id)}
-                          className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-start gap-3.5 ${
-                            tripType === t.id
-                              ? 'border-[#E37500] bg-[#E37500]/5 dark:bg-[#E37500]/10 ring-1 ring-[#E37500]'
-                              : 'border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50'
-                          }`}
-                        >
-                          <div
-                            className={`w-5 h-5 rounded-full mt-0.5 flex items-center justify-center shrink-0 border ${
-                              tripType === t.id ? 'border-[#E37500] bg-[#E37500] text-white' : 'border-[#8C7667]'
-                            }`}
-                          >
-                            {tripType === t.id && <Check className="w-3 h-3" />}
-                          </div>
-                          <div>
-                            <h4 className="font-serif text-base font-bold">{t.label}</h4>
-                            <p className="text-xs text-[#6F5B4E] dark:text-[#C5B7AC] mt-0.5">{t.desc}</p>
-                          </div>
+                    {/* Highlights bullet list */}
+                    <div className="pt-2 border-t border-[#E8DFD5] dark:border-white/10 space-y-1">
+                      {stay.highlights.map((h, i) => (
+                        <div key={i} className="flex items-center gap-1.5 text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
+                          <Check className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                          <span>{h}</span>
                         </div>
                       ))}
                     </div>
-
-                    {/* Duration & Month */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Estimated Duration</label>
-                        <select
-                          value={duration}
-                          onChange={(e) => setDuration(e.target.value)}
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
-                        >
-                          <option>5 to 7 Days (Short Getaway)</option>
-                          <option>7 to 10 Days (Signature Grand Tour)</option>
-                          <option>10 to 14 Days (Extended Bespoke)</option>
-                          <option>14+ Days (Grand Voyage)</option>
-                        </select>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Travel Window</label>
-                        <select
-                          value={travelMonth}
-                          onChange={(e) => setTravelMonth(e.target.value)}
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
-                        >
-                          <option>Within 30 Days (Immediate)</option>
-                          <option>Next 1-3 Months</option>
-                          <option>Upcoming Summer / Peak Season</option>
-                          <option>Autumn / Winter Holiday Magic</option>
-                          <option>Dates still flexible</option>
-                        </select>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Travelers</label>
-                        <input
-                          type="text"
-                          value={travelersCount}
-                          onChange={(e) => setTravelersCount(e.target.value)}
-                          placeholder="e.g. 2 Adults, 1 Child"
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm font-semibold"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="pt-4 flex items-center justify-between">
-                      <button
-                        onClick={() => setStep(1)}
-                        className="px-5 py-2.5 rounded-full border border-[#E8DFD5] text-xs font-bold uppercase tracking-wider flex items-center gap-2"
-                      >
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                        <span>Back</span>
-                      </button>
-
-                      <button
-                        onClick={() => setStep(3)}
-                        className="px-7 py-3 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md shadow-[#E37500]/25 transition-all"
-                      >
-                        <span>Next: Stays & Inclusions</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-                    </div>
                   </div>
-                )}
+                </div>
+              ))}
 
-                {/* STEP 3: HOTEL TIER & INCLUSIONS */}
-                {step === 3 && (
-                  <div className="space-y-6 animate-in fade-in duration-300">
-                    <div>
-                      <h2 className="font-serif text-2xl font-bold">Stays & Signature Inclusions</h2>
-                      <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] mt-1">
-                        Select the accommodation tier and experiences you'd like included in your quote.
+              {/* Optional 3rd Stay Card (+ Add Destination) */}
+              {optionalStay && (
+                <div
+                  className={`group rounded-3xl overflow-hidden border transition-all duration-300 flex flex-col justify-between relative ${
+                    isOptionalActive
+                      ? 'bg-white dark:bg-[#0E0E0E] border-[#E37500] shadow-[0_8px_30px_rgba(227,117,0,0.15)]'
+                      : 'bg-white/80 dark:bg-[#0E0E0E]/80 border-dashed border-[#DFD0C0] dark:border-white/20 hover:border-[#E37500]/60'
+                  }`}
+                >
+                  <div className="w-full h-52 sm:h-56 relative overflow-hidden bg-neutral-200 dark:bg-neutral-900">
+                    <img
+                      src={optionalStay.image}
+                      alt={optionalStay.hotelName}
+                      className={`w-full h-full object-cover transition-all duration-700 ${
+                        isOptionalActive ? 'opacity-100 group-hover:scale-105' : 'opacity-65 filter saturate-75'
+                      }`}
+                    />
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-4">
+                      <button
+                        onClick={() => handleToggleOptionalStay(optionalStay.id)}
+                        className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg ${
+                          isOptionalActive
+                            ? 'bg-white text-neutral-900 hover:bg-neutral-100'
+                            : 'bg-white/95 hover:bg-white text-[#24130A] border border-white/20 scale-105'
+                        }`}
+                      >
+                        {isOptionalActive ? (
+                          <>
+                            <Trash2 className="w-3.5 h-3.5 text-red-500" />
+                            <span>Remove {optionalStay.name}</span>
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-4 h-4 text-[#E37500]" />
+                            <span>+ Add {optionalStay.name}</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {isOptionalActive && (
+                      <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold uppercase tracking-wider shadow-md">
+                        Added: {optionalStay.name} · {optionalStay.nights}N
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-5 space-y-3">
+                    <div className="space-y-1">
+                      <span className="text-[10px] text-[#E37500] font-bold uppercase tracking-wider">
+                        {optionalStay.hotelTier}
+                      </span>
+                      <h3 className="font-serif text-lg font-bold text-[#24130A] dark:text-white leading-snug">
+                        {optionalStay.hotelName}
+                      </h3>
+                      <p className="text-xs text-[#8C7667] dark:text-[#A7978A] flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-[#E37500]" />
+                        <span>{optionalStay.region}</span>
                       </p>
                     </div>
 
-                    {/* Stay Styles */}
-                    <div className="space-y-2.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Preferred Stay Style</label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {HOTEL_TIERS.map((h) => (
-                          <div
-                            key={h.id}
-                            onClick={() => setHotelTier(h.id)}
-                            className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-start gap-3 ${
-                              hotelTier === h.id
-                                ? 'border-[#E37500] bg-[#E37500]/5 dark:bg-[#E37500]/10 ring-1 ring-[#E37500]'
-                                : 'border-[#E8DFD5] dark:border-white/10 hover:border-[#E37500]/50'
-                            }`}
-                          >
-                            <div
-                              className={`w-5 h-5 rounded-full mt-0.5 flex items-center justify-center shrink-0 border ${
-                                hotelTier === h.id ? 'border-[#E37500] bg-[#E37500] text-white' : 'border-[#8C7667]'
-                              }`}
-                            >
-                              {hotelTier === h.id && <Check className="w-3 h-3" />}
-                            </div>
-                            <div>
-                              <h4 className="font-serif text-sm font-bold">{h.label}</h4>
-                              <p className="text-[11px] text-[#6F5B4E] dark:text-[#C5B7AC] mt-0.5">{h.desc}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Experiences */}
-                    <div className="space-y-2.5 pt-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Bespoke Inclusions (Select any)</label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                        {EXPERIENCES.map((exp) => {
-                          const isSelected = selectedExperiences.includes(exp);
-                          return (
-                            <div
-                              key={exp}
-                              onClick={() => toggleExperience(exp)}
-                              className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center gap-2.5 ${
-                                isSelected
-                                  ? 'border-[#E37500] bg-white dark:bg-[#141414] text-[#24130A] dark:text-white shadow-xs font-semibold'
-                                  : 'border-[#E8DFD5] dark:border-white/10 text-[#6F5B4E] dark:text-[#A7978A]'
-                              }`}
-                            >
-                              <div
-                                className={`w-4 h-4 rounded-md flex items-center justify-center shrink-0 ${
-                                  isSelected ? 'bg-[#E37500] text-white' : 'border border-[#8C7667]'
-                                }`}
-                              >
-                                {isSelected && <Check className="w-3 h-3" />}
-                              </div>
-                              <span className="text-xs truncate">{exp}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    <div className="pt-4 flex items-center justify-between">
-                      <button
-                        onClick={() => setStep(2)}
-                        className="px-5 py-2.5 rounded-full border border-[#E8DFD5] text-xs font-bold uppercase tracking-wider flex items-center gap-2"
-                      >
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                        <span>Back</span>
-                      </button>
-
-                      <button
-                        onClick={() => setStep(4)}
-                        className="px-7 py-3 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md shadow-[#E37500]/25 transition-all"
-                      >
-                        <span>Next: Finalize & Concierge</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
+                    <div className="pt-2 border-t border-[#E8DFD5] dark:border-white/10 space-y-1">
+                      {optionalStay.highlights.map((h, i) => (
+                        <div key={i} className="flex items-center gap-1.5 text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
+                          <Check className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                          <span>{h}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                )}
+                </div>
+              )}
+            </div>
+          </section>
 
-                {/* STEP 4: CONTACT & DISPATCH */}
-                {step === 4 && (
-                  <form onSubmit={handleSubmit} className="space-y-6 animate-in fade-in duration-300">
-                    <div>
-                      <h2 className="font-serif text-2xl font-bold">Confirm Your Private Proposal</h2>
-                      <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] mt-1">
-                        Where should our senior travel specialist send your custom itinerary breakdown?
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Full Name *</label>
-                        <input
-                          type="text"
-                          required
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          placeholder="e.g. Vikram Malhotra"
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
-                        />
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">WhatsApp / Phone *</label>
-                        <input
-                          type="tel"
-                          required
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+91 98000 00000"
-                          className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Email Address (Optional)</label>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="vikram@example.com"
-                        className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-[#8C7667]">Special Requests & Celebrations</label>
-                      <textarea
-                        rows={3}
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Anniversary surprises, specific flight airlines, dietary needs, preferred room views..."
-                        className="w-full p-3 rounded-xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-xs sm:text-sm"
-                      />
-                    </div>
-
-                    <div className="pt-4 flex items-center justify-between">
-                      <button
-                        type="button"
-                        onClick={() => setStep(3)}
-                        className="px-5 py-2.5 rounded-full border border-[#E8DFD5] text-xs font-bold uppercase tracking-wider flex items-center gap-2"
-                      >
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                        <span>Back</span>
-                      </button>
-
-                      <button
-                        type="submit"
-                        className="px-8 py-3.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-[#E37500]/30 transition-all hover:scale-[1.02] active:scale-95"
-                      >
-                        <Sparkles className="w-4 h-4" />
-                        <span>Generate Bespoke Proposal</span>
-                      </button>
-                    </div>
-                  </form>
-                )}
+          {/* ============================================================ */}
+          {/* WHAT'S INCLUDED BESPOKE PERKS */}
+          {/* ============================================================ */}
+          <section className="p-7 sm:p-9 rounded-3xl bg-white dark:bg-[#0E0E0E] border border-[#E8DFD5] dark:border-white/10 space-y-4 shadow-xs">
+            <h3 className="font-serif text-lg font-bold text-[#24130A] dark:text-white">
+              Every curated itinerary includes
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-[#6F5B4E] dark:text-[#C5B7AC]">
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-[#E37500] shrink-0" />
+                <span>Private airport transfers in executive Mercedes</span>
               </div>
-            ) : (
-              /* CONFIRMATION SCREEN */
-              <div className="text-center py-10 space-y-6 animate-in zoom-in-95 duration-400">
-                <div className="w-16 h-16 rounded-full bg-[#E37500]/10 dark:bg-[#E37500]/20 text-[#E37500] dark:text-[#E37500] flex items-center justify-center mx-auto shadow-sm">
-                  <Check className="w-8 h-8 stroke-[3]" />
-                </div>
-
-                <div className="space-y-2 max-w-lg mx-auto">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#E37500]">
-                    Proposal Generated · Ref #{referenceId}
-                  </span>
-                  <h2 className="font-serif text-3xl font-bold">Your Journey is in the Works</h2>
-                  <p className="text-xs sm:text-sm text-[#6F5B4E] dark:text-[#C5B7AC] leading-relaxed">
-                    Thank you, {fullName}! Your private travel specialist has received your blueprint parameters and is preparing your personalized itinerary.
-                  </p>
-                </div>
-
-                {/* Summary Card */}
-                <div className="max-w-md mx-auto p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#141414] border border-[#E8DFD5] dark:border-white/10 text-left text-xs space-y-2">
-                  <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
-                    <span className="text-[#8C7667]">Destinations:</span>
-                    <span className="font-bold">{selectedDestinations.join(', ')}</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
-                    <span className="text-[#8C7667]">Duration:</span>
-                    <span className="font-bold">{duration}</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
-                    <span className="text-[#8C7667]">Party:</span>
-                    <span className="font-bold">{travelersCount}</span>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-[#8C7667]">Contact Phone:</span>
-                    <span className="font-bold">{phone}</span>
-                  </div>
-                </div>
-
-                {/* Instant WhatsApp Action */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-                  <button
-                    onClick={handleSendWhatsApp}
-                    className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BA5C] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/25 transition-all"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Open in WhatsApp Concierge</span>
-                  </button>
-
-                  <button
-                    onClick={() => navigate('/')}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#FAF7F2] dark:bg-[#141414] text-[#24130A] dark:text-white border border-[#E8DFD5] text-xs font-bold uppercase tracking-wider"
-                  >
-                    Return Home
-                  </button>
-                </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-[#E37500] shrink-0" />
+                <span>Daily gourmet breakfast & VIP resort inclusions</span>
               </div>
-            )}
-
-          </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-[#E37500] shrink-0" />
+                <span>24/7 dedicated personal travel concierge on WhatsApp</span>
+              </div>
+            </div>
+          </section>
 
         </div>
       </main>
 
+      {/* ============================================================ */}
+      {/* STICKY BOTTOM PRICING & DESIGNER CONCIERGE BAR */}
+      {/* ============================================================ */}
+      <div className="fixed bottom-0 inset-x-0 bg-white/95 dark:bg-[#0A0A0A]/95 backdrop-blur-xl border-t border-[#E8DFD5] dark:border-white/10 py-3.5 px-4 sm:px-8 z-40 shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+        <div className="section-container max-w-7xl flex items-center justify-between gap-4">
+          {/* Left: Dynamic Pricing & Budget Status */}
+          <div className="space-y-0.5">
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-serif text-2xl sm:text-3xl font-extrabold text-[#24130A] dark:text-white tracking-tight">
+                ₹{calculatedPrice.toLocaleString('en-IN')}
+              </span>
+              <span className="text-xs sm:text-sm text-neutral-500 font-normal">
+                / person
+              </span>
+            </div>
+            <div className="text-[11px] sm:text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{activePlan.budgetLabel}</span>
+            </div>
+          </div>
+
+          {/* Right: Send to my designer CTA */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleOpenConcierge}
+              className="px-6 sm:px-8 py-3 rounded-2xl bg-[#B85D19] hover:bg-[#A35114] text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-[#B85D19]/30 flex items-center gap-2 hover:scale-105 active:scale-95"
+            >
+              <span>Send to my designer</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Enquiry Concierge Modal */}
+      <EnquiryModal
+        isOpen={isEnquiryOpen}
+        onClose={() => setIsEnquiryOpen(false)}
+        initialDestination={enquiryDestination}
+        initialTripType={enquiryTripType}
+      />
+
+      {/* Wishlist Modal */}
       <WishlistModal />
 
+      {/* Footer */}
       <Footer
         onNavigate={(path) => {
-          if (path === 'destinations') navigate('/destinations');
+          if (path === 'contact') handleOpenConcierge();
+          else if (path === 'destinations') navigate('/destinations');
           else if (path === 'packages') navigate('/packages');
+          else if (path === 'places') navigate('/places');
+          else if (path === 'stories') navigate('/stories');
           else navigate(`/#${path}`);
         }}
-        onSelectDestination={(name) => navigate(`/destinations`)}
-        onSelectTripType={(type) => navigate(`/?type=${encodeURIComponent(type)}#contact`)}
-        onPlanTrip={() => {}}
+        onSelectDestination={(name) => {
+          setEnquiryDestination(name);
+          setIsEnquiryOpen(true);
+        }}
+        onSelectTripType={(type) => {
+          setEnquiryTripType(type);
+          setIsEnquiryOpen(true);
+        }}
+        onPlanTrip={handleOpenConcierge}
       />
 
       <FloatingWhatsApp />
