@@ -49,7 +49,6 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 }) => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<string>('All');
-  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -72,7 +71,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
         window.removeEventListener('resize', checkScroll);
       };
     }
-  }, [activeFilter, viewMode, data]);
+  }, [activeFilter, data]);
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
@@ -170,57 +169,26 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
               );
             })}
 
-            {/* Divider */}
+            {/* Prev / Next caret arrows */}
             <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
-
-            {/* Carousel / Grid toggle */}
             <button
-              onClick={() => setViewMode('carousel')}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
-                viewMode === 'carousel'
-                  ? 'bg-[#E37500] text-white shadow-xs'
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
-              }`}
-              title="Carousel view"
+              onClick={scrollLeft}
+              disabled={!canScrollLeft}
+              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+              aria-label="Previous package"
+              title="Previous"
             >
-              Carousel
+              <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
             </button>
             <button
-              onClick={() => setViewMode('grid')}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
-                viewMode === 'grid'
-                  ? 'bg-[#E37500] text-white shadow-xs'
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
-              }`}
-              title="Grid view"
+              onClick={scrollRight}
+              disabled={!canScrollRight}
+              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+              aria-label="Next package"
+              title="Next"
             >
-              Grid
+              <ChevronRight className="w-4 h-4 stroke-[2.5]" />
             </button>
-
-            {/* Prev / Next arrows */}
-            {viewMode === 'carousel' && (
-              <>
-                <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
-                <button
-                  onClick={scrollLeft}
-                  disabled={!canScrollLeft}
-                  className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
-                  aria-label="Previous package"
-                  title="Previous"
-                >
-                  <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  disabled={!canScrollRight}
-                  className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
-                  aria-label="Next package"
-                  title="Next"
-                >
-                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
-                </button>
-              </>
-            )}
 
             {/* Link to All Packages Page */}
             <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
@@ -235,24 +203,18 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
           </div>
         </div>
 
-        {/* ── Packages Carousel / Grid ───────────────────────────────────── */}
+        {/* ── Pure Caret Carousel of Packages ────────────────────────────── */}
         {filteredPackages.length > 0 ? (
           <div
             ref={carouselRef}
-            className={
-              viewMode === 'carousel'
-                ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
-                : 'content-grid'
-            }
+            className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
           >
             {filteredPackages.map((pkg) => {
               const { amount, suffix } = parsePrice(pkg.startingPrice);
               return (
                 <div
                   key={pkg.id}
-                  className={`rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative ${
-                    viewMode === 'carousel' ? 'shrink-0 w-[88vw] sm:w-[380px] lg:w-[410px] snap-start' : ''
-                  }`}
+                  className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[88vw] sm:w-[380px] lg:w-[410px] snap-start"
                 >
                   <div>
                     {/* Image & Badges */}

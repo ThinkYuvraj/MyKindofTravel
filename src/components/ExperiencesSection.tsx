@@ -21,7 +21,6 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
 }) => {
   const navigate = useNavigate();
   const activePillars = pillars && pillars.length > 0 ? pillars : EXPERIENCE_PILLARS;
-  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -44,7 +43,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
         window.removeEventListener('resize', checkScroll);
       };
     }
-  }, [viewMode, activePillars]);
+  }, [activePillars]);
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
@@ -82,55 +81,29 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
             </p>
           </div>
 
-          {/* Caret Controls & Mode Switcher */}
+          {/* Caret Controls & Link to All Experiences */}
           <div className="flex items-center gap-2 self-start lg:self-end">
-            <div className="flex items-center bg-white dark:bg-white/10 p-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-xs">
+            {/* Caret Navigation Buttons */}
+            <div className="flex items-center gap-1.5">
               <button
-                onClick={() => setViewMode('carousel')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'carousel'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Caret Carousel"
+                onClick={scrollLeft}
+                disabled={!canScrollLeft}
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Previous experience"
+                title="Previous"
               >
-                Carousel
+                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
               </button>
               <button
-                onClick={() => setViewMode('grid')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'grid'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Grid View"
+                onClick={scrollRight}
+                disabled={!canScrollRight}
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Next experience"
+                title="Next"
               >
-                Grid
+                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
               </button>
             </div>
-
-            {viewMode === 'carousel' && (
-              <div className="flex items-center gap-1.5 ml-1">
-                <button
-                  onClick={scrollLeft}
-                  disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Previous experience"
-                  title="Previous"
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Next experience"
-                  title="Next"
-                >
-                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
-              </div>
-            )}
 
             {/* Link to All Experiences Page */}
             <button
@@ -144,21 +117,15 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
           </div>
         </div>
 
-        {/* 6 Experience Cards Carousel / Grid */}
+        {/* Pure Caret Carousel of Experiences */}
         <div
           ref={carouselRef}
-          className={
-            viewMode === 'carousel'
-              ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
-              : 'content-grid sm:gap-8'
-          }
+          className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
         >
           {activePillars.map((exp) => (
             <div
               key={exp.number}
-              className={`rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 overflow-hidden flex flex-col justify-between group transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative ${
-                viewMode === 'carousel' ? 'shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start' : ''
-              }`}
+              className="rounded-3xl backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 overflow-hidden flex flex-col justify-between group transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start"
             >
               {/* Pillar Image Header */}
               {exp.image && (

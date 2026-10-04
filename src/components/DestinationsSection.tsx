@@ -44,7 +44,6 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
 }) => {
   const navigate = useNavigate();
   const [selectedRegion, setSelectedRegion] = useState('All');
-  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -67,7 +66,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
         window.removeEventListener('resize', checkScroll);
       };
     }
-  }, [selectedRegion, viewMode, data]);
+  }, [selectedRegion, data]);
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
@@ -171,57 +170,29 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             })}
           </div>
 
-          {/* Carousel Caret Controls & Layout Switcher */}
+          {/* Caret Controls & Link to All Destinations */}
           <div className="flex items-center gap-2">
-            {/* View Mode Switcher */}
-            <div className="flex items-center bg-white dark:bg-white/10 p-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-xs">
+            {/* Caret Navigation Buttons */}
+            <div className="flex items-center gap-1.5">
               <button
-                onClick={() => setViewMode('carousel')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'carousel'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Caret Carousel View"
+                onClick={scrollLeft}
+                disabled={!canScrollLeft}
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Previous destination"
+                title="Previous"
               >
-                Carousel
+                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
               </button>
               <button
-                onClick={() => setViewMode('grid')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'grid'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Grid View"
+                onClick={scrollRight}
+                disabled={!canScrollRight}
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Next destination"
+                title="Next"
               >
-                Grid
+                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
               </button>
             </div>
-
-            {/* Caret Navigation Buttons */}
-            {viewMode === 'carousel' && (
-              <div className="flex items-center gap-1.5 ml-1">
-                <button
-                  onClick={scrollLeft}
-                  disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Previous destination"
-                  title="Previous"
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Next destination"
-                  title="Next"
-                >
-                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
-              </div>
-            )}
 
             {/* Link to All Destinations Page */}
             <button
@@ -235,14 +206,10 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
           </div>
         </div>
 
-        {/* Carousel or Grid of Destinations */}
+        {/* Pure Caret Carousel of Destinations */}
         <div
           ref={carouselRef}
-          className={
-            viewMode === 'carousel'
-              ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
-              : 'content-grid'
-          }
+          className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
         >
           {filteredData.map((dest) => {
             const meta = DESTINATION_META[dest.id] || { code: 'Direct', flightTime: 'Curated Flight Route' };
@@ -250,9 +217,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             return (
               <div
                 key={dest.id}
-                className={`group rounded-3xl overflow-hidden backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative ${
-                  viewMode === 'carousel' ? 'shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start' : ''
-                }`}
+                className="group rounded-3xl overflow-hidden backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start"
               >
                 {/* Image with Tag & Price Badge */}
                 <div className="relative h-64 overflow-hidden w-full">

@@ -22,7 +22,6 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
 }) => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
 
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -57,7 +56,7 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
         window.removeEventListener('resize', checkScroll);
       };
     }
-  }, [activeCategory, viewMode, filteredItems.length]);
+  }, [activeCategory, filteredItems.length]);
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
@@ -170,76 +169,50 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
             })}
           </div>
 
-          {/* Carousel Caret Controls & Layout Switcher */}
+          {/* Carousel Caret Controls & All Places Link */}
           <div className="flex items-center gap-2 self-end sm:self-center">
-            {/* View Mode Switcher */}
-            <div className="flex items-center bg-white dark:bg-white/10 p-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-xs">
-              <button
-                onClick={() => setViewMode('carousel')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'carousel'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Caret Carousel View"
-              >
-                Carousel
-              </button>
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'grid'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Grid View"
-              >
-                Grid
-              </button>
-            </div>
+            <button
+              onClick={() => navigate('/places')}
+              className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#E37500] hover:text-[#C66500] bg-white dark:bg-white/10 hover:bg-neutral-100 dark:hover:bg-white/15 border border-neutral-200 dark:border-white/10 flex items-center gap-1 transition-all shadow-xs"
+            >
+              <span>Explore All Places</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
 
             {/* Caret Navigation Buttons */}
-            {viewMode === 'carousel' && (
-              <div className="flex items-center gap-1.5 ml-1">
-                <button
-                  onClick={scrollLeft}
-                  disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Previous place"
-                  title="Previous place"
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Next place"
-                  title="Next place"
-                >
-                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
-              </div>
-            )}
+            <div className="flex items-center gap-1.5 ml-1">
+              <button
+                onClick={scrollLeft}
+                disabled={!canScrollLeft}
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Previous place"
+                title="Previous place"
+              >
+                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+              </button>
+              <button
+                onClick={scrollRight}
+                disabled={!canScrollRight}
+                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Next place"
+                title="Next place"
+              >
+                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Carousel or Grid of Places */}
+        {/* Carousel of Places */}
         <div
           ref={carouselRef}
-          className={
-            viewMode === 'carousel'
-              ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
-              : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7'
-          }
+          className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
         >
           {filteredItems.map((item, idx) => (
             <div
               key={item.id || idx}
               onClick={() => setActiveLightboxIndex(idx)}
-              className={`group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_24px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col relative ${
-                viewMode === 'carousel' ? 'shrink-0 w-[85vw] sm:w-[350px] lg:w-[380px] snap-start' : ''
-              }`}
+              className="group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 shadow-[0_8px_24px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] flex flex-col relative shrink-0 w-[85vw] sm:w-[350px] lg:w-[380px] snap-start"
             >
               {/* Image Frame with Clean Aspect Ratio */}
               <div className="w-full aspect-[4/3] overflow-hidden relative bg-neutral-100 dark:bg-[#111111]">

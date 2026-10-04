@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { COMPANY_INFO } from '../data/travelData';
-import { UserCheck, ShieldCheck, PhoneCall, Sparkles, Award, CheckCircle2 } from 'lucide-react';
+import { UserCheck, ShieldCheck, PhoneCall, Sparkles, Award, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface WhyUsSectionProps {
   companyInfo?: typeof COMPANY_INFO;
@@ -18,6 +18,39 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({
   pillars: customPillars,
 }) => {
   const info = companyInfo || COMPANY_INFO;
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = carouselRef.current;
+    if (el) {
+      el.addEventListener('scroll', checkScroll, { passive: true });
+      window.addEventListener('resize', checkScroll);
+      return () => {
+        el.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, []);
+
+  const scrollLeft = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+  };
 
   const defaultPillars = [
     {
@@ -100,34 +133,65 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({
             </div>
           </div>
 
-          {/* Right Column: 4 Key Pillars */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {activePillars.map((item, idx) => {
-              const IconComp = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="p-7 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 space-y-4 group shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1"
+          {/* Right Column: 4 Key Pillars as Caret Carousel */}
+          <div className="lg:col-span-7 flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <span className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
+                Pillars of Excellence
+              </span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={scrollLeft}
+                  disabled={!canScrollLeft}
+                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  aria-label="Previous pillar"
+                  title="Previous"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-white/10 text-[#E37500] flex items-center justify-center border border-neutral-200 dark:border-white/10 group-hover:scale-110 transition-transform">
-                      <IconComp className="w-6 h-6" />
+                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                </button>
+                <button
+                  onClick={scrollRight}
+                  disabled={!canScrollRight}
+                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                  aria-label="Next pillar"
+                  title="Next"
+                >
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                </button>
+              </div>
+            </div>
+
+            <div
+              ref={carouselRef}
+              className="flex gap-5 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar"
+            >
+              {activePillars.map((item, idx) => {
+                const IconComp = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-7 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 space-y-4 group shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 shrink-0 w-[82vw] sm:w-[320px] snap-start"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-white/10 text-[#E37500] flex items-center justify-center border border-neutral-200 dark:border-white/10 group-hover:scale-110 transition-transform">
+                        <IconComp className="w-6 h-6" />
+                      </div>
+                      {item.stat && (
+                        <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/15 shadow-xs">
+                          {item.stat}
+                        </span>
+                      )}
                     </div>
-                    {item.stat && (
-                      <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white dark:bg-white/10 text-[#E37500] border border-neutral-200 dark:border-white/15 shadow-xs">
-                        {item.stat}
-                      </span>
-                    )}
+                    <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-normal">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-normal">
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

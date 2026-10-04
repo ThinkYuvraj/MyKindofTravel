@@ -18,7 +18,6 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   customSubtitle,
 }) => {
   const activeReviews = testimonials && testimonials.length > 0 ? testimonials : TESTIMONIALS;
-  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -41,7 +40,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
         window.removeEventListener('resize', checkScroll);
       };
     }
-  }, [viewMode, activeReviews]);
+  }, [activeReviews]);
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
@@ -79,73 +78,38 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
             </p>
           </div>
 
-          {/* Caret Controls & Mode Switcher */}
-          <div className="flex items-center gap-2 self-start lg:self-end">
-            <div className="flex items-center bg-white dark:bg-white/10 p-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-xs">
-              <button
-                onClick={() => setViewMode('carousel')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'carousel'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Caret Carousel"
-              >
-                Carousel
-              </button>
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  viewMode === 'grid'
-                    ? 'bg-[#E37500] text-white shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
-                }`}
-                title="Grid View"
-              >
-                Grid
-              </button>
-            </div>
-
-            {viewMode === 'carousel' && (
-              <div className="flex items-center gap-1.5 ml-1">
-                <button
-                  onClick={scrollLeft}
-                  disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Previous story"
-                  title="Previous"
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-                  aria-label="Next story"
-                  title="Next"
-                >
-                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
-              </div>
-            )}
+          {/* Caret Controls */}
+          <div className="flex items-center gap-1.5 self-start lg:self-end">
+            <button
+              onClick={scrollLeft}
+              disabled={!canScrollLeft}
+              className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+              aria-label="Previous story"
+              title="Previous"
+            >
+              <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            </button>
+            <button
+              onClick={scrollRight}
+              disabled={!canScrollRight}
+              className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+              aria-label="Next story"
+              title="Next"
+            >
+              <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+            </button>
           </div>
         </div>
 
-        {/* Stories Carousel / Grid */}
+        {/* Stories Carousel */}
         <div
           ref={carouselRef}
-          className={
-            viewMode === 'carousel'
-              ? 'flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar'
-              : 'grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8'
-          }
+          className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
         >
           {activeReviews.map((review) => (
             <div
               key={review.id}
-              className={`p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group ${
-                viewMode === 'carousel' ? 'shrink-0 w-[90vw] sm:w-[480px] lg:w-[540px] snap-start' : ''
-              }`}
+              className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group shrink-0 w-[90vw] sm:w-[480px] lg:w-[540px] snap-start"
             >
               <div className="space-y-4">
                 {/* 5 Stars in vibrant #E37500 */}
