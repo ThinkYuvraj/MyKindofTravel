@@ -94,7 +94,7 @@ export default function DestinationsPage() {
               <span>Worldwide Luxury Blueprints</span>
             </div>
             <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
-              Handcrafted <span className="italic font-serif text-[#E37500] font-normal">Destinations</span>
+              Our Picked <span className="italic font-serif text-[#E37500] font-normal">Locations</span>
             </h1>
             <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
               Explore our portfolio of private chalets, overwater lagoons, clifftop villas, and iconic scenic routes. Every destination is fully customizable around your schedule and travel rhythm.
@@ -166,63 +166,65 @@ export default function DestinationsPage() {
                 return (
                   <div
                     key={dest.id}
-                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col relative"
+                    className="group rounded-3xl overflow-hidden bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 shadow-xs hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative"
                   >
-                    {/* Image */}
-                    <div className="relative h-64 overflow-hidden w-full">
+                    {/* Clean Image Container without text/badge overlays */}
+                    <div className="relative h-60 sm:h-64 overflow-hidden w-full bg-neutral-100 dark:bg-[#111111]">
                       <GlassImage
                         src={dest.image}
                         alt={dest.name}
                         containerClassName="w-full h-full"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+                    </div>
 
-                      {/* Top Badges */}
-                      <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between gap-2 z-10">
-                        <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-medium border border-white/20 flex items-center gap-1.5 shadow-xs">
-                          <Clock className="w-3 h-3 text-[#E37500]" />
-                          <span>{meta.flightTime}</span>
-                        </span>
-
-                        <div className="flex items-center gap-2">
+                    {/* Card Body with all metadata */}
+                    <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="space-y-3">
+                        {/* Title and Wishlist Header */}
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <span className="text-[10px] uppercase font-bold tracking-wider text-[#E37500] block mb-1">
+                              {dest.tag || dest.region}
+                            </span>
+                            <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">
+                              {dest.name}
+                            </h3>
+                          </div>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               toggleDestinationWishlist(dest.id);
                             }}
-                            className={`p-1.5 rounded-full backdrop-blur-md border border-white/20 transition-all ${
+                            className={`p-2 rounded-full border transition-all shrink-0 cursor-pointer ${
                               isSaved
-                                ? 'bg-[#E37500] text-white'
-                                : 'bg-black/50 text-white hover:bg-black/75'
+                                ? 'bg-[#E37500] border-[#E37500] text-white shadow-xs'
+                                : 'bg-neutral-100 dark:bg-white/10 border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 hover:text-[#E37500]'
                             }`}
                             title={isSaved ? 'Remove from shortlist' : 'Save to shortlist'}
+                            aria-label={isSaved ? 'Remove from shortlist' : 'Save to shortlist'}
                           >
                             <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
                           </button>
+                        </div>
 
-                          <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold shadow-md shadow-[#E37500]/30 border border-white/20 shrink-0 whitespace-nowrap">
+                        {/* Badges Bar: Flight Time & Starting Price */}
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-700 dark:text-neutral-200 text-[11px] font-medium font-sans">
+                            <Clock className="w-3.5 h-3.5 text-[#E37500] shrink-0" />
+                            <span>{meta.flightTime}</span>
+                          </span>
+                          <span className="px-2.5 py-1 rounded-full bg-[#E37500] text-white text-[11px] font-bold font-sans shadow-sm shadow-[#E37500]/25 whitespace-nowrap">
                             {dest.priceNote.replace('Starting from ', 'From ')}
                           </span>
                         </div>
-                      </div>
 
-                      {/* Bottom Overlay Title */}
-                      <div className="absolute bottom-3.5 left-4 right-4 z-10">
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-[#E37500] drop-shadow-sm block mb-0.5">
-                          {dest.tag || dest.region}
-                        </span>
-                        <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#E37500] transition-colors leading-tight">
-                          {dest.name}
-                        </h3>
+                        {/* Description */}
+                        <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
+                          {dest.description}
+                        </p>
                       </div>
-                    </div>
-
-                    {/* Card Body */}
-                    <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-                      <p className="text-neutral-600 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
-                        {dest.description}
-                      </p>
 
                       {/* Inclusions */}
                       <div className="space-y-1.5 pt-3 border-t border-neutral-200 dark:border-white/10">

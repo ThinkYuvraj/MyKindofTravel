@@ -160,8 +160,8 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
       className="py-12 sm:py-16 lg:py-24 bg-transparent text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-white/10 relative transition-colors duration-300"
     >
       <div className="section-container relative">
-        {/* Section Header with Title and Caret Controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        {/* Section Header */}
+        <div className="mb-12">
           <div className="max-w-2xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-white/10 text-neutral-900 dark:text-white text-xs font-bold uppercase tracking-widest border border-neutral-200 dark:border-white/10 backdrop-blur-md shadow-xs">
               <Compass className="w-3.5 h-3.5 text-[#E37500]" />
@@ -182,41 +182,6 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
               {customSubtitle ||
                 'A simple, seamless process from your first call to your flight home. We handle every detail — you handle the excitement.'}
             </p>
-          </div>
-
-          {/* Header Caret Controls & Indicator Dots */}
-          <div className="flex items-center gap-3 shrink-0 self-start md:self-end">
-            <div className="flex items-center gap-1.5">
-              {activeSteps.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSelectDot(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                    activeDotIndex === idx
-                      ? 'w-8 bg-[#E37500] shadow-xs'
-                      : 'w-2.5 bg-neutral-200 dark:bg-white/20 hover:bg-[#E37500]/60'
-                  }`}
-                  aria-label={`Go to step ${idx + 1}`}
-                />
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2 ml-2">
-              <button
-                onClick={handlePrev}
-                className="w-10 h-10 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
-                aria-label="Previous step"
-              >
-                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="w-10 h-10 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all flex items-center justify-center shadow-sm active:scale-95 cursor-pointer backdrop-blur-md"
-                aria-label="Next step"
-              >
-                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
-              </button>
-            </div>
           </div>
         </div>
 

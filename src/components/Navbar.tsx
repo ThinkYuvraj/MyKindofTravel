@@ -43,6 +43,14 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
+  const handleLogoClick = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleNavClick = (sectionId: string) => {
     if (location.pathname !== '/') {
       navigate(`/#${sectionId}`);
@@ -101,8 +109,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Left: Compass Monogram & Branding */}
           <div className="flex items-center shrink-0">
             <button
-              onClick={() => onNavigate('hero')}
-              className="flex items-center gap-2 group focus:outline-none"
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 group focus:outline-none cursor-pointer"
               aria-label="My Kind of Travel Home"
             >
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#E37500]/10 text-[#E37500] border border-[#E37500]/25 flex items-center justify-center group-hover:bg-[#E37500] group-hover:text-white transition-all shadow-xs shrink-0">

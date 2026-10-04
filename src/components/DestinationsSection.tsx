@@ -272,10 +272,10 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             return (
               <div
                 key={dest.id}
-                className="group rounded-3xl overflow-hidden backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative shrink-0 w-[85vw] sm:w-[360px] lg:w-[390px] snap-start"
+                className="group rounded-3xl overflow-hidden backdrop-blur-xl bg-white dark:bg-[#0B0B0B]/95 border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:-translate-y-1 relative shrink-0 w-[80vw] sm:w-[340px] lg:w-[360px] snap-start"
               >
                 {/* Image */}
-                <div className="relative h-56 sm:h-60 overflow-hidden w-full bg-neutral-100 dark:bg-[#111111]">
+                <div className="relative h-48 sm:h-52 overflow-hidden w-full bg-neutral-100 dark:bg-[#111111]">
                   <GlassImage
                     src={dest.image}
                     alt={dest.name}
@@ -286,7 +286,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                 </div>
 
                 {/* Card Body: Heading on top, pills directly below heading */}
-                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3.5">
                   <div className="space-y-2.5">
                     {/* Destination Heading */}
                     <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#E37500] transition-colors leading-tight">

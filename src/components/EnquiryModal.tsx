@@ -16,6 +16,7 @@ import {
   Clock,
   ArrowRight,
   Lock,
+  ChevronDown,
 } from 'lucide-react';
 import { COMPANY_INFO, DESTINATIONS, EXPERIENCE_PILLARS } from '../data/travelData';
 
@@ -35,6 +36,7 @@ const POPULAR_DESTINATION_PILLS = [
   'Paris',
   'Santorini',
   'Amalfi Coast',
+  'Other',
 ];
 
 const POPULAR_TRIP_TYPES = [
@@ -43,6 +45,7 @@ const POPULAR_TRIP_TYPES = [
   { label: 'Family Luxury 👨‍👩‍👧', value: 'Family Holiday' },
   { label: 'Celebration 🎉', value: 'Milestone Celebration' },
   { label: 'Alpine Retreat 🏔️', value: 'Alpine Luxury' },
+  { label: 'Other ✍️', value: 'Other' },
 ];
 
 const GUEST_OPTIONS = ['2 Guests (Couples)', '3–5 Guests (Family)', '6+ Guests (Group)'];
@@ -62,7 +65,9 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [destination, setDestination] = useState('');
+  const [customDestination, setCustomDestination] = useState('');
   const [tripType, setTripType] = useState('');
+  const [customTripType, setCustomTripType] = useState('');
   const [guests, setGuests] = useState('2 Guests (Couples)');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -108,6 +113,16 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
 
   if (!isOpen) return null;
 
+  const effectiveDestination =
+    (destination === 'Other' || destination === 'Other / Multiple') && customDestination
+      ? customDestination
+      : destination;
+
+  const effectiveTripType =
+    (tripType === 'Other' || tripType === 'Other Custom Escape') && customTripType
+      ? customTripType
+      : tripType;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -125,8 +140,8 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
           email,
           phone,
           guests,
-          destination: destination || initialDestination || 'Custom Destination',
-          tripType: tripType || initialTripType || 'Bespoke Holiday',
+          destination: effectiveDestination || initialDestination || 'Custom Destination',
+          tripType: effectiveTripType || initialTripType || 'Bespoke Holiday',
           message: initialPackageName
             ? `[Package: ${initialPackageName}] [Guests: ${guests}] ${message}`
             : `[Guests: ${guests}] ${message}`,
@@ -142,8 +157,8 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
 
   const whatsappUrl = `https://wa.me/${info.phoneRaw || COMPANY_INFO.phoneRaw}?text=${encodeURIComponent(
     `Hi My Kind of Travel Concierge, I'm ${firstName || 'a traveller'} (Ref: ${refId || 'New Enquiry'}). I'm planning a ${
-      tripType || 'bespoke trip'
-    } for ${guests} to ${destination || 'an unforgettable destination'}${
+      effectiveTripType || 'bespoke trip'
+    } for ${guests} to ${effectiveDestination || 'an unforgettable destination'}${
       initialPackageName ? ` (${initialPackageName})` : ''
     }. Details: ${message || 'Looking for custom luxury recommendations.'}`
   )}`;
@@ -382,16 +397,16 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     <span>Destination <span className="text-[#E37500]">*</span></span>
                   </label>
                   <span className="text-[11px] text-neutral-400">
-                    Pick or tap a favourite below
+                    Pick, tap, or choose Other
                   </span>
                 </div>
 
-                <div className="relative">
+                <div className="relative group">
                   <select
                     required
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
+                    className="w-full appearance-none pl-4 pr-10 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
                   >
                     <option value="">Select destination</option>
                     {destinationOptions.map((destName) => (
@@ -399,8 +414,24 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                         {destName}
                       </option>
                     ))}
+                    <option value="Other">Other (Custom Destination)</option>
                   </select>
+                  <ChevronDown className="w-4 h-4 text-neutral-400 group-hover:text-[#E37500] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
                 </div>
+
+                {/* If Other is selected, show custom destination text input */}
+                {(destination === 'Other' || destination === 'Other / Multiple') && (
+                  <div className="pt-1.5">
+                    <input
+                      type="text"
+                      required
+                      placeholder="Enter your desired destination (e.g. South Africa, Norway, Kenya)..."
+                      value={customDestination}
+                      onChange={(e) => setCustomDestination(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 dark:bg-[#181818] border border-[#E37500] text-neutral-900 dark:text-white placeholder-neutral-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#E37500]/20 transition-all shadow-xs"
+                    />
+                  </div>
+                )}
 
                 {/* Quick Tap Destination Pills */}
                 <div className="flex flex-wrap gap-1.5 pt-0.5">
@@ -431,22 +462,26 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     <Sparkles className="w-3.5 h-3.5 text-[#E37500]" />
                     <span>Trip Type <span className="text-[#E37500]">*</span></span>
                   </label>
-                  <select
-                    required
-                    value={tripType}
-                    onChange={(e) => setTripType(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
-                  >
-                    <option value="">Select trip type</option>
-                    {tripTypeOptions.map((t) => {
-                      const pillar = EXPERIENCE_PILLARS.find((p) => p.typeKey === t);
-                      return (
-                        <option key={t} value={t}>
-                          {pillar ? pillar.title : t}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  <div className="relative group">
+                    <select
+                      required
+                      value={tripType}
+                      onChange={(e) => setTripType(e.target.value)}
+                      className="w-full appearance-none pl-4 pr-10 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
+                    >
+                      <option value="">Select trip type</option>
+                      {tripTypeOptions.map((t) => {
+                        const pillar = EXPERIENCE_PILLARS.find((p) => p.typeKey === t);
+                        return (
+                          <option key={t} value={t}>
+                            {pillar ? pillar.title : t}
+                          </option>
+                        );
+                      })}
+                      <option value="Other">Other (Custom Experience)</option>
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-neutral-400 group-hover:text-[#E37500] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
+                  </div>
                 </div>
 
                 <div className="space-y-1.5">
@@ -454,19 +489,36 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                     <Users className="w-3.5 h-3.5 text-[#E37500]" />
                     <span>Number of Guests</span>
                   </label>
-                  <select
-                    value={guests}
-                    onChange={(e) => setGuests(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
-                  >
-                    {GUEST_OPTIONS.map((g) => (
-                      <option key={g} value={g}>
-                        {g}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative group">
+                    <select
+                      value={guests}
+                      onChange={(e) => setGuests(e.target.value)}
+                      className="w-full appearance-none pl-4 pr-10 py-2.5 rounded-2xl bg-white dark:bg-[#141414] border border-neutral-200 dark:border-white/15 text-neutral-900 dark:text-white text-sm focus:outline-none focus:border-[#E37500] focus:ring-2 focus:ring-[#E37500]/20 transition-all cursor-pointer shadow-xs"
+                    >
+                      {GUEST_OPTIONS.map((g) => (
+                        <option key={g} value={g}>
+                          {g}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-neutral-400 group-hover:text-[#E37500] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
+                  </div>
                 </div>
               </div>
+
+              {/* If Other trip style is selected, show custom trip style text input */}
+              {(tripType === 'Other' || tripType === 'Other Custom Escape') && (
+                <div className="pt-1">
+                  <input
+                    type="text"
+                    required
+                    placeholder="Describe your travel style (e.g. Scuba Diving Expedition, Wildlife Safari)..."
+                    value={customTripType}
+                    onChange={(e) => setCustomTripType(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 dark:bg-[#181818] border border-[#E37500] text-neutral-900 dark:text-white placeholder-neutral-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#E37500]/20 transition-all shadow-xs"
+                  />
+                </div>
+              )}
 
               {/* Quick Trip Type Chips */}
               <div className="flex flex-wrap gap-1.5">

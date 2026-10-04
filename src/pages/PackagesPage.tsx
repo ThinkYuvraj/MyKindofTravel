@@ -224,8 +224,8 @@ export default function PackagesPage() {
 
                         {/* Pricing */}
                         <div className="pt-2">
-                          <span className="text-[11px] text-neutral-400 dark:text-neutral-400 block font-medium">Starting from</span>
-                          <span className="text-xl sm:text-2xl font-bold font-serif text-neutral-900 dark:text-white tracking-tight">
+                          <span className="text-[11px] text-neutral-400 dark:text-neutral-400 block font-medium font-sans">Starting from</span>
+                          <span className="text-xl sm:text-2xl font-bold font-sans text-neutral-900 dark:text-white tracking-normal">
                             {pkg.startingPrice}
                           </span>
                         </div>
