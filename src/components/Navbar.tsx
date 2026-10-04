@@ -216,6 +216,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                           {exp}
                         </button>
                       ))}
+                      <button
+                        onClick={() => {
+                          setActiveDropdown(null);
+                          navigate('/experiences');
+                        }}
+                        className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs font-semibold text-[#E37500] hover:bg-[#E37500]/15 transition-colors border-t border-neutral-200 dark:border-white/10 mt-1 flex items-center justify-between"
+                      >
+                        <span>View All Experiences</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </button>
                     </div>
                   </div>
                 </div>

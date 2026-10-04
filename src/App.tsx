@@ -8,6 +8,7 @@ const PackagesPage = lazy(() => import('./pages/PackagesPage'));
 const PlanTripPage = lazy(() => import('./pages/PlanTripPage'));
 const StoriesPage = lazy(() => import('./pages/StoriesPage'));
 const PlacesPage = lazy(() => import('./pages/PlacesPage'));
+const ExperiencesPage = lazy(() => import('./pages/ExperiencesPage'));
 const AdminDashboard = lazy(() => import('./admin/AdminDashboard'));
 const AdminLogin = lazy(() => import('./admin/AdminLogin'));
 
@@ -53,6 +54,7 @@ export default function App() {
             <Route path="/plan" element={<PlanTripPage />} />
             <Route path="/stories" element={<StoriesPage />} />
             <Route path="/places" element={<PlacesPage />} />
+            <Route path="/experiences" element={<ExperiencesPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/login" element={<AdminLogin />} />
           </Routes>

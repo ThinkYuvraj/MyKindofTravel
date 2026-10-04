@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { EXPERIENCE_PILLARS } from '../data/travelData';
 import { ExperiencePillar } from '../types';
-import { ArrowRight, Sparkles, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Sparkles, Check, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 interface ExperiencesSectionProps {
   pillars?: ExperiencePillar[];
@@ -18,6 +19,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
   customSubtitle,
   onPlanTripType,
 }) => {
+  const navigate = useNavigate();
   const activePillars = pillars && pillars.length > 0 ? pillars : EXPERIENCE_PILLARS;
   const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -129,6 +131,16 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                 </button>
               </div>
             )}
+
+            {/* Link to All Experiences Page */}
+            <button
+              onClick={() => navigate('/experiences')}
+              className="ml-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+              title="View all bespoke experiences"
+            >
+              <span>View All</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
 
@@ -210,6 +222,25 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom Banner to Explore All Experiences */}
+        <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-neutral-50 dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-1 text-center sm:text-left">
+            <h4 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">
+              Curious about our complete range of holiday styles?
+            </h4>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Explore all pillars — from panoramic alpine rail and luxury villas to private culinary masterclasses.
+            </p>
+          </div>
+          <button
+            onClick={() => navigate('/experiences')}
+            className="px-6 py-2.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#E37500]/25 hover:scale-105 active:scale-95 shrink-0"
+          >
+            <span>Explore All Experiences</span>
+            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+          </button>
         </div>
       </div>
     </section>
