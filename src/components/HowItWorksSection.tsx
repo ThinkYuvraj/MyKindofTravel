@@ -225,19 +225,19 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
           {/* Floating Left Side Caret */}
           <button
             onClick={handlePrev}
-            className="hidden sm:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
+            className="flex absolute left-1 sm:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 opacity-90 sm:opacity-80"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
           </button>
 
           {/* Floating Right Side Caret */}
           <button
             onClick={handleNext}
-            className="hidden sm:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 sm:opacity-80"
+            className="flex absolute right-1 sm:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white dark:bg-[#111111]/95 border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all items-center justify-center shadow-lg active:scale-90 cursor-pointer backdrop-blur-md group-hover/carousel:opacity-100 opacity-90 sm:opacity-80"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
           </button>
 
           {/* Overflow Track Viewport */}

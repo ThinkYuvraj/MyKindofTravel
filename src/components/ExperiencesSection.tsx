@@ -47,12 +47,16 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: -380, behavior: 'smooth' });
+    const card = carouselRef.current.firstElementChild as HTMLElement;
+    const scrollAmount = card ? card.offsetWidth + 24 : 380;
+    carouselRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
   };
 
   const scrollRight = () => {
     if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: 380, behavior: 'smooth' });
+    const card = carouselRef.current.firstElementChild as HTMLElement;
+    const scrollAmount = card ? card.offsetWidth + 24 : 380;
+    carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
   return (
@@ -82,33 +86,33 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
           </div>
 
           {/* Caret Controls & Link to All Experiences */}
-          <div className="flex items-center gap-2 self-start lg:self-end">
+          <div className="flex items-center justify-between sm:justify-end w-full lg:w-auto gap-2">
             {/* Caret Navigation Buttons */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 p-1 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs">
               <button
                 onClick={scrollLeft}
                 disabled={!canScrollLeft}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                 aria-label="Previous experience"
                 title="Previous"
               >
-                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
               </button>
               <button
                 onClick={scrollRight}
                 disabled={!canScrollRight}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
                 aria-label="Next experience"
                 title="Next"
               >
-                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
               </button>
             </div>
 
             {/* Link to All Experiences Page */}
             <button
               onClick={() => navigate('/experiences')}
-              className="ml-1.5 px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
               title="View all bespoke experiences"
             >
               <span>View All</span>
@@ -117,11 +121,29 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
           </div>
         </div>
 
-        {/* Pure Caret Carousel of Experiences */}
-        <div
-          ref={carouselRef}
-          className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
-        >
+        {/* Pure Caret Carousel of Experiences with Floating Side Carets */}
+        <div className="relative group/carousel">
+          <button
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
+            className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            aria-label="Previous experience"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+          </button>
+          <button
+            onClick={scrollRight}
+            disabled={!canScrollRight}
+            className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            aria-label="Next experience"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+          </button>
+
+          <div
+            ref={carouselRef}
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+          >
           {activePillars.map((exp) => (
             <div
               key={exp.number}
@@ -173,6 +195,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         {/* Bottom Banner to Explore All Experiences */}

@@ -75,12 +75,16 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: -400, behavior: 'smooth' });
+    const card = carouselRef.current.firstElementChild as HTMLElement;
+    const scrollAmount = card ? card.offsetWidth + 16 : 380;
+    carouselRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
   };
 
   const scrollRight = () => {
     if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: 400, behavior: 'smooth' });
+    const card = carouselRef.current.firstElementChild as HTMLElement;
+    const scrollAmount = card ? card.offsetWidth + 16 : 380;
+    carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
   const filtersWithCounts = FILTER_DEFS.map((f) => ({
@@ -127,89 +131,111 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
           </p>
         </div>
 
-        {/* ── Control Bar Below Heading in Flex Row ───────────────────────── */}
-        <div className="flex flex-row items-center justify-between gap-4 mb-8 w-full overflow-x-auto no-scrollbar pb-1">
-          {/* Filter pills in smooth horizontal flex-row */}
-          <div className="flex flex-row items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
-            {filtersWithCounts.map((f) => {
-              const isActive = activeFilter === f.label;
-              return (
-                <button
-                  key={f.label}
-                  onClick={() => setActiveFilter(f.label)}
-                  disabled={f.count === 0}
-                  aria-pressed={isActive}
-                  className={`
-                    relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
-                    transition-all duration-200 whitespace-nowrap shrink-0
-                    disabled:opacity-35 disabled:cursor-not-allowed
-                    ${isActive
-                      ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
-                      : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                    }
-                  `}
-                >
-                  <span>{f.label}</span>
-                  {f.label !== 'All' && (
-                    <span
-                      className={`
-                        inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
-                        transition-colors duration-200
-                        ${isActive
-                          ? 'bg-white/20 text-white'
-                          : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
-                        }
-                      `}
-                    >
-                      {f.count}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
+        {/* ── Control Bar Below Heading ───────────────────────── */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 mb-8 w-full">
+          {/* Filter pills - scrollable horizontally on mobile */}
+          <div className="w-full sm:w-auto overflow-x-auto no-scrollbar pb-1 sm:pb-0">
+            <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
+              {filtersWithCounts.map((f) => {
+                const isActive = activeFilter === f.label;
+                return (
+                  <button
+                    key={f.label}
+                    onClick={() => setActiveFilter(f.label)}
+                    disabled={f.count === 0}
+                    aria-pressed={isActive}
+                    className={`
+                      relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold
+                      transition-all duration-200 whitespace-nowrap shrink-0
+                      disabled:opacity-35 disabled:cursor-not-allowed
+                      ${isActive
+                        ? 'bg-[#E37500] text-white shadow-md shadow-[#E37500]/25 scale-[1.02]'
+                        : 'text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                      }
+                    `}
+                  >
+                    <span>{f.label}</span>
+                    {f.label !== 'All' && (
+                      <span
+                        className={`
+                          inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold
+                          transition-colors duration-200
+                          ${isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-300'
+                          }
+                        `}
+                      >
+                        {f.count}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Caret Navigation & View All link in clean flex-row */}
-          <div className="flex flex-row items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md shrink-0">
-            {/* Prev / Next caret arrows */}
+          {/* Caret Navigation & View All link - always visible on mobile and desktop */}
+          <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+            <div className="flex items-center gap-2 p-1.5 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs backdrop-blur-md">
+              {/* Prev / Next caret arrows */}
+              <button
+                onClick={scrollLeft}
+                disabled={!canScrollLeft}
+                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+                aria-label="Previous package"
+                title="Previous"
+              >
+                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+              </button>
+              <button
+                onClick={scrollRight}
+                disabled={!canScrollRight}
+                className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+                aria-label="Next package"
+                title="Next"
+              >
+                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
+
+              {/* Link to All Packages Page */}
+              <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
+              <button
+                onClick={() => navigate('/packages')}
+                className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
+                title="View all itineraries & packages"
+              >
+                <span>View All</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Pure Caret Carousel of Packages with side floating carets ────────────────────────────── */}
+        {filteredPackages.length > 0 ? (
+          <div className="relative group/carousel">
             <button
               onClick={scrollLeft}
               disabled={!canScrollLeft}
-              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+              className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
               aria-label="Previous package"
-              title="Previous"
             >
-              <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
             </button>
             <button
               onClick={scrollRight}
               disabled={!canScrollRight}
-              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
+              className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
               aria-label="Next package"
-              title="Next"
             >
-              <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
             </button>
 
-            {/* Link to All Packages Page */}
-            <span className="w-px h-5 bg-neutral-200 dark:bg-white/15 mx-0.5 shrink-0" />
-            <button
-              onClick={() => navigate('/packages')}
-              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C96400] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs shrink-0"
-              title="View all itineraries & packages"
+            <div
+              ref={carouselRef}
+              className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
             >
-              <span>View All</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
-
-        {/* ── Pure Caret Carousel of Packages ────────────────────────────── */}
-        {filteredPackages.length > 0 ? (
-          <div
-            ref={carouselRef}
-            className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
-          >
             {filteredPackages.map((pkg) => {
               const { amount, suffix } = parsePrice(pkg.startingPrice);
               return (
@@ -298,6 +324,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                 </div>
               );
             })}
+            </div>
           </div>
         ) : (
           /* ── Empty state ──────────────────────────────────────────────── */

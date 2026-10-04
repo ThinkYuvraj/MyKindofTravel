@@ -20,114 +20,110 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="bg-[#140E0A] dark:bg-black text-[#EADFD5] border-t border-[#362217] dark:border-white/10 pt-16 pb-12 transition-colors">
+    <footer className="bg-[#110C08] dark:bg-[#070707] text-[#EADFD5] border-t border-[#362217]/80 dark:border-white/10 pt-10 pb-6 sm:pb-8 transition-colors">
       <div className="section-container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#362217] dark:border-white/10">
+        {/* Compact Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 pb-7 border-b border-[#362217]/70 dark:border-white/10">
           {/* Brand Col */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#E37500] text-[#FCFBF9] flex items-center justify-center border border-[#C66500] dark:border-white/20 shadow-md">
-                <Compass className="w-5 h-5 stroke-[2.2]" />
+          <div className="col-span-2 sm:col-span-3 lg:col-span-2 space-y-3 pr-0 lg:pr-6">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-[#E37500] text-white flex items-center justify-center shadow-sm shrink-0">
+                <Compass className="w-4 h-4 stroke-[2.2]" />
               </div>
-              <div>
-                <span className="block font-serif text-xl sm:text-2xl font-bold tracking-tight text-white">
+              <div className="flex items-baseline gap-2">
+                <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white">
                   My Kind of Travel
                 </span>
-                <span className="block text-[10px] uppercase tracking-[0.2em] text-[#E37500] font-bold">
-                  Bespoke Luxury Journeys
+                <span className="hidden sm:inline-block text-[10px] uppercase tracking-wider text-[#E37500] font-semibold">
+                  • Bespoke Luxury
                 </span>
               </div>
             </div>
 
-            <p className="text-[#BFAEA0] dark:text-[#A8988B] text-xs sm:text-sm leading-relaxed max-w-sm">
-              Bespoke luxury travel experiences designed around you — not a brochure. For Indian travellers who believe the journey is as important as the destination.
+            <p className="text-[#BFAEA0] dark:text-[#9A8B80] text-xs leading-relaxed max-w-sm">
+              Bespoke luxury journeys designed for discerning Indian travellers. Handcrafted itineraries with white-glove care from departure to return.
             </p>
 
-            <div className="pt-2 space-y-2 text-xs text-[#BFAEA0] dark:text-[#A8988B]">
+            {/* Contact Pills */}
+            <div className="flex flex-wrap items-center gap-2 pt-0.5 text-xs">
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
-                className="flex items-center gap-2 hover:text-[#E37500] transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1F150F] dark:bg-white/5 border border-[#3D251A] dark:border-white/10 text-[#D5C5B8] hover:text-[#E37500] hover:border-[#E37500]/40 transition-colors"
+                title="Call us"
               >
-                <Phone className="w-3.5 h-3.5 text-[#E37500]" />
+                <Phone className="w-3 h-3 text-[#E37500]" />
                 <span>{COMPANY_INFO.phone}</span>
               </a>
               <a
                 href={`mailto:${COMPANY_INFO.email}`}
-                className="flex items-center gap-2 hover:text-[#E37500] transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1F150F] dark:bg-white/5 border border-[#3D251A] dark:border-white/10 text-[#D5C5B8] hover:text-[#E37500] hover:border-[#E37500]/40 transition-colors"
+                title="Email us"
               >
-                <Mail className="w-3.5 h-3.5 text-[#E37500]" />
+                <Mail className="w-3 h-3 text-[#E37500]" />
                 <span>{COMPANY_INFO.email}</span>
               </a>
             </div>
           </div>
 
           {/* Column: Experiences */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-white text-sm uppercase tracking-wider">
+          <div className="space-y-2.5">
+            <h4 className="font-serif font-bold text-white text-xs uppercase tracking-wider">
               Experiences
             </h4>
-            <ul className="space-y-2 text-xs text-[#BFAEA0]">
+            <ul className="space-y-1.5 text-xs text-[#BFAEA0] dark:text-[#9A8B80]">
               <li>
                 <button
                   onClick={() => onSelectTripType('Honeymoon')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Honeymoon trips
+                  Honeymoon Trips
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onSelectTripType('Luxury Europe Tour')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Europe tours
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectTripType('Quick Getaway')}
-                  className="hover:text-[#E37500] transition-colors"
-                >
-                  Bali escapes
+                  Europe Tours
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onSelectTripType('Corporate Travel')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Corporate travel
+                  Corporate Travel
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onSelectTripType('Family Holiday')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Family holidays
+                  Family Holidays
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTripType('Quick Getaway')}
-                  className="hover:text-[#E37500] transition-colors"
+                  onClick={() => onNavigate('packages')}
+                  className="text-[#E37500] hover:underline font-semibold transition-colors text-left inline-block"
                 >
-                  Quick getaways
+                  All Packages →
                 </button>
               </li>
             </ul>
           </div>
 
           {/* Column: Destinations */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-white text-sm uppercase tracking-wider">
+          <div className="space-y-2.5">
+            <h4 className="font-serif font-bold text-white text-xs uppercase tracking-wider">
               Destinations
             </h4>
-            <ul className="space-y-2 text-xs text-[#BFAEA0]">
+            <ul className="space-y-1.5 text-xs text-[#BFAEA0] dark:text-[#9A8B80]">
               <li>
                 <button
                   onClick={() => onSelectDestination('Bali, Indonesia')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
                   Bali, Indonesia
                 </button>
@@ -135,31 +131,23 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onSelectDestination('Switzerland')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
                   Switzerland
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectDestination('Paris, France')}
-                  className="hover:text-[#E37500] transition-colors"
-                >
-                  Paris, France
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => onSelectDestination('Santorini')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Santorini
+                  Santorini, Greece
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onSelectDestination('Maldives')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
                   Maldives
                 </button>
@@ -167,108 +155,86 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onNavigate('destinations')}
-                  className="text-[#E37500] hover:underline font-semibold transition-colors block mb-1"
+                  className="text-[#E37500] hover:underline font-semibold transition-colors text-left inline-block"
                 >
-                  All destinations →
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('places')}
-                  className="text-[#E37500] hover:underline font-semibold transition-colors block"
-                >
-                  All curated places →
+                  All Destinations →
                 </button>
               </li>
             </ul>
           </div>
 
           {/* Column: Company */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-white text-sm uppercase tracking-wider">
+          <div className="space-y-2.5 col-span-2 sm:col-span-1">
+            <h4 className="font-serif font-bold text-white text-xs uppercase tracking-wider">
               Company
             </h4>
-            <ul className="space-y-2 text-xs text-[#BFAEA0]">
+            <ul className="space-y-1.5 text-xs text-[#BFAEA0] dark:text-[#9A8B80]">
               <li>
                 <button
                   onClick={() => onNavigate('how-it-works')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  How it works
+                  How It Works
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onNavigate('stories')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Client stories
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('packages')}
-                  className="hover:text-[#E37500] transition-colors"
-                >
-                  Packages
+                  Client Stories
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onNavigate('gallery')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Visual gallery
+                  Visual Gallery
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onNavigate('contact')}
-                  className="hover:text-[#E37500] transition-colors"
+                  className="hover:text-[#E37500] transition-colors text-left"
                 >
-                  Contact us
+                  Contact Us
                 </button>
               </li>
               <li>
                 <button
                   onClick={onPlanTrip}
-                  className="text-[#E37500] hover:underline font-semibold transition-colors"
+                  className="text-[#E37500] hover:underline font-semibold transition-colors text-left inline-block"
                 >
-                  Plan my trip →
+                  Plan My Trip →
                 </button>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9E8C7F]">
-          <div className="space-y-1 text-center sm:text-left">
-            <p>© {COMPANY_INFO.currentYear} My Kind of Travel. All rights reserved. Crafting extraordinary journeys since {COMPANY_INFO.establishedYear}.</p>
-            <p className="text-[#BFAEA0]">
-              Designed with bespoke care for India's luxury travellers,{' '}
-              <a
-                href={COMPANY_INFO.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#E37500] hover:underline"
-              >
-                {COMPANY_INFO.website}
-              </a>
-            </p>
-            <div className="pt-2">
-              <a href="/admin/login" className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-bold text-[#9E8C7F] hover:text-[#E37500] transition-colors border border-[#3D251A] hover:border-[#E37500]/30 rounded-md px-2 py-1 bg-[#1A110B]">
-                Admin CMS Login
-              </a>
-            </div>
+        {/* Compact Bottom Bar */}
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#9E8C7F]">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1">
+            <span>© {COMPANY_INFO.currentYear} My Kind of Travel</span>
+            <span className="hidden sm:inline text-[#55382B]">•</span>
+            <span>Est. {COMPANY_INFO.establishedYear}</span>
+            <span className="hidden sm:inline text-[#55382B]">•</span>
+            <a
+              href="/admin/login"
+              className="hover:text-[#E37500] transition-colors underline decoration-dotted"
+            >
+              Admin CMS
+            </a>
           </div>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#271911] text-[#EADFD5] hover:text-white transition-colors border border-[#3D251A]"
+            className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#1F150F] dark:bg-white/5 text-[#D5C5B8] hover:text-white transition-colors border border-[#3D251A] dark:border-white/10 text-xs shrink-0 active:scale-95"
+            title="Scroll to top"
           >
-            <span>Back to Top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
+            <span>Top</span>
+            <ArrowUp className="w-3 h-3" />
           </button>
         </div>
       </div>

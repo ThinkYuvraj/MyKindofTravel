@@ -44,12 +44,16 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 
   const scrollLeft = () => {
     if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: -480, behavior: 'smooth' });
+    const card = carouselRef.current.firstElementChild as HTMLElement;
+    const scrollAmount = card ? card.offsetWidth + 24 : 480;
+    carouselRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
   };
 
   const scrollRight = () => {
     if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: 480, behavior: 'smooth' });
+    const card = carouselRef.current.firstElementChild as HTMLElement;
+    const scrollAmount = card ? card.offsetWidth + 24 : 480;
+    carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
   return (
@@ -79,77 +83,98 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           </div>
 
           {/* Caret Controls */}
-          <div className="flex items-center gap-1.5 self-start lg:self-end">
-            <button
-              onClick={scrollLeft}
-              disabled={!canScrollLeft}
-              className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-              aria-label="Previous story"
-              title="Previous"
-            >
-              <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-            </button>
-            <button
-              onClick={scrollRight}
-              disabled={!canScrollRight}
-              className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-neutral-200 dark:border-white/20 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
-              aria-label="Next story"
-              title="Next"
-            >
-              <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-            </button>
+          <div className="flex items-center justify-between sm:justify-end w-full lg:w-auto gap-2">
+            <div className="flex items-center gap-1.5 p-1 rounded-full bg-white dark:bg-[#0E0E0E] border border-neutral-200 dark:border-white/10 shadow-xs">
+              <button
+                onClick={scrollLeft}
+                disabled={!canScrollLeft}
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Previous story"
+                title="Previous"
+              >
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+              </button>
+              <button
+                onClick={scrollRight}
+                disabled={!canScrollRight}
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 dark:bg-white/8 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-white flex items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-xs active:scale-95"
+                aria-label="Next story"
+                title="Next"
+              >
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Stories Carousel */}
-        <div
-          ref={carouselRef}
-          className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
-        >
-          {activeReviews.map((review) => (
-            <div
-              key={review.id}
-              className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group shrink-0 w-[90vw] sm:w-[480px] lg:w-[540px] snap-start"
-            >
-              <div className="space-y-4">
-                {/* 5 Stars in vibrant #E37500 */}
-                <div className="flex items-center gap-1 text-[#E37500]">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#E37500] text-[#E37500]" />
-                  ))}
-                </div>
+        {/* Stories Carousel with floating side carets */}
+        <div className="relative group/carousel">
+          <button
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
+            className="flex absolute left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            aria-label="Previous story"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+          </button>
+          <button
+            onClick={scrollRight}
+            disabled={!canScrollRight}
+            className="flex absolute right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 dark:bg-[#111111]/95 backdrop-blur-md border border-neutral-200 dark:border-white/20 shadow-md text-neutral-900 dark:text-white items-center justify-center hover:bg-[#E37500] hover:text-white hover:border-[#E37500] transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-90"
+            aria-label="Next story"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+          </button>
 
-                {/* Quote */}
-                <p className="text-neutral-700 dark:text-neutral-200 text-sm sm:text-base leading-relaxed font-normal italic">
-                  "{review.quote}"
-                </p>
-              </div>
-
-              {/* Author & Avatar */}
-              <div className="pt-4 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
-                {review.avatar ? (
-                  <GlassImage
-                    src={review.avatar}
-                    alt={review.author}
-                    containerClassName="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-neutral-200 dark:border-white/20 shadow-xs"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-11 h-11 rounded-full bg-[#E37500]/15 dark:bg-[#E37500]/25 text-[#E37500] font-serif font-bold text-base flex items-center justify-center border border-[#E37500]/30 shrink-0">
-                    {review.initial}
+          <div
+            ref={carouselRef}
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+          >
+            {activeReviews.map((review) => (
+              <div
+                key={review.id}
+                className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0B0B] border border-neutral-200 dark:border-white/10 hover:border-[#E37500]/60 dark:hover:border-[#E37500]/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-[0_6px_25px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative group shrink-0 w-[90vw] sm:w-[480px] lg:w-[540px] snap-start"
+              >
+                <div className="space-y-4">
+                  {/* 5 Stars in vibrant #E37500 */}
+                  <div className="flex items-center gap-1 text-[#E37500]">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-[#E37500] text-[#E37500]" />
+                    ))}
                   </div>
-                )}
-                <div>
-                  <h4 className="font-serif font-bold text-neutral-900 dark:text-white text-base">
-                    {review.author}
-                  </h4>
-                  <p className="text-xs text-[#E37500] font-semibold">
-                    {review.tripInfo}
+
+                  {/* Quote */}
+                  <p className="text-neutral-700 dark:text-neutral-200 text-sm sm:text-base leading-relaxed font-normal italic">
+                    "{review.quote}"
                   </p>
                 </div>
+
+                {/* Author & Avatar */}
+                <div className="pt-4 border-t border-neutral-200 dark:border-white/10 flex items-center gap-3">
+                  {review.avatar ? (
+                    <GlassImage
+                      src={review.avatar}
+                      alt={review.author}
+                      containerClassName="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-neutral-200 dark:border-white/20 shadow-xs"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-11 h-11 rounded-full bg-[#E37500]/15 dark:bg-[#E37500]/25 text-[#E37500] font-serif font-bold text-base flex items-center justify-center border border-[#E37500]/30 shrink-0">
+                      {review.initial}
+                    </div>
+                  )}
+                  <div>
+                    <h4 className="font-serif font-bold text-neutral-900 dark:text-white text-base">
+                      {review.author}
+                    </h4>
+                    <p className="text-xs text-[#E37500] font-semibold">
+                      {review.tripInfo}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
