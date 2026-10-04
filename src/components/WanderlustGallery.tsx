@@ -148,15 +148,15 @@ export const WanderlustGallery: React.FC<WanderlustGalleryProps> = ({
           </div>
 
           {/* Action to View All Places Page */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => navigate('/places')}
-              className="px-3.5 py-1.5 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xs hover:scale-102 active:scale-98 shrink-0 cursor-pointer"
+              className="px-2.5 py-1 rounded-full bg-[#E37500] hover:bg-[#C66500] text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 transition-all shadow-xs hover:scale-102 active:scale-98 shrink-0 cursor-pointer"
               title="Explore all places and photo moments"
             >
-              <Compass className="w-3.5 h-3.5" />
+              <Compass className="w-3 h-3" />
               <span>Explore All Places</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+              <ArrowUpRight className="w-3 h-3 stroke-[2.5]" />
             </button>
           </div>
         </div>
