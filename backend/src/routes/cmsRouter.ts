@@ -77,7 +77,7 @@ if (fs.existsSync(DATA_FILE)) {
     cmsData = {
       ...cmsData,
       ...parsed,
-      sectionOrder: (parsed.sectionOrder || DEFAULT_SECTION_ORDER).filter((k: string) => k !== 'about' && k !== 'vip-perks'),
+      sectionOrder: (parsed.sectionOrder || DEFAULT_SECTION_ORDER).filter((k: string) => k !== 'about' && k !== 'vip-perks' && k !== 'dreamToDeparture'),
       sectionVisibility: { ...DEFAULT_SECTION_VISIBILITY, ...(parsed.sectionVisibility || {}) },
       destinations: parsed.destinations || DESTINATIONS,
       packages: parsed.packages || POPULAR_PACKAGES,

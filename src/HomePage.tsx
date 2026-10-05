@@ -18,7 +18,6 @@ import { EnquiryModal } from './components/EnquiryModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BackToTop } from './components/BackToTop';
 import { CustomSectionRenderer } from './components/CustomSectionRenderer';
-import { DreamToDepartureStudio } from './components/DreamToDepartureStudio';
 import { VipPrivilegesSection } from './components/VipPrivilegesSection';
 import { DESTINATIONS, POPULAR_PACKAGES, MARQUEE_ITEMS, TESTIMONIALS, EXPERIENCE_PILLARS, COMPANY_INFO, GALLERY_ITEMS } from './data/travelData';
 import { DestinationItem, TravelPackage, CMSData } from './types';
@@ -29,7 +28,6 @@ const DEFAULT_ORDER = [
   'howItWorks',
   'destinations',
   'experiences',
-  'dreamToDeparture',
   'vipPrivileges',
   'packages',
   'gallery',
@@ -231,13 +229,6 @@ useEffect(() => {
           />
         );
 
-      case 'dreamToDeparture':
-        return (
-          <DreamToDepartureStudio
-            key="dreamToDeparture"
-          />
-        );
-
       case 'vipPrivileges':
         return (
           <VipPrivilegesSection
@@ -345,9 +336,9 @@ useEffect(() => {
       })();
 
   const allSectionKeys = [
-    ...normalizedOrder.filter((k) => k !== 'vip-perks' && k !== 'mapsRadar'),
+    ...normalizedOrder.filter((k) => k !== 'vip-perks' && k !== 'mapsRadar' && k !== 'dreamToDeparture'),
     ...(cmsData.customSections || [])
-      .filter((s) => s.id !== 'vip-perks' && s.id !== 'mapsRadar')
+      .filter((s) => s.id !== 'vip-perks' && s.id !== 'mapsRadar' && s.id !== 'dreamToDeparture')
       .map((s) => s.id)
       .filter((id) => !normalizedOrder.includes(id)),
   ];

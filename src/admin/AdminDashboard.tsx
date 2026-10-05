@@ -111,7 +111,7 @@ export default function AdminDashboard() {
         setPrimaryButton(data.primaryButton || 'START EXPLORING');
         setSecondaryButton(data.secondaryButton || 'PLAN TRIP');
         if (data.sectionOrder && Array.isArray(data.sectionOrder)) {
-          setSectionOrder(data.sectionOrder);
+          setSectionOrder(data.sectionOrder.filter((k: string) => k !== 'dreamToDeparture'));
         }
         if (data.sectionVisibility) {
           setSectionVisibility(data.sectionVisibility);
